@@ -12,7 +12,7 @@ public class GroceryStoreBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GroceryStoreBackendApplication.class, args);
 	}
-	//test
+	
 	@RequestMapping("/")
 	public String greeting(){
 	  return "Hello world!";
