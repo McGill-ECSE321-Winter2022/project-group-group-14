@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Account
@@ -88,7 +89,8 @@ public class Account
   {
     return password;
   }
-  /* Code from template association_GetOne */
+  
+  @OneToOne
   public AccountType getAccountType()
   {
     return accountType;
