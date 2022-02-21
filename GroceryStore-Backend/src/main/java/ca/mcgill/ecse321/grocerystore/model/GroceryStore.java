@@ -41,7 +41,7 @@ public class GroceryStore {
     public void setEmployeeSchedules(Set<EmployeeSchedule> employeeSchedules) {
         this.employeeSchedules = employeeSchedules;
     }
-    @OneToOne(cascade={CascadeType.ALL})
+    @OneToOne
     public StoreSchedule getStoreSchedule() {
         return storeSchedule;
     }
@@ -91,7 +91,7 @@ public class GroceryStore {
         this.inventoryItems = inventoryItems;
     }
 
-    @OneToMany(cascade={CascadeType.ALL})
+    @OneToOne
     public Owner getOwner() {
         return owner;
     }
