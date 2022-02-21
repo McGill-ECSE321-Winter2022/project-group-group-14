@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule.Shift;
 import ca.mcgill.ecse321.grocerystore.model.StoreSchedule.Day;
@@ -56,13 +59,16 @@ public class Store
   {
     return storeSchedule;
   }
+  
+  
   /* Code from template association_GetMany */
   public Inventory getInventory(int index)
   {
     Inventory aInventory = inventories.get(index);
     return aInventory;
   }
-
+  
+  @OneToMany(cascade={CascadeType.ALL})
   public List<Inventory> getInventories()
   {
     List<Inventory> newInventories = Collections.unmodifiableList(inventories);
@@ -87,6 +93,8 @@ public class Store
     return index;
   }
   /* Code from template association_GetOne */
+  
+  @OneToMany(cascade={CascadeType.ALL})
   public EmployeeSchedule getEmployeeSchedule()
   {
     return employeeSchedule;
@@ -183,6 +191,17 @@ public class Store
     {
       existingEmployeeSchedule.delete();
     }
+  }
+  
+  private String storeName;
+  
+  public void setStoreName(String name) {
+	  this.storeName=name;
+  }
+  
+  @Id
+  public String getStoreName() {
+	  return this.storeName;
   }
 
 }
