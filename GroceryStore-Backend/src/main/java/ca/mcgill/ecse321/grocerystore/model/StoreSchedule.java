@@ -1,11 +1,8 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
-
-// line 45 "model.ump"
-// line 191 "model.ump"
+@Entity
 public class StoreSchedule
 {
 
@@ -123,7 +120,7 @@ public class StoreSchedule
   //------------------------
   
   // line 52 "model.ump"
-  1 -- 1 ;
+//  1 -- 1 ;
 
   
 }

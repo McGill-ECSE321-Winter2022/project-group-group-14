@@ -1,13 +1,15 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
+import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule.Shift;
+import ca.mcgill.ecse321.grocerystore.model.StoreSchedule.Day;
 
-import java.util.*;
-
-// line 40 "model.ump"
-// line 204 "model.ump"
+@Entity
 public class Store
 {
 

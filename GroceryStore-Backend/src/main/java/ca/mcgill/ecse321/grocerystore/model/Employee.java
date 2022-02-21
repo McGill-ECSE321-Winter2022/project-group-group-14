@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule.Shift;
 
 
 // line 26 "model.ump"
@@ -12,6 +11,7 @@ public class Employee extends AccountType
   //------------------------
   // MEMBER VARIABLES
   //------------------------
+	
 
   //Employee Associations
   private EmployeeSchedule employeeSchedule;
