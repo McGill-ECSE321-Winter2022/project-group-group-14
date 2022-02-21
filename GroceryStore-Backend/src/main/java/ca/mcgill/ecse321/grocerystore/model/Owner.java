@@ -1,12 +1,10 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 
 
-// line 35 "model.ump"
-// line 159 "model.ump"
+@Entity
 public class Owner extends AccountType
 {
 

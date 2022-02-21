@@ -1,13 +1,8 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
-
-import java.util.*;
-
-// line 120 "model.ump"
-// line 169 "model.ump"
+@Entity
 public class PickupOrder extends Order
 {
 
