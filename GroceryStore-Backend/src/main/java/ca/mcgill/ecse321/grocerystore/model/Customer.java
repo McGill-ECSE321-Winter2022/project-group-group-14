@@ -2,11 +2,13 @@ package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import java.util.*;
 
 // line 16 "model.ump"
 // line 130 "model.ump"
+@Entity
 public class Customer extends AccountType
 {
 
@@ -57,12 +59,13 @@ public class Customer extends AccountType
   {
     return address;
   }
-
+  @Id
   public String getPhoneNumber()
   {
     return phoneNumber;
   }
   /* Code from template association_GetMany */
+  @OneToMany
   public Order getOrder(int index)
   {
     Order aOrder = orders.get(index);

@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import java.util.*;
 
@@ -92,6 +93,7 @@ public abstract class Order
     return index;
   }
   /* Code from template association_GetOne */
+  @ManyToOne(optional=false)
   public Customer getCustomer()
   {
     return customer;
