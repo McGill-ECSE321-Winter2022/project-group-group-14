@@ -4,7 +4,9 @@
 # Meet each team member by reading their description below!
 
 ### Clarissa Baciu
-- description-
+Clarissa is a second year computer engineering student. She has had industry experience working with python and has worked with java throughout her courses. She is a fast learner and can effectively work as part of a team. When she's not coding, she enjoys playing a variety of sports and making terrible jokes.
+
+An SQL statement walks into a bar and sees two tables. It approaches, and asks “may I join you?”. 
 
 ### Harry Park
 - description-
