@@ -1,18 +1,21 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 
 // line 73 "model.ump"
 // line 197 "model.ump"
+@Entity
 public class EmployeeSchedule
 {
 
   //------------------------
   // ENUMERATIONS
   //------------------------
-
+  
   public enum Shift { Morning, Afternoon, Night }
 
   //------------------------
@@ -72,17 +75,20 @@ public class EmployeeSchedule
     return wasSet;
   }
 
+  @Id
   public Shift getShift()
   {
     return shift;
   }
   /* Code from template association_GetOne */
-  public Employee getEmployee()
+  @OneToOne
+  public Employee getEmployee()     
   {
     return employee;
   }
   /* Code from template association_GetOne */
-  public Store getStore()
+  @OneToOne
+  public Store getStore()           
   {
     return store;
   }

@@ -2,10 +2,12 @@ package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 
 // line 55 "model.ump"
 // line 186 "model.ump"
+@Entity
 public class Item
 {
 
@@ -34,11 +36,13 @@ public class Item
   // INTERFACE
   //------------------------
   /* Code from template association_GetOne */
+  @ManyToOne(optional=false)
   public Inventory getInventory()
   {
     return inventory;
   }
   /* Code from template association_GetOne */
+  @ManyToOne 
   public Order getOrder()
   {
     return order;
