@@ -1,5 +1,7 @@
 # Welcome to team 14's grocery store system's wiki!
-!! main scope of grocery store system --> issue assigned to Harry and Yakir
+The goal of this project is to create a software system that could be used by customers, employees and managers alike to service a grocery store. 
+For the workers, the system provides scheduling and inventory features. For customers, the system offers ordering for delivery or pickup. 
+This software will be made available via website, desktop application, and android application, in order to maximize ease of accessibility.
 
 # Meet each team member by reading their description below!
 
