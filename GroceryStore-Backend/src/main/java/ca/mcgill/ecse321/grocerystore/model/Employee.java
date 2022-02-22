@@ -1,10 +1,17 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule.Shift;
 
 
 // line 26 "model.ump"
 // line 136 "model.ump"
+
+@Entity
 public class Employee extends AccountType
 {
 
@@ -19,7 +26,7 @@ public class Employee extends AccountType
   //------------------------
   // CONSTRUCTOR
   //------------------------
-
+  
   public Employee(Account aAccount, EmployeeSchedule aEmployeeSchedule)
   {
     super(aAccount);
@@ -40,6 +47,7 @@ public class Employee extends AccountType
   // INTERFACE
   //------------------------
   /* Code from template association_GetOne */
+  @OneToOne(cascade = CascadeType.ALL)
   public EmployeeSchedule getEmployeeSchedule()
   {
     return employeeSchedule;

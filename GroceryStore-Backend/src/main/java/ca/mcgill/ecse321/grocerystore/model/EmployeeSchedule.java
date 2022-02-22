@@ -1,18 +1,21 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 
 // line 73 "model.ump"
 // line 197 "model.ump"
+@Entity
 public class EmployeeSchedule
 {
 
   //------------------------
   // ENUMERATIONS
   //------------------------
-
+  
   public enum Shift { Morning, Afternoon, Night }
 
   //------------------------
@@ -67,20 +70,18 @@ public class EmployeeSchedule
     return wasSet;
   }
 
+  @Id
   public Shift getShift()
   {
     return shift;
   }
   /* Code from template association_GetOne */
-  public Employee getEmployee()
+  @OneToOne
+  public Employee getEmployee()     
   {
     return employee;
   }
   /* Code from template association_GetOne */
-  public StoreSchedule getStoreSchedule()
-  {
-    return storeSchedule;
-  }
 
   public boolean equals(Object obj)
   {
@@ -98,14 +99,6 @@ public class EmployeeSchedule
       return false;
     }
 
-    if (getStoreSchedule() == null && compareTo.getStoreSchedule() != null)
-    {
-      return false;
-    }
-    else if (getStoreSchedule() != null && !getStoreSchedule().equals(compareTo.getStoreSchedule()))
-    {
-      return false;
-    }
 
     return true;
   }
@@ -125,14 +118,7 @@ public class EmployeeSchedule
     {
       cachedHashCode = cachedHashCode * 23;
     }
-    if (getStoreSchedule() != null)
-    {
-      cachedHashCode = cachedHashCode * 23 + getStoreSchedule().hashCode();
-    }
-    else
-    {
-      cachedHashCode = cachedHashCode * 23;
-    }
+
 
     canSetEmployee = false;
     return cachedHashCode;
@@ -154,7 +140,6 @@ public class EmployeeSchedule
   {
     return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "shift" + "=" + (getShift() != null ? !getShift().equals(this)  ? getShift().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "employee = "+(getEmployee()!=null?Integer.toHexString(System.identityHashCode(getEmployee())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "store = "+(getStoreSchedule()!=null?Integer.toHexString(System.identityHashCode(getStoreSchedule())):"null");
+            "  " + "employee = "+(getEmployee()!=null?Integer.toHexString(System.identityHashCode(getEmployee())):"null") + System.getProperties().getProperty("line.separator");
   }
 }

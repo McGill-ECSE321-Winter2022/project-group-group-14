@@ -1,13 +1,16 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import java.util.*;
 
 // line 60 "model.ump"
 // line 179 "model.ump"
+@Entity
 public class Inventory
 {
 
@@ -64,6 +67,7 @@ public class Inventory
     return wasSet;
   }
 
+  @Id
   public String getName()
   {
     return name;
@@ -84,8 +88,8 @@ public class Inventory
     Item aItem = items.get(index);
     return aItem;
   }
-
-  public List<Item> getItems()
+  @OneToMany(cascade= {CascadeType.ALL})
+  public List<Item> getItems() 
   {
     List<Item> newItems = Collections.unmodifiableList(items);
     return newItems;
@@ -108,7 +112,6 @@ public class Inventory
     int index = items.indexOf(aItem);
     return index;
   }
-  
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfItems()
   {
