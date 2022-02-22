@@ -37,10 +37,10 @@ public class Employee extends AccountType
     employeeSchedule = aEmployeeSchedule;
   }
 
-  public Employee(Account aAccount, Shift aShiftForEmployeeSchedule, Store aStoreForEmployeeSchedule)
+  public Employee(Account aAccount, Shift aShiftForEmployeeSchedule)
   {
     super(aAccount);
-    employeeSchedule = new EmployeeSchedule(aShiftForEmployeeSchedule, this, aStoreForEmployeeSchedule);
+    employeeSchedule = new EmployeeSchedule(aShiftForEmployeeSchedule, this);
   }
 
   //------------------------
