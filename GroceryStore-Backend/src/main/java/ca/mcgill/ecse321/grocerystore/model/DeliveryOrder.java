@@ -8,6 +8,7 @@ import java.util.*;
 
 // line 113 "model.ump"
 // line 164 "model.ump"
+@Entity
 public class DeliveryOrder extends Order
 {
 
@@ -39,7 +40,7 @@ public class DeliveryOrder extends Order
     wasSet = true;
     return wasSet;
   }
-
+  @Id
   public String getDeliveryAddress()
   {
     return deliveryAddress;

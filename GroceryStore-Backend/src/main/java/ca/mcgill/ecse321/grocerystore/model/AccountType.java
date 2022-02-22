@@ -1,10 +1,12 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 
 
-@Entity
+
+@MappedSuperclass
 public abstract class AccountType
 {
 
@@ -32,6 +34,7 @@ public abstract class AccountType
   // INTERFACE
   //------------------------
   /* Code from template association_GetOne */
+  @OneToOne
   public Account getAccount()
   {
     return account;
