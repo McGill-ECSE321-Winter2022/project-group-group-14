@@ -24,40 +24,35 @@ public class EmployeeSchedule
 
   //EmployeeSchedule Associations
   private Employee employee;
-  private Store store;
+  private StoreSchedule storeSchedule;
 
   //Helper Variables
   private int cachedHashCode;
   private boolean canSetEmployee;
-  private boolean canSetStore;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public EmployeeSchedule(Shift aShift, Employee aEmployee, Store aStore)
+  public EmployeeSchedule(Shift aShift, Employee aEmployee)
   {
     cachedHashCode = -1;
     canSetEmployee = true;
-    canSetStore = true;
+    
     shift = aShift;
     if (aEmployee == null || aEmployee.getEmployeeSchedule() != null)
     {
       throw new RuntimeException("Unable to create EmployeeSchedule due to aEmployee. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
     employee = aEmployee;
-    if (aStore == null || aStore.getEmployeeSchedule() != null)
-    {
-      throw new RuntimeException("Unable to create EmployeeSchedule due to aStore. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    store = aStore;
+    
   }
 
-  public EmployeeSchedule(Shift aShift, Account aAccountForEmployee, StoreSchedule aStoreScheduleForStore)
+  public EmployeeSchedule(Shift aShift, Account aAccountForEmployee)
   {
     shift = aShift;
     employee = new Employee(aAccountForEmployee, this);
-    store = new Store(aStoreScheduleForStore, this);
+    
   }
 
   //------------------------
@@ -82,9 +77,9 @@ public class EmployeeSchedule
     return employee;
   }
   /* Code from template association_GetOne */
-  public Store getStore()
+  public StoreSchedule getStoreSchedule()
   {
-    return store;
+    return storeSchedule;
   }
 
   public boolean equals(Object obj)
@@ -103,11 +98,11 @@ public class EmployeeSchedule
       return false;
     }
 
-    if (getStore() == null && compareTo.getStore() != null)
+    if (getStoreSchedule() == null && compareTo.getStoreSchedule() != null)
     {
       return false;
     }
-    else if (getStore() != null && !getStore().equals(compareTo.getStore()))
+    else if (getStoreSchedule() != null && !getStoreSchedule().equals(compareTo.getStoreSchedule()))
     {
       return false;
     }
@@ -130,9 +125,9 @@ public class EmployeeSchedule
     {
       cachedHashCode = cachedHashCode * 23;
     }
-    if (getStore() != null)
+    if (getStoreSchedule() != null)
     {
-      cachedHashCode = cachedHashCode * 23 + getStore().hashCode();
+      cachedHashCode = cachedHashCode * 23 + getStoreSchedule().hashCode();
     }
     else
     {
@@ -140,7 +135,6 @@ public class EmployeeSchedule
     }
 
     canSetEmployee = false;
-    canSetStore = false;
     return cachedHashCode;
   }
 
@@ -152,12 +146,7 @@ public class EmployeeSchedule
     {
       existingEmployee.delete();
     }
-    Store existingStore = store;
-    store = null;
-    if (existingStore != null)
-    {
-      existingStore.delete();
-    }
+    
   }
 
 
@@ -166,6 +155,6 @@ public class EmployeeSchedule
     return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "shift" + "=" + (getShift() != null ? !getShift().equals(this)  ? getShift().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "employee = "+(getEmployee()!=null?Integer.toHexString(System.identityHashCode(getEmployee())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "store = "+(getStore()!=null?Integer.toHexString(System.identityHashCode(getStore())):"null");
+            "  " + "store = "+(getStoreSchedule()!=null?Integer.toHexString(System.identityHashCode(getStoreSchedule())):"null");
   }
 }

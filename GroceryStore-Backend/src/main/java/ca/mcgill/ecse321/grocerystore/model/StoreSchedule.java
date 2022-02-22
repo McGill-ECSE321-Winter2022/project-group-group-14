@@ -22,22 +22,16 @@ public class StoreSchedule
   private String closingTime;
   private Day daysOpen;
 
-  //StoreSchedule Associations
-  private Store store;
 
   
   // CONSTRUCTOR
   
-  public StoreSchedule(String aOpeningTime, String aClosingTime, Day aDaysOpen, Store aStore)
+  public StoreSchedule(String aOpeningTime, String aClosingTime, Day aDaysOpen)
   {
     openingTime = aOpeningTime;
     closingTime = aClosingTime;
     daysOpen = aDaysOpen;
-    if (aStore == null || aStore.getStoreSchedule() != null)
-    {
-      throw new RuntimeException("Unable to create StoreSchedule due to aStore. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    store = aStore;
+    
   }
 
   public StoreSchedule(String aOpeningTime, String aClosingTime, Day aDaysOpen, EmployeeSchedule aEmployeeScheduleForStore)
@@ -45,7 +39,7 @@ public class StoreSchedule
     openingTime = aOpeningTime;
     closingTime = aClosingTime;
     daysOpen = aDaysOpen;
-    store = new Store(this, aEmployeeScheduleForStore);
+    
   }
 
   // INTERFACE
@@ -89,21 +83,11 @@ public class StoreSchedule
     return daysOpen;
   }
   
-  @OneToOne(cascade={CascadeType.ALL})
-  public Store getStore()
-  {
-    return store;
-  }
-
-  public void delete()
-  {
-    Store existingStore = store;
-    store = null;
-    if (existingStore != null)
-    {
-      existingStore.delete();
-    }
-  }
+  
+//  public void delete()
+//  {
+//    
+//  }
 
 
   public String toString()
@@ -111,8 +95,7 @@ public class StoreSchedule
     return super.toString() + "["+
             "openingTime" + ":" + getOpeningTime()+ "," +
             "closingTime" + ":" + getClosingTime()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "daysOpen" + "=" + (getDaysOpen() != null ? !getDaysOpen().equals(this)  ? getDaysOpen().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "store = "+(getStore()!=null?Integer.toHexString(System.identityHashCode(getStore())):"null");
+            "  " + "daysOpen" + "=" + (getDaysOpen() != null ? !getDaysOpen().equals(this)  ? getDaysOpen().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator");
   } 
   
 }

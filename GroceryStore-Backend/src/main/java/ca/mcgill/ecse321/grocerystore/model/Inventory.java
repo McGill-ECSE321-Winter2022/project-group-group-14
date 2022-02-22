@@ -22,23 +22,18 @@ public class Inventory
 
   //Inventory Associations
   private List<Item> items;
-  private Store store;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Inventory(String aName, int aPrice, int aCurrentStock, Store aStore)
+  public Inventory(String aName, int aPrice, int aCurrentStock)
   {
     name = aName;
     price = aPrice;
     currentStock = aCurrentStock;
     items = new ArrayList<Item>();
-    boolean didAddStore = setStore(aStore);
-    if (!didAddStore)
-    {
-      throw new RuntimeException("Unable to create inventory due to store. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
+    
   }
 
   //------------------------
@@ -113,11 +108,7 @@ public class Inventory
     int index = items.indexOf(aItem);
     return index;
   }
-  /* Code from template association_GetOne */
-  public Store getStore()
-  {
-    return store;
-  }
+  
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfItems()
   {
@@ -191,24 +182,7 @@ public class Inventory
     return wasAdded;
   }
   /* Code from template association_SetOneToMany */
-  public boolean setStore(Store aStore)
-  {
-    boolean wasSet = false;
-    if (aStore == null)
-    {
-      return wasSet;
-    }
-
-    Store existingStore = store;
-    store = aStore;
-    if (existingStore != null && !existingStore.equals(aStore))
-    {
-      existingStore.removeInventory(this);
-    }
-    store.addInventory(this);
-    wasSet = true;
-    return wasSet;
-  }
+  
 
   public void delete()
   {
@@ -217,12 +191,7 @@ public class Inventory
       Item aItem = items.get(i - 1);
       aItem.delete();
     }
-    Store placeholderStore = store;
-    this.store = null;
-    if(placeholderStore != null)
-    {
-      placeholderStore.removeInventory(this);
-    }
+   
   }
 
 
@@ -231,7 +200,6 @@ public class Inventory
     return super.toString() + "["+
             "name" + ":" + getName()+ "," +
             "price" + ":" + getPrice()+ "," +
-            "currentStock" + ":" + getCurrentStock()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "store = "+(getStore()!=null?Integer.toHexString(System.identityHashCode(getStore())):"null");
+            "currentStock" + ":" + getCurrentStock()+ "]" + System.getProperties().getProperty("line.separator");
   }
 }
