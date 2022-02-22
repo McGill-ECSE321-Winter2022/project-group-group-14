@@ -1,13 +1,8 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 
-import java.util.*;
-
-// line 113 "model.ump"
-// line 164 "model.ump"
 @Entity
 public class DeliveryOrder extends Order
 {
@@ -23,9 +18,9 @@ public class DeliveryOrder extends Order
   // CONSTRUCTOR
   //------------------------
 
-  public DeliveryOrder(int aTotalCost, Customer aCustomer, String aDeliveryAddress, Item... allItems)
+  public DeliveryOrder(int aTotalCost, String aDeliveryAddress, Item... allItems)
   {
-    super(aTotalCost, aCustomer, allItems);
+    super(aTotalCost, allItems);
     deliveryAddress = aDeliveryAddress;
   }
 
@@ -40,7 +35,7 @@ public class DeliveryOrder extends Order
     wasSet = true;
     return wasSet;
   }
-  @Id
+  
   public String getDeliveryAddress()
   {
     return deliveryAddress;

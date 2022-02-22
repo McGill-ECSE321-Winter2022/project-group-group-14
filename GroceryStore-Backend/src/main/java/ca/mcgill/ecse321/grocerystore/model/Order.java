@@ -1,17 +1,13 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
 
 import java.util.*;
 
-// line 92 "model.ump"
-// line 141 "model.ump"
-@Entity
+@MappedSuperclass
 public abstract class Order
 {
 
@@ -21,16 +17,17 @@ public abstract class Order
 
   //Order Attributes
   private int totalCost;
+  private int orderNumber;
 
   //Order Associations
   private List<Item> items;
-  private Customer customer;
+  
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Order(int aTotalCost, Customer aCustomer, Item... allItems)
+  public Order(int aTotalCost, Item... allItems)
   {
     totalCost = aTotalCost;
     items = new ArrayList<Item>();
@@ -38,11 +35,6 @@ public abstract class Order
     if (!didAddItems)
     {
       throw new RuntimeException("Unable to create Order, must have at least 1 items. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    boolean didAddCustomer = setCustomer(aCustomer);
-    if (!didAddCustomer)
-    {
-      throw new RuntimeException("Unable to create order due to customer. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
   }
 
@@ -58,7 +50,7 @@ public abstract class Order
     return wasSet;
   }
 
-  private int orderNumber;
+
 
   public void setOrderNumber(int num) {
       this.orderNumber=num;
@@ -108,12 +100,7 @@ public abstract class Order
     int index = items.indexOf(aItem);
     return index;
   }
-  /* Code from template association_GetOne */
-  @ManyToOne(optional=false)
-  public Customer getCustomer()
-  {
-    return customer;
-  }
+
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfItems()
   {
@@ -123,16 +110,6 @@ public abstract class Order
   public boolean addItem(Item aItem)
   {
     boolean wasAdded = false;
-    if (items.contains(aItem)) { return false; }
-    Order existingOrder = aItem.getOrder();
-    if (existingOrder != null && existingOrder.numberOfItems() <= minimumNumberOfItems())
-    {
-      return wasAdded;
-    }
-    else if (existingOrder != null)
-    {
-      existingOrder.items.remove(aItem);
-    }
     items.add(aItem);
     setOrder(aItem,this);
     wasAdded = true;
@@ -167,21 +144,6 @@ public abstract class Order
       {
         return wasSet;
       }
-      else if (aItem.getOrder() != null && !this.equals(aItem.getOrder()))
-      {
-        Order existingOrder = aItem.getOrder();
-        if (!orderToNewItems.containsKey(existingOrder))
-        {
-          orderToNewItems.put(existingOrder, Integer.valueOf(existingOrder.numberOfItems()));
-        }
-        Integer currentCount = orderToNewItems.get(existingOrder);
-        int nextCount = currentCount - 1;
-        if (nextCount < 1)
-        {
-          return wasSet;
-        }
-        orderToNewItems.put(existingOrder, Integer.valueOf(nextCount));
-      }
       checkNewItems.add(aItem);
     }
 
@@ -194,10 +156,6 @@ public abstract class Order
     items.clear();
     for (Item aItem : newItems)
     {
-      if (aItem.getOrder() != null)
-      {
-        aItem.getOrder().items.remove(aItem);
-      }
       setOrder(aItem, this);
       items.add(aItem);
     }
@@ -250,25 +208,7 @@ public abstract class Order
     }
     return wasAdded;
   }
-  /* Code from template association_SetOneToMany */
-  public boolean setCustomer(Customer aCustomer)
-  {
-    boolean wasSet = false;
-    if (aCustomer == null)
-    {
-      return wasSet;
-    }
-
-    Customer existingCustomer = customer;
-    customer = aCustomer;
-    if (existingCustomer != null && !existingCustomer.equals(aCustomer))
-    {
-      existingCustomer.removeOrder(this);
-    }
-    customer.addOrder(this);
-    wasSet = true;
-    return wasSet;
-  }
+  
 
   public void delete()
   {
@@ -277,19 +217,12 @@ public abstract class Order
       setOrder(aItem,null);
     }
     items.clear();
-    Customer placeholderCustomer = customer;
-    this.customer = null;
-    if(placeholderCustomer != null)
-    {
-      placeholderCustomer.removeOrder(this);
-    }
   }
 
 
   public String toString()
   {
     return super.toString() + "["+
-            "totalCost" + ":" + getTotalCost()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "customer = "+(getCustomer()!=null?Integer.toHexString(System.identityHashCode(getCustomer())):"null");
+            "totalCost" + ":" + getTotalCost()+ "]";
   }
 }

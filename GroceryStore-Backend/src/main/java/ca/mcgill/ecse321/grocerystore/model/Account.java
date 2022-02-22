@@ -1,29 +1,19 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
-import javax.persistence.Entity;
+
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-public class Account
+
+
+
+@MappedSuperclass
+public abstract class Account
 {
-
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
-
-  //Account Attributes
   private String name;
   private String email;
   private String username;
   private String password;
-
-  //Account Associations
-  private AccountType accountType;
-
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
 
   public Account(String aName, String aEmail, String aUsername, String aPassword)
   {
@@ -89,64 +79,16 @@ public class Account
   {
     return password;
   }
-  
-  @OneToOne
-  public AccountType getAccountType()
-  {
-    return accountType;
-  }
 
-  public boolean hasAccountType()
-  {
-    boolean has = accountType != null;
-    return has;
-  }
-  /* Code from template association_SetOptionalOneToOne */
-  public boolean setAccountType(AccountType aNewAccountType)
-  {
-    boolean wasSet = false;
-    if (accountType != null && !accountType.equals(aNewAccountType) && equals(accountType.getAccount()))
-    {
-      //Unable to setAccountType, as existing accountType would become an orphan
-      return wasSet;
-    }
+   public void delete(){}
 
-    accountType = aNewAccountType;
-    Account anOldAccount = aNewAccountType != null ? aNewAccountType.getAccount() : null;
+   public String toString()
+   {
+     return super.toString() + "["+
+             "name" + ":" + getName()+ "," +
+             "email" + ":" + getEmail()+ "," +
+             "username" + ":" + getUsername()+ "," +
+             "password" + ":" + getPassword()+ "]";
+   }
 
-    if (!this.equals(anOldAccount))
-    {
-      if (anOldAccount != null)
-      {
-        anOldAccount.accountType = null;
-      }
-      if (accountType != null)
-      {
-        accountType.setAccount(this);
-      }
-    }
-    wasSet = true;
-    return wasSet;
-  }
-
-  public void delete()
-  {
-    AccountType existingAccountType = accountType;
-    accountType = null;
-    if (existingAccountType != null)
-    {
-      existingAccountType.delete();
-    }
-  }
-
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "name" + ":" + getName()+ "," +
-            "email" + ":" + getEmail()+ "," +
-            "username" + ":" + getUsername()+ "," +
-            "password" + ":" + getPassword()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "accountType = "+(getAccountType()!=null?Integer.toHexString(System.identityHashCode(getAccountType())):"null");
-  }
 }

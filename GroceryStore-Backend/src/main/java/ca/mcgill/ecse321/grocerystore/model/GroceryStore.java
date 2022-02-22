@@ -16,7 +16,7 @@ public class GroceryStore {
     private Set<Employee> employees;
     private Owner owner;
 
-    private Set<Inventory> inventoryItems; 
+    private Set<InventoryItem> inventoryItems; 
     private Set<Item> orderItems;
 
     private Set<Order> orders;
@@ -41,7 +41,7 @@ public class GroceryStore {
     public void setEmployeeSchedules(Set<EmployeeSchedule> employeeSchedules) {
         this.employeeSchedules = employeeSchedules;
     }
-    @OneToOne
+    @OneToOne(cascade={CascadeType.ALL})
     public StoreSchedule getStoreSchedule() {
         return storeSchedule;
     }
@@ -84,14 +84,14 @@ public class GroceryStore {
         this.orderItems = orderItems;
     }
     @OneToMany(cascade={CascadeType.ALL})
-    public Set<Inventory> getInventoryItems() {
+    public Set<InventoryItem> getInventoryItems() {
         return inventoryItems;
     }
-    public void setInventoryItems(Set<Inventory> inventoryItems) {
+    public void setInventoryItems(Set<InventoryItem> inventoryItems) {
         this.inventoryItems = inventoryItems;
     }
 
-    @OneToOne
+    @OneToOne(cascade={CascadeType.ALL})
     public Owner getOwner() {
         return owner;
     }

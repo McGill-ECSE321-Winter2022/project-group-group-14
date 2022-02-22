@@ -1,20 +1,16 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import java.util.*;
 
-// line 16 "model.ump"
-// line 130 "model.ump"
+
 @Entity
-public class Customer extends AccountType
+public class Customer extends Account
 {
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+  
 
   //Customer Attributes
   private String address;
@@ -23,13 +19,11 @@ public class Customer extends AccountType
   //Customer Associations
   private List<Order> orders;
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
 
-  public Customer(Account aAccount, String aAddress, String aPhoneNumber)
+
+  public Customer( String aName, String aEmail, String aUsername, String aPassword, String aAddress, String aPhoneNumber)
   {
-    super(aAccount);
+    super(aName, aEmail, aUsername, aPassword);
     address = aAddress;
     phoneNumber = aPhoneNumber;
     orders = new ArrayList<Order>();
@@ -59,19 +53,19 @@ public class Customer extends AccountType
   {
     return address;
   }
-  @Id
+  
   public String getPhoneNumber()
   {
     return phoneNumber;
   }
   /* Code from template association_GetMany */
-  @OneToMany
+  
   public Order getOrder(int index)
   {
     Order aOrder = orders.get(index);
     return aOrder;
   }
-
+  @OneToMany
   public List<Order> getOrders()
   {
     List<Order> newOrders = Collections.unmodifiableList(orders);
@@ -107,16 +101,7 @@ public class Customer extends AccountType
   {
     boolean wasAdded = false;
     if (orders.contains(aOrder)) { return false; }
-    Customer existingCustomer = aOrder.getCustomer();
-    boolean isNewCustomer = existingCustomer != null && !this.equals(existingCustomer);
-    if (isNewCustomer)
-    {
-      aOrder.setCustomer(this);
-    }
-    else
-    {
-      orders.add(aOrder);
-    }
+    orders.add(aOrder);
     wasAdded = true;
     return wasAdded;
   }
@@ -124,10 +109,7 @@ public class Customer extends AccountType
   public boolean removeOrder(Order aOrder)
   {
     boolean wasRemoved = false;
-    //Unable to remove aOrder, as it must always have a customer
-    if (!this.equals(aOrder.getCustomer()))
-    {
-      orders.remove(aOrder);
+    if(orders.remove(aOrder)){
       wasRemoved = true;
     }
     return wasRemoved;
