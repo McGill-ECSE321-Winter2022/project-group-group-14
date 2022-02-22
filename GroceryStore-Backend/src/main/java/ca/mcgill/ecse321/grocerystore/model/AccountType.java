@@ -1,81 +1,94 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
+
 
 
 
 @MappedSuperclass
 public abstract class AccountType
 {
+  private String name;
+  private String email;
+  private String username;
+  private String password;
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
-
-  //AccountType Associations
-  private Account account;
-
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
-
-  public AccountType(Account aAccount)
+  public AccountType(String aName, String aEmail, String aUsername, String aPassword)
   {
-    boolean didAddAccount = setAccount(aAccount);
-    if (!didAddAccount)
-    {
-      throw new RuntimeException("Unable to create accountType due to account. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
+    name = aName;
+    email = aEmail;
+    username = aUsername;
+    password = aPassword;
   }
 
   //------------------------
   // INTERFACE
   //------------------------
-  /* Code from template association_GetOne */
-  @OneToOne
-  public Account getAccount()
-  {
-    return account;
-  }
-  /* Code from template association_SetOneToOptionalOne */
-  public boolean setAccount(Account aNewAccount)
+
+  public boolean setName(String aName)
   {
     boolean wasSet = false;
-    if (aNewAccount == null)
-    {
-      //Unable to setAccount to null, as accountType must always be associated to a account
-      return wasSet;
-    }
-    
-    AccountType existingAccountType = aNewAccount.getAccountType();
-    if (existingAccountType != null && !equals(existingAccountType))
-    {
-      //Unable to setAccount, the current account already has a accountType, which would be orphaned if it were re-assigned
-      return wasSet;
-    }
-    
-    Account anOldAccount = account;
-    account = aNewAccount;
-    account.setAccountType(this);
-
-    if (anOldAccount != null)
-    {
-      anOldAccount.setAccountType(null);
-    }
+    name = aName;
     wasSet = true;
     return wasSet;
   }
 
-  public void delete()
+  public boolean setEmail(String aEmail)
   {
-    Account existingAccount = account;
-    account = null;
-    if (existingAccount != null)
-    {
-      existingAccount.setAccountType(null);
-    }
+    boolean wasSet = false;
+    email = aEmail;
+    wasSet = true;
+    return wasSet;
   }
+
+  public boolean setUsername(String aUsername)
+  {
+    boolean wasSet = false;
+    username = aUsername;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setPassword(String aPassword)
+  {
+    boolean wasSet = false;
+    password = aPassword;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+  
+  @Id
+  public String getEmail()
+  {
+    return email;
+  }
+
+  public String getUsername()
+  {
+    return username;
+  }
+
+  public String getPassword()
+  {
+    return password;
+  }
+
+   public void delete(){}
+
+   public String toString()
+   {
+     return super.toString() + "["+
+             "name" + ":" + getName()+ "," +
+             "email" + ":" + getEmail()+ "," +
+             "username" + ":" + getUsername()+ "," +
+             "password" + ":" + getPassword()+ "]";
+   }
 
 }

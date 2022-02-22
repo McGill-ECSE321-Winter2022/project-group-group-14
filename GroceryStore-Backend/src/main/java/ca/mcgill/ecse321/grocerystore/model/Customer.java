@@ -59,7 +59,7 @@ public class Customer extends AccountType
   {
     return address;
   }
-  @Id
+  
   public String getPhoneNumber()
   {
     return phoneNumber;
