@@ -37,4 +37,4 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | name | #hours | Work description |
 | name | #hours | Work description |
 | name | #hours | Work description |
-| Samuel Valentine | 10 | Minutes organiser and scribe, GitHub setup initialization, documentation |
+| Samuel Valentine | 15-20 | Minutes organiser and scribe, GitHub setup initialization, documentation |
