@@ -8,6 +8,7 @@ import java.util.*;
 
 // line 105 "model.ump"
 // line 174 "model.ump"
+@Entity
 public class InStore extends Order
 {
 

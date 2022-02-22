@@ -1,13 +1,16 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import java.util.*;
 
 // line 60 "model.ump"
 // line 179 "model.ump"
+@Entity
 public class Inventory
 {
 
@@ -22,23 +25,18 @@ public class Inventory
 
   //Inventory Associations
   private List<Item> items;
-  private Store store;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Inventory(String aName, int aPrice, int aCurrentStock, Store aStore)
+  public Inventory(String aName, int aPrice, int aCurrentStock)
   {
     name = aName;
     price = aPrice;
     currentStock = aCurrentStock;
     items = new ArrayList<Item>();
-    boolean didAddStore = setStore(aStore);
-    if (!didAddStore)
-    {
-      throw new RuntimeException("Unable to create inventory due to store. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
+    
   }
 
   //------------------------
@@ -69,6 +67,7 @@ public class Inventory
     return wasSet;
   }
 
+  @Id
   public String getName()
   {
     return name;
@@ -89,8 +88,8 @@ public class Inventory
     Item aItem = items.get(index);
     return aItem;
   }
-
-  public List<Item> getItems()
+  @OneToMany(cascade= {CascadeType.ALL})
+  public List<Item> getItems() 
   {
     List<Item> newItems = Collections.unmodifiableList(items);
     return newItems;
@@ -112,11 +111,6 @@ public class Inventory
   {
     int index = items.indexOf(aItem);
     return index;
-  }
-  /* Code from template association_GetOne */
-  public Store getStore()
-  {
-    return store;
   }
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfItems()
@@ -191,24 +185,7 @@ public class Inventory
     return wasAdded;
   }
   /* Code from template association_SetOneToMany */
-  public boolean setStore(Store aStore)
-  {
-    boolean wasSet = false;
-    if (aStore == null)
-    {
-      return wasSet;
-    }
-
-    Store existingStore = store;
-    store = aStore;
-    if (existingStore != null && !existingStore.equals(aStore))
-    {
-      existingStore.removeInventory(this);
-    }
-    store.addInventory(this);
-    wasSet = true;
-    return wasSet;
-  }
+  
 
   public void delete()
   {
@@ -217,12 +194,7 @@ public class Inventory
       Item aItem = items.get(i - 1);
       aItem.delete();
     }
-    Store placeholderStore = store;
-    this.store = null;
-    if(placeholderStore != null)
-    {
-      placeholderStore.removeInventory(this);
-    }
+   
   }
 
 
@@ -231,7 +203,6 @@ public class Inventory
     return super.toString() + "["+
             "name" + ":" + getName()+ "," +
             "price" + ":" + getPrice()+ "," +
-            "currentStock" + ":" + getCurrentStock()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "store = "+(getStore()!=null?Integer.toHexString(System.identityHashCode(getStore())):"null");
+            "currentStock" + ":" + getCurrentStock()+ "]" + System.getProperties().getProperty("line.separator");
   }
 }

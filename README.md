@@ -15,7 +15,7 @@ An SQL statement walks into a bar and sees two tables. It approaches, and asks â
 - description-
 
 ### Yakir Bender
-- description-
+Hallo, I'm a third-year student in Computer Engineering. I have coded and tutored in Java for several years, but have experience working in C. Originally, I had considered working in other fields, like accounting or finances. But, I was a little too interested in puzzles and problem-solving, so engineering was a perfect fit. I enjoy playing video games in my free time, especially Role-Playing Games and Fighting Games. The games definitely did not influence my decision in choosing computer engineering. Not at all.
 
 ### Samuel Valentine
 Hi! I'm a third year mechanical engineering student minoring in software engineering. Software started out as a hobby for me, but as I began taking more classes in my major that related to programming, I was gradually inspired to make it part of my degree as well.  When I'm not studying or working, I enjoy recreational activities like running marathons and playing music. More about me here: https://samuelvalentine.netlify.app

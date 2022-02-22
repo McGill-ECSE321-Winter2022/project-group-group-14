@@ -4,10 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import javax.persistence.OneToMany;
+
+
 import java.util.*;
 
 // line 92 "model.ump"
 // line 141 "model.ump"
+@Entity
 public abstract class Order
 {
 
@@ -54,6 +58,17 @@ public abstract class Order
     return wasSet;
   }
 
+  private int orderNumber;
+
+  public void setOrderNumber(int num) {
+      this.orderNumber=num;
+  }
+
+  @Id
+  public int getOrderNumber() {
+      return this.orderNumber;
+  }
+  
   public int getTotalCost()
   {
     return totalCost;
@@ -69,7 +84,8 @@ public abstract class Order
    * paymentType needed. Cash can only be used for pickups
    * and InPerson.
    */
-  public List<Item> getItems()
+  @OneToMany
+  public List<Item> getItems() 
   {
     List<Item> newItems = Collections.unmodifiableList(items);
     return newItems;
