@@ -1,20 +1,21 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 public class StoreSchedule
 {
 
-  //------------------------
+  
   // ENUMERATIONS
-  //------------------------
-
+  
   public enum Day { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
 
-  //------------------------
+  
   // MEMBER VARIABLES
-  //------------------------
+  
 
   //StoreSchedule Attributes
   private String openingTime;
@@ -24,10 +25,9 @@ public class StoreSchedule
   //StoreSchedule Associations
   private Store store;
 
-  //------------------------
+  
   // CONSTRUCTOR
-  //------------------------
-
+  
   public StoreSchedule(String aOpeningTime, String aClosingTime, Day aDaysOpen, Store aStore)
   {
     openingTime = aOpeningTime;
@@ -48,9 +48,7 @@ public class StoreSchedule
     store = new Store(this, aEmployeeScheduleForStore);
   }
 
-  //------------------------
   // INTERFACE
-  //------------------------
 
   public boolean setOpeningTime(String aOpeningTime)
   {
@@ -90,7 +88,8 @@ public class StoreSchedule
   {
     return daysOpen;
   }
-  /* Code from template association_GetOne */
+  
+  @OneToOne(cascade={CascadeType.ALL})
   public Store getStore()
   {
     return store;
@@ -114,13 +113,6 @@ public class StoreSchedule
             "closingTime" + ":" + getClosingTime()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "daysOpen" + "=" + (getDaysOpen() != null ? !getDaysOpen().equals(this)  ? getDaysOpen().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "store = "+(getStore()!=null?Integer.toHexString(System.identityHashCode(getStore())):"null");
-  }  
-  //------------------------
-  // DEVELOPER CODE - PROVIDED AS-IS
-  //------------------------
-  
-  // line 52 "model.ump"
-//  1 -- 1 ;
-
+  } 
   
 }
