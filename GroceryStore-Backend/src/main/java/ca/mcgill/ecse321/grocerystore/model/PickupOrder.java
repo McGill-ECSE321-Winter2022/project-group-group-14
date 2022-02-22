@@ -5,9 +5,9 @@ import javax.persistence.Entity;
 @Entity
 public class PickupOrder extends Order
 {
-  public PickupOrder(int aTotalCost, Customer aCustomer, Item... allItems)
+  public PickupOrder(int aTotalCost, Item... allItems)
   {
-    super(aTotalCost, aCustomer, allItems);
+    super(aTotalCost, allItems);
   }
 
   public void delete()

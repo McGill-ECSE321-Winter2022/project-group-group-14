@@ -1,8 +1,9 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import java.sql.Time;
+
 
 @Entity
 public class StoreSchedule
@@ -15,18 +16,17 @@ public class StoreSchedule
 
   
   // MEMBER VARIABLES
-  
 
   //StoreSchedule Attributes
-  private String openingTime;
-  private String closingTime;
+  private Time openingTime;
+  private Time closingTime;
   private Day daysOpen;
 
 
   
   // CONSTRUCTOR
   
-  public StoreSchedule(String aOpeningTime, String aClosingTime, Day aDaysOpen)
+  public StoreSchedule(Time aOpeningTime, Time aClosingTime, Day aDaysOpen)
   {
     openingTime = aOpeningTime;
     closingTime = aClosingTime;
@@ -34,17 +34,10 @@ public class StoreSchedule
     
   }
 
-  public StoreSchedule(String aOpeningTime, String aClosingTime, Day aDaysOpen, EmployeeSchedule aEmployeeScheduleForStore)
-  {
-    openingTime = aOpeningTime;
-    closingTime = aClosingTime;
-    daysOpen = aDaysOpen;
-    
-  }
 
   // INTERFACE
 
-  public boolean setOpeningTime(String aOpeningTime)
+  public boolean setOpeningTime(Time aOpeningTime)
   {
     boolean wasSet = false;
     openingTime = aOpeningTime;
@@ -52,7 +45,7 @@ public class StoreSchedule
     return wasSet;
   }
 
-  public boolean setClosingTime(String aClosingTime)
+  public boolean setClosingTime(Time aClosingTime)
   {
     boolean wasSet = false;
     closingTime = aClosingTime;
@@ -68,12 +61,12 @@ public class StoreSchedule
     return wasSet;
   }
 
-  public String getOpeningTime()
+  public Time getOpeningTime()
   {
     return openingTime;
   }
 
-  public String getClosingTime()
+  public Time getClosingTime()
   {
     return closingTime;
   }

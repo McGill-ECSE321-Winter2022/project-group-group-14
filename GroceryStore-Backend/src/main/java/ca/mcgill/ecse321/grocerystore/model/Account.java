@@ -8,14 +8,14 @@ import javax.persistence.MappedSuperclass;
 
 
 @MappedSuperclass
-public abstract class AccountType
+public abstract class Account
 {
   private String name;
   private String email;
   private String username;
   private String password;
 
-  public AccountType(String aName, String aEmail, String aUsername, String aPassword)
+  public Account(String aName, String aEmail, String aUsername, String aPassword)
   {
     name = aName;
     email = aEmail;

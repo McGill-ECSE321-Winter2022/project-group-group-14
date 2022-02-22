@@ -1,17 +1,16 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 
 
 @Entity
-public class Owner extends AccountType
+public class Owner extends Account
 {
 
-  public Owner(Account aAccount)
+  public Owner(String aName, String aEmail, String aUsername, String aPassword)
   {
-    super(aAccount);
+    super (aName, aEmail, aUsername, aPassword);
   }
   
   public void delete()

@@ -1,10 +1,6 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
-
-
-import java.util.*;
 
 // line 105 "model.ump"
 // line 174 "model.ump"
@@ -20,9 +16,9 @@ public class InStore extends Order
   // CONSTRUCTOR
   //------------------------
 
-  public InStore(int aTotalCost, Customer aCustomer, Item... allItems)
+  public InStore(int aTotalCost, Item... allItems)
   {
-    super(aTotalCost, aCustomer, allItems);
+    super(aTotalCost, allItems);
   }
 
   //------------------------

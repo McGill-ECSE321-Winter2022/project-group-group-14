@@ -1,20 +1,14 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 
-// line 73 "model.ump"
-// line 197 "model.ump"
 @Entity
 public class EmployeeSchedule
 {
-
-  //------------------------
-  // ENUMERATIONS
-  //------------------------
   
   public enum Shift { Morning, Afternoon, Night }
 
@@ -27,11 +21,11 @@ public class EmployeeSchedule
 
   //EmployeeSchedule Associations
   private Employee employee;
-  private StoreSchedule storeSchedule;
+
 
   //Helper Variables
   private int cachedHashCode;
-  private boolean canSetEmployee;
+  
 
   //------------------------
   // CONSTRUCTOR
@@ -40,21 +34,14 @@ public class EmployeeSchedule
   public EmployeeSchedule(Shift aShift, Employee aEmployee)
   {
     cachedHashCode = -1;
-    canSetEmployee = true;
+   
     
     shift = aShift;
-    if (aEmployee == null || aEmployee.getEmployeeSchedule() != null)
+    if (aEmployee == null)
     {
       throw new RuntimeException("Unable to create EmployeeSchedule due to aEmployee. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
     employee = aEmployee;
-    
-  }
-
-  public EmployeeSchedule(Shift aShift, Account aAccountForEmployee)
-  {
-    shift = aShift;
-    employee = new Employee(aAccountForEmployee, this);
     
   }
 
@@ -120,7 +107,7 @@ public class EmployeeSchedule
     }
 
 
-    canSetEmployee = false;
+
     return cachedHashCode;
   }
 
