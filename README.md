@@ -3,7 +3,7 @@ The goal of this project is to create a software system that could be used by cu
 For the workers, the system provides scheduling and inventory features. For customers, the system offers ordering for delivery or pickup. 
 This software will be made available via website, desktop application, and android application, in order to maximize ease of accessibility.
 
-# Meet each team member by reading their description below!
+# Our Team
 
 ### Clarissa Baciu
 Clarissa is a second year computer engineering student. She has had industry experience working with python and has worked with java throughout her courses. She is a fast learner and can effectively work as part of a team. When she's not coding, she enjoys playing a variety of sports and making terrible jokes.
