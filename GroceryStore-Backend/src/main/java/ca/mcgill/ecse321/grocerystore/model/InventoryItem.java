@@ -87,12 +87,12 @@ public class InventoryItem
   }
 
 
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfItems()
-  {
-    return 0;
-  }
-  
+//  /* Code from template association_MinimumNumberOfMethod */
+//  public static int minimumNumberOfItems()
+//  {
+//    return 0;
+//  }
+//  
 
   public void delete()
   {

@@ -41,6 +41,10 @@ public class StoreSchedule
   public int getId() {
 	  return this.id;
   }
+  
+  public void setId(int id) {
+	  this.id=id;
+  }
 
 
   public boolean setOpeningTime(Time aOpeningTime)

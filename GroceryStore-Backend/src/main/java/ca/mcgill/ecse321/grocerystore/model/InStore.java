@@ -8,22 +8,12 @@ import javax.persistence.Entity;
 public class InStore extends Order
 {
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
-
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
 
   public InStore(int aTotalCost, Item... allItems)
   {
     super(aTotalCost, allItems);
   }
 
-  //------------------------
-  // INTERFACE
-  //------------------------
 
   public void delete()
   {
