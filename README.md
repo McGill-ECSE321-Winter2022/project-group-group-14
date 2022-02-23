@@ -3,7 +3,7 @@ The goal of this project is to create a software system that could be used by cu
 For the workers, the system provides scheduling and inventory features. For customers, the system offers ordering for delivery or pickup. 
 This software will be made available via website, desktop application, and android application, in order to maximize ease of accessibility.
 
-# Meet each team member by reading their description below!
+# Our Team
 
 ### Clarissa Baciu
 Clarissa is a second year computer engineering student. She has had industry experience working with python and has worked with java throughout her courses. She is a fast learner and can effectively work as part of a team. When she's not coding, she enjoys playing a variety of sports and making terrible jokes.
@@ -35,6 +35,6 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | --- | --- | --- |
 | name | #hours | Work description |
 | Yakir Bender | 10 | Creating/editing domain model, generating UML diagram from Umple|
-| name | #hours | Work description |
-| Clarissa Baciu | 28 | Setting up initial Gradle build, setting up continuous integration, JPA annotations, persistence, documentation tasks  |
-| Samuel Valentine | 15-20 | Minutes organiser and scribe, GitHub setup initialization, documentation |
+| Clarissa Baciu | 20 | Setting up initial Gradle build, setting up continuous integration, JPA annotations, persistence, documentation tasks  |
+| Samuel Valentine | 10 | Minutes organiser and scribe, GitHub setup initialization, documentation, debugging help |
+| Youssof Mohamed | 15 | use-case diagrams, use-case scenarios, JPA annotations, persistence |
