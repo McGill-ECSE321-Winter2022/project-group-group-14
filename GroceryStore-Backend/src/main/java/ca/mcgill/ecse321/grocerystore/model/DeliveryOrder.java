@@ -2,9 +2,6 @@ package ca.mcgill.ecse321.grocerystore.model;
 
 import java.util.List;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-
 
 //@Entity
 //@Entity
