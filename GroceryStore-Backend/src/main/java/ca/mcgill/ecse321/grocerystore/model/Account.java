@@ -1,20 +1,16 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
 
 
 
 
-//@Entity 
+@Entity 
 //@Inheritance(strategy=InheritanceType.SINGLE_TABLE) 
 //@DiscriminatorColumn(name = "AccountType")
-@MappedSuperclass
+//@MappedSuperclass
 public abstract class Account
 {
   private String name;
@@ -28,6 +24,13 @@ public abstract class Account
     email = aEmail;
     username = aUsername;
     password = aPassword;
+  }
+  public Account()
+  {
+    name = null;
+    email = null;
+    username = null;
+    password = null;
   }
 
   //------------------------

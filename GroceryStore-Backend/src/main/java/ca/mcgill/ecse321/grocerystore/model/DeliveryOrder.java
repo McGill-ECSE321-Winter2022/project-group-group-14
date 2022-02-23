@@ -1,10 +1,12 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
-import javax.persistence.Entity;
+import java.util.List;
 
 
-@Entity
-public class DeliveryOrder extends Order
+//@Entity
+//@Entity
+//@DiscriminatorValue("delivery")
+public class DeliveryOrder extends GroceryOrder
 {
 
   //------------------------
@@ -17,11 +19,16 @@ public class DeliveryOrder extends Order
   //------------------------
   // CONSTRUCTOR
   //------------------------
-
-  public DeliveryOrder(int aTotalCost, String aDeliveryAddress, Item... allItems)
+//
+  public DeliveryOrder(Integer aOrderNumber, Integer aTotalCost, String aDeliveryAddress, List<Item> allItems)
   {
-    super(aTotalCost, allItems);
+    super(aOrderNumber, aTotalCost, allItems);
     deliveryAddress = aDeliveryAddress;
+  }
+  public DeliveryOrder()
+  {
+    super();
+    deliveryAddress=null;
   }
 
   //------------------------
@@ -40,11 +47,11 @@ public class DeliveryOrder extends Order
   {
     return deliveryAddress;
   }
-
-  public void delete()
-  {
-    super.delete();
-  }
+//
+//  public void delete()
+//  {
+//    super.delete();
+//  }
 
 
   public String toString()

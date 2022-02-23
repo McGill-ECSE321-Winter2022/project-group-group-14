@@ -1,23 +1,31 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
-import javax.persistence.Entity;
+import java.util.List;
 
 // line 105 "model.ump"
 // line 174 "model.ump"
-@Entity
-public class InStore extends Order
+//@Entity
+//@Entity
+//@DiscriminatorValue("in-store")
+public class InStore extends GroceryOrder
 {
 
 
-  public InStore(int aTotalCost, Item... allItems)
+  public InStore(Integer aOrderNumber, Integer aTotalCost, List<Item> allItems)
   {
-    super(aTotalCost, allItems);
+    super(aOrderNumber, aTotalCost, allItems);
   }
+  public InStore()
+  {
+    super();
+  }
+
 
 
   public void delete()
   {
     super.delete();
   }
+
 
 }

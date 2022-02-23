@@ -10,12 +10,12 @@ public class Item extends InventoryItem
 {
   private int quantity;
 
-
-  public Item (String aName, int aPrice, int quantity)
-  {
-    super(aName,aPrice);
-    this.setQuantity(quantity);
-  }
+//
+//  public Item (String aName, int aPrice, int quantity)
+//  {
+//    super(aName,aPrice);
+//    this.setQuantity(quantity);
+//  }
 
   public int getQuantity() {
     return quantity;
@@ -25,9 +25,9 @@ public class Item extends InventoryItem
     this.quantity = quantity;
   }
   
-  
-  public void delete()
-  {
-  }
+//  
+//  public void delete()
+//  {
+//  }
 
 }

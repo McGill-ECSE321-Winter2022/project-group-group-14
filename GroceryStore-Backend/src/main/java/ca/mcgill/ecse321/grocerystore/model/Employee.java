@@ -14,6 +14,11 @@ public class Employee extends Account
     super(aName, aEmail, aUsername, aPassword);
   }
 
+  public Employee()
+  {
+    super();
+    
+  }
   public void delete()
   {
     super.delete();
