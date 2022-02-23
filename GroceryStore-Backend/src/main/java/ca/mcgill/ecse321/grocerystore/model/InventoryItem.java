@@ -1,11 +1,7 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import java.util.*;
 
 // line 60 "model.ump"
 // line 179 "model.ump"
@@ -28,19 +24,19 @@ public class InventoryItem
   // CONSTRUCTOR
   //------------------------
 
-  public InventoryItem(String aName, int aPrice, int aCurrentStock)
-  {
-    name = aName;
-    price = aPrice;
-    currentStock = aCurrentStock;
-    
-  }
-  public InventoryItem(String aName, int aPrice)
-  {
-    name = aName;
-    price = aPrice;
-    
-  }
+//  public InventoryItem(String aName, int aPrice, int aCurrentStock)
+//  {
+//    name = aName;
+//    price = aPrice;
+//    currentStock = aCurrentStock;
+//    
+//  }
+//  public InventoryItem(String aName, int aPrice)
+//  {
+//    name = aName;
+//    price = aPrice;
+//    
+//  }
 
   //------------------------
   // INTERFACE
@@ -87,6 +83,8 @@ public class InventoryItem
   }
 
 
+
+
 //  /* Code from template association_MinimumNumberOfMethod */
 //  public static int minimumNumberOfItems()
 //  {
@@ -94,11 +92,13 @@ public class InventoryItem
 //  }
 //  
 
+
   public void delete()
   {
 
    
   }
+
 
 
   public String toString()

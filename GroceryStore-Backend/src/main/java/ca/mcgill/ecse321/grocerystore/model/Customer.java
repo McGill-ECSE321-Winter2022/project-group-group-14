@@ -1,9 +1,10 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-
-import java.util.*;
 
 
 @Entity
@@ -17,7 +18,7 @@ public class Customer extends Account
   private String phoneNumber;
 
   //Customer Associations
-  private List<Order> orders;
+  private List<GroceryOrder> orders;
 
 
 
@@ -26,7 +27,12 @@ public class Customer extends Account
     super(aName, aEmail, aUsername, aPassword);
     address = aAddress;
     phoneNumber = aPhoneNumber;
-    orders = new ArrayList<Order>();
+    orders = new ArrayList<GroceryOrder>();
+  }
+  public Customer()
+  {
+    super();
+    
   }
 
   //------------------------
@@ -60,22 +66,26 @@ public class Customer extends Account
   }
   /* Code from template association_GetMany */
   
-  public Order getOrder(int index)
+
+  public GroceryOrder getOrder(int index)
   {
-    Order aOrder = orders.get(index);
+    GroceryOrder aOrder = orders.get(index);
     return aOrder;
   }
-  //@OneToMany(optional=false)
-  public List<Order> getOrders()
+  
+  @OneToMany
+  public List<GroceryOrder> getOrders()
   {
-    List<Order> newOrders = Collections.unmodifiableList(orders);
+    List<GroceryOrder> newOrders = orders;
     return newOrders;
   }
+
   
-  public void setOrders(List<Order> orders) {
+  public void setOrders(List<GroceryOrder> orders) {
 	  this.orders = orders;
   }
   
+
 
 //  public int numberOfOrders()
 //  {
@@ -152,15 +162,17 @@ public class Customer extends Account
 //    return wasAdded;
 //  }
 
+
   public void delete()
   {
     for(int i=orders.size(); i > 0; i--)
     {
-      Order aOrder = orders.get(i - 1);
+      GroceryOrder aOrder = orders.get(i - 1);
       aOrder.delete();
     }
     super.delete();
   }
+
 
 
   public String toString()

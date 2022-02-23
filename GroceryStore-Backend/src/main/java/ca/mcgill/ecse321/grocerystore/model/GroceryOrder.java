@@ -1,21 +1,22 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
-import javax.persistence.DiscriminatorColumn;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
-
-
-import java.util.*;
+import javax.persistence.ManyToMany;
 
 //@Entity 
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 //@Inheritance(strategy=InheritanceType.SINGLE_TABLE) 
 //@DiscriminatorColumn(name = "OrderType")
-@MappedSuperclass
-public abstract class Order
+//@MappedSuperclass
+public abstract class GroceryOrder
 {
 
   //------------------------
@@ -23,8 +24,8 @@ public abstract class Order
   //------------------------
 
   //Order Attributes
-  private int totalCost;
-  private int orderNumber;
+  private Integer totalCost;
+  private Integer orderNumber;
 
   //Order Associations
   private List<Item> items;
@@ -34,22 +35,25 @@ public abstract class Order
   // CONSTRUCTOR
   //------------------------
 
-  public Order(int aTotalCost, Item... allItems)
+  public GroceryOrder(Integer aOrderNumber, Integer aTotalCost, List<Item> allItems)
   {
+	orderNumber = aOrderNumber;
     totalCost = aTotalCost;
+    items = allItems;
+    
+  }
+  public GroceryOrder()
+  {
+    totalCost = null;
+    orderNumber = null;
     items = new ArrayList<Item>();
-    boolean didAddItems = setItems(allItems);
-    if (!didAddItems)
-    {
-      throw new RuntimeException("Unable to create Order, must have at least 1 items. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setTotalCost(int aTotalCost)
+  public boolean setTotalCost(Integer aTotalCost)
   {
     boolean wasSet = false;
     totalCost = aTotalCost;
@@ -64,11 +68,11 @@ public abstract class Order
   }
 
   @Id
-  public int getOrderNumber() {
+  public Integer getOrderNumber() {
       return this.orderNumber;
   }
   
-  public int getTotalCost()
+  public Integer getTotalCost()
   {
     return totalCost;
   }
@@ -83,12 +87,14 @@ public abstract class Order
    * paymentType needed. Cash can only be used for pickups
    * and InPerson.
    */
-  @OneToMany
+  @ManyToMany
   public List<Item> getItems() 
   {
     List<Item> newItems = Collections.unmodifiableList(items);
     return newItems;
   }
+
+
 
 //  public int numberOfItems()
 //  {
@@ -108,7 +114,9 @@ public abstract class Order
 //    return index;
 //  }
 
+
   /* Code from template association_MinimumNumberOfMethod */
+
 //  public static int minimumNumberOfItems()
 //  {
 //    return 1;
@@ -135,16 +143,19 @@ public abstract class Order
 //    return wasRemoved;
 //  }
   /* Code from template association_SetMNToOptionalOne */
+
   public boolean setItems(Item... newItems)
   {
     boolean wasSet = false;
+
 //    if (newItems.length < minimumNumberOfItems())
 //    {
 //      return wasSet;
 //    }
 
+
     ArrayList<Item> checkNewItems = new ArrayList<Item>();
-    HashMap<Order,Integer> orderToNewItems = new HashMap<Order,Integer>();
+//    HashMap<Order,Integer> orderToNewItems = new HashMap<Order,Integer>();
     for (Item aItem : newItems)
     {
       if (checkNewItems.contains(aItem))
@@ -156,6 +167,7 @@ public abstract class Order
 
     items.removeAll(checkNewItems);
 
+
 //    for (Item orphan : items)
 //    {
 //      setOrder(orphan, null);
@@ -166,9 +178,11 @@ public abstract class Order
 //      setOrder(aItem, this);
 //      items.add(aItem);
 //    }
+
     wasSet = true;
     return wasSet;
   }
+
   /* Code from template association_GetPrivate */
 //  private void setOrder(Item aItem, Order aOrder)
 //  {
@@ -183,7 +197,9 @@ public abstract class Order
 //      throw new RuntimeException("Issue internally setting aOrder to aItem", e);
 //    }
 //  }
+
   /* Code from template association_AddIndexControlFunctions */
+
 //  public boolean addItemAt(Item aItem, int index)
 //  {  
 //    boolean wasAdded = false;
@@ -215,6 +231,7 @@ public abstract class Order
 //    }
 //    return wasAdded;
 //  }
+
   
 
   public void delete()
@@ -225,6 +242,7 @@ public abstract class Order
 //    }
     items.clear();
   }
+
 
 
   public String toString()

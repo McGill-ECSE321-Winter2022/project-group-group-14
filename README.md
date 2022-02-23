@@ -14,7 +14,7 @@ An SQL statement walks into a bar and sees two tables. It approaches, and asks â
 Hi, I'm a third-year student in Computer Engineering. I always looked up to IT developers growing up and ended up starting coding in C as a hobby in middle school. I was always interested in music and art, but I ended up choosing Computer Engineering as my major, so currently I'm aspiring to be a software developer in music industry and maybe develop a mixing application one day.
 
 ### Youssof Mohammed
-
+Hello, I'm a second-year student in Software Engineering. I have been introduced to coding 5 years ago and I loved it. I started coding in c++ and understood the basics of coding and then started the journey of learning a bunch of other new programming languages in different programming fields. During this journey I learned game development, web development, and competitive programming skills. I became obsessed with coding so I decided to apply for the software engineering field to follow my dream.
 
 ### Yakir Bender
 Hallo, I'm a third-year student in Computer Engineering. I have coded and tutored in Java for several years, but have experience working in C. Originally, I had considered working in other fields, like accounting or finances. But, I was a little too interested in puzzles and problem-solving, so engineering was a perfect fit. I enjoy playing video games in my free time, especially Role-Playing Games and Fighting Games. The games definitely did not influence my decision in choosing computer engineering. Not at all.

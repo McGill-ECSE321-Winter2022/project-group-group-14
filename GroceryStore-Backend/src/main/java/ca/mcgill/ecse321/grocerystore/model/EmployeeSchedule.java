@@ -32,19 +32,29 @@ public class EmployeeSchedule
   // CONSTRUCTOR
   //------------------------
 
+
   public EmployeeSchedule(Shift aShift, Employee aEmployee)
   {
 //    cachedHashCode = -1;
    
     
     shift = aShift;
+
 //    if (aEmployee == null)
 //    {
 //      throw new RuntimeException("Unable to create EmployeeSchedule due to aEmployee. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
 //    }
+
     employee = aEmployee;
     
   }
+  public EmployeeSchedule()
+  {
+    shift=null;
+    employee=null;
+    
+  }
+
 
   //------------------------
   // INTERFACE
@@ -78,12 +88,14 @@ public class EmployeeSchedule
   {
     return employee;
   }
+
   
   public void setEmployee(Employee employee)     
   {
     this.employee = employee;
   }
   
+
   /* Code from template association_GetOne */
 
 //  public boolean equals(Object obj)
@@ -127,6 +139,7 @@ public class EmployeeSchedule
 //    return cachedHashCode;
 //  }
 
+
   public void delete()
   {
     Employee existingEmployee = employee;
@@ -137,6 +150,7 @@ public class EmployeeSchedule
     }
     
   }
+
 
 
   public String toString()
