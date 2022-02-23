@@ -1,12 +1,19 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 
 
 
 
+//@Entity 
+//@Inheritance(strategy=InheritanceType.SINGLE_TABLE) 
+//@DiscriminatorColumn(name = "AccountType")
 @MappedSuperclass
 public abstract class Account
 {

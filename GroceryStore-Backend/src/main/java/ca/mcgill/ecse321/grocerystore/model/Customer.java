@@ -65,87 +65,92 @@ public class Customer extends Account
     Order aOrder = orders.get(index);
     return aOrder;
   }
-  @OneToMany
+  //@OneToMany(optional=false)
   public List<Order> getOrders()
   {
     List<Order> newOrders = Collections.unmodifiableList(orders);
     return newOrders;
   }
+  
+  public void setOrders(List<Order> orders) {
+	  this.orders = orders;
+  }
+  
 
-  public int numberOfOrders()
-  {
-    int number = orders.size();
-    return number;
-  }
-
-  public boolean hasOrders()
-  {
-    boolean has = orders.size() > 0;
-    return has;
-  }
-
-  public int indexOfOrder(Order aOrder)
-  {
-    int index = orders.indexOf(aOrder);
-    return index;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfOrders()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-
-
-  public boolean addOrder(Order aOrder)
-  {
-    boolean wasAdded = false;
-    if (orders.contains(aOrder)) { return false; }
-    orders.add(aOrder);
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeOrder(Order aOrder)
-  {
-    boolean wasRemoved = false;
-    if(orders.remove(aOrder)){
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addOrderAt(Order aOrder, int index)
-  {  
-    boolean wasAdded = false;
-    if(addOrder(aOrder))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfOrders()) { index = numberOfOrders() - 1; }
-      orders.remove(aOrder);
-      orders.add(index, aOrder);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveOrderAt(Order aOrder, int index)
-  {
-    boolean wasAdded = false;
-    if(orders.contains(aOrder))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfOrders()) { index = numberOfOrders() - 1; }
-      orders.remove(aOrder);
-      orders.add(index, aOrder);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addOrderAt(aOrder, index);
-    }
-    return wasAdded;
-  }
+//  public int numberOfOrders()
+//  {
+//    int number = orders.size();
+//    return number;
+//  }
+//
+//  public boolean hasOrders()
+//  {
+//    boolean has = orders.size() > 0;
+//    return has;
+//  }
+//
+//  public int indexOfOrder(Order aOrder)
+//  {
+//    int index = orders.indexOf(aOrder);
+//    return index;
+//  }
+//  /* Code from template association_MinimumNumberOfMethod */
+//  public static int minimumNumberOfOrders()
+//  {
+//    return 0;
+//  }
+//  /* Code from template association_AddManyToOne */
+//
+//
+//  public boolean addOrder(Order aOrder)
+//  {
+//    boolean wasAdded = false;
+//    if (orders.contains(aOrder)) { return false; }
+//    orders.add(aOrder);
+//    wasAdded = true;
+//    return wasAdded;
+//  }
+//
+//  public boolean removeOrder(Order aOrder)
+//  {
+//    boolean wasRemoved = false;
+//    if(orders.remove(aOrder)){
+//      wasRemoved = true;
+//    }
+//    return wasRemoved;
+//  }
+//  /* Code from template association_AddIndexControlFunctions */
+//  public boolean addOrderAt(Order aOrder, int index)
+//  {  
+//    boolean wasAdded = false;
+//    if(addOrder(aOrder))
+//    {
+//      if(index < 0 ) { index = 0; }
+//      if(index > numberOfOrders()) { index = numberOfOrders() - 1; }
+//      orders.remove(aOrder);
+//      orders.add(index, aOrder);
+//      wasAdded = true;
+//    }
+//    return wasAdded;
+//  }
+//
+//  public boolean addOrMoveOrderAt(Order aOrder, int index)
+//  {
+//    boolean wasAdded = false;
+//    if(orders.contains(aOrder))
+//    {
+//      if(index < 0 ) { index = 0; }
+//      if(index > numberOfOrders()) { index = numberOfOrders() - 1; }
+//      orders.remove(aOrder);
+//      orders.add(index, aOrder);
+//      wasAdded = true;
+//    } 
+//    else 
+//    {
+//      wasAdded = addOrderAt(aOrder, index);
+//    }
+//    return wasAdded;
+//  }
 
   public void delete()
   {

@@ -21,10 +21,11 @@ public class EmployeeSchedule
 
   //EmployeeSchedule Associations
   private Employee employee;
+  private int id;
 
 
   //Helper Variables
-  private int cachedHashCode;
+//  private int cachedHashCode;
   
 
   //------------------------
@@ -33,14 +34,14 @@ public class EmployeeSchedule
 
   public EmployeeSchedule(Shift aShift, Employee aEmployee)
   {
-    cachedHashCode = -1;
+//    cachedHashCode = -1;
    
     
     shift = aShift;
-    if (aEmployee == null)
-    {
-      throw new RuntimeException("Unable to create EmployeeSchedule due to aEmployee. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
+//    if (aEmployee == null)
+//    {
+//      throw new RuntimeException("Unable to create EmployeeSchedule due to aEmployee. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+//    }
     employee = aEmployee;
     
   }
@@ -49,6 +50,7 @@ public class EmployeeSchedule
   // INTERFACE
   //------------------------
 
+  
   public boolean setShift(Shift aShift)
   {
     boolean wasSet = false;
@@ -58,6 +60,14 @@ public class EmployeeSchedule
   }
 
   @Id
+  public int getId() {
+	  return this.id;
+  }
+  public void setId(int id) {
+	  this.id = id;
+  }
+  
+  
   public Shift getShift()
   {
     return shift;
@@ -68,48 +78,54 @@ public class EmployeeSchedule
   {
     return employee;
   }
+  
+  public void setEmployee(Employee employee)     
+  {
+    this.employee = employee;
+  }
+  
   /* Code from template association_GetOne */
 
-  public boolean equals(Object obj)
-  {
-    if (obj == null) { return false; }
-    if (!getClass().equals(obj.getClass())) { return false; }
+//  public boolean equals(Object obj)
+//  {
+//    if (obj == null) { return false; }
+//    if (!getClass().equals(obj.getClass())) { return false; }
+//
+//    EmployeeSchedule compareTo = (EmployeeSchedule)obj;
+//  
+//    if (getEmployee() == null && compareTo.getEmployee() != null)
+//    {
+//      return false;
+//    }
+//    else if (getEmployee() != null && !getEmployee().equals(compareTo.getEmployee()))
+//    {
+//      return false;
+//    }
+//
+//
+//    return true;
+//  }
 
-    EmployeeSchedule compareTo = (EmployeeSchedule)obj;
-  
-    if (getEmployee() == null && compareTo.getEmployee() != null)
-    {
-      return false;
-    }
-    else if (getEmployee() != null && !getEmployee().equals(compareTo.getEmployee()))
-    {
-      return false;
-    }
-
-
-    return true;
-  }
-
-  public int hashCode()
-  {
-    if (cachedHashCode != -1)
-    {
-      return cachedHashCode;
-    }
-    cachedHashCode = 17;
-    if (getEmployee() != null)
-    {
-      cachedHashCode = cachedHashCode * 23 + getEmployee().hashCode();
-    }
-    else
-    {
-      cachedHashCode = cachedHashCode * 23;
-    }
-
-
-
-    return cachedHashCode;
-  }
+//  public int hashCode()
+//  {
+//    if (cachedHashCode != -1)
+//    {
+//      return cachedHashCode;
+//    }
+//    cachedHashCode = 17;
+//    if (getEmployee() != null)
+//    {
+//      cachedHashCode = cachedHashCode * 23 + getEmployee().hashCode();
+//    }
+//    else
+//    {
+//      cachedHashCode = cachedHashCode * 23;
+//    }
+//
+//
+//
+//    return cachedHashCode;
+//  }
 
   public void delete()
   {

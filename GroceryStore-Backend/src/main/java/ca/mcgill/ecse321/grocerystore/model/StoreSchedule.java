@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.grocerystore.model;
 
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Time;
 
 
@@ -9,7 +10,7 @@ import java.sql.Time;
 public class StoreSchedule
 {
 
-  
+	
   // ENUMERATIONS
   
   public enum Day { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
@@ -21,7 +22,7 @@ public class StoreSchedule
   private Time openingTime;
   private Time closingTime;
   private Day daysOpen;
-
+  private int id;
 
   
   // CONSTRUCTOR
@@ -36,6 +37,15 @@ public class StoreSchedule
 
 
   // INTERFACE
+  @Id
+  public int getId() {
+	  return this.id;
+  }
+  
+  public void setId(int id) {
+	  this.id=id;
+  }
+
 
   public boolean setOpeningTime(Time aOpeningTime)
   {
@@ -77,10 +87,10 @@ public class StoreSchedule
   }
   
   
-//  public void delete()
-//  {
-//    
-//  }
+  public void delete()
+  {
+    
+  }
 
 
   public String toString()
