@@ -1,11 +1,7 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import java.util.*;
 
 // line 60 "model.ump"
 // line 179 "model.ump"

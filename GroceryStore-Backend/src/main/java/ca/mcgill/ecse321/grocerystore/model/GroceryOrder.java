@@ -1,21 +1,23 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
-
-
-import java.util.*;
+import javax.persistence.ManyToMany;
 
 //@Entity 
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 //@Inheritance(strategy=InheritanceType.SINGLE_TABLE) 
 //@DiscriminatorColumn(name = "OrderType")
-@MappedSuperclass
-public abstract class Order
+//@MappedSuperclass
+public abstract class GroceryOrder
 {
 
   //------------------------
@@ -23,8 +25,8 @@ public abstract class Order
   //------------------------
 
   //Order Attributes
-  private int totalCost;
-  private int orderNumber;
+  private Integer totalCost;
+  private Integer orderNumber;
 
   //Order Associations
   private List<Item> items;
@@ -34,22 +36,25 @@ public abstract class Order
   // CONSTRUCTOR
   //------------------------
 
-//  public Order(int aTotalCost, Item... allItems)
-//  {
-//    totalCost = aTotalCost;
-//    items = new ArrayList<Item>();
-//    boolean didAddItems = setItems(allItems);
-//    if (!didAddItems)
-//    {
-//      throw new RuntimeException("Unable to create Order, must have at least 1 items. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-//    }
-//  }
+  public GroceryOrder(Integer aOrderNumber, Integer aTotalCost, List<Item> allItems)
+  {
+	orderNumber = aOrderNumber;
+    totalCost = aTotalCost;
+    items = allItems;
+    
+  }
+  public GroceryOrder()
+  {
+    totalCost = null;
+    orderNumber = null;
+    items = new ArrayList<Item>();
+  }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setTotalCost(int aTotalCost)
+  public boolean setTotalCost(Integer aTotalCost)
   {
     boolean wasSet = false;
     totalCost = aTotalCost;
@@ -64,11 +69,11 @@ public abstract class Order
   }
 
   @Id
-  public int getOrderNumber() {
+  public Integer getOrderNumber() {
       return this.orderNumber;
   }
   
-  public int getTotalCost()
+  public Integer getTotalCost()
   {
     return totalCost;
   }
@@ -83,7 +88,7 @@ public abstract class Order
    * paymentType needed. Cash can only be used for pickups
    * and InPerson.
    */
-  @OneToMany
+  @ManyToMany
   public List<Item> getItems() 
   {
     List<Item> newItems = Collections.unmodifiableList(items);
@@ -151,7 +156,7 @@ public abstract class Order
 
 
     ArrayList<Item> checkNewItems = new ArrayList<Item>();
-    HashMap<Order,Integer> orderToNewItems = new HashMap<Order,Integer>();
+//    HashMap<Order,Integer> orderToNewItems = new HashMap<Order,Integer>();
     for (Item aItem : newItems)
     {
       if (checkNewItems.contains(aItem))

@@ -48,6 +48,12 @@ public class EmployeeSchedule
     employee = aEmployee;
     
   }
+  public EmployeeSchedule()
+  {
+    shift=null;
+    employee=null;
+    
+  }
 
 
   //------------------------

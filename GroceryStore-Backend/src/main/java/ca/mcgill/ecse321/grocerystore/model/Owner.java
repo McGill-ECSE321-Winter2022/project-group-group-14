@@ -13,6 +13,12 @@ public class Owner extends Account
     super (aName, aEmail, aUsername, aPassword);
   }
   
+  public Owner()
+  {
+    super();
+    
+  }
+  
   public void delete()
   {
     super.delete();

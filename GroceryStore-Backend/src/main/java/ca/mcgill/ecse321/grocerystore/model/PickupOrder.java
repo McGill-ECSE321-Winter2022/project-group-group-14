@@ -1,14 +1,19 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
-import javax.persistence.Entity;
+import java.util.List;
 
-@Entity
-public class PickupOrder extends Order
+//@Entity
+//@DiscriminatorValue("pickup")
+public class PickupOrder extends GroceryOrder
 {
-//  public PickupOrder(int aTotalCost, Item... allItems)
-//  {
-//    super(aTotalCost, allItems);
-//  }
+  public PickupOrder(Integer aOrderNumber, Integer aTotalCost, List<Item> allItems)
+  {
+    super(aOrderNumber, aTotalCost, allItems);
+  }
+  public PickupOrder()
+  {
+    super();
+  }
 
 //  public void delete()
 //  {
