@@ -36,5 +36,5 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | name | #hours | Work description |
 | Yakir Bender | 10 | Creating/editing domain model, generating UML diagram from Umple|
 | name | #hours | Work description |
-| Clarissa Baciu | 20 | Setting up initial Gradle build, setting up continuous integration, JPA annotations, persistence, documentation tasks  |
+| Clarissa Baciu | 28 | Setting up initial Gradle build, setting up continuous integration, JPA annotations, persistence, documentation tasks  |
 | Samuel Valentine | 15-20 | Minutes organiser and scribe, GitHub setup initialization, documentation |
