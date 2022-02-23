@@ -24,7 +24,7 @@ import ca.mcgill.ecse321.grocerystore.model.GroceryStore;
 import ca.mcgill.ecse321.grocerystore.model.InStore;
 import ca.mcgill.ecse321.grocerystore.model.InventoryItem;
 import ca.mcgill.ecse321.grocerystore.model.Item;
-import ca.mcgill.ecse321.grocerystore.model.Order;
+import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
 import ca.mcgill.ecse321.grocerystore.model.Owner;
 import ca.mcgill.ecse321.grocerystore.model.PickupOrder;
 import ca.mcgill.ecse321.grocerystore.model.StoreSchedule;
@@ -51,7 +51,7 @@ public class TestGroceryStorePersistence {
 	@Autowired
 	private ItemRepository itemRepository;
 	@Autowired
-	private OrderRepository orderRepository;
+	private GroceryOrderRepository groceryOrderRepository;
 	@Autowired
 	private OwnerRepository ownerRepository;
 	@Autowired
