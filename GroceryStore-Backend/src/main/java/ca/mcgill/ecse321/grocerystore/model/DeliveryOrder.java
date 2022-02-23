@@ -17,12 +17,12 @@ public class DeliveryOrder extends Order
   //------------------------
   // CONSTRUCTOR
   //------------------------
-
-  public DeliveryOrder(int aTotalCost, String aDeliveryAddress, Item... allItems)
-  {
-    super(aTotalCost, allItems);
-    deliveryAddress = aDeliveryAddress;
-  }
+//
+//  public DeliveryOrder(int aTotalCost, String aDeliveryAddress, Item... allItems)
+//  {
+//    super(aTotalCost, allItems);
+//    deliveryAddress = aDeliveryAddress;
+//  }
 
   //------------------------
   // INTERFACE
@@ -40,11 +40,11 @@ public class DeliveryOrder extends Order
   {
     return deliveryAddress;
   }
-
-  public void delete()
-  {
-    super.delete();
-  }
+//
+//  public void delete()
+//  {
+//    super.delete();
+//  }
 
 
   public String toString()

@@ -9,15 +9,17 @@ public class InStore extends Order
 {
 
 
-  public InStore(int aTotalCost, Item... allItems)
-  {
-    super(aTotalCost, allItems);
-  }
+//  public InStore(int aTotalCost, Item... allItems)
+//  {
+//    super(aTotalCost, allItems);
+//  }
+
 
 
   public void delete()
   {
     super.delete();
   }
+
 
 }

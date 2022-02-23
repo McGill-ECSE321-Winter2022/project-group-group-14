@@ -1,9 +1,10 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import java.util.*;
+import javax.persistence.Entity;
 
 
 @Entity
@@ -60,22 +61,26 @@ public class Customer extends Account
   }
   /* Code from template association_GetMany */
   
+
   public Order getOrder(int index)
   {
     Order aOrder = orders.get(index);
     return aOrder;
   }
   //@OneToMany(optional=false)
+
   public List<Order> getOrders()
   {
     List<Order> newOrders = Collections.unmodifiableList(orders);
     return newOrders;
   }
+
   
   public void setOrders(List<Order> orders) {
 	  this.orders = orders;
   }
   
+
 
 //  public int numberOfOrders()
 //  {
@@ -152,6 +157,7 @@ public class Customer extends Account
 //    return wasAdded;
 //  }
 
+
   public void delete()
   {
     for(int i=orders.size(); i > 0; i--)
@@ -161,6 +167,7 @@ public class Customer extends Account
     }
     super.delete();
   }
+
 
 
   public String toString()

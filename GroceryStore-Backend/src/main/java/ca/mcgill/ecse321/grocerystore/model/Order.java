@@ -34,16 +34,16 @@ public abstract class Order
   // CONSTRUCTOR
   //------------------------
 
-  public Order(int aTotalCost, Item... allItems)
-  {
-    totalCost = aTotalCost;
-    items = new ArrayList<Item>();
-    boolean didAddItems = setItems(allItems);
-    if (!didAddItems)
-    {
-      throw new RuntimeException("Unable to create Order, must have at least 1 items. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-  }
+//  public Order(int aTotalCost, Item... allItems)
+//  {
+//    totalCost = aTotalCost;
+//    items = new ArrayList<Item>();
+//    boolean didAddItems = setItems(allItems);
+//    if (!didAddItems)
+//    {
+//      throw new RuntimeException("Unable to create Order, must have at least 1 items. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+//    }
+//  }
 
   //------------------------
   // INTERFACE
@@ -90,6 +90,8 @@ public abstract class Order
     return newItems;
   }
 
+
+
 //  public int numberOfItems()
 //  {
 //    int number = items.size();
@@ -108,7 +110,9 @@ public abstract class Order
 //    return index;
 //  }
 
+
   /* Code from template association_MinimumNumberOfMethod */
+
 //  public static int minimumNumberOfItems()
 //  {
 //    return 1;
@@ -135,13 +139,16 @@ public abstract class Order
 //    return wasRemoved;
 //  }
   /* Code from template association_SetMNToOptionalOne */
+
   public boolean setItems(Item... newItems)
   {
     boolean wasSet = false;
+
 //    if (newItems.length < minimumNumberOfItems())
 //    {
 //      return wasSet;
 //    }
+
 
     ArrayList<Item> checkNewItems = new ArrayList<Item>();
     HashMap<Order,Integer> orderToNewItems = new HashMap<Order,Integer>();
@@ -156,6 +163,7 @@ public abstract class Order
 
     items.removeAll(checkNewItems);
 
+
 //    for (Item orphan : items)
 //    {
 //      setOrder(orphan, null);
@@ -166,9 +174,11 @@ public abstract class Order
 //      setOrder(aItem, this);
 //      items.add(aItem);
 //    }
+
     wasSet = true;
     return wasSet;
   }
+
   /* Code from template association_GetPrivate */
 //  private void setOrder(Item aItem, Order aOrder)
 //  {
@@ -183,7 +193,9 @@ public abstract class Order
 //      throw new RuntimeException("Issue internally setting aOrder to aItem", e);
 //    }
 //  }
+
   /* Code from template association_AddIndexControlFunctions */
+
 //  public boolean addItemAt(Item aItem, int index)
 //  {  
 //    boolean wasAdded = false;
@@ -215,6 +227,7 @@ public abstract class Order
 //    }
 //    return wasAdded;
 //  }
+
   
 
   public void delete()
@@ -225,6 +238,7 @@ public abstract class Order
 //    }
     items.clear();
   }
+
 
 
   public String toString()

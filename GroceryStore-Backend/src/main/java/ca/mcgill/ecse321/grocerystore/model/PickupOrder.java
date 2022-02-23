@@ -5,15 +5,15 @@ import javax.persistence.Entity;
 @Entity
 public class PickupOrder extends Order
 {
-  public PickupOrder(int aTotalCost, Item... allItems)
-  {
-    super(aTotalCost, allItems);
-  }
+//  public PickupOrder(int aTotalCost, Item... allItems)
+//  {
+//    super(aTotalCost, allItems);
+//  }
 
-  public void delete()
-  {
-    super.delete();
-  }
+//  public void delete()
+//  {
+//    super.delete();
+//  }
 
 
 }

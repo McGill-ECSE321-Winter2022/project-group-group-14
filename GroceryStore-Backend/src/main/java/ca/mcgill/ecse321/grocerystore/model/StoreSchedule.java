@@ -26,14 +26,14 @@ public class StoreSchedule
 
   
   // CONSTRUCTOR
-  
-  public StoreSchedule(Time aOpeningTime, Time aClosingTime, Day aDaysOpen)
-  {
-    openingTime = aOpeningTime;
-    closingTime = aClosingTime;
-    daysOpen = aDaysOpen;
-    
-  }
+//  
+//  public StoreSchedule(Time aOpeningTime, Time aClosingTime, Day aDaysOpen)
+//  {
+//    openingTime = aOpeningTime;
+//    closingTime = aClosingTime;
+//    daysOpen = aDaysOpen;
+//    
+//  }
 
 
   // INTERFACE
