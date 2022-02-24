@@ -38,3 +38,4 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Clarissa Baciu | 20 | Setting up initial Gradle build, setting up continuous integration, JPA annotations, persistence, documentation tasks  |
 | Samuel Valentine | 10 | Minutes organiser and scribe, GitHub setup initialization, documentation, debugging help |
 | Youssof Mohamed | 15 | use-case diagrams, use-case scenarios, JPA annotations, persistence |
+| Minkyu Park | 13 | use-case diagrams, use-case scenarios, JPA annotations |
