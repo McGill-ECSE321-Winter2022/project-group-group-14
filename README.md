@@ -25,7 +25,8 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 # Deliverable 1
 ## Links
 * [Wiki Home Page](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki)
-* [Meeting Minutes](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Meeting-Minutes)
+* [Meeting Minutes D1](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Meeting-Minutes-(Deliverable-1))
+* [Meeting Minutes D2](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Meeting-Minutes-(Deliverable-2))
 * [Requirements](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Requirements)   
 * [Use Case Diagrams and Specifications](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Use-Cases)   
 * [Domain Model](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Domain-Model)   
@@ -39,3 +40,13 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Samuel Valentine | 10 | Minutes organiser and scribe, GitHub setup initialization, documentation, debugging help |
 | Youssof Mohamed | 15 | use-case diagrams, use-case scenarios, JPA annotations, persistence |
 | Minkyu Park | 13 | use-case diagrams, use-case scenarios, JPA annotations |
+
+## Effort Table (D2)
+| Team Member | Time Spent (h) | Responsibilities | 
+| --- | --- | --- |
+| name | #hours | Work description |
+| Yakir Bender | 0 | description |
+| Clarissa Baciu | 0 | description |
+| Samuel Valentine | 0 | description |
+| Youssof Mohamed | 0 | description |
+| Minkyu Park | 0 | description |
