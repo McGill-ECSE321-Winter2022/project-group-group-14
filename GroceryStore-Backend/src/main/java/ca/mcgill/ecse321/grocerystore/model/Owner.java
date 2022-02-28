@@ -1,10 +1,12 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 
 
 @Entity
+@DiscriminatorValue("Owner")
 public class Owner extends Account
 {
 

@@ -3,15 +3,17 @@ package ca.mcgill.ecse321.grocerystore.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 
 @Entity
+@DiscriminatorValue("Customer")
 public class Customer extends Account
 {
 
-  
+
 
   //Customer Attributes
   private String address;
@@ -32,6 +34,11 @@ public class Customer extends Account
   public Customer()
   {
     super();
+    orders = new ArrayList<GroceryOrder>();
+    address = null;
+    phoneNumber = null;
+    
+    
     
   }
 
@@ -112,14 +119,16 @@ public class Customer extends Account
 //  /* Code from template association_AddManyToOne */
 //
 //
-//  public boolean addOrder(Order aOrder)
-//  {
-//    boolean wasAdded = false;
-//    if (orders.contains(aOrder)) { return false; }
-//    orders.add(aOrder);
-//    wasAdded = true;
-//    return wasAdded;
-//  }
+  public boolean addOrder(GroceryOrder aOrder)
+  {
+    boolean wasAdded = false;
+    if (orders.contains(aOrder)) { return false; }
+    
+ 
+    orders.add(aOrder);
+    wasAdded = true;
+    return wasAdded;
+  }
 //
 //  public boolean removeOrder(Order aOrder)
 //  {

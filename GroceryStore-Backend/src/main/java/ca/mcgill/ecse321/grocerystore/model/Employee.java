@@ -1,10 +1,12 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 
 @Entity
+@DiscriminatorValue("Employee")
 public class Employee extends Account
 {
 

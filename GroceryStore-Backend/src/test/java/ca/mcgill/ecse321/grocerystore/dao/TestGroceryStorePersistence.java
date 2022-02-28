@@ -77,6 +77,11 @@ public class TestGroceryStorePersistence {
 		customer.setUsername("testUsername");
 		customer.setPhoneNumber("testPhoneNumber");
 		customer.setAddress("street 1");
+		GroceryOrder groceryOrder = new GroceryOrder();
+		customer.addOrder(groceryOrder);
+		
+		
+	
 		
 		customerRepository.save(customer);
 		customer=null;
@@ -84,6 +89,7 @@ public class TestGroceryStorePersistence {
 		customer = customerRepository.findByEmail(email);
 		assertNotNull(customer);
 		assertEquals(email, customer.getEmail());
+//		assertEquals(2,2);
 
 	}
 
