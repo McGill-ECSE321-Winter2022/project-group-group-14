@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 public class Owner extends Account
 {
 
-  public Owner(String aName, String aEmail, String aUsername, String aPassword)
+  public Owner(String aEmail, String aUsername, String aPassword)
   {
-    super (aName, aEmail, aUsername, aPassword);
+    super (aEmail, aUsername, aPassword);
   }
   
   public Owner()

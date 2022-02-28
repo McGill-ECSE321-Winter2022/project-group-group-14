@@ -17,7 +17,7 @@ public class GroceryStore {
     private Owner owner;
 
     private Set<InventoryItem> inventoryItems; 
-    private Set<Item> orderItems;
+    private Set<OrderItem> orderItems;
 
     private Set<GroceryOrder> orders;
 //    private Set<InStore> inStoreOrders;

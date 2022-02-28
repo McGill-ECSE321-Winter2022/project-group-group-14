@@ -22,9 +22,9 @@ public class Customer extends Account
 
 
 
-  public Customer( String aName, String aEmail, String aUsername, String aPassword, String aAddress, String aPhoneNumber)
+  public Customer(String aEmail, String aUsername, String aPassword, String aAddress, String aPhoneNumber)
   {
-    super(aName, aEmail, aUsername, aPassword);
+    super(aEmail, aUsername, aPassword);
     address = aAddress;
     phoneNumber = aPhoneNumber;
     orders = new ArrayList<GroceryOrder>();

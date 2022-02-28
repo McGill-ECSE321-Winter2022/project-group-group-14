@@ -17,16 +17,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ca.mcgill.ecse321.grocerystore.model.Account;
 import ca.mcgill.ecse321.grocerystore.model.Customer;
-import ca.mcgill.ecse321.grocerystore.model.DeliveryOrder;
 import ca.mcgill.ecse321.grocerystore.model.Employee;
 import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule;
 import ca.mcgill.ecse321.grocerystore.model.GroceryStore;
-import ca.mcgill.ecse321.grocerystore.model.InStore;
 import ca.mcgill.ecse321.grocerystore.model.InventoryItem;
-import ca.mcgill.ecse321.grocerystore.model.Item;
+import ca.mcgill.ecse321.grocerystore.model.OrderItem;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
 import ca.mcgill.ecse321.grocerystore.model.Owner;
-import ca.mcgill.ecse321.grocerystore.model.PickupOrder;
 import ca.mcgill.ecse321.grocerystore.model.StoreSchedule;
 
 @ExtendWith(SpringExtension.class)
@@ -37,25 +34,19 @@ public class TestGroceryStorePersistence {
 	@Autowired
 	private CustomerRepository customerRepository;
 	@Autowired
-	private DeliveryOrderRepository deliveryOrderRepository;
-	@Autowired
 	private EmployeeRepository employeeRepository;
 	@Autowired
 	private EmployeeScheduleRepository employeeScheduleRepository;
 	@Autowired
 	private GroceryStoreRepository groceryStoreRepository;
 	@Autowired
-	private InStoreRepository inStoreRepository;
-	@Autowired
 	private InventoryItemRepository inventoryItemRepository;
 	@Autowired
-	private ItemRepository itemRepository;
+	private OrderItemRepository orderItemRepository;
 	@Autowired
 	private GroceryOrderRepository groceryOrderRepository;
 	@Autowired
 	private OwnerRepository ownerRepository;
-	@Autowired
-	private PickupOrderRepository pickupOrderRepository;
 	@Autowired
 	private StoreScheduleRepository storeSchedule;
 
@@ -63,10 +54,7 @@ public class TestGroceryStorePersistence {
 	@AfterEach
 	public void clearDatabase() {
 		// clear to avoid exceptions due to inconsistencies (dependencies)
-		itemRepository.deleteAll();
-		deliveryOrderRepository.deleteAll();
-		inStoreRepository.deleteAll();
-		pickupOrderRepository.deleteAll();
+		orderItemRepository.deleteAll();
 		groceryOrderRepository.deleteAll();
 		employeeScheduleRepository.deleteAll();
 		customerRepository.deleteAll();
@@ -78,14 +66,6 @@ public class TestGroceryStorePersistence {
 		groceryStoreRepository.deleteAll();
 	}
     
-	// //test persistence of GroceryStore class
-	//test persistence of GroceryStore class
-	// @Test
-	// @Transactional
-	// public void testPersistAndLoadGroceryStore(){
-	// 	GroceryStore groceryStore = new GroceryStore();
-
-	// }
 
 	//test Customer persistence
 	@Test
@@ -93,7 +73,6 @@ public class TestGroceryStorePersistence {
 		Customer customer = new Customer();
 		String email = "testEmail";
 
-		customer.setName("testName");
 		customer.setEmail(email);
 		customer.setPassword("testPassword");
 		customer.setUsername("testUsername");

@@ -9,9 +9,9 @@ public class Employee extends Account
 {
 
   
-  public Employee(String aName, String aEmail, String aUsername, String aPassword)
+  public Employee(String aEmail, String aUsername, String aPassword)
   {
-    super(aName, aEmail, aUsername, aPassword);
+    super(aEmail, aUsername, aPassword);
   }
 
   public Employee()

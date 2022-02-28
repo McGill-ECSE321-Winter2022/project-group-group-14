@@ -13,21 +13,18 @@ import javax.persistence.Id;
 //@MappedSuperclass
 public abstract class Account
 {
-  private String name;
   private String email;
   private String username;
   private String password;
 
-  public Account(String aName, String aEmail, String aUsername, String aPassword)
+  public Account(String aEmail, String aUsername, String aPassword)
   {
-    name = aName;
     email = aEmail;
     username = aUsername;
     password = aPassword;
   }
   public Account()
   {
-    name = null;
     email = null;
     username = null;
     password = null;
@@ -37,13 +34,6 @@ public abstract class Account
   // INTERFACE
   //------------------------
 
-  public boolean setName(String aName)
-  {
-    boolean wasSet = false;
-    name = aName;
-    wasSet = true;
-    return wasSet;
-  }
 
   public boolean setEmail(String aEmail)
   {
@@ -69,11 +59,6 @@ public abstract class Account
     return wasSet;
   }
 
-  public String getName()
-  {
-    return name;
-  }
-  
   @Id
   public String getEmail()
   {
@@ -95,7 +80,6 @@ public abstract class Account
    public String toString()
    {
      return super.toString() + "["+
-             "name" + ":" + getName()+ "," +
              "email" + ":" + getEmail()+ "," +
              "username" + ":" + getUsername()+ "," +
              "password" + ":" + getPassword()+ "]";

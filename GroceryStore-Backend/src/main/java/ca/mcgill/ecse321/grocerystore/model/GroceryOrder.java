@@ -4,21 +4,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-//@Entity 
+import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule.Shift;
+
+
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-//@Inheritance(strategy=InheritanceType.SINGLE_TABLE) 
-//@DiscriminatorColumn(name = "OrderType")
-//@MappedSuperclass
-public abstract class GroceryOrder
+public class GroceryOrder
 {
+  public enum OrderType { InStore, PickUp, Delivery }
 
+
+  private OrderType orderType;
   //------------------------
   // MEMBER VARIABLES
   //------------------------
@@ -28,25 +32,28 @@ public abstract class GroceryOrder
   private Integer orderNumber;
 
   //Order Associations
-  private List<Item> items;
+  private List<OrderItem> orderItems;
+  private Customer customer;
   
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public GroceryOrder(Integer aOrderNumber, Integer aTotalCost, List<Item> allItems)
+  public GroceryOrder(Integer aOrderNumber, Integer aTotalCost, List<OrderItem> allItems, OrderType aOrderType)
   {
+	orderType = aOrderType;
 	orderNumber = aOrderNumber;
     totalCost = aTotalCost;
-    items = allItems;
+    orderItems = allItems;
     
   }
   public GroceryOrder()
   {
     totalCost = null;
     orderNumber = null;
-    items = new ArrayList<Item>();
+    orderItems = new ArrayList<OrderItem>();
+    orderType = null;
   }
 
   //------------------------
@@ -77,9 +84,9 @@ public abstract class GroceryOrder
     return totalCost;
   }
   /* Code from template association_GetMany */
-  public Item getItem(int index)
+  public OrderItem getItem(int index)
   {
-    Item aItem = items.get(index);
+    OrderItem aItem = orderItems.get(index);
     return aItem;
   }
 
@@ -87,10 +94,10 @@ public abstract class GroceryOrder
    * paymentType needed. Cash can only be used for pickups
    * and InPerson.
    */
-  @ManyToMany
-  public List<Item> getItems() 
+  @OneToMany(cascade = CascadeType.ALL)
+  public List<OrderItem> getItems() 
   {
-    List<Item> newItems = Collections.unmodifiableList(items);
+    List<OrderItem> newItems = Collections.unmodifiableList(orderItems);
     return newItems;
   }
 
@@ -144,7 +151,7 @@ public abstract class GroceryOrder
 //  }
   /* Code from template association_SetMNToOptionalOne */
 
-  public boolean setItems(Item... newItems)
+  public boolean setItems(OrderItem... newItems)
   {
     boolean wasSet = false;
 
@@ -154,9 +161,9 @@ public abstract class GroceryOrder
 //    }
 
 
-    ArrayList<Item> checkNewItems = new ArrayList<Item>();
+    ArrayList<OrderItem> checkNewItems = new ArrayList<OrderItem>();
 //    HashMap<Order,Integer> orderToNewItems = new HashMap<Order,Integer>();
-    for (Item aItem : newItems)
+    for (OrderItem aItem : newItems)
     {
       if (checkNewItems.contains(aItem))
       {
@@ -165,7 +172,7 @@ public abstract class GroceryOrder
       checkNewItems.add(aItem);
     }
 
-    items.removeAll(checkNewItems);
+    orderItems.removeAll(checkNewItems);
 
 
 //    for (Item orphan : items)
@@ -240,7 +247,7 @@ public abstract class GroceryOrder
 //    {
 //      setOrder(aItem,null);
 //    }
-    items.clear();
+    orderItems.clear();
   }
 
 
@@ -250,4 +257,18 @@ public abstract class GroceryOrder
     return super.toString() + "["+
             "totalCost" + ":" + getTotalCost()+ "]";
   }
+public OrderType getOrderType() {
+	return orderType;
+}
+public void setOrderType(OrderType orderType) {
+	this.orderType = orderType;
+}
+
+@ManyToOne(optional=false)
+public Customer getCustomer() {
+	return customer;
+}
+public void setCustomer(Customer customer) {
+	this.customer = customer;
+}
 }
