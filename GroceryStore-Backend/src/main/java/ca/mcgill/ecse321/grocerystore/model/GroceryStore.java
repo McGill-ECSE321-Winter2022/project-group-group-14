@@ -1,122 +1,78 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Id;
 
 @Entity
 public class GroceryStore {
-    private int id;
-
-    private Set<Account> accounts; 
-    private Set<Customer> customers;
-    private Set<Employee> employees;
-    private Owner owner;
-
-    private Set<InventoryItem> inventoryItems; 
-    private Set<OrderItem> orderItems;
-
-    private Set<GroceryOrder> orders;
-//    private Set<InStore> inStoreOrders;
-//    private Set<DeliveryOrder> deliveryOrders;
-//    private Set<PickupOrder> pickupOrders;
-
-    private StoreSchedule storeSchedule; 
-    private Set<EmployeeSchedule> employeeSchedules;
+    private int storeId;
+    private List<Account> accounts; 
+    private List<GroceryOrder> orders;
+    private List<InventoryItem> inventoryItems;
+    private List<StoreSchedule> storeSchedules; 
+    private List<EmployeeSchedule> employeeSchedules;
+    
+    public GroceryStore() {
+    	this.accounts = new ArrayList<Account>();
+    	this.orders =  new ArrayList<GroceryOrder>();
+    	this.inventoryItems =  new ArrayList<InventoryItem>();
+    	this.employeeSchedules = new ArrayList<EmployeeSchedule>();
+    	this.storeSchedules = new ArrayList<StoreSchedule>();
+    }
 
     @Id
-    public int getId() {
-        return id;
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
+    public int getStoreId() {
+        return storeId;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setStoreId(int id) {
+        this.storeId = id;
     }
-    @OneToMany(cascade={CascadeType.ALL})
-    public Set<EmployeeSchedule> getEmployeeSchedules() {
+    @OneToMany(cascade={CascadeType.ALL}, mappedBy = "groceryStore")
+    public List<EmployeeSchedule> getEmployeeSchedules() {
         return employeeSchedules;
     }
-    public void setEmployeeSchedules(Set<EmployeeSchedule> employeeSchedules) {
+    public void setEmployeeSchedules(List<EmployeeSchedule> employeeSchedules) {
         this.employeeSchedules = employeeSchedules;
     }
-    @OneToOne(cascade={CascadeType.ALL})
-    public StoreSchedule getStoreSchedule() {
-        return storeSchedule;
+    @OneToMany(cascade={CascadeType.ALL}, mappedBy = "groceryStore")
+    public List<StoreSchedule> getStoreSchedules() {
+        return storeSchedules;
     }
-    public void setStoreSchedule(StoreSchedule storeSchedule) {
-        this.storeSchedule = storeSchedule;
+    public void setStoreSchedules(List<StoreSchedule> storeSchedules) {
+        this.storeSchedules = storeSchedules;
     }
-//    @OneToMany(cascade={CascadeType.ALL})
-//    public Set<PickupOrder> getPickupOrders() {
-//        return pickupOrders;
-//    }
-//    public void setPickupOrders(Set<PickupOrder> pickupOrders) {
-//        this.pickupOrders = pickupOrders;
-//    }
-//    @OneToMany(cascade={CascadeType.ALL})
-//    public Set<DeliveryOrder> getDeliveryOrders() {
-//        return deliveryOrders;
-//    }
-//    public void setDeliveryOrders(Set<DeliveryOrder> deliveryOrders) {
-//        this.deliveryOrders = deliveryOrders;
-//    }
-//    @OneToMany(cascade={CascadeType.ALL})
-//    public Set<InStore> getInStoreOrders() {
-//        return inStoreOrders;
-//    }
-//    public void setInStoreOrders(Set<InStore> inStoreOrders) {
-//        this.inStoreOrders = inStoreOrders;
-//    }
-    @OneToMany(cascade={CascadeType.ALL})
-    public Set<GroceryOrder> getOrders() {
+    @OneToMany(cascade={CascadeType.ALL}, mappedBy = "groceryStore")
+    public List<GroceryOrder> getOrders() {
         return orders;
     }
-    public void setOrders(Set<GroceryOrder> orders) {
+    public void setOrders(List<GroceryOrder> orders) {
         this.orders = orders;
     }
-//    @OneToMany(cascade={CascadeType.ALL})
-//    public Set<Item> getOrderItems() {
-//        return orderItems;
-//    }
-//    public void setOrderItems(Set<Item> orderItems) {
-//        this.orderItems = orderItems;
-//    }
-    @OneToMany(cascade={CascadeType.ALL})
-    public Set<InventoryItem> getInventoryItems() {
+    @OneToMany(cascade={CascadeType.ALL},mappedBy = "groceryStore")
+    public List<InventoryItem> getInventoryItems() {
         return inventoryItems;
     }
-    public void setInventoryItems(Set<InventoryItem> inventoryItems) {
+    public void setInventoryItems(List<InventoryItem> inventoryItems) {
         this.inventoryItems = inventoryItems;
     }
-//
-//    @OneToOne(cascade={CascadeType.ALL})
-//    public Owner getOwner() {
-//        return owner;
-//    }
-//    public void setOwner(Owner owner) {
-//        this.owner = owner;
-//    }
-//    @OneToMany(cascade={CascadeType.ALL})
-//    public Set<Employee> getEmployees() {
-//        return employees;
-//    }
-//    public void setEmployees(Set<Employee> employees) {
-//        this.employees = employees;
-//    }
-//    @OneToMany(cascade={CascadeType.ALL})
-//    public Set<Customer> getCustomers() {
-//        return customers;
-//    }
-//    public void setCustomers(Set<Customer> customers) {
-//        this.customers = customers;
-//    }
-    @OneToMany(cascade={CascadeType.ALL})
-    public Set<Account> getAccounts() {
+    @OneToMany(cascade={CascadeType.ALL}, mappedBy = "groceryStore")
+    public List<Account> getAccounts() {
         return accounts;
     }
-    public void setAccounts(Set<Account> accounts) {
+    public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
     }
 
