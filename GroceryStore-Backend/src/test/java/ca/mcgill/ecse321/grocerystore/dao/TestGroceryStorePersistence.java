@@ -70,20 +70,20 @@ public class TestGroceryStorePersistence {
 	//test Customer persistence
 	@Test
 	public void testPersistAndLoadCustomer(){
-//		Customer customer = new Customer();
-//		String email = "testEmail";
-//		customer.setEmail(email);
-//		customer.setPassword("testPassword");
-//		customer.setUsername("testUsername");
-//		customer.setPhoneNumber("testPhoneNumber");
-//		customer.setAddress("street 1");
-//		
-//		customerRepository.save(customer);
-//		customer=null;
-//		customer = customerRepository.findByEmail(email);
-//		assertNotNull(customer);
-//		assertEquals(email, customer.getEmail());
-		assertEquals(2,2);
+		Customer customer = new Customer();
+		String email = "testEmail";
+		customer.setEmail(email);
+		customer.setPassword("testPassword");
+		customer.setUsername("testUsername");
+		customer.setPhoneNumber("testPhoneNumber");
+		customer.setAddress("street 1");
+		
+		customerRepository.save(customer);
+		customer=null;
+		customer = customerRepository.findByEmail(email);
+		assertNotNull(customer);
+		assertEquals(email, customer.getEmail());
+		
 	}
 
 
