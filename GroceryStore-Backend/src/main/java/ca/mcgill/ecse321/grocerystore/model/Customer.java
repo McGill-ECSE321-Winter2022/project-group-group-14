@@ -8,7 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 
-@Entity//@DiscriminatorValue("Customer")
+@Entity
+@DiscriminatorValue("Customer")
 public class Customer extends Account
 {
 
