@@ -56,14 +56,14 @@ public abstract class Account
   public int getAccountId() {
 	  return this.accountId;
   }
-  public void setAccountId(int accountId) {
-	  this.accountId = accountId;
+  public void setAccountId(int aaccountId) {
+	  this.accountId = aaccountId;
   }
   
   public boolean setEmail(String aEmail)
   {
     boolean wasSet = false;
-    email = aEmail;
+    this.email = aEmail;
     wasSet = true;
     return wasSet;
   }
@@ -71,7 +71,7 @@ public abstract class Account
   public boolean setUsername(String aUsername)
   {
     boolean wasSet = false;
-    username = aUsername;
+    this.username = aUsername;
     wasSet = true;
     return wasSet;
   }
@@ -79,7 +79,7 @@ public abstract class Account
   public boolean setPassword(String aPassword)
   {
     boolean wasSet = false;
-    password = aPassword;
+    this.password = aPassword;
     wasSet = true;
     return wasSet;
   }

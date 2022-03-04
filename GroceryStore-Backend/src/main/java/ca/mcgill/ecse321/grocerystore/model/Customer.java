@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.grocerystore.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -12,7 +13,6 @@ import javax.persistence.OneToMany;
 @DiscriminatorValue("Customer")
 public class Customer extends Account
 {
-
 
 
   //Customer Attributes
@@ -26,7 +26,7 @@ public class Customer extends Account
 
   public Customer(String aEmail, String aUsername, String aPassword,GroceryStore aGroceryStore, String aPhoneNumber, String aAddress)
   {
-    super(aEmail, aUsername, aPassword, aGroceryStore);
+	super(aEmail, aUsername, aPassword, aGroceryStore);
     this.address = aAddress;
     this.phoneNumber = aPhoneNumber;
     this.groceryOrders = new ArrayList<GroceryOrder>();
@@ -34,7 +34,7 @@ public class Customer extends Account
   
   public Customer()
   {
-    super();
+	super();
     this.groceryOrders = new ArrayList<GroceryOrder>();
     this.address = null;
     this.phoneNumber = null; 
@@ -47,7 +47,7 @@ public class Customer extends Account
   public boolean setAddress(String aAddress)
   {
     boolean wasSet = false;
-    address = aAddress;
+    this.address = aAddress;
     wasSet = true;
     return wasSet;
   }
@@ -55,7 +55,7 @@ public class Customer extends Account
   public boolean setPhoneNumber(String aPhoneNumber)
   {
     boolean wasSet = false;
-    phoneNumber = aPhoneNumber;
+    this.phoneNumber = aPhoneNumber;
     wasSet = true;
     return wasSet;
   }
@@ -74,13 +74,13 @@ public class Customer extends Account
 
 
   
-  @OneToMany
+  @OneToMany(cascade={CascadeType.ALL},mappedBy = "customer")
   public List<GroceryOrder> getGroceryOrders()
   {
     return this.groceryOrders;
   }
 
-  public void setOrders(List<GroceryOrder> orders) {
+  public void setGroceryOrders(List<GroceryOrder> orders) {
 	  this.groceryOrders = orders;
   }
   

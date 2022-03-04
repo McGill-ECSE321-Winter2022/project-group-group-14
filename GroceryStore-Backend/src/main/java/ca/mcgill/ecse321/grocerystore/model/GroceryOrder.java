@@ -124,7 +124,7 @@ public class GroceryOrder
 
  //GETTERS AND SETTERS FOR ASSOCIATIONS
 
-	@ManyToOne 
+	@ManyToOne
 	public GroceryStore getGroceryStore()
 	{
 		return groceryStore;
@@ -269,7 +269,8 @@ public class GroceryOrder
 	  
 	  public OrderItem addOrderItem(String aName, int aPrice, int aCurrentStock, GroceryStore aGroceryStore, int quantity)
 	  {
-	    return new OrderItem(aName, aPrice, aCurrentStock, aGroceryStore, quantity, this);
+	    return new OrderItem(aName, aPrice, aCurrentStock, aGroceryStore, this);
+	    
 	  }
 
 	  public boolean addOrderItem(OrderItem aOrderItem)

@@ -49,11 +49,11 @@ public class StoreSchedule
   @Id
   @GeneratedValue(generator = "increment")
   @GenericGenerator(name = "increment", strategy = "increment")
-  public int getId() {
+  public int getStoreScheduleId() {
 	  return this.storeScheduleId;
   }
   
-  public void setId(int id) {
+  public void setStoreScheduleId(int id) {
 	  this.storeScheduleId=id;
   }
 

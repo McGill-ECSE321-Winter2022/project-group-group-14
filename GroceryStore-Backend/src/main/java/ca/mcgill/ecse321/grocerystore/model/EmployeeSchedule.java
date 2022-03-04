@@ -80,8 +80,7 @@ public class EmployeeSchedule
   }
   
   
-  @ManyToOne
-  @JoinColumn(name = "employee_id")
+  @ManyToOne//@JoinColumn(name = "employee_id")
   public Employee getEmployee()     
   {
     return employee;

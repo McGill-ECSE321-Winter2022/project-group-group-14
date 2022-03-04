@@ -7,15 +7,13 @@ import javax.persistence.ManyToOne;
 @Entity
 public class OrderItem extends InventoryItem
 {
-	
-  private int quantity;
+
   private GroceryOrder groceryOrder;
 
 
-  public OrderItem(String aName, int aPrice, int aCurrentStock, GroceryStore aGroceryStore, int aquantity, GroceryOrder aGroceryOrder)
+  public OrderItem(String aName, int aPrice, int aCurrentStock, GroceryStore aGroceryStore, GroceryOrder aGroceryOrder)
   {
     super(aName,aPrice, aCurrentStock, aGroceryStore);
-    this.quantity = aquantity;
     boolean didAddGroceryOrder = setGroceryOrder(aGroceryOrder);
     if (!didAddGroceryOrder)
     {
@@ -28,18 +26,10 @@ public class OrderItem extends InventoryItem
   public OrderItem()
   {
     super();
-    this.quantity = 0;
     this.groceryOrder = null;
     
   }
   
-  public int getQuantity() {
-    return quantity;
-  }
-
-  public void setQuantity(int quantity) {
-    this.quantity = quantity;
-  }
 
 @ManyToOne
 public GroceryOrder getGroceryOrder() {
@@ -72,7 +62,7 @@ public boolean setGroceryOrder(GroceryOrder aGroceryOrder)
     {
       placeholderGroceryOrder.removeOrderItem(this);
     }
-    super.delete();
+    //super.delete();
   }
 
   
