@@ -4,22 +4,35 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 
-
-// line 55 "model.ump"
-// line 186 "model.ump"
 @Entity
 public class OrderItem extends InventoryItem
 {
+	
   private int quantity;
   private GroceryOrder groceryOrder;
 
-//
-//  public Item (String aName, int aPrice, int quantity)
-//  {
-//    super(aName,aPrice);
-//    this.setQuantity(quantity);
-//  }
 
+  public OrderItem(String aName, int aPrice, int aCurrentStock, GroceryStore aGroceryStore, int aquantity, GroceryOrder aGroceryOrder)
+  {
+    super(aName,aPrice, aCurrentStock, aGroceryStore);
+    this.quantity = aquantity;
+    boolean didAddGroceryOrder = setGroceryOrder(aGroceryOrder);
+    if (!didAddGroceryOrder)
+    {
+      throw new RuntimeException("Unable to create account due to groceryStore");
+    }
+    
+  }
+
+  
+  public OrderItem()
+  {
+    super();
+    this.quantity = 0;
+    this.groceryOrder = null;
+    
+  }
+  
   public int getQuantity() {
     return quantity;
   }
@@ -28,18 +41,39 @@ public class OrderItem extends InventoryItem
     this.quantity = quantity;
   }
 
-@ManyToOne(optional = false)
+@ManyToOne
 public GroceryOrder getGroceryOrder() {
-	return groceryOrder;
+	return this.groceryOrder;
 }
 
-public void setGroceryOrder(GroceryOrder groceryOrder) {
-	this.groceryOrder = groceryOrder;
+public boolean setGroceryOrder(GroceryOrder aGroceryOrder)
+{
+  boolean wasSet = false;
+  if (aGroceryOrder == null)
+  {
+    return wasSet;
+  }
+
+  GroceryOrder existingGroceryOrder = groceryOrder;
+  groceryOrder= aGroceryOrder;
+  if (existingGroceryOrder != null && !existingGroceryOrder.equals(aGroceryOrder))
+  {
+    existingGroceryOrder.removeOrderItem(this);
+  }
+  groceryOrder.addOrderItem(this);
+  wasSet = true;
+  return wasSet;
 }
+  public void delete()
+  {
+   GroceryOrder placeholderGroceryOrder = groceryOrder;
+    this.groceryOrder = null;
+    if(placeholderGroceryOrder != null)
+    {
+      placeholderGroceryOrder.removeOrderItem(this);
+    }
+    super.delete();
+  }
+
   
-//  
-//  public void delete()
-//  {
-//  }
-
 }
