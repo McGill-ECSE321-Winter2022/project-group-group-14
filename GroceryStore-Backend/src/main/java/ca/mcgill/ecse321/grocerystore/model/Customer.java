@@ -3,36 +3,41 @@ package ca.mcgill.ecse321.grocerystore.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 
 @Entity
+@DiscriminatorValue("Customer")
 public class Customer extends Account
 {
 
-  
 
   //Customer Attributes
   private String address;
   private String phoneNumber;
 
   //Customer Associations
-  private List<GroceryOrder> orders;
+  private List<GroceryOrder> groceryOrders;
 
 
 
-  public Customer(String aEmail, String aUsername, String aPassword, String aAddress, String aPhoneNumber)
+  public Customer(String aEmail, String aUsername, String aPassword,GroceryStore aGroceryStore, String aPhoneNumber, String aAddress)
   {
-    super(aEmail, aUsername, aPassword);
-    address = aAddress;
-    phoneNumber = aPhoneNumber;
-    orders = new ArrayList<GroceryOrder>();
+	super(aEmail, aUsername, aPassword, aGroceryStore);
+    this.address = aAddress;
+    this.phoneNumber = aPhoneNumber;
+    this.groceryOrders = new ArrayList<GroceryOrder>();
   }
+  
   public Customer()
   {
-    super();
-    
+	super();
+    this.groceryOrders = new ArrayList<GroceryOrder>();
+    this.address = null;
+    this.phoneNumber = null; 
   }
 
   //------------------------
@@ -42,7 +47,7 @@ public class Customer extends Account
   public boolean setAddress(String aAddress)
   {
     boolean wasSet = false;
-    address = aAddress;
+    this.address = aAddress;
     wasSet = true;
     return wasSet;
   }
@@ -50,7 +55,7 @@ public class Customer extends Account
   public boolean setPhoneNumber(String aPhoneNumber)
   {
     boolean wasSet = false;
-    phoneNumber = aPhoneNumber;
+    this.phoneNumber = aPhoneNumber;
     wasSet = true;
     return wasSet;
   }
@@ -67,108 +72,122 @@ public class Customer extends Account
   /* Code from template association_GetMany */
   
 
-  public GroceryOrder getOrder(int index)
+
+  
+  @OneToMany(cascade={CascadeType.ALL},mappedBy = "customer")
+  public List<GroceryOrder> getGroceryOrders()
   {
-    GroceryOrder aOrder = orders.get(index);
-    return aOrder;
+    return this.groceryOrders;
+  }
+
+  public void setGroceryOrders(List<GroceryOrder> orders) {
+	  this.groceryOrders = orders;
   }
   
-  @OneToMany
-  public List<GroceryOrder> getOrders()
+  public GroceryOrder getGroceryOrder(int index)
   {
-    List<GroceryOrder> newOrders = orders;
-    return newOrders;
+    GroceryOrder aGroceryOrder = groceryOrders.get(index);
+    return aGroceryOrder;
   }
 
-  
-  public void setOrders(List<GroceryOrder> orders) {
-	  this.orders = orders;
+
+
+  public int numberOfGroceryOrders()
+  {
+    int number = groceryOrders.size();
+    return number;
   }
-  
 
+  public boolean hasGroceryOrders()
+  {
+    boolean has = groceryOrders.size() > 0;
+    return has;
+  }
 
-//  public int numberOfOrders()
+  public int indexOfGroceryOrder(GroceryOrder aGroceryOrder)
+  {
+    int index = groceryOrders.indexOf(aGroceryOrder);
+    return index;
+  }
+  /* Code from template association_MinimumNumberOfMethod */
+  public static int minimumNumberOfGroceryOrders()
+  {
+    return 0;
+  }
+  /* Code from template association_AddManyToOne */
+//  public GroceryOrder addGroceryOrder(GroceryStore aGroceryStore)
 //  {
-//    int number = orders.size();
-//    return number;
-//  }
-//
-//  public boolean hasOrders()
-//  {
-//    boolean has = orders.size() > 0;
-//    return has;
-//  }
-//
-//  public int indexOfOrder(Order aOrder)
-//  {
-//    int index = orders.indexOf(aOrder);
-//    return index;
-//  }
-//  /* Code from template association_MinimumNumberOfMethod */
-//  public static int minimumNumberOfOrders()
-//  {
-//    return 0;
-//  }
-//  /* Code from template association_AddManyToOne */
-//
-//
-//  public boolean addOrder(Order aOrder)
-//  {
-//    boolean wasAdded = false;
-//    if (orders.contains(aOrder)) { return false; }
-//    orders.add(aOrder);
-//    wasAdded = true;
-//    return wasAdded;
-//  }
-//
-//  public boolean removeOrder(Order aOrder)
-//  {
-//    boolean wasRemoved = false;
-//    if(orders.remove(aOrder)){
-//      wasRemoved = true;
-//    }
-//    return wasRemoved;
-//  }
-//  /* Code from template association_AddIndexControlFunctions */
-//  public boolean addOrderAt(Order aOrder, int index)
-//  {  
-//    boolean wasAdded = false;
-//    if(addOrder(aOrder))
-//    {
-//      if(index < 0 ) { index = 0; }
-//      if(index > numberOfOrders()) { index = numberOfOrders() - 1; }
-//      orders.remove(aOrder);
-//      orders.add(index, aOrder);
-//      wasAdded = true;
-//    }
-//    return wasAdded;
-//  }
-//
-//  public boolean addOrMoveOrderAt(Order aOrder, int index)
-//  {
-//    boolean wasAdded = false;
-//    if(orders.contains(aOrder))
-//    {
-//      if(index < 0 ) { index = 0; }
-//      if(index > numberOfOrders()) { index = numberOfOrders() - 1; }
-//      orders.remove(aOrder);
-//      orders.add(index, aOrder);
-//      wasAdded = true;
-//    } 
-//    else 
-//    {
-//      wasAdded = addOrderAt(aOrder, index);
-//    }
-//    return wasAdded;
+//    return new GroceryOrder(aGroceryStore, this);
 //  }
 
+  public boolean addGroceryOrder(GroceryOrder aGroceryOrder)
+  {
+    boolean wasAdded = false;
+    if (groceryOrders.contains(aGroceryOrder)) { return false; }
+    Customer existingCustomer = aGroceryOrder.getCustomer();
+    boolean isNewCustomer = existingCustomer != null && !this.equals(existingCustomer);
+    if (isNewCustomer)
+    {
+      aGroceryOrder.setCustomer(this);
+    }
+    else
+    {
+      groceryOrders.add(aGroceryOrder);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeGroceryOrder(GroceryOrder aGroceryOrder)
+  {
+    boolean wasRemoved = false;
+    //Unable to remove aGroceryOrder, as it must always have a customer
+    if (!this.equals(aGroceryOrder.getCustomer()))
+    {
+      groceryOrders.remove(aGroceryOrder);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+  /* Code from template association_AddIndexControlFunctions */
+  public boolean addGroceryOrderAt(GroceryOrder aGroceryOrder, int index)
+  {  
+    boolean wasAdded = false;
+    if(addGroceryOrder(aGroceryOrder))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfGroceryOrders()) { index = numberOfGroceryOrders() - 1; }
+      groceryOrders.remove(aGroceryOrder);
+      groceryOrders.add(index, aGroceryOrder);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveGroceryOrderAt(GroceryOrder aGroceryOrder, int index)
+  {
+    boolean wasAdded = false;
+    if(groceryOrders.contains(aGroceryOrder))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfGroceryOrders()) { index = numberOfGroceryOrders() - 1; }
+      groceryOrders.remove(aGroceryOrder);
+      groceryOrders.add(index, aGroceryOrder);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addGroceryOrderAt(aGroceryOrder, index);
+    }
+    return wasAdded;
+  }
 
   public void delete()
   {
-    for(int i=orders.size(); i > 0; i--)
+    for(int i=groceryOrders.size(); i > 0; i--)
     {
-      GroceryOrder aOrder = orders.get(i - 1);
-      aOrder.delete();
+      GroceryOrder aGroceryOrder = groceryOrders.get(i - 1);
+      aGroceryOrder.delete();
     }
     super.delete();
   }

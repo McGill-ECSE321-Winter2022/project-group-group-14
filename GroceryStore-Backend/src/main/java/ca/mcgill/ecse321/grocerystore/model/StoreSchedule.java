@@ -2,50 +2,60 @@ package ca.mcgill.ecse321.grocerystore.model;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import java.sql.Time;
 
 
 @Entity
 public class StoreSchedule
 {
-
-	
   // ENUMERATIONS
   
   public enum Day { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
 
-  
-  // MEMBER VARIABLES
-
-  //StoreSchedule Attributes
+  private int storeScheduleId;
   private Time openingTime;
   private Time closingTime;
-  private Day daysOpen;
-  private int id;
+  private Day dayOpen;
+  private GroceryStore groceryStore;
 
   
-  // CONSTRUCTOR
-//  
-//  public StoreSchedule(Time aOpeningTime, Time aClosingTime, Day aDaysOpen)
-//  {
-//    openingTime = aOpeningTime;
-//    closingTime = aClosingTime;
-//    daysOpen = aDaysOpen;
-//    
-//  }
-
-
+  public StoreSchedule(Time aOpeningTime, Time aClosingTime, Day aDayOpen,GroceryStore aGroceryStore)
+  {
+    this.openingTime = aOpeningTime;
+    this.closingTime = aClosingTime;
+    this.dayOpen = aDayOpen;
+    boolean didAddGroceryStore = setGroceryStore(aGroceryStore);
+    if (!didAddGroceryStore)
+    {
+      throw new RuntimeException("Unable to create account due to groceryStore");
+    }
+    
+  }
+  public StoreSchedule()
+  {
+    this.openingTime = null;
+    this.closingTime = null;
+    this.dayOpen = null;
+    this.groceryStore = null;
+  }
+  
   // INTERFACE
   @Id
-  public int getId() {
-	  return this.id;
+  @GeneratedValue(generator = "increment")
+  @GenericGenerator(name = "increment", strategy = "increment")
+  public int getStoreScheduleId() {
+	  return this.storeScheduleId;
   }
   
-  public void setId(int id) {
-	  this.id=id;
+  public void setStoreScheduleId(int id) {
+	  this.storeScheduleId=id;
   }
-
 
   public boolean setOpeningTime(Time aOpeningTime)
   {
@@ -63,10 +73,10 @@ public class StoreSchedule
     return wasSet;
   }
 
-  public boolean setDaysOpen(Day aDaysOpen)
+  public boolean setDayOpen(Day aDayOpen)
   {
     boolean wasSet = false;
-    daysOpen = aDaysOpen;
+    dayOpen = aDayOpen;
     wasSet = true;
     return wasSet;
   }
@@ -81,24 +91,50 @@ public class StoreSchedule
     return closingTime;
   }
 
-  public Day getDaysOpen()
+  public Day getDayOpen()
   {
-    return daysOpen;
+    return dayOpen;
+  }
+  public boolean setGroceryStore(GroceryStore aGroceryStore)
+  {
+    boolean wasSet = false;
+    if (aGroceryStore == null)
+    {
+      return wasSet;
+    }
+
+    GroceryStore existingGroceryStore = groceryStore;
+    groceryStore = aGroceryStore;
+    if (existingGroceryStore != null && !existingGroceryStore.equals(aGroceryStore))
+    {
+      existingGroceryStore.removeStoreSchedule(this);
+    }
+    groceryStore.addStoreSchedule(this);
+    wasSet = true;
+    return wasSet;
+  }
+  @ManyToOne
+  public GroceryStore getGroceryStore() {
+	  return this.getGroceryStore();
   }
   
   
   public void delete()
   {
-    
+    GroceryStore placeholderGroceryStore = groceryStore;
+    this.groceryStore = null;
+    if(placeholderGroceryStore != null)
+    {
+      placeholderGroceryStore.removeStoreSchedule(this);
+    }
   }
-
 
   public String toString()
   {
     return super.toString() + "["+
             "openingTime" + ":" + getOpeningTime()+ "," +
             "closingTime" + ":" + getClosingTime()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "daysOpen" + "=" + (getDaysOpen() != null ? !getDaysOpen().equals(this)  ? getDaysOpen().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator");
+            "  " + "daysOpen" + "=" + (getDayOpen() != null ? !getDayOpen().equals(this)  ? getDayOpen().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator");
   } 
   
 }

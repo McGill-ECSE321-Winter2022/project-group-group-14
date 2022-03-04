@@ -2,74 +2,58 @@ package ca.mcgill.ecse321.grocerystore.model;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
 public class EmployeeSchedule
 {
-  
+  //enum
   public enum Shift { Morning, Afternoon, Night }
+  public enum Day { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
-
-  //EmployeeSchedule Attributes
+  //Attributes
   private Shift shift;
+  private Day day;
 
-  //EmployeeSchedule Associations
+  //Associations
   private Employee employee;
   private int id;
 
-
-  //Helper Variables
-//  private int cachedHashCode;
-  
-
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
-
-
-  public EmployeeSchedule(Shift aShift, Employee aEmployee)
+  //constructors
+  public EmployeeSchedule(Shift aShift,Day aDay, Employee aEmployee)
   {
-//    cachedHashCode = -1;
    
-    
+	this.day = aDay;
     shift = aShift;
-
-//    if (aEmployee == null)
-//    {
-//      throw new RuntimeException("Unable to create EmployeeSchedule due to aEmployee. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-//    }
-
+    if (aEmployee == null)
+    {
+      throw new RuntimeException("Unable to create EmployeeSchedule due to aEmployee.");
+    }
     employee = aEmployee;
-    
   }
+  
   public EmployeeSchedule()
   {
-    shift=null;
-    employee=null;
+    this.shift = null;
+    this.employee = null;
+    this.day = null;
     
   }
-
 
   //------------------------
   // INTERFACE
   //------------------------
 
   
-  public boolean setShift(Shift aShift)
-  {
-    boolean wasSet = false;
-    shift = aShift;
-    wasSet = true;
-    return wasSet;
-  }
-
   @Id
+  @GeneratedValue(generator = "increment")
+  @GenericGenerator(name = "increment", strategy = "increment")
   public int getId() {
 	  return this.id;
   }
@@ -77,13 +61,26 @@ public class EmployeeSchedule
 	  this.id = id;
   }
   
-  
   public Shift getShift()
   {
     return shift;
   }
-  /* Code from template association_GetOne */
-  @OneToOne
+  public void setShift(Shift aShift)
+  {
+    this.shift = aShift;
+  }
+  
+  public Day getDay()
+  {
+    return this.day;
+  }
+  public void setDay(Day aDay)
+  {
+    this.day = aDay;
+  }
+  
+  
+  @ManyToOne//@JoinColumn(name = "employee_id")
   public Employee getEmployee()     
   {
     return employee;
@@ -95,51 +92,6 @@ public class EmployeeSchedule
     this.employee = employee;
   }
   
-
-  /* Code from template association_GetOne */
-
-//  public boolean equals(Object obj)
-//  {
-//    if (obj == null) { return false; }
-//    if (!getClass().equals(obj.getClass())) { return false; }
-//
-//    EmployeeSchedule compareTo = (EmployeeSchedule)obj;
-//  
-//    if (getEmployee() == null && compareTo.getEmployee() != null)
-//    {
-//      return false;
-//    }
-//    else if (getEmployee() != null && !getEmployee().equals(compareTo.getEmployee()))
-//    {
-//      return false;
-//    }
-//
-//
-//    return true;
-//  }
-
-//  public int hashCode()
-//  {
-//    if (cachedHashCode != -1)
-//    {
-//      return cachedHashCode;
-//    }
-//    cachedHashCode = 17;
-//    if (getEmployee() != null)
-//    {
-//      cachedHashCode = cachedHashCode * 23 + getEmployee().hashCode();
-//    }
-//    else
-//    {
-//      cachedHashCode = cachedHashCode * 23;
-//    }
-//
-//
-//
-//    return cachedHashCode;
-//  }
-
-
   public void delete()
   {
     Employee existingEmployee = employee;
@@ -152,11 +104,11 @@ public class EmployeeSchedule
   }
 
 
-
   public String toString()
   {
-    return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "shift" + "=" + (getShift() != null ? !getShift().equals(this)  ? getShift().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "employee = "+(getEmployee()!=null?Integer.toHexString(System.identityHashCode(getEmployee())):"null") + System.getProperties().getProperty("line.separator");
+    return super.toString() + "["+
+            "shift" + ":" + getShift()+ "," +
+            "day" + ":" + getDay()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "employee = "+(getEmployee()!=null?Integer.toHexString(System.identityHashCode(getEmployee())):"null");
   }
 }

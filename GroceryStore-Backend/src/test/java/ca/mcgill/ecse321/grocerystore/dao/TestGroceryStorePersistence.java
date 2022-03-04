@@ -78,13 +78,15 @@ public class TestGroceryStorePersistence {
 		customer.setPhoneNumber("testPhoneNumber");
 		customer.setAddress("street 1");
 		
+		GroceryOrder order = new GroceryOrder();
+		customer.addGroceryOrder(order);
+		
 		customerRepository.save(customer);
 		customer=null;
-
 		customer = customerRepository.findByEmail(email);
 		assertNotNull(customer);
 		assertEquals(email, customer.getEmail());
-
+		
 	}
 
 

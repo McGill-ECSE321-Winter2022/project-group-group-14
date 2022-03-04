@@ -1,47 +1,66 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
-// line 60 "model.ump"
-// line 179 "model.ump"
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class InventoryItem
 {
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
-
-  //Inventory Attributes
-  private String name;
-  private int price;
+  private String name; //type of item
+  private int price;	
   private int currentStock;
+  private int itemId;
+  
+  
+  //association classes 
+  private GroceryStore groceryStore;
 
 
+ 
+  public InventoryItem(String aName, int aPrice, int aCurrentStock, GroceryStore aGroceryStore)
+  {
+    name = aName;
+    price = aPrice;
+    currentStock = aCurrentStock;
+    boolean didAddGroceryStore = setGroceryStore(aGroceryStore);
+    if (!didAddGroceryStore)
+    {
+      throw new RuntimeException("Unable to create account due to groceryStore");
+    }
+  }
+  
+  public InventoryItem()
+  {
+    name = null;
+    price = 0;
+    currentStock = 0;
+    groceryStore = null;
+    
+  }
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
-
-//  public InventoryItem(String aName, int aPrice, int aCurrentStock)
-//  {
-//    name = aName;
-//    price = aPrice;
-//    currentStock = aCurrentStock;
-//    
-//  }
-//  public InventoryItem(String aName, int aPrice)
-//  {
-//    name = aName;
-//    price = aPrice;
-//    
-//  }
-
-  //------------------------
-  // INTERFACE
-  //------------------------
-
+  //SETTERS AND GETTERS FOR ATTRIBUTES
+  
+  @Id
+  @GeneratedValue(generator = "increment")
+  @GenericGenerator(name = "increment", strategy = "increment")
+  public int getItemId() {
+	  return this.itemId;
+  }
+  public void setItemId(int id) {
+	  this.itemId = id ;
+  }
+  
+  public void setAccountId(int aitemId) {
+	  this.itemId = aitemId;
+  }
   public boolean setName(String aName)
   {
     boolean wasSet = false;
@@ -65,8 +84,6 @@ public class InventoryItem
     wasSet = true;
     return wasSet;
   }
-
-  @Id
   public String getName()
   {
     return name;
@@ -81,22 +98,42 @@ public class InventoryItem
   {
     return currentStock;
   }
+  
+  //SETTERS AND GETTERS FOR ASSOCIATIONS
+  @ManyToOne   
+  public GroceryStore getGroceryStore() {
+	  return groceryStore;
+  }
+  
+  public boolean setGroceryStore(GroceryStore aGroceryStore)
+  {
+    boolean wasSet = false;
+    if (aGroceryStore == null)
+    {
+      return wasSet;
+    }
 
+    GroceryStore existingGroceryStore = groceryStore;
+    groceryStore = aGroceryStore;
+    if (existingGroceryStore != null && !existingGroceryStore.equals(aGroceryStore))
+    {
+      existingGroceryStore.removeInventoryItem(this);
+    }
+    groceryStore.addInventoryItem(this);
+    wasSet = true;
+    return wasSet;
+  }
 
-
-
-//  /* Code from template association_MinimumNumberOfMethod */
-//  public static int minimumNumberOfItems()
-//  {
-//    return 0;
-//  }
-//  
 
 
   public void delete()
   {
-
-   
+    GroceryStore placeholderGroceryStore = groceryStore;
+    this.groceryStore = null;
+    if(placeholderGroceryStore != null)
+    {
+      placeholderGroceryStore.removeInventoryItem(this);
+    }
   }
 
 
@@ -104,6 +141,7 @@ public class InventoryItem
   public String toString()
   {
     return super.toString() + "["+
+    		"itemId" + ":" + getItemId()+ "," +
             "name" + ":" + getName()+ "," +
             "price" + ":" + getPrice()+ "," +
             "currentStock" + ":" + getCurrentStock()+ "]" + System.getProperties().getProperty("line.separator");
