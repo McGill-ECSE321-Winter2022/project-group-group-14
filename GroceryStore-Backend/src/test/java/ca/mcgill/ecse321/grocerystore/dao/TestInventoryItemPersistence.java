@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import ca.mcgill.ecse321.grocerystore.model.Customer;
-import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
+import ca.mcgill.ecse321.grocerystore.model.GroceryStore;
+import ca.mcgill.ecse321.grocerystore.model.InventoryItem;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class TestGroceryStorePersistence {
+public class TestInventoryItemPersistence {
     @Autowired
 	private AccountRepository accountRepository;
 	@Autowired
@@ -53,25 +53,32 @@ public class TestGroceryStorePersistence {
 	}
     
 
-	//test Customer persistence
+	//test Inventory Item persistence
 	@Test
-	public void testPersistAndLoadCustomer(){
-		Customer customer = new Customer();
-		String email = "testEmail";
-		customer.setEmail(email);
-		customer.setPassword("testPassword");
-		customer.setUsername("testUsername");
-		customer.setPhoneNumber("testPhoneNumber");
-		customer.setAddress("street 1");
+	public void testPersistAndLoadInvetoryItem(){
+		//create Grocery Store object
+		GroceryStore groceryStore = new GroceryStore();
 		
-		GroceryOrder order = new GroceryOrder();
-		customer.addGroceryOrder(order);
+		//set values to Inventory Item attributes
+		InventoryItem inventoryItem = new InventoryItem();
+		String name = "btates";
+		inventoryItem.setName(name);
+		inventoryItem.setPrice(32);
+		inventoryItem.setCurrentStock(15);
+		inventoryItem.setGroceryStore(groceryStore);
 		
-		customerRepository.save(customer);
-		customer=null;
-		customer = customerRepository.findByEmail(email);
-		assertNotNull(customer);
-		assertEquals(email, customer.getEmail());
+		//save Grocery Store object
+		groceryStoreRepository.save(groceryStore);
+		
+		//save Inventory Item object
+		inventoryItemRepository.save(inventoryItem);
+		
+		//test saved Inventory Item object
+		InventoryItem savedInventoryItem = inventoryItemRepository.findByItemId(inventoryItem.getItemId());
+		assertNotNull(savedInventoryItem);
+		assertEquals(inventoryItem.getName(), savedInventoryItem.getName());
+		assertEquals(inventoryItem.getPrice(), savedInventoryItem.getPrice());
+		assertEquals(inventoryItem.getCurrentStock(), savedInventoryItem.getCurrentStock());
 		
 	}
 

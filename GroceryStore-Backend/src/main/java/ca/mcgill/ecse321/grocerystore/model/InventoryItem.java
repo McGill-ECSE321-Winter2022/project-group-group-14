@@ -58,9 +58,9 @@ public class InventoryItem
 	  this.itemId = id ;
   }
   
-  public void setAccountId(int aitemId) {
-	  this.itemId = aitemId;
-  }
+//  public void setAccountId(int aitemId) {
+//	  this.itemId = aitemId;
+//  }
   public boolean setName(String aName)
   {
     boolean wasSet = false;
