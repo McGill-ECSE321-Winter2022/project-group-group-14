@@ -67,31 +67,31 @@ public class TestGroceryStorePersistence {
 	}
     
 
-	//test Customer persistence
-	@Test
-	public void testPersistAndLoadCustomer(){
-		Customer customer = new Customer();
-		String email = "testEmail";
-		customer.setEmail(email);
-		customer.setPassword("testPassword");
-		customer.setUsername("testUsername");
-		customer.setPhoneNumber("testPhoneNumber");
-		customer.setAddress("street 1");
-		GroceryOrder groceryOrder = new GroceryOrder();
-		customer.addOrder(groceryOrder);
-		
-		
-	
-		
-		customerRepository.save(customer);
-		customer=null;
+//	//test Customer persistence
+//	@Test
+//	public void testPersistAndLoadCustomer(){
+//		Customer customer = new Customer();
+//		String email = "testEmail";
+//		customer.setEmail(email);
+//		customer.setPassword("testPassword");
+//		customer.setUsername("testUsername");
+//		customer.setPhoneNumber("testPhoneNumber");
+//		customer.setAddress("street 1");
+//		GroceryOrder groceryOrder = new GroceryOrder();
+//		customer.addOrder(groceryOrder);
+//		
+//		
+//	
+//		
+//		customerRepository.save(customer);
+//		customer=null;
+//
+//		customer = customerRepository.findByEmail(email);
+//		assertNotNull(customer);
+//		assertEquals(email, customer.getEmail());
+////		assertEquals(2,2);
 
-		customer = customerRepository.findByEmail(email);
-		assertNotNull(customer);
-		assertEquals(email, customer.getEmail());
-//		assertEquals(2,2);
-
-	}
+//	}
 
 
 }

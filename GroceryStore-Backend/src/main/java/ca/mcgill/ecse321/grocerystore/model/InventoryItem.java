@@ -54,6 +54,10 @@ public class InventoryItem
   public int getItemId() {
 	  return this.itemId;
   }
+  public void setItemId(int id) {
+	  this.itemId = id ;
+  }
+  
   public void setAccountId(int aitemId) {
 	  this.itemId = aitemId;
   }

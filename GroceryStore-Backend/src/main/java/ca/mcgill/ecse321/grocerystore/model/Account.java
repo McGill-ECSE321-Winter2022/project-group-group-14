@@ -9,12 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.GenericGenerator;
 
 
-@Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Entity//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="AccountType")
 public abstract class Account
 {
