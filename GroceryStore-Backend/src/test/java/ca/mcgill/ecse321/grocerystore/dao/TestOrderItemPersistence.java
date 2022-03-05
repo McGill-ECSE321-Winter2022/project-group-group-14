@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import ca.mcgill.ecse321.grocerystore.model.Customer;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
 import ca.mcgill.ecse321.grocerystore.model.GroceryStore;
 import ca.mcgill.ecse321.grocerystore.model.OrderItem;
@@ -63,19 +64,37 @@ public class TestOrderItemPersistence {
 		//create Grocery Order object
 		GroceryOrder groceryOrder = new GroceryOrder();
 		
+//		groceryOrder.setCustomer(new Customer());		
 		//set values to Order Item attributes
 		OrderItem orderItem = new OrderItem();
 		String name = "btates";
 		orderItem.setName(name);
 		orderItem.setPrice(32);
 		orderItem.setCurrentStock(15);
-		orderItem.setGroceryStore(groceryStore);
-		orderItem.setGroceryOrder(groceryOrder);
+		
+//		orderItem.setGroceryStore(groceryStore);
+//		orderItem.setGroceryOrder(groceryOrder);
 
 		
 		
+		//save Order Item object
+//		orderItemRepository.save(orderItem);
+		
+		orderItem = orderItemRepository.save(orderItem);
+		
+		//save Grocery Order object
+		groceryOrder=groceryOrderRepository.save(groceryOrder);
+		
 		//save Grocery Store object
-		groceryStoreRepository.save(groceryStore);
+		groceryStore=groceryStoreRepository.save(groceryStore);
+		
+		
+		System.out.println(orderItem.getItemId());
+		
+		groceryOrder.setGroceryStore(groceryStore);
+		orderItem.setGroceryStore(groceryStore);
+		orderItem.setGroceryOrder(groceryOrder);
+		
 		
 		//save Order Item object
 		orderItemRepository.save(orderItem);
@@ -83,13 +102,20 @@ public class TestOrderItemPersistence {
 		//save Grocery Order object
 		groceryOrderRepository.save(groceryOrder);
 		
+				
+		//save Grocery Store object
+		groceryStoreRepository.save(groceryStore);
+		
+		
+		
+		
 		//test saved Order Item object
 		OrderItem savedOrderItem = orderItemRepository.findByItemId(orderItem.getItemId());
 		assertNotNull(savedOrderItem);
 		assertEquals(orderItem.getName(), savedOrderItem.getName());
 		assertEquals(orderItem.getPrice(), savedOrderItem.getPrice());
 		assertEquals(orderItem.getCurrentStock(), savedOrderItem.getCurrentStock());
-		assertEquals(orderItem.getGroceryOrder(), savedOrderItem.getGroceryOrder());
+		assertEquals(orderItem.getGroceryOrder().getOrderId(), savedOrderItem.getGroceryOrder().getOrderId());
 		
 	}
 
