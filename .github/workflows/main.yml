@@ -28,6 +28,4 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       working-directory: GroceryStore-Backend
-    - name: Run tests
-      run: ./gradlew test
-      working-directory: GroceryStore-Backend
+
