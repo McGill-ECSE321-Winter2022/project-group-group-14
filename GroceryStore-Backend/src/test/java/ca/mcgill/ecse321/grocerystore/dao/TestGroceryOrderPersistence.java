@@ -149,71 +149,41 @@ public class TestGroceryOrderPersistence {
 	        assertEquals(pickupList.get(0).getOrderId(),order3.getOrderId());
 		}
 		
-		   /** @author: Clarissa Baciu */
-			@Test
-			public void testPersistAndLoadGroceryOrderByCustomer() {
-//				GroceryOrder order1 = new GroceryOrder();
-//				GroceryOrder order2 = new GroceryOrder();
-//				Customer customer = new Customer();
-//				GroceryStore store = new GroceryStore(); 
-//				
-//
-//				customer = customerRepository.save(customer);
-//		        order1 = groceryOrderRepository.save(order1);	//saving before associations	
-//		        order2 = groceryOrderRepository.save(order2);
-//		        customer = customerRepository.save(customer);
-//		        store = groceryStoreRepository.save(store);
-//		        
-//		        
-//		        order1.setCustomer(customer);	//creating associations
-//		        order2.setCustomer(customer);
-//		        order1.setGroceryStore(store);
-//		        order2.setGroceryStore(store);
-//		        
-//		        //or 
-//		        //customer.set(orders)
-//		        
-//		        
-//		        order1 = groceryOrderRepository.save(order1);	//saving after associations
-//		        order2 = groceryOrderRepository.save(order2);
-//		        customer = customerRepository.save(customer);
-//		        store = groceryStoreRepository.save(store);
-//		        
-//		        List<GroceryOrder> orderList = groceryOrderRepository.findGroceryOrdersByCustomer(customer);	//loading from database
-//		        assertFalse(orderList.isEmpty());
-//		        System.out.println(orderList);
-////		        assertEquals(orderList.get(0).getOrderId(),order1.getOrderId());
-////		        assertEquals(orderList.get(1).getOrderId(),order2.getOrderId());
-		        
-		        GroceryStore store = new GroceryStore(); //creating association classes
-		        Customer customer = new Customer();
-				GroceryOrder order = new GroceryOrder();
+// 		   /** @author: Clarissa Baciu */
+// 			@Test
+// 			public void testPersistAndLoadGroceryOrderByCustomer() {
+// 				GroceryOrder order1 = new GroceryOrder();
+// 				GroceryOrder order2 = new GroceryOrder();
+// 				Customer customer = new Customer();
+// 				GroceryStore store = new GroceryStore(); 
 				
-		        OrderType type = OrderType.Delivery;
-		        int cost = 15;
-		        order.setOrderType(type);	//adding attributes to groceryOrder
-		        order.setTotalCost(cost);
+
+// 				customer = customerRepository.save(customer);
+// 		        order1 = groceryOrderRepository.save(order1);	//saving before associations	
+// 		        order2 = groceryOrderRepository.save(order2);
+// 		        customer = customerRepository.save(customer);
+// 		        store = groceryStoreRepository.save(store);
 		        
-		        order = groceryOrderRepository.save(order);		//saving before associating
-		        customer = customerRepository.save(customer);
-		        store = groceryStoreRepository.save(store);
 		        
-		        order.setCustomer(customer);					//creating associations
-		        order.setGroceryStore(store);
+// 		        order1.setCustomer(customer);	//creating associations
+// 		        order2.setCustomer(customer);
+// 		        order1.setGroceryStore(store);
+// 		        order2.setGroceryStore(store);
 		        
-		        order = groceryOrderRepository.save(order);		//saving after associations
-		        customer = customerRepository.save(customer);
-		        store = groceryStoreRepository.save(store);
+// 		        //or 
+// 		        //customer.set(orders)
 		        
-		        GroceryOrder orderdb = groceryOrderRepository.findByOrderId(order.getOrderId());	//loading from database
-		        assertNotNull(orderdb);	
-		        assertEquals(orderdb.getOrderId(),order.getOrderId());			//verifying attributes
-		        assertEquals(orderdb.getOrderType(),order.getOrderType());
-		        assertEquals(orderdb.getTotalCost(),order.getTotalCost());
 		        
-		        assertEquals(orderdb.getCustomer().getAccountId(),customer.getAccountId());		//verifying associations
-		        assertEquals(orderdb.getGroceryStore().getStoreId(),store.getStoreId());  
+// 		        order1 = groceryOrderRepository.save(order1);	//saving after associations
+// 		        order2 = groceryOrderRepository.save(order2);
+// 		        customer = customerRepository.save(customer);
+// 		        store = groceryStoreRepository.save(store);
 		        
+// 		        List<GroceryOrder> orderList = groceryOrderRepository.findGroceryOrdersByCustomer(customer);	//loading from database
+// 		        assertFalse(orderList.isEmpty());
+// 		        System.out.println(orderList);
+// //		        assertEquals(orderList.get(0).getOrderId(),order1.getOrderId());
+// //		        assertEquals(orderList.get(1).getOrderId(),order2.getOrderId());
 			}
 	
 		
