@@ -49,9 +49,9 @@ public class GroceryStore {
     }
     public void setStoreSchedules(List<StoreSchedule> storeSchedules) {
         this.storeSchedules = storeSchedules;
-        for (StoreSchedule ss: storeSchedules) {
-        	ss.setGroceryStore(this);
-        }
+//        for (StoreSchedule ss: storeSchedules) {
+//        	ss.setGroceryStore(this);
+//        }
     }
     @OneToMany(cascade={CascadeType.ALL},mappedBy = "groceryStore")
     public List<InventoryItem> getInventoryItems() {
@@ -59,9 +59,9 @@ public class GroceryStore {
     }
     public void setInventoryItems(List<InventoryItem> inventoryItems) {
         this.inventoryItems = inventoryItems;
-        for (InventoryItem ii: inventoryItems) {
-        	ii.setGroceryStore(this);
-        }  
+//        for (InventoryItem ii: inventoryItems) {
+//        	ii.setGroceryStore(this);
+//        }  
     }
     @OneToMany(cascade={CascadeType.ALL}, mappedBy = "groceryStore")
     public List<Account> getAccounts() {
@@ -69,9 +69,10 @@ public class GroceryStore {
     }
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
-        for (Account a: accounts) {
-        	a.setGroceryStore(this);
-        }
+        
+//        for (Account a: accounts) {
+//        	a.setGroceryStore(this);
+//        }
     }
     @OneToMany(cascade={CascadeType.ALL}, mappedBy = "groceryStore")
     public List<GroceryOrder> getGroceryOrders()
@@ -80,9 +81,9 @@ public class GroceryStore {
     }
     public void setGroceryOrders(List<GroceryOrder> groceryOrders) {
         this.groceryOrders = groceryOrders;
-        for (GroceryOrder go: groceryOrders) {
-        	go.setGroceryStore(this);
-        }
+//        for (GroceryOrder go: groceryOrders) {
+//        	go.setGroceryStore(this);
+//        }
     }
     
 
