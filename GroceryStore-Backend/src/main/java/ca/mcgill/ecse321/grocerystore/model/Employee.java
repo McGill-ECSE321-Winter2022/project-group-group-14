@@ -52,6 +52,9 @@ public class Employee extends Account
   
   public void setEmployeeSchedules(List<EmployeeSchedule> employeeSchedules) {
       this.employeeSchedules = employeeSchedules;
+      for (EmployeeSchedule es : employeeSchedules) {
+    	  es.setEmployee(this);
+      }
   }
 
   public int numberOfEmployeeSchedules()

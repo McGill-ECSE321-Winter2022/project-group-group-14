@@ -115,7 +115,7 @@ public class StoreSchedule
   }
   @ManyToOne
   public GroceryStore getGroceryStore() {
-	  return this.getGroceryStore();
+	  return this.groceryStore;
   }
   
   

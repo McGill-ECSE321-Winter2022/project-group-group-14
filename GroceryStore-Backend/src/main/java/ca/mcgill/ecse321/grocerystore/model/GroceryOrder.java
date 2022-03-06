@@ -85,9 +85,8 @@ public class GroceryOrder
 
   public GroceryOrder()
   {
-    totalCost = 0;
-    orderItems = new ArrayList<OrderItem>();
-    orderType = null;
+    this.totalCost = 0;
+    this.orderType = null;
     this.orderItems = new ArrayList<OrderItem>();
     this.customer = null;
     this.groceryStore = null;
@@ -186,6 +185,9 @@ public class GroceryOrder
 	 
 	 public void setOrderItems(List<OrderItem> aOrderItems) {
 		 this.orderItems = aOrderItems;
+		 for (OrderItem oi: aOrderItems) {
+			 oi.setGroceryOrder(this);
+		 }
 	 }
 
 	 

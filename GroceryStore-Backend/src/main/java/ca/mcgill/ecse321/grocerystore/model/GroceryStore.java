@@ -49,6 +49,9 @@ public class GroceryStore {
     }
     public void setStoreSchedules(List<StoreSchedule> storeSchedules) {
         this.storeSchedules = storeSchedules;
+        for (StoreSchedule ss: storeSchedules) {
+        	ss.setGroceryStore(this);
+        }
     }
     @OneToMany(cascade={CascadeType.ALL},mappedBy = "groceryStore")
     public List<InventoryItem> getInventoryItems() {
@@ -56,6 +59,9 @@ public class GroceryStore {
     }
     public void setInventoryItems(List<InventoryItem> inventoryItems) {
         this.inventoryItems = inventoryItems;
+        for (InventoryItem ii: inventoryItems) {
+        	ii.setGroceryStore(this);
+        }  
     }
     @OneToMany(cascade={CascadeType.ALL}, mappedBy = "groceryStore")
     public List<Account> getAccounts() {
@@ -63,6 +69,9 @@ public class GroceryStore {
     }
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+        for (Account a: accounts) {
+        	a.setGroceryStore(this);
+        }
     }
     @OneToMany(cascade={CascadeType.ALL}, mappedBy = "groceryStore")
     public List<GroceryOrder> getGroceryOrders()
@@ -71,6 +80,9 @@ public class GroceryStore {
     }
     public void setGroceryOrders(List<GroceryOrder> groceryOrders) {
         this.groceryOrders = groceryOrders;
+        for (GroceryOrder go: groceryOrders) {
+        	go.setGroceryStore(this);
+        }
     }
     
 
@@ -203,11 +215,17 @@ public class GroceryStore {
     public Account addAccount(String aEmail, String aUsername, String aPassword, String accountType)
     {
     	if (accountType == "customer") {
-    		return new Customer(aEmail, aUsername, aPassword, this , null, null); // will have to set the phone number and address later --> not the best method
+    		Customer customer = new Customer(aEmail, aUsername, aPassword, this , null, null);
+    		this.accounts.add(customer);
+    		return customer; // will have to set the phone number and address later --> not the best method
     	}else if (accountType == "employee") {
-    		return new Employee(aEmail, aUsername, aPassword, this);
+    		Employee employee = new Employee(aEmail, aUsername, aPassword, this);
+    		this.accounts.add(employee);
+    		return employee;
     	}else if (accountType == "owner") {
-    		return new Owner(aEmail, aUsername, aPassword, this);
+    		Owner owner = new Owner(aEmail, aUsername, aPassword, this);
+    		this.accounts.add(owner);
+    		return owner;
     	}
     	return null;
     }
