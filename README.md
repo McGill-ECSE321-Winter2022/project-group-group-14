@@ -6,7 +6,7 @@ This software will be made available via website, desktop application, and andro
 # Our Team
 
 ### Clarissa Baciu
-Clarissa is a second year computer engineering student. She has had industry experience working with python and has worked with java throughout her courses. She is a fast learner and can effectively work as part of a team. When she's not coding, she enjoys playing a variety of sports and making terrible jokes.
+Hi, I am a second year computer engineering student. I've had industry experience working with python and have also worked with java throughout my courses. I am a fast learner and can effectively work as part of a team. When I'm not coding, I enjoy playing a variety of sports and making terrible jokes.
 
 An SQL statement walks into a bar and sees two tables. It approaches, and asks “may I join you?”. 
 
