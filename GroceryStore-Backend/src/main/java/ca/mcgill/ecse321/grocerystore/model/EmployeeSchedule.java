@@ -21,27 +21,21 @@ public class EmployeeSchedule
   private Shift shift;
   private Day day;
 
-  //Associations
-  private Employee employee;
+
   private int id;
 
   //constructors
-  public EmployeeSchedule(Shift aShift,Day aDay, Employee aEmployee)
+  public EmployeeSchedule(Shift aShift,Day aDay)
   {
    
 	this.day = aDay;
     shift = aShift;
-    if (aEmployee == null)
-    {
-      throw new RuntimeException("Unable to create EmployeeSchedule due to aEmployee.");
-    }
-    employee = aEmployee;
   }
+
   
   public EmployeeSchedule()
   {
     this.shift = null;
-    this.employee = null;
     this.day = null;
     
   }
@@ -79,36 +73,13 @@ public class EmployeeSchedule
     this.day = aDay;
   }
   
-  
-  @ManyToOne//@JoinColumn(name = "employee_id")
-  public Employee getEmployee()     
-  {
-    return employee;
-  }
 
-  
-  public void setEmployee(Employee employee)     
-  {
-    this.employee = employee;
-  }
-  
-  public void delete()
-  {
-    Employee existingEmployee = employee;
-    employee = null;
-    if (existingEmployee != null)
-    {
-      existingEmployee.delete();
-    }
-    
-  }
-
+ 
 
   public String toString()
   {
     return super.toString() + "["+
             "shift" + ":" + getShift()+ "," +
-            "day" + ":" + getDay()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "employee = "+(getEmployee()!=null?Integer.toHexString(System.identityHashCode(getEmployee())):"null");
+            "day" + ":" + getDay()+ "]" + System.getProperties().getProperty("line.separator");
   }
 }

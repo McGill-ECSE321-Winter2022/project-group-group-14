@@ -22,19 +22,13 @@ public class StoreSchedule
   private Time openingTime;
   private Time closingTime;
   private Day dayOpen;
-  private GroceryStore groceryStore;
 
   
-  public StoreSchedule(Time aOpeningTime, Time aClosingTime, Day aDayOpen,GroceryStore aGroceryStore)
+  public StoreSchedule(Time aOpeningTime, Time aClosingTime, Day aDayOpen)
   {
     this.openingTime = aOpeningTime;
     this.closingTime = aClosingTime;
     this.dayOpen = aDayOpen;
-    boolean didAddGroceryStore = setGroceryStore(aGroceryStore);
-    if (!didAddGroceryStore)
-    {
-      throw new RuntimeException("Unable to create account due to groceryStore");
-    }
     
   }
   public StoreSchedule()
@@ -42,7 +36,6 @@ public class StoreSchedule
     this.openingTime = null;
     this.closingTime = null;
     this.dayOpen = null;
-    this.groceryStore = null;
   }
   
   // INTERFACE
@@ -95,40 +88,8 @@ public class StoreSchedule
   {
     return dayOpen;
   }
-  public boolean setGroceryStore(GroceryStore aGroceryStore)
-  {
-    boolean wasSet = false;
-    if (aGroceryStore == null)
-    {
-      return wasSet;
-    }
 
-    GroceryStore existingGroceryStore = groceryStore;
-    groceryStore = aGroceryStore;
-    if (existingGroceryStore != null && !existingGroceryStore.equals(aGroceryStore))
-    {
-      existingGroceryStore.removeStoreSchedule(this);
-    }
-    groceryStore.addStoreSchedule(this);
-    wasSet = true;
-    return wasSet;
-  }
-  @ManyToOne
-  public GroceryStore getGroceryStore() {
-	  return this.groceryStore;
-  }
   
-  
-  public void delete()
-  {
-    GroceryStore placeholderGroceryStore = groceryStore;
-    this.groceryStore = null;
-    if(placeholderGroceryStore != null)
-    {
-      placeholderGroceryStore.removeStoreSchedule(this);
-    }
-  }
-
   public String toString()
   {
     return super.toString() + "["+

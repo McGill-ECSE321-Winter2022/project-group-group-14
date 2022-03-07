@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface GroceryOrderRepository extends CrudRepository <GroceryOrder, Integer>{
     GroceryOrder findByOrderId(int orderId);
-    List<GroceryOrder> findGroceryOrdersByCustomer(Customer customer);
-    GroceryOrder findGroceryOrderByOrderItems(OrderItem orderItems);
+   // List<GroceryOrder> findGroceryOrdersByCustomer(Customer customer);
+    //GroceryOrder findGroceryOrderByOrderItems(OrderItem orderItems);
 }
 
