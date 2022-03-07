@@ -60,8 +60,7 @@ public class TestStoreSchedulePersistence {
 	//test Customer persistence
 	@Test
 	public void testPersistAndLoadStoreSchedule(){
-		
-
+	
 		//create test Store Schedule
 		StoreSchedule storeSchedule = new StoreSchedule();
 		
