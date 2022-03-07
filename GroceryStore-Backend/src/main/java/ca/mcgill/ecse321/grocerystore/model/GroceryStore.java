@@ -203,11 +203,18 @@ public class GroceryStore {
     public Account addAccount(String aEmail, String aUsername, String aPassword, String accountType)
     {
     	if (accountType == "customer") {
-    		return new Customer(aEmail, aUsername, aPassword, this , null, null); // will have to set the phone number and address later --> not the best method
+    		//number and address later --> not the best method
+    		Customer customer = new Customer(aEmail, aUsername, aPassword, this , null, null);
+    		this.accounts.add(customer);
+    		return customer; // will have to set the phone number and address later --> not the best method
     	}else if (accountType == "employee") {
-    		return new Employee(aEmail, aUsername, aPassword, this);
+    		Employee employee = new Employee(aEmail, aUsername, aPassword, this);
+    		this.accounts.add(employee);
+    		return employee;
     	}else if (accountType == "owner") {
-    		return new Owner(aEmail, aUsername, aPassword, this);
+    		Owner owner = new Owner(aEmail, aUsername, aPassword, this);
+    		this.accounts.add(owner);
+    		return owner;
     	}
     	return null;
     }
