@@ -64,7 +64,6 @@ public class TestGroceryOrderPersistence {
     /** @author: Clarissa Baciu */
 	@Test
 	public void testPersistAndLoadGroceryOrderById() {
-        GroceryStore store = new GroceryStore(); //creating association classes
         Customer customer = new Customer();
 		GroceryOrder order = new GroceryOrder();
 
@@ -75,14 +74,11 @@ public class TestGroceryOrderPersistence {
 
         order = groceryOrderRepository.save(order);		//saving before associating
         customer = customerRepository.save(customer);
-        store = groceryStoreRepository.save(store);
 
         order.setCustomer(customer);					//creating associations
-        order.setGroceryStore(store);
 
         order = groceryOrderRepository.save(order);		//saving after associations
         customer = customerRepository.save(customer);
-        store = groceryStoreRepository.save(store);
 
         GroceryOrder orderdb = groceryOrderRepository.findByOrderId(order.getOrderId());	//loading from database
         assertNotNull(orderdb);	
@@ -90,8 +86,7 @@ public class TestGroceryOrderPersistence {
         assertEquals(orderdb.getOrderType(),order.getOrderType());
         assertEquals(orderdb.getTotalCost(),order.getTotalCost());
 
-        assertEquals(orderdb.getCustomer().getAccountId(),customer.getAccountId());		//verifying associations
-        assertEquals(orderdb.getGroceryStore().getStoreId(),store.getStoreId());  
+        assertEquals(orderdb.getCustomer().getAccountId(),customer.getAccountId());		//verifying associations 
 
 	}
 

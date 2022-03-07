@@ -53,11 +53,19 @@ public class GroceryOrder
     this.orderItems = new ArrayList<OrderItem>();
   }
   
-  public GroceryOrder(OrderType aOrderType, GroceryStore aGroceryStore,Customer aCustomer )
+  public GroceryOrder(Customer aCustomer )
   {
 	totalCost = 0;
-	orderType = aOrderType;
+	orderType = null;
 	this.customer = aCustomer;
+    this.orderItems = new ArrayList<OrderItem>();
+  }
+  
+  public GroceryOrder(Integer aTotalCost, OrderType aOrderType)
+  {
+	totalCost = aTotalCost;
+	orderType = aOrderType;
+	this.customer = null;
     this.orderItems = new ArrayList<OrderItem>();
   }
   

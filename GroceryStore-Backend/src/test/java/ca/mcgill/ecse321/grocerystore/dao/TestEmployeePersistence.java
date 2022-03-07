@@ -62,7 +62,7 @@ public class TestEmployeePersistence {
 	@Test
 	public void testPersistAndLoadEmployee(){
 		//create Grocery Store object
-		GroceryStore groceryStore = new GroceryStore();
+//		GroceryStore groceryStore = new GroceryStore();
 			
 		//set values to Employee attributes
 		Employee employee = new Employee();
@@ -70,18 +70,19 @@ public class TestEmployeePersistence {
 		String email = "employee1@gmail.com";
 		String username = "employee1";
 		String password = "123abc";
-		EmployeeSchedule employeeSchedule0 = new EmployeeSchedule(EmployeeSchedule.Shift.Afternoon, EmployeeSchedule.Day.Monday, employee);
-		EmployeeSchedule employeeSchedule1 = new EmployeeSchedule(EmployeeSchedule.Shift.Morning, EmployeeSchedule.Day.Wednesday, employee);
+		EmployeeSchedule employeeSchedule0 = new EmployeeSchedule(EmployeeSchedule.Shift.Afternoon, EmployeeSchedule.Day.Monday);
+		EmployeeSchedule employeeSchedule1 = new EmployeeSchedule(EmployeeSchedule.Shift.Morning, EmployeeSchedule.Day.Wednesday);
 		
 	    employee.setEmail(email);
 		employee.setUsername(username);
 		employee.setPassword(password);
+	
 		employee.addEmployeeSchedule(employeeSchedule0);
 		employee.addEmployeeSchedule(employeeSchedule1);
-		employee.setGroceryStore(groceryStore);
+//		employee.setGroceryStore(groceryStore);
 		
 		//save Grocery Store object
-		groceryStoreRepository.save(groceryStore);
+//		groceryStoreRepository.save(groceryStore);
 			
 		//save Employee object
 		employeeRepository.save(employee);
@@ -101,18 +102,17 @@ public class TestEmployeePersistence {
 		assertEquals(employee.getUsername(), savedEmployee.getUsername());
 		
 		//test first EmployeeSchedule Object
-		assertEquals(employee.getEmployeeSchedule(0).getDay(), savedEmployeeSchedule0.getDay());
-		assertEquals(employee.getEmployeeSchedule(0).getShift(), savedEmployeeSchedule0.getShift());
-		assertEquals(employee.getEmployeeSchedule(0).getId(), savedEmployeeSchedule0.getId());
+		assertEquals(employee.getEmployeeSchedules().get(0).getDay(), savedEmployeeSchedule0.getDay());
+		assertEquals(employee.getEmployeeSchedules().get(0).getShift(), savedEmployeeSchedule0.getShift());
+		assertEquals(employee.getEmployeeSchedules().get(0).getId(), savedEmployeeSchedule0.getId());
 		
 		//test second EmployeeSchedule Object
-		assertEquals(employee.getEmployeeSchedule(1).getDay(), savedEmployeeSchedule1.getDay());
-		assertEquals(employee.getEmployeeSchedule(1).getShift(), savedEmployeeSchedule1.getShift());
-		assertEquals(employee.getEmployeeSchedule(1).getId(), savedEmployeeSchedule1.getId());
+		assertEquals(employee.getEmployeeSchedules().get(1).getDay(), savedEmployeeSchedule1.getDay());
+		assertEquals(employee.getEmployeeSchedules().get(1).getShift(), savedEmployeeSchedule1.getShift());
+		assertEquals(employee.getEmployeeSchedules().get(1).getId(), savedEmployeeSchedule1.getId());
 	}
 
 
 }
-
 
 

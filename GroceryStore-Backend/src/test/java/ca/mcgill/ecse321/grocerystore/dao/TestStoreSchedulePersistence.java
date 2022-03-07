@@ -61,9 +61,7 @@ public class TestStoreSchedulePersistence {
 	@Test
 	public void testPersistAndLoadStoreSchedule(){
 		
-		//create test Grocery Store
-		GroceryStore groceryStore = new GroceryStore();
-		
+
 		//create test Store Schedule
 		StoreSchedule storeSchedule = new StoreSchedule();
 		
@@ -80,10 +78,8 @@ public class TestStoreSchedulePersistence {
 		storeSchedule.setOpeningTime(openingTime);
 		storeSchedule.setClosingTime(closingTime);
 		storeSchedule.setDayOpen(dayOpen);
-		storeSchedule.setGroceryStore(groceryStore);
 		
-		//save GroceryStore object
-		groceryStoreRepository.save(groceryStore);
+
 		
 		//save StoreSchedule object
 		storeScheduleRepository.save(storeSchedule);

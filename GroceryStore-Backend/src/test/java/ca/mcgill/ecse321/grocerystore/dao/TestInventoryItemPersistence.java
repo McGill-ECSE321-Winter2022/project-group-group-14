@@ -56,8 +56,7 @@ public class TestInventoryItemPersistence {
 	//test Inventory Item persistence
 	@Test
 	public void testPersistAndLoadInvetoryItem(){
-		//create Grocery Store object
-		GroceryStore groceryStore = new GroceryStore();
+
 		
 		//set values to Inventory Item attributes
 		InventoryItem inventoryItem = new InventoryItem();
@@ -65,10 +64,7 @@ public class TestInventoryItemPersistence {
 		inventoryItem.setName(name);
 		inventoryItem.setPrice(32);
 		inventoryItem.setCurrentStock(15);
-		inventoryItem.setGroceryStore(groceryStore);
-		
-		//save Grocery Store object
-		groceryStoreRepository.save(groceryStore);
+
 		
 		//save Inventory Item object
 		inventoryItemRepository.save(inventoryItem);
@@ -84,6 +80,5 @@ public class TestInventoryItemPersistence {
 
 
 }
-
 
 

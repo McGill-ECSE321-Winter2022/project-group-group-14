@@ -60,7 +60,7 @@ public class TestCustomerPersistence {
 	@Test
 	public void testPersistAndLoadCustomer(){
 		//create Grocery Store object
-		GroceryStore groceryStore = new GroceryStore();
+//		GroceryStore groceryStore = new GroceryStore();
 			
 		//set values to Customer attributes
 		Customer customer = new Customer();
@@ -74,13 +74,13 @@ public class TestCustomerPersistence {
 		customer.setEmail(email);
 		customer.setUsername(username);
 		customer.setPassword(password);
-		customer.setGroceryStore(groceryStore);
+//		customer.setGroceryStore(groceryStore);
 		
 		customer.setAddress(address);
 		customer.setPhoneNumber(phoneNumber);
 			
 		//save Grocery Store object
-		groceryStoreRepository.save(groceryStore);
+//		groceryStoreRepository.save(groceryStore);
 			
 		//save Customer object
 		customerRepository.save(customer);
@@ -97,6 +97,5 @@ public class TestCustomerPersistence {
 
 
 }
-
 
 
