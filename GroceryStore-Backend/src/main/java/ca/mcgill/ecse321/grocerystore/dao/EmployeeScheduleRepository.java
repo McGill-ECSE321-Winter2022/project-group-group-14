@@ -7,7 +7,7 @@ import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule;
 
 public interface EmployeeScheduleRepository extends CrudRepository <EmployeeSchedule, Integer >{
     EmployeeSchedule findById(int id);
-    List<EmployeeSchedule> findByEmployee(Employee employee);
+//    List<EmployeeSchedule> findByEmployee(Employee employee);
     //maybe find by day?
 }
 

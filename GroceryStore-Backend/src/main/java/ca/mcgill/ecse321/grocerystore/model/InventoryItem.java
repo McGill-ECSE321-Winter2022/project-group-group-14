@@ -19,22 +19,13 @@ public class InventoryItem
   private int currentStock;
   private int itemId;
   
-  
-  //association classes 
-  private GroceryStore groceryStore;
-
-
  
-  public InventoryItem(String aName, int aPrice, int aCurrentStock, GroceryStore aGroceryStore)
+ 
+  public InventoryItem(String aName, int aPrice, int aCurrentStock)
   {
     name = aName;
     price = aPrice;
     currentStock = aCurrentStock;
-    boolean didAddGroceryStore = setGroceryStore(aGroceryStore);
-    if (!didAddGroceryStore)
-    {
-      throw new RuntimeException("Unable to create account due to groceryStore");
-    }
   }
   
   public InventoryItem()
@@ -42,7 +33,6 @@ public class InventoryItem
     name = null;
     price = 0;
     currentStock = 0;
-    groceryStore = null;
     
   }
 
@@ -99,44 +89,6 @@ public class InventoryItem
     return currentStock;
   }
   
-  //SETTERS AND GETTERS FOR ASSOCIATIONS
-  @ManyToOne   
-  public GroceryStore getGroceryStore() {
-	  return groceryStore;
-  }
-  
-  public boolean setGroceryStore(GroceryStore aGroceryStore)
-  {
-    boolean wasSet = false;
-    if (aGroceryStore == null)
-    {
-      return wasSet;
-    }
-
-    GroceryStore existingGroceryStore = groceryStore;
-    groceryStore = aGroceryStore;
-    if (existingGroceryStore != null && !existingGroceryStore.equals(aGroceryStore))
-    {
-      existingGroceryStore.removeInventoryItem(this);
-    }
-    groceryStore.addInventoryItem(this);
-    wasSet = true;
-    return wasSet;
-  }
-
-
-
-  public void delete()
-  {
-    GroceryStore placeholderGroceryStore = groceryStore;
-    this.groceryStore = null;
-    if(placeholderGroceryStore != null)
-    {
-      placeholderGroceryStore.removeInventoryItem(this);
-    }
-  }
-
-
 
   public String toString()
   {
