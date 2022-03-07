@@ -80,6 +80,15 @@ public class GroceryOrder
     this.orderItems = new ArrayList<OrderItem>();
   }
   
+  public GroceryOrder(Integer aTotalCost, OrderType aOrderType)
+  {
+	orderType = aOrderType;
+    totalCost = aTotalCost;
+    groceryStore = null;
+    customer = null;
+    this.orderItems = new ArrayList<OrderItem>();
+  }
+  
 
   public GroceryOrder()
   {

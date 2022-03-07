@@ -1,6 +1,9 @@
 package ca.mcgill.ecse321.grocerystore.dao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -9,8 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import ca.mcgill.ecse321.grocerystore.model.Account;
 import ca.mcgill.ecse321.grocerystore.model.Customer;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
+import ca.mcgill.ecse321.grocerystore.model.GroceryStore;
+import ca.mcgill.ecse321.grocerystore.model.Owner;
+import ca.mcgill.ecse321.grocerystore.model.StoreSchedule;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -34,7 +41,7 @@ public class TestGroceryStorePersistence {
 	@Autowired
 	private OwnerRepository ownerRepository;
 	@Autowired
-	private StoreScheduleRepository storeSchedule;
+	private StoreScheduleRepository storeScheduleRepository;
 
 
 	@AfterEach
@@ -48,32 +55,62 @@ public class TestGroceryStorePersistence {
 		ownerRepository.deleteAll();
 		accountRepository.deleteAll();
 		inventoryItemRepository.deleteAll();
-		storeSchedule.deleteAll();
+		storeScheduleRepository.deleteAll();
 		groceryStoreRepository.deleteAll();
 	}
     
-
-	//test Customer persistence
+	/**
+	 * Test grocery store presistence
+	 * @author clarissabaciu
+	 */
 	@Test
-	public void testPersistAndLoadCustomer(){
-		Customer customer = new Customer();
-		String email = "testEmail";
-		customer.setEmail(email);
-		customer.setPassword("testPassword");
-		customer.setUsername("testUsername");
-		customer.setPhoneNumber("testPhoneNumber");
-		customer.setAddress("street 1");
-		
-		GroceryOrder order = new GroceryOrder();
-		customer.addGroceryOrder(order);
-		
-		customerRepository.save(customer);
-		customer=null;
-		customer = customerRepository.findByEmail(email);
-		assertNotNull(customer);
-		assertEquals(email, customer.getEmail());
-		
+	public void testPersistAndLoadMultipleGroceryStore(){
+		GroceryStore store1 = new GroceryStore();
+		GroceryStore store2 = new GroceryStore();
+
+		store1 = groceryStoreRepository.save(store1);
+		store2 = groceryStoreRepository.save(store2);
+		int id1 = store1.getStoreId();
+		int id2 = store2.getStoreId();
+
+		store1 = null;
+		store2 = null;
+		store1 = groceryStoreRepository.findByStoreId(id1);
+		store2 = groceryStoreRepository.findByStoreId(id2);
+
+		assertNotNull(store1);
+		assertNotNull(store2);
+		assertEquals(id1, store1.getStoreId());
+		assertEquals(id2, store2.getStoreId());
 	}
+//	//test GroceryStore association
+//	@Test
+//	public void testPersistAndLoadGroceryStoreAssociations(){
+//		GroceryStore store = new GroceryStore();
+//		Owner owner = new Owner();
+//		
+//		owner.setGroceryStore(store);					//adding associations 
+//		
+//		store = groceryStoreRepository.save(store);		
+//		int storeId = store.getStoreId();
+//		owner = ownerRepository.save(owner);
+//		int ownerId = owner.getAccountId();
+//		
+//		store = null;
+//		owner = null;
+//		
+//		store = groceryStoreRepository.findByStoreId(storeId);
+//		assertNotNull(store);
+//		
+//
+//		System.out.println(store.getAccount(0));
+////		assertNotNull(store.getAccounts().get(0));
+//	
+//		//assertFalse(store.getAccounts().isEmpty());
+//		//assertEquals(store.getAccounts().get(0).getAccountId(), ownerId);
+//
+//		
+//	}
 
 
 }
