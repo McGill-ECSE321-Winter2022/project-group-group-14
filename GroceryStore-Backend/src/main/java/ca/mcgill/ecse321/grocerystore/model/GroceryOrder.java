@@ -50,7 +50,6 @@ public class GroceryOrder
   {
 	orderType = aOrderType;
     totalCost = aTotalCost;
-    groceryStore = aGroceryStore;
     boolean didAddGroceryStore = setGroceryStore(aGroceryStore);
 	if (!didAddGroceryStore)
 	{
@@ -68,7 +67,6 @@ public class GroceryOrder
   {
 	totalCost = 0;
 	orderType = aOrderType;
-    groceryStore = aGroceryStore;
     boolean didAddGroceryStore = setGroceryStore(aGroceryStore);
 	if (!didAddGroceryStore)
 	{
@@ -82,11 +80,19 @@ public class GroceryOrder
     this.orderItems = new ArrayList<OrderItem>();
   }
   
+  public GroceryOrder(Integer aTotalCost, OrderType aOrderType)
+  {
+	orderType = aOrderType;
+    totalCost = aTotalCost;
+    groceryStore = null;
+    customer = null;
+    this.orderItems = new ArrayList<OrderItem>();
+  }
+  
 
   public GroceryOrder()
   {
     totalCost = 0;
-    orderItems = new ArrayList<OrderItem>();
     orderType = null;
     this.orderItems = new ArrayList<OrderItem>();
     this.customer = null;
