@@ -95,38 +95,38 @@ public class TestGroceryOrderPersistence {
 
 	}
 
-//	@Test
-//	public void testPersistAndLoadGroceryOrderWithItems(){
-//		GroceryOrder order = new GroceryOrder();
-//        OrderItem item1 = new OrderItem();
-//        OrderItem item2 = new OrderItem();
-//		
-//        OrderType type = OrderType.Delivery;
-//        int cost = 15;
-//        order.setOrderType(type);	//adding attributes to groceryOrder
-//        order.setTotalCost(cost);
-//        
-//        order = groceryOrderRepository.save(order);		//saving before associating
-//        item1 = orderItemRepository.save(item1);
-//        item2 = orderItemRepository.save(item2);
-//        
-//     
-//        List<OrderItem> itemList = new ArrayList<OrderItem>(); //adding associations
-//        itemList.add(item1);
-//        itemList.add(item2);
-//        order.setOrderItems(itemList);
-//        
-//        groceryOrderRepository.save(order);		//saving after associations
-//        orderItemRepository.save(item1);
-//        orderItemRepository.save(item2);
-//        
-//        GroceryOrder orderdb = groceryOrderRepository.findByOrderId(order.getOrderId());	//loading from database
-//        
-//        assertFalse(orderdb.getOrderItems().isEmpty());
-//        assertTrue(orderdb.hasOrderItems());
-//        assertTrue(orderdb.getOrderItems().contains(item1));
-//        assertTrue(orderdb.getOrderItems().contains(item2));	
-//	}
+	@Test
+	public void testPersistAndLoadGroceryOrderWithItems(){
+		GroceryOrder order = new GroceryOrder();
+        OrderItem item1 = new OrderItem();
+        OrderItem item2 = new OrderItem();
+		
+        OrderType type = OrderType.Delivery;
+        int cost = 15;
+        order.setOrderType(type);	//adding attributes to groceryOrder
+        order.setTotalCost(cost);
+        
+        order = groceryOrderRepository.save(order);		//saving before associating
+        item1 = orderItemRepository.save(item1);
+        item2 = orderItemRepository.save(item2);
+        
+     
+        List<OrderItem> itemList = new ArrayList<OrderItem>(); //adding associations
+        itemList.add(item1);
+        itemList.add(item2);
+        order.setOrderItems(itemList);
+        
+        groceryOrderRepository.save(order);		//saving after associations
+        orderItemRepository.save(item1);
+        orderItemRepository.save(item2);
+        
+        GroceryOrder orderdb = groceryOrderRepository.findByOrderId(order.getOrderId());	//loading from database
+        
+        assertFalse(orderdb.getOrderItems().isEmpty());
+        assertTrue(orderdb.hasOrderItems());
+        assertTrue(orderdb.getOrderItems().contains(item1));
+        assertTrue(orderdb.getOrderItems().contains(item2));	
+	}
 
 	   /** @author: Clarissa Baciu */
 		@Test
@@ -151,39 +151,38 @@ public class TestGroceryOrderPersistence {
 
 // 		   /** @author: Clarissa Baciu */
 // 			@Test
-// 			public void testPersistAndLoadGroceryOrderByCustomer() {
+// 			public void testPersistAndLoadGroceryOrdersByCustomer() {
 // 				GroceryOrder order1 = new GroceryOrder();
 // 				GroceryOrder order2 = new GroceryOrder();
 // 				Customer customer = new Customer();
 // 				GroceryStore store = new GroceryStore(); 
-
-
+//
+//
 // 				customer = customerRepository.save(customer);
 // 		        order1 = groceryOrderRepository.save(order1);	//saving before associations	
 // 		        order2 = groceryOrderRepository.save(order2);
 // 		        customer = customerRepository.save(customer);
 // 		        store = groceryStoreRepository.save(store);
-
-
+//
+//
 // 		        order1.setCustomer(customer);	//creating associations
 // 		        order2.setCustomer(customer);
 // 		        order1.setGroceryStore(store);
 // 		        order2.setGroceryStore(store);
-
+//
 // 		        //or 
 // 		        //customer.set(orders)
-
-
+//
+//
 // 		        order1 = groceryOrderRepository.save(order1);	//saving after associations
 // 		        order2 = groceryOrderRepository.save(order2);
 // 		        customer = customerRepository.save(customer);
 // 		        store = groceryStoreRepository.save(store);
-
-// 		        List<GroceryOrder> orderList = groceryOrderRepository.findGroceryOrdersByCustomer(customer);	//loading from database
+//
+// 		        List<GroceryOrder> orderList = groceryOrderRepository.findGroceryOrdersByCustomercustomer);	//loading from database
 // 		        assertFalse(orderList.isEmpty());
-// 		        System.out.println(orderList);
-// //		        assertEquals(orderList.get(0).getOrderId(),order1.getOrderId());
-// //		        assertEquals(orderList.get(1).getOrderId(),order2.getOrderId());
+// 		        assertEquals(orderList.get(0).getOrderId(),order1.getOrderId());
+// 		        assertEquals(orderList.get(1).getOrderId(),order2.getOrderId());
 //			}
 
 
