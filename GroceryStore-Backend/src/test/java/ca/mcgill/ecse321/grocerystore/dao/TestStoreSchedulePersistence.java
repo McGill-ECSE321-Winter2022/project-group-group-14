@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.grocerystore.model.GroceryStore;
 import ca.mcgill.ecse321.grocerystore.model.StoreSchedule;
@@ -16,6 +17,7 @@ import ca.mcgill.ecse321.grocerystore.model.StoreSchedule.Day;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@Transactional //don't need clear database method
 public class TestStoreSchedulePersistence {
     @Autowired
 	private AccountRepository accountRepository;
@@ -38,22 +40,22 @@ public class TestStoreSchedulePersistence {
 	@Autowired
 	private StoreScheduleRepository storeScheduleRepository;
 
-
-	@AfterEach
-	public void clearDatabase() {
-		// clear to avoid exceptions due to inconsistencies (dependencies)
-		orderItemRepository.deleteAll();
-		groceryOrderRepository.deleteAll();
-		employeeScheduleRepository.deleteAll();
-		customerRepository.deleteAll();
-		employeeRepository.deleteAll();
-		ownerRepository.deleteAll();
-		accountRepository.deleteAll();
-		inventoryItemRepository.deleteAll();
-		storeScheduleRepository.deleteAll();
-		groceryStoreRepository.deleteAll();
-	}
-	
+//
+//	@AfterEach
+//	public void clearDatabase() {
+//		// clear to avoid exceptions due to inconsistencies (dependencies)
+//		orderItemRepository.deleteAll();
+//		groceryOrderRepository.deleteAll();
+//		employeeScheduleRepository.deleteAll();
+//		customerRepository.deleteAll();
+//		employeeRepository.deleteAll();
+//		ownerRepository.deleteAll();
+//		accountRepository.deleteAll();
+//		inventoryItemRepository.deleteAll();
+//		storeScheduleRepository.deleteAll();
+//		groceryStoreRepository.deleteAll();
+//	}
+//	
 	
     
 

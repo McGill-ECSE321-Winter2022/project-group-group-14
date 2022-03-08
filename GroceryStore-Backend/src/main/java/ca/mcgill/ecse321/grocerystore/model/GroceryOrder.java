@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -121,7 +122,7 @@ public class GroceryOrder
 	   * and InPerson.
 	   */
 	
-	 @OneToMany(cascade = CascadeType.ALL)
+	 @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	 public List<OrderItem> getOrderItems() 
 	 {
 		 return this.orderItems;
