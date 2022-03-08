@@ -43,16 +43,11 @@ public class TestEmployeePersistence {
 	@AfterEach
 	public void clearDatabase() {
 		// clear to avoid exceptions due to inconsistencies (dependencies)
-		orderItemRepository.deleteAll();
-		groceryOrderRepository.deleteAll();
-		employeeScheduleRepository.deleteAll();
-		customerRepository.deleteAll();
 		employeeRepository.deleteAll();
-		ownerRepository.deleteAll();
-		accountRepository.deleteAll();
-		inventoryItemRepository.deleteAll();
-		storeSchedule.deleteAll();
-		groceryStoreRepository.deleteAll();
+		employeeScheduleRepository.deleteAll();
+		
+
+		
 	}
     
 

@@ -11,7 +11,7 @@ public class OrderItem extends InventoryItem
 
 
 
-  public OrderItem(String aName, int aPrice, int aCurrentStock, GroceryStore aGroceryStore, GroceryOrder aGroceryOrder)
+  public OrderItem(String aName, int aPrice, int aCurrentStock)
   {
     super(aName,aPrice, aCurrentStock);
     
