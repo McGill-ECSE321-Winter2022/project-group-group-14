@@ -61,7 +61,7 @@ public class TestStoreSchedulePersistence {
 
 	//test Customer persistence
 	@Test
-	public void testPersistAndLoadStoreSchedule(){
+	public void testPersistAndLoadStoreScheduleById(){
 	
 		//create test Store Schedule
 		StoreSchedule storeSchedule = new StoreSchedule();
@@ -92,6 +92,44 @@ public class TestStoreSchedulePersistence {
 		assertEquals(storeSchedule.getOpeningTime(), savedStoreSchedule.getOpeningTime());
 		assertEquals(storeSchedule.getClosingTime(), savedStoreSchedule.getClosingTime());
 		assertEquals(storeSchedule.getDayOpen(), savedStoreSchedule.getDayOpen());
+
+	}
+	
+	
+	//test Customer persistence
+	@Test
+	public void testPersistAndLoadStoreScheduleByDayOpen(){
+	
+		//create test Store Schedule
+		StoreSchedule storeSchedule = new StoreSchedule();
+		
+		//set StoreSchedule values to be tested
+		@SuppressWarnings("deprecation")
+		Time openingTime = new Time(8, 0, 0);
+		
+		@SuppressWarnings("deprecation")
+		Time closingTime = new Time(17, 30, 0);
+		
+		Day dayOpen = Day.Monday;
+		
+		//set values to StoreSchedule object
+		storeSchedule.setOpeningTime(openingTime);
+		storeSchedule.setClosingTime(closingTime);
+		storeSchedule.setDayOpen(dayOpen);
+		int id = storeSchedule.getStoreScheduleId();
+		
+
+		
+		//save StoreSchedule object
+		storeScheduleRepository.save(storeSchedule);
+		
+		//test saved StoreSchedule object
+		StoreSchedule savedStoreSchedule = storeScheduleRepository.findByDayOpen(storeSchedule.getDayOpen());
+		
+		assertNotNull(savedStoreSchedule);
+		assertEquals(storeSchedule.getOpeningTime(), savedStoreSchedule.getOpeningTime());
+		assertEquals(storeSchedule.getClosingTime(), savedStoreSchedule.getClosingTime());
+		assertEquals(storeSchedule.getStoreScheduleId(), savedStoreSchedule.getStoreScheduleId());
 
 	}
 
