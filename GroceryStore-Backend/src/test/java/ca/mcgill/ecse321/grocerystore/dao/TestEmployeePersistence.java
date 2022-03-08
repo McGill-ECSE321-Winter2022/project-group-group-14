@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.grocerystore.model.GroceryStore;
 import ca.mcgill.ecse321.grocerystore.model.Employee;
@@ -15,6 +16,7 @@ import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@Transactional //don't need clear database method
 public class TestEmployeePersistence {
     @Autowired
 	private AccountRepository accountRepository;
@@ -37,18 +39,18 @@ public class TestEmployeePersistence {
 	@Autowired
 	private StoreScheduleRepository storeSchedule;
 
-	/**
-	 * @author Samuel Valentine
-	 */
-	@AfterEach
-	public void clearDatabase() {
-		// clear to avoid exceptions due to inconsistencies (dependencies)
-		employeeRepository.deleteAll();
-		employeeScheduleRepository.deleteAll();
-		
-
-		
-	}
+//	/**
+//	 * @author Samuel Valentine
+//	 */
+//	@AfterEach
+//	public void clearDatabase() {
+//		// clear to avoid exceptions due to inconsistencies (dependencies)
+//		employeeRepository.deleteAll();
+//		employeeScheduleRepository.deleteAll();
+//		
+//
+//		
+//	}
     
 
 	/**

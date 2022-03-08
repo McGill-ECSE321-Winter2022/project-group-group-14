@@ -92,7 +92,7 @@ public class TestGroceryOrderPersistence {
         assertEquals(orderdb.getCustomer().getAccountId(),customer.getAccountId());		//verifying associations 
 
 	}
-
+	 /** @author: Clarissa Baciu */
 	@Test
 	public void testPersistAndLoadGroceryOrderWithItems(){
 		GroceryOrder order = new GroceryOrder();
@@ -126,8 +126,6 @@ public class TestGroceryOrderPersistence {
         assertFalse(orderdb.getOrderItems().isEmpty());
         assertEquals(orderdb.getOrderItems().get(0).getItemId(),id1);
         assertEquals(orderdb.getOrderItems().get(1).getItemId(),id2);
-//        assertTrue(orderdb.getOrderItems().contains(item1));
-//        assertTrue(orderdb.getOrderItems().contains(item2));	
 	}
 
 	   /** @author: Clarissa Baciu */
