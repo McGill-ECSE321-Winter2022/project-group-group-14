@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.grocerystore.model.Customer;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
@@ -22,6 +23,7 @@ import ca.mcgill.ecse321.grocerystore.model.OrderItem;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+//@Transactional don't need clear database method
 public class TestGroceryOrderPersistence {
     @Autowired
 	private AccountRepository accountRepository;
@@ -64,7 +66,6 @@ public class TestGroceryOrderPersistence {
     /** @author: Clarissa Baciu */
 	@Test
 	public void testPersistAndLoadGroceryOrderById() {
-        GroceryStore store = new GroceryStore(); //creating association classes
         Customer customer = new Customer();
 		GroceryOrder order = new GroceryOrder();
 
@@ -75,14 +76,11 @@ public class TestGroceryOrderPersistence {
 
         order = groceryOrderRepository.save(order);		//saving before associating
         customer = customerRepository.save(customer);
-        store = groceryStoreRepository.save(store);
 
         order.setCustomer(customer);					//creating associations
-        order.setGroceryStore(store);
 
         order = groceryOrderRepository.save(order);		//saving after associations
         customer = customerRepository.save(customer);
-        store = groceryStoreRepository.save(store);
 
         GroceryOrder orderdb = groceryOrderRepository.findByOrderId(order.getOrderId());	//loading from database
         assertNotNull(orderdb);	
@@ -90,8 +88,7 @@ public class TestGroceryOrderPersistence {
         assertEquals(orderdb.getOrderType(),order.getOrderType());
         assertEquals(orderdb.getTotalCost(),order.getTotalCost());
 
-        assertEquals(orderdb.getCustomer().getAccountId(),customer.getAccountId());		//verifying associations
-        assertEquals(orderdb.getGroceryStore().getStoreId(),store.getStoreId());  
+        assertEquals(orderdb.getCustomer().getAccountId(),customer.getAccountId());		//verifying associations 
 
 	}
 

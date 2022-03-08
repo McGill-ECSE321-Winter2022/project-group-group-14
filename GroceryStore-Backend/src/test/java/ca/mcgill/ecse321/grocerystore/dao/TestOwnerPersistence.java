@@ -60,8 +60,7 @@ public class TestOwnerPersistence {
 	 */
 	@Test
 	public void testPersistAndLoadOwner(){
-		//create Grocery Store object
-		GroceryStore groceryStore = new GroceryStore();
+
 			
 		//set values to Owner attributes
 		Owner owner = new Owner();
@@ -71,10 +70,7 @@ public class TestOwnerPersistence {
 		String password = "123abc";
 		owner.setUsername(username);
 		owner.setPassword(password);
-		owner.setGroceryStore(groceryStore);
 		
-		//save Grocery Store object
-		groceryStoreRepository.save(groceryStore);
 			
 		//save Owner object
 		ownerRepository.save(owner);
@@ -89,6 +85,5 @@ public class TestOwnerPersistence {
 
 
 }
-
 
 

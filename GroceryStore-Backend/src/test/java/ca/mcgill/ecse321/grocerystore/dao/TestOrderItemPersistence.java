@@ -58,9 +58,7 @@ public class TestOrderItemPersistence {
 	//test Inventory Item persistence
 	@Test
 	public void testPersistAndLoadOrderItem(){
-		//create Grocery Store object
-		GroceryStore groceryStore = new GroceryStore();
-		
+
 		//create Grocery Order object
 		GroceryOrder groceryOrder = new GroceryOrder();
 		
@@ -85,16 +83,11 @@ public class TestOrderItemPersistence {
 		//save Grocery Order object
 		groceryOrder=groceryOrderRepository.save(groceryOrder);
 		
-		//save Grocery Store object
-		groceryStore=groceryStoreRepository.save(groceryStore);
 		
 		
 		System.out.println(orderItem.getItemId());
 		
-		groceryOrder.setGroceryStore(groceryStore);
-		orderItem.setGroceryStore(groceryStore);
-		orderItem.setGroceryOrder(groceryOrder);
-		
+
 		
 		//save Order Item object
 		orderItemRepository.save(orderItem);
@@ -102,11 +95,7 @@ public class TestOrderItemPersistence {
 		//save Grocery Order object
 		groceryOrderRepository.save(groceryOrder);
 		
-				
-		//save Grocery Store object
-		groceryStoreRepository.save(groceryStore);
-		
-		
+			
 		
 		
 		//test saved Order Item object
@@ -115,11 +104,9 @@ public class TestOrderItemPersistence {
 		assertEquals(orderItem.getName(), savedOrderItem.getName());
 		assertEquals(orderItem.getPrice(), savedOrderItem.getPrice());
 		assertEquals(orderItem.getCurrentStock(), savedOrderItem.getCurrentStock());
-		assertEquals(orderItem.getGroceryOrder().getOrderId(), savedOrderItem.getGroceryOrder().getOrderId());
 		
 	}
 
 }
-
 
 

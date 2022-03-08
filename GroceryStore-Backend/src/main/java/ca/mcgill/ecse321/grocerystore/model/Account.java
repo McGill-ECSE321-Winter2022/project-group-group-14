@@ -23,19 +23,13 @@ public abstract class Account
   private String email;
   private String username;
   private String password;
-  private GroceryStore groceryStore;
 
 
-  public Account(String aEmail, String aUsername, String aPassword, GroceryStore aGroceryStore)
+  public Account(String aEmail, String aUsername, String aPassword)
   {
     email = aEmail;
     username = aUsername;
     password = aPassword;
-    boolean didAddGroceryStore = setGroceryStore(aGroceryStore);
-    if (!didAddGroceryStore)
-    {
-      throw new RuntimeException("Unable to create account due to groceryStore");
-    }
   }
   
   public Account()
@@ -43,7 +37,6 @@ public abstract class Account
     email = null;
     username = null;
     password = null;
-    groceryStore = null;
   }
 
   //------------------------
@@ -110,46 +103,8 @@ public abstract class Account
              "password" + ":" + getPassword()+ "]";
   }
    
-	@ManyToOne   
-	public GroceryStore getGroceryStore() {
-		return groceryStore;
-	}
-//	public void setGroceryStore(GroceryStore groceryStore) {
-//		this.groceryStore = groceryStore;
-//	}
 
-	//UMPLE CODE
 	
-	  /* Code from template association_SetOneToMany */
-	  public boolean setGroceryStore(GroceryStore aGroceryStore)
-	  {
-	    boolean wasSet = false;
-	    if (aGroceryStore == null)
-	    {
-	      return wasSet;
-	    }
-	
-	    GroceryStore existingGroceryStore = groceryStore;
-	    groceryStore = aGroceryStore;
-	    if (existingGroceryStore != null && !existingGroceryStore.equals(aGroceryStore))
-	    {
-	      existingGroceryStore.removeAccount(this);
-	    }
-	    groceryStore.addAccount(this);
-	    wasSet = true;
-	    return wasSet;
-	  }
-	
-	  public void delete()
-	  {
-	    GroceryStore placeholderGroceryStore = groceryStore;
-	    this.groceryStore = null;
-	    if(placeholderGroceryStore != null)
-	    {
-	      placeholderGroceryStore.removeAccount(this);
-	    }
-	  }
-
 
 
 }
