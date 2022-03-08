@@ -83,6 +83,7 @@ public class TestGroceryStorePersistence {
 		assertEquals(id1, store1.getStoreId());
 		assertEquals(id2, store2.getStoreId());
 	}
+	
 //	//test GroceryStore association
 //	@Test
 //	public void testPersistAndLoadGroceryStoreAssociations(){

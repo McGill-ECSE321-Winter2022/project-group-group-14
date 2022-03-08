@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 
 import java.sql.Time;
