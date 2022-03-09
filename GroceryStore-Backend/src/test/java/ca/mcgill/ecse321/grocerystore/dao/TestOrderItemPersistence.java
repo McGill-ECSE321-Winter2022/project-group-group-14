@@ -11,50 +11,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
 import ca.mcgill.ecse321.grocerystore.model.OrderItem;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Transactional //don't need clear database method
 public class TestOrderItemPersistence {
-    @Autowired
-	private AccountRepository accountRepository;
-	@Autowired
-	private CustomerRepository customerRepository;
-	@Autowired
-	private EmployeeRepository employeeRepository;
-	@Autowired
-	private EmployeeScheduleRepository employeeScheduleRepository;
-	@Autowired
-	private GroceryStoreRepository groceryStoreRepository;
-	@Autowired
-	private InventoryItemRepository inventoryItemRepository;
 	@Autowired
 	private OrderItemRepository orderItemRepository;
-	@Autowired
-	private GroceryOrderRepository groceryOrderRepository;
-	@Autowired
-	private OwnerRepository ownerRepository;
-	@Autowired
-	private StoreScheduleRepository storeSchedule;
-
-
-//	@AfterEach
-//	public void clearDatabase() {
-//		// clear to avoid exceptions due to inconsistencies (dependencies)
-//		orderItemRepository.deleteAll();
-//		groceryOrderRepository.deleteAll();
-//		employeeScheduleRepository.deleteAll();
-//		customerRepository.deleteAll();
-//		employeeRepository.deleteAll();
-//		ownerRepository.deleteAll();
-//		accountRepository.deleteAll();
-//		inventoryItemRepository.deleteAll();
-//		storeSchedule.deleteAll();
-//		groceryStoreRepository.deleteAll();
-//	}
-//    
 
 	//test Inventory Item persistence
 	/**@author Youssof Mohamed */
