@@ -56,6 +56,7 @@ public class TestInventoryItemPersistence {
 //    
 
 	//test Inventory Item persistence
+	/**@author Youssof Mohamed */
 	@Test
 	public void testPersistAndLoadInvetoryItem(){
 
@@ -71,8 +72,16 @@ public class TestInventoryItemPersistence {
 		//save Inventory Item object
 		inventoryItemRepository.save(inventoryItem);
 		
-		//test saved Inventory Item object
+		//test findByItemId
 		InventoryItem savedInventoryItem = inventoryItemRepository.findByItemId(inventoryItem.getItemId());
+		assertNotNull(savedInventoryItem);
+		assertEquals(inventoryItem.getName(), savedInventoryItem.getName());
+		assertEquals(inventoryItem.getPrice(), savedInventoryItem.getPrice());
+		assertEquals(inventoryItem.getCurrentStock(), savedInventoryItem.getCurrentStock());
+
+		//test findByName
+		savedInventoryItem=null;
+		savedInventoryItem = inventoryItemRepository.findByName(inventoryItem.getName());
 		assertNotNull(savedInventoryItem);
 		assertEquals(inventoryItem.getName(), savedInventoryItem.getName());
 		assertEquals(inventoryItem.getPrice(), savedInventoryItem.getPrice());
