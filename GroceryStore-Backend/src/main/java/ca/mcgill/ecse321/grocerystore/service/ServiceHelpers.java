@@ -22,12 +22,12 @@ public class ServiceHelpers
         return resultList;
     }
 
-    public static void checkAccountInfoValidity(String email, String name, String password, String phone)
+    public static void checkAccountInfoValidity(String email, String username, String password, String phone)
     {
         if (email == null || email.trim().length() == 0)
             throw new IllegalArgumentException("Please submit a valid email.");
-        if (name == null || name.trim().length() == 0)
-            throw new IllegalArgumentException("Please submit a valid name.");
+        if (username == null || username.trim().length() == 0)
+            throw new IllegalArgumentException("Please submit a valid username.");
         if (password == null || password.trim().length() == 0)
             throw new IllegalArgumentException("Please submit a valid password.");
         if (phone == null || phone.trim().length() == 0)
