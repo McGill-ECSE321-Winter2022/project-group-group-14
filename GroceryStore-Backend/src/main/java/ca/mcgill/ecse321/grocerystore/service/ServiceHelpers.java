@@ -1,11 +1,12 @@
 package ca.mcgill.ecse321.grocerystore.service;
 
-import ca.mcgill.ecse321.grocerystore.model.Account;
-
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+
+import ca.mcgill.ecse321.grocerystore.model.Account;
+import ca.mcgill.ecse321.grocerystore.model.InventoryItem;
 
 
 public class ServiceHelpers
@@ -41,6 +42,27 @@ public class ServiceHelpers
             throw new IllegalArgumentException("Please submit a valid name.");
         if (user.getPassword() == null || user.getPassword().trim().length() == 0)
             throw new IllegalArgumentException("Please submit a valid phone.");
+    }
+    
+    public static void checkInventoryItemInfoValidity(String name, int price, int currentStock)
+    {
+        if (name == null || name.trim().length() == 0)
+            throw new IllegalArgumentException("Please submit a valid name.");
+        if (price < 0)
+            throw new IllegalArgumentException("Please submit a valid price.");
+        if (currentStock < 0)
+            throw new IllegalArgumentException("Please submit a valid stock number.");
+    }
+    
+    public static void checkInventoryItemInfoValidity(InventoryItem inventoryItem)
+    {
+        if (inventoryItem == null) throw new IllegalArgumentException("Please submit a valid inventory item object.");
+        if (inventoryItem.getName() == null || inventoryItem.getName().trim().length() == 0)
+            throw new IllegalArgumentException("Please submit a valid name.");
+        if (inventoryItem.getPrice() < 0)
+            throw new IllegalArgumentException("Please submit a valid price.");
+        if (inventoryItem.getCurrentStock() < 0)
+            throw new IllegalArgumentException("Please submit a valid stock number.");
     }
 
     public static void checkDateValidity(Date startDate, Date endDate)
