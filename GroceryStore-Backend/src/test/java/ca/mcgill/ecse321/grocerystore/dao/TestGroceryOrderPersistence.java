@@ -92,6 +92,51 @@ public class TestGroceryOrderPersistence {
         assertEquals(orderdb.getOrderItems().get(0).getItemId(),id1);
         assertEquals(orderdb.getOrderItems().get(1).getItemId(),id2);
 	}
+	
+    /** @author: Clarissa Baciu */
+	@Test
+	public void testPersistAndLoadGroceryOrderByIdWithCustomerAndItems() {
+        Customer customer = new Customer();
+		GroceryOrder order = new GroceryOrder();
+		OrderItem item1 = new OrderItem();
+        OrderItem item2 = new OrderItem();
+
+        OrderType type = OrderType.Delivery;
+        int cost = 15;
+        order.setOrderType(type);	//adding attributes to groceryOrder
+        order.setTotalCost(cost);
+
+        order = groceryOrderRepository.save(order);		//saving before associating
+        customer = customerRepository.save(customer);
+        item1 = orderItemRepository.save(item1);
+        item2 = orderItemRepository.save(item2);
+        int id1 = item1.getItemId();
+        int id2 = item2.getItemId();
+        
+        List<OrderItem> itemList = new ArrayList<OrderItem>(); //adding associations
+        itemList.add(item1);
+        itemList.add(item2);
+        order.setOrderItems(itemList);
+        order.setCustomer(customer);					//creating associations
+
+        groceryOrderRepository.save(order);		//saving after associations
+        customerRepository.save(customer);
+        orderItemRepository.save(item1);
+        orderItemRepository.save(item2);
+
+        GroceryOrder orderdb = groceryOrderRepository.findByOrderId(order.getOrderId());	//loading from database
+        assertNotNull(orderdb);	
+        assertEquals(orderdb.getOrderId(),order.getOrderId());			//verifying attributes
+        assertEquals(orderdb.getOrderType(),order.getOrderType());
+        assertEquals(orderdb.getTotalCost(),order.getTotalCost());
+
+        assertEquals(orderdb.getCustomer().getAccountId(),customer.getAccountId());		//verifying associations 
+        assertFalse(orderdb.getOrderItems().isEmpty());
+        assertEquals(orderdb.getOrderItems().get(0).getItemId(),id1);
+        assertEquals(orderdb.getOrderItems().get(1).getItemId(),id2);
+	}
+	
+	
 
 	/** @author: Clarissa Baciu */
 	@Test
