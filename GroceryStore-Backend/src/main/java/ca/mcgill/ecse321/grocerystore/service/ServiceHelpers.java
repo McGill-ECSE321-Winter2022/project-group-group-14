@@ -7,6 +7,7 @@ import java.util.List;
 
 import ca.mcgill.ecse321.grocerystore.model.Account;
 import ca.mcgill.ecse321.grocerystore.model.InventoryItem;
+import ca.mcgill.ecse321.grocerystore.model.StoreSchedule.Day;
 
 
 public class ServiceHelpers
@@ -79,5 +80,23 @@ public class ServiceHelpers
             throw new IllegalArgumentException("Please input a valid start and end time.");
         if (startTime.after(endTime))
             throw new IllegalArgumentException("Your start time cannot be after your end time.");
+        if (startTime.equals(endTime))
+            throw new IllegalArgumentException("Your start time cannot be the same as your end time.");
+    }
+    
+    public static void checkDayValidity(Day day)
+    {
+        if (day == null)
+            throw new IllegalArgumentException("Please input a valid day.");
+        
+        boolean isValidDay = false;
+        for (Day listedDay : Day.values()) {
+            if (listedDay.equals(day)) {
+                isValidDay = true;
+                break;
+            }
+        }
+        if (!isValidDay)
+            throw new IllegalArgumentException("Please input a day of the week");
     }
 }
