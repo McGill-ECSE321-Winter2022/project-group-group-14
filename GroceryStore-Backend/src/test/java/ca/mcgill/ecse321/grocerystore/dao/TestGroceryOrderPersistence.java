@@ -95,7 +95,7 @@ public class TestGroceryOrderPersistence {
 	
     /** @author: Clarissa Baciu */
 	@Test
-	public void testPersistAndLoadGroceryOrderByIdWithCustomerAndItems() {
+	public void testPersistAndLoadOrder() {
         Customer customer = new Customer();
 		GroceryOrder order = new GroceryOrder();
 		OrderItem item1 = new OrderItem();
@@ -106,7 +106,6 @@ public class TestGroceryOrderPersistence {
         order.setOrderType(type);	//adding attributes to groceryOrder
         order.setTotalCost(cost);
 
-        order = groceryOrderRepository.save(order);		//saving before associating
         customer = customerRepository.save(customer);
         item1 = orderItemRepository.save(item1);
         item2 = orderItemRepository.save(item2);
@@ -116,13 +115,15 @@ public class TestGroceryOrderPersistence {
         List<OrderItem> itemList = new ArrayList<OrderItem>(); //adding associations
         itemList.add(item1);
         itemList.add(item2);
+		
+		order = groceryOrderRepository.save(order);		//saving before associating
         order.setOrderItems(itemList);
         order.setCustomer(customer);					//creating associations
 
         groceryOrderRepository.save(order);		//saving after associations
-        customerRepository.save(customer);
-        orderItemRepository.save(item1);
-        orderItemRepository.save(item2);
+        // customerRepository.save(customer);
+        // orderItemRepository.save(item1);
+        // orderItemRepository.save(item2);
 
         GroceryOrder orderdb = groceryOrderRepository.findByOrderId(order.getOrderId());	//loading from database
         assertNotNull(orderdb);	
