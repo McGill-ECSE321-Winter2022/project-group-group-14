@@ -14,12 +14,6 @@ import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
 import ca.mcgill.ecse321.grocerystore.model.OrderItem;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder.OrderType;
 
-/**
- * make a list of services you want related to groceryorder 
- * - in store order doesnt need customer
- * - 
- */
-
 
 @Service
 public class GroceryOrderService {
@@ -33,6 +27,9 @@ public class GroceryOrderService {
     @Transactional
     public GroceryOrder createInStoreOrder(int totalCost){ 
         GroceryOrder order = new GroceryOrder();
+        order.setOrderType(OrderType.InStore);
+        order.setTotalCost(totalCost);
+        
         //test everything before finishing fct
         //create an order without a customer and without order items
         return null;
