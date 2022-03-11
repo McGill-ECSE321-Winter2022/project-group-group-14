@@ -33,6 +33,7 @@ public class GroceryOrderService {
     @Transactional
     public GroceryOrder createInStoreOrder(int totalCost){ 
         GroceryOrder order = new GroceryOrder();
+        //test everything before finishing fct
         //create an order without a customer and without order items
         return null;
     }
@@ -41,6 +42,8 @@ public class GroceryOrderService {
     public GroceryOrder createGroceryOrder(Customer customer, List<OrderItem> orderItems, OrderType orderType){ 
         //create groceryOrder with customer and orderItems
         //calculate total Cost from orderItems
+
+        //check validity for items make sure theres no magazines 
         
         return null;
     }
@@ -62,5 +65,7 @@ public class GroceryOrderService {
         //repository List<GroceryOrder> findByOrderType(OrderType orderType);
         return null;
     }
+    
+
     
 }
