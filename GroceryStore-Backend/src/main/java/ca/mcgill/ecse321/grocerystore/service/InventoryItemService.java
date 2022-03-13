@@ -1,6 +1,6 @@
 package ca.mcgill.ecse321.grocerystore.service;
 
-import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.checkInventoryItemInfoValidity;
+import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.checkItemInfoValidity;
 import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.toList;
 
 import java.util.List;
@@ -25,12 +25,18 @@ public class InventoryItemService {
     @Transactional
     public InventoryItem createInventoryItem(String name, int price, int currentStock)
     {
+    	//check inventory item has valid info
+    	checkItemInfoValidity(name,price,currentStock);
    
+    	//set inventory item attributes
         InventoryItem inventoryItem = new InventoryItem();
         inventoryItem.setName(name);
         inventoryItem.setPrice(price);
         inventoryItem.setCurrentStock(currentStock);
+        
+        //save changes to repository
         inventoryItemRepository.save(inventoryItem);
+        
         return inventoryItem;
     }
 
@@ -66,7 +72,7 @@ public class InventoryItemService {
     public InventoryItem updateInventoryItemInfo(InventoryItem inventoryItem)
     {
     	//check inventory item has valid info
-        checkInventoryItemInfoValidity(inventoryItem);
+        checkItemInfoValidity(inventoryItem);
         
         //update existing inventory item info with the new ones
         InventoryItem inventoryItemToUpdate = inventoryItemRepository.findByItemId(inventoryItem.getItemId());

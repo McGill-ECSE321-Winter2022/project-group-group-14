@@ -45,7 +45,7 @@ public class ServiceHelpers
             throw new IllegalArgumentException("Please submit a valid phone.");
     }
     
-    public static void checkInventoryItemInfoValidity(String name, int price, int currentStock)
+    public static void checkItemInfoValidity(String name, int price, int currentStock)
     {
         if (name == null || name.trim().length() == 0)
             throw new IllegalArgumentException("Please submit a valid name.");
@@ -55,7 +55,7 @@ public class ServiceHelpers
             throw new IllegalArgumentException("Please submit a valid stock number.");
     }
     
-    public static void checkInventoryItemInfoValidity(InventoryItem inventoryItem)
+    public static void checkItemInfoValidity(InventoryItem inventoryItem)
     {
         if (inventoryItem == null) throw new IllegalArgumentException("Please submit a valid inventory item object.");
         if (inventoryItem.getName() == null || inventoryItem.getName().trim().length() == 0)

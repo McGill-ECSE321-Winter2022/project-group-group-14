@@ -1,7 +1,7 @@
 package ca.mcgill.ecse321.grocerystore.service;
 
-import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.checkInventoryItemInfoValidity;
 import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.toList;
+import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.checkItemInfoValidity;
 
 import java.util.List;
 
@@ -10,7 +10,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ca.mcgill.ecse321.grocerystore.dao.InventoryItemRepository;
 import ca.mcgill.ecse321.grocerystore.dao.OrderItemRepository;
+import ca.mcgill.ecse321.grocerystore.model.InventoryItem;
 import ca.mcgill.ecse321.grocerystore.model.OrderItem;
 
 @Service
@@ -19,18 +21,29 @@ public class OrderItemService {
 	/** @author Youssof Mohamed */
     @Autowired
     OrderItemRepository orderItemRepository;
-
+    InventoryItemRepository inventoryItemRepository;
     
     /** @author Youssof Mohamed */
     @Transactional
     public OrderItem createOrderItem(String name, int price, int currentStock)
     {
-   
+    	//check order item has valid info
+    	checkItemInfoValidity(name,price,currentStock);
+    	InventoryItem inventoryItem = inventoryItemRepository.findByName(name);
+    	if(inventoryItem==null) throw new IllegalArgumentException("No item exists in inventory named '" + name + "'");
+    	if(inventoryItem.getCurrentStock()==0) throw new IllegalArgumentException(name + " item is out of stock");
+    	
+    	//set order item attributes
+    	inventoryItem.setCurrentStock(inventoryItem.getCurrentStock()-1);
         OrderItem orderItem = new OrderItem();
         orderItem.setName(name);
         orderItem.setPrice(price);
         orderItem.setCurrentStock(currentStock);
+        
+        //save changes to repository
         orderItemRepository.save(orderItem);
+        inventoryItemRepository.save(inventoryItem);
+        
         return orderItem;
     }
 
@@ -66,7 +79,7 @@ public class OrderItemService {
     public OrderItem updateOrderItemInfo(OrderItem orderItem)
     {
     	//check order item has valid info
-        checkInventoryItemInfoValidity(orderItem);
+        checkItemInfoValidity(orderItem);
         
         //update existing order item info with the new ones
         OrderItem orderItemToUpdate = orderItemRepository.findByItemId(orderItem.getItemId());
