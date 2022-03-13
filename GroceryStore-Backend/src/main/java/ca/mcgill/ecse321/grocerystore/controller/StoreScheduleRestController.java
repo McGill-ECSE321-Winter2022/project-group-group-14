@@ -4,8 +4,6 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,21 +25,36 @@ public class StoreScheduleRestController {
 	@Autowired
 	private StoreScheduleService service;
 
-//	@PostMapping(value = { "/storeSchedules/{day}", "/storeSchedules/{day}/" })
-//	public StoreScheduleDto createStoreSchedule(@PathVariable("day") String day,
-//	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime openingTime,
-//	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime closingTime)
-//	throws IllegalArgumentException {
-//		StoreSchedule storeSchedule = service.createStoreSchedule(Time.valueOf(openingTime), Time.valueOf(closingTime), Day.valueOf(day));
-//		return convertToDto(storeSchedule);
-//	}
-//
-//	@GetMapping(value = { "/events", "/events/" })
-//	public List<StoreScheduleDto> getAllEvents() {
-//		List<StoreScheduleDto> storeScheduleDtos = new ArrayList<>();
-//		for (StoreSchedule storeSchedule : service.getAllStoreSchedules()) {
-//			storeScheduleDtos.add(convertToDto(storeSchedule));
-//		}
-//		return storeScheduleDtos;
-//	}
+	@PostMapping(value = { "/storeSchedules/{day}", "/storeSchedules/{day}/" })
+	public StoreScheduleDto createStoreSchedule(@PathVariable("day") String day,
+	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime openingTime,
+	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime closingTime)
+	throws IllegalArgumentException {
+		StoreSchedule storeSchedule = service.createStoreSchedule(Time.valueOf(openingTime), Time.valueOf(closingTime), Day.valueOf(day));
+		return convertToDto(storeSchedule);
+	}
+
+	@GetMapping(value = { "/storeSchedules/{day}", "/storeSchedules/{day}/" })
+	public StoreScheduleDto getStoreSchedule(@PathVariable("day") String day,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime openingTime,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime closingTime) throws IllegalArgumentException {
+		return convertToDto(service.getStoreScheduleByDayOpen(Day.valueOf(day)));
+	}
+	
+	@GetMapping(value = { "/storeSchedules", "/storeSchedules/" })
+	public List<StoreScheduleDto> getAllStoreSchedules() {
+		List<StoreScheduleDto> storeScheduleDtos = new ArrayList<>();
+		for (StoreSchedule storeSchedule : service.getAllStoreSchedules()) {
+			storeScheduleDtos.add(convertToDto(storeSchedule));
+		}
+		return storeScheduleDtos;
+	}
+	
+	private StoreScheduleDto convertToDto(StoreSchedule storeSchedule) {
+		if (storeSchedule == null) {
+			throw new IllegalArgumentException("The provided Schedule does not exist.");
+		}
+		StoreScheduleDto storeScheduleDto = new StoreScheduleDto(storeSchedule.getOpeningTime(), storeSchedule.getClosingTime(), storeSchedule.getDayOpen());
+		return storeScheduleDto;
+	}
 }
