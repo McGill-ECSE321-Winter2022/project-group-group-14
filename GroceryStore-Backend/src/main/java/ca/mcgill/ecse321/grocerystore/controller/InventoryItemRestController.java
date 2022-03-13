@@ -24,14 +24,14 @@ public class InventoryItemRestController {
 		InventoryItem inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock);
 		return convertToDto(inventoryItem);
 	}
-	@GetMapping(value = { "/orderItems/{name}", "/orderItems/{name}/" })
+	@GetMapping(value = { "/inventoryItems/{name}", "/inventoryItems/{name}/" })
 	public InventoryItemDto createPerson(@PathVariable("name") String name) throws IllegalArgumentException {
 		return convertToDto(inventoryItemService.getInventoryItemByName(name));
 	}
 	
 	private InventoryItemDto convertToDto(InventoryItem inventoryItem) {
 		if (inventoryItem == null) {
-			throw new IllegalArgumentException("There is no such OrderItem!");
+			throw new IllegalArgumentException("There is no such InventoryItem!");
 		}
 		InventoryItemDto inventoryItemDto = new InventoryItemDto(inventoryItem.getName(),inventoryItem.getPrice(),inventoryItem.getCurrentStock(),inventoryItem.getItemId());
 		return inventoryItemDto;
