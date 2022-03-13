@@ -20,12 +20,12 @@ public class OrderItemRestController {
 	private OrderItemService orderItemService;
 	
 	@PostMapping(value = { "/orderItems/{name}", "/orderItems/{name}/" })
-	public OrderItemDto createPerson(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock) throws IllegalArgumentException {
+	public OrderItemDto createOrderItem(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock) throws IllegalArgumentException {
 		OrderItem orderItem = orderItemService.createOrderItem(name,price,currentStock);
 		return convertToDto(orderItem);
 	}
 	@GetMapping(value = { "/orderItems/{name}", "/orderItems/{name}/" })
-	public OrderItemDto createPerson(@PathVariable("name") String name) throws IllegalArgumentException {
+	public OrderItemDto getOrderItem(@PathVariable("name") String name) throws IllegalArgumentException {
 		return convertToDto(orderItemService.getOrderItemByName(name));
 	}
 	

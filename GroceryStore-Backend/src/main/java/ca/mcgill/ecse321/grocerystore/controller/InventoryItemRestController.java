@@ -20,12 +20,12 @@ public class InventoryItemRestController {
 	private InventoryItemService inventoryItemService;
 	
 	@PostMapping(value = { "/inventoryItems/{name}", "/inventoryItems/{name}/" })
-	public InventoryItemDto createPerson(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock) throws IllegalArgumentException {
+	public InventoryItemDto createInventoryItem(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock) throws IllegalArgumentException {
 		InventoryItem inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock);
 		return convertToDto(inventoryItem);
 	}
 	@GetMapping(value = { "/inventoryItems/{name}", "/inventoryItems/{name}/" })
-	public InventoryItemDto createPerson(@PathVariable("name") String name) throws IllegalArgumentException {
+	public InventoryItemDto getInventoryItem(@PathVariable("name") String name) throws IllegalArgumentException {
 		return convertToDto(inventoryItemService.getInventoryItemByName(name));
 	}
 	
