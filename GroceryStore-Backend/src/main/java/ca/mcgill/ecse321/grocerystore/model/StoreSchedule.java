@@ -95,7 +95,7 @@ public class StoreSchedule
     return super.toString() + "["+
             "openingTime" + ":" + getOpeningTime()+ "," +
             "closingTime" + ":" + getClosingTime()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "daysOpen" + "=" + (getDayOpen() != null ? !getDayOpen().equals(this)  ? getDayOpen().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator");
+            "  " + "daysOpen" + "=" + (getDayOpen() != null ? !getDayOpen().equals(this.getDayOpen())  ? getDayOpen().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator");
   } 
   
 }
