@@ -25,7 +25,7 @@ public class OwnerRestController {
 		return convertToDto(owner);
 	}
 	
-	@GetMapping(value = { "/owners/{name}", "/owners/{name}/" })
+	@GetMapping(value = { "/owners/{email}", "/owners/{email}/" })
 	public OwnerDto getowner(@PathVariable("email") String email) throws IllegalArgumentException {
 		return convertToDto(ownerService.getOwnerByEmail(email));
 	}
