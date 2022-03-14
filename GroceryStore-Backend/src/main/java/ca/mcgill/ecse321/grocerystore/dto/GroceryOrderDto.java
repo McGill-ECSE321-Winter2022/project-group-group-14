@@ -9,11 +9,11 @@ import java.util.List;
 public class GroceryOrderDto {
     /**
      * design decisions based on tutorial: 
-     * - orderId not included
      * - Dto objects used when referencing associations
      * - String used instead of enumeration type from model classes
      * */ 
-
+	
+	private int orderId;
     private int totalCost;
     private String orderType;
     private List<OrderItemDto> orderItems;
@@ -22,8 +22,9 @@ public class GroceryOrderDto {
     public GroceryOrderDto(){   //empty constructor
     }
 
-    public GroceryOrderDto(int totalCost, String orderType, List<OrderItemDto> orderItems, CustomerDto customer){   
-        this.totalCost = totalCost;
+    public GroceryOrderDto(int orderId, int totalCost, String orderType, List<OrderItemDto> orderItems, CustomerDto customer){   
+    	this.orderId = orderId;
+    	this.totalCost = totalCost;
         this.orderType = orderType;
         this.orderItems = orderItems;
         this.customer = customer;
@@ -43,6 +44,10 @@ public class GroceryOrderDto {
 
     public CustomerDto getCustomer(){
         return this.customer;
+    }
+    
+    public int getOrderId() {
+    	return orderId;
     }
     
 }

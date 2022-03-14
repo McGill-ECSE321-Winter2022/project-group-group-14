@@ -132,7 +132,7 @@ public class GroceryOrderService {
      * @return
      */
     @Transactional
-    public List<GroceryOrder> getAllOrders(OrderType orderType){
+    public List<GroceryOrder> getAllOrders(){
     	List<GroceryOrder> allOrders = toList(groceryOrderRepository.findAll());
     	return allOrders;
     }
