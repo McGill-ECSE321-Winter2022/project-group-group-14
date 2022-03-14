@@ -20,7 +20,10 @@ public class TestStoreSchedulePersistence {
 	@Autowired
 	private StoreScheduleRepository storeScheduleRepository;
 
-	//test Customer persistence
+	/**
+	 * @author Yakir Bender
+	 */
+	//test StoreSchedule persistence by comparing Id
 	@Test
 	public void testPersistAndLoadStoreScheduleById(){
 	
@@ -56,8 +59,10 @@ public class TestStoreSchedulePersistence {
 
 	}
 	
-	
-	//test Customer persistence
+	/**
+	 * @author Yakir Bender
+	 */
+	//test StoreSchedule persistence by comparing DayOpen
 	@Test
 	public void testPersistAndLoadStoreScheduleByDayOpen(){
 	

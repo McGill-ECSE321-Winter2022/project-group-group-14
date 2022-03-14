@@ -7,6 +7,7 @@ import java.util.List;
 
 import ca.mcgill.ecse321.grocerystore.model.Account;
 import ca.mcgill.ecse321.grocerystore.model.InventoryItem;
+import ca.mcgill.ecse321.grocerystore.model.StoreSchedule.Day;
 
 
 public class ServiceHelpers
@@ -44,7 +45,7 @@ public class ServiceHelpers
             throw new IllegalArgumentException("Please submit a valid phone.");
     }
     
-    public static void checkInventoryItemInfoValidity(String name, int price, int currentStock)
+    public static void checkItemInfoValidity(String name, int price, int currentStock)
     {
         if (name == null || name.trim().length() == 0)
             throw new IllegalArgumentException("Please submit a valid name.");
@@ -54,7 +55,7 @@ public class ServiceHelpers
             throw new IllegalArgumentException("Please submit a valid stock number.");
     }
     
-    public static void checkInventoryItemInfoValidity(InventoryItem inventoryItem)
+    public static void checkItemInfoValidity(InventoryItem inventoryItem)
     {
         if (inventoryItem == null) throw new IllegalArgumentException("Please submit a valid inventory item object.");
         if (inventoryItem.getName() == null || inventoryItem.getName().trim().length() == 0)
@@ -79,5 +80,23 @@ public class ServiceHelpers
             throw new IllegalArgumentException("Please input a valid start and end time.");
         if (startTime.after(endTime))
             throw new IllegalArgumentException("Your start time cannot be after your end time.");
+        if (startTime.equals(endTime))
+            throw new IllegalArgumentException("Your start time cannot be the same as your end time.");
+    }
+    
+    public static void checkDayValidity(Day day)
+    {
+        if (day == null)
+            throw new IllegalArgumentException("Please input a valid day.");
+        
+        boolean isValidDay = false;
+        for (Day listedDay : Day.values()) {
+            if (listedDay.equals(day)) {
+                isValidDay = true;
+                break;
+            }
+        }
+        if (!isValidDay)
+            throw new IllegalArgumentException("Please input a day of the week");
     }
 }
