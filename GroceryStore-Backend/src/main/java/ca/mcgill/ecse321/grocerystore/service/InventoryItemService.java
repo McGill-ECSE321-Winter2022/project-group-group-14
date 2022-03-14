@@ -63,10 +63,8 @@ public class InventoryItemService {
     {
         return inventoryItemRepository.findByName(name);
     }
-
    
 
-    
     /** @author Youssof Mohamed */
     @Transactional
     public InventoryItem updateInventoryItemInfo(InventoryItem inventoryItem)
@@ -94,5 +92,17 @@ public class InventoryItemService {
     {
         inventoryItemRepository.delete(inventoryItem);
         return inventoryItem;
+    }
+    
+    @Transactional
+    public void toggleInventoryItemAvailability(InventoryItem inventoryItem) {
+    	InventoryItem item = inventoryItemRepository.findByItemId(inventoryItem.getItemId());
+    	if (item == null) throw new IllegalArgumentException("No such inventory item exists");
+    	if (item.getAvailability()) {
+    		item.setAvailability(false);
+    	}else {
+    		item.setAvailability(true);
+    	}
+    	inventoryItemRepository.save(item); 	
     }
 }

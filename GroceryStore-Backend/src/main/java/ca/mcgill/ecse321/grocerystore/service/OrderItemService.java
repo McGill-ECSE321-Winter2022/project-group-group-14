@@ -27,14 +27,12 @@ public class OrderItemService {
     @Transactional
     public OrderItem createOrderItem(String name, int price, int currentStock)
     {
-    	if (name.equals("Magazine")) throw new IllegalArgumentException("Order cannot contain a magazine.");
-    	if (name.equals("Gift Card")) throw new IllegalArgumentException("Order cannot contain a gift card.");
-
     	//check order item has valid info
     	checkItemInfoValidity(name,price,currentStock);
     	InventoryItem inventoryItem = inventoryItemRepository.findByName(name);
     	if(inventoryItem==null) throw new IllegalArgumentException("No item exists in inventory named '" + name + "'");
     	if(inventoryItem.getCurrentStock()==0) throw new IllegalArgumentException(name + " item is out of stock");
+    	if(!inventoryItem.getAvailability()) throw new IllegalArgumentException(name + " item is not available for order");
     	
     	//set order item attributes
     	inventoryItem.setCurrentStock(inventoryItem.getCurrentStock()-1);

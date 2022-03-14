@@ -6,6 +6,7 @@ public class InventoryItemDto {
 	private int price;
 	private int currentStock;
 	private int itemId;
+	private Boolean available;
 	
 	public InventoryItemDto() {
 		
@@ -16,6 +17,15 @@ public class InventoryItemDto {
 		this.price = price;
 		this.currentStock = currentStock;
 		this.itemId = itemId;
+		this.available = true;
+	}
+	
+	public InventoryItemDto(String name, int price, int currentStock, int itemId, Boolean available) {
+		this.name = name;
+		this.price = price;
+		this.currentStock = currentStock;
+		this.itemId = itemId;
+		this.available = available;
 	}
 	
 	public String getName() {
@@ -32,6 +42,10 @@ public class InventoryItemDto {
 
 	public int getItemId() {
 		return itemId;
+	}
+	
+	public Boolean getAvailability() {
+		return this.available;
 	}
 	
 }
