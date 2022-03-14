@@ -19,12 +19,12 @@ public class CustomerRestController {
 	@Autowired
 	private CustomerService CustomerService;
 	
-	@PostMapping(value = { "/Customers/{email}", "/Customers/{email}/" })
-	public CustomerDto createCustomer(@PathVariable("email") String email, @RequestParam String username, @RequestParam String password, @RequestParam String phoneNumber, @RequestParam String address) throws IllegalArgumentException {
+	@PostMapping(value = { "/customers/{email}/{username}/{password}/{phoneNumber}/{address}", "/customers/{email}/{username}/{password}/{phoneNumber}/{address}/" })
+	public CustomerDto createCustomer(@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("phoneNumber") String phoneNumber, @PathVariable("address") String address) throws IllegalArgumentException {
 		Customer customer = CustomerService.createCustomer(email,username,password,phoneNumber,address);
 		return convertToDto(customer);
 	}
-	@GetMapping(value = { "/Customers/{name}", "/Customers/{name}/" })
+	@GetMapping(value = { "/customers/{email}", "/customers/{email}/" })
 	public CustomerDto getCustomer(@PathVariable("email") String email) throws IllegalArgumentException {
 		return convertToDto(CustomerService.getCustomerByEmail(email));
 	}
