@@ -71,22 +71,26 @@ public class CustomerService {
     {
     	return customerRepository.findByAddress(address);
     }
-
-    /** @author Samuel Valentine	 */
+    
+    /** @author Samuel Valentine */
     @Transactional
     public Customer updateCustomerInfo(Customer customer)
     {
-        ServiceHelpers.checkAccountInfoValidity(customer);
-        if (customer.getPassword() == null || customer.getPassword().trim().length() == 0)
-        {
-            customer.setPassword(getCustomerByID(customer.getAccountId()).getPassword());
-        }
-        else
-        {
-            customer.setPassword(customer.getPassword()); 
-//            customer.setPassword(Helper.hash(customer.getPassword())); // some sources recommended using 'hash'
-        }
-        customerRepository.save(customer);
+    	//check customer has valid info
+    	ServiceHelpers.checkAccountInfoValidity(customer);
+        
+        //update existing customer info with the new ones
+        Customer customerToUpdate = customerRepository.findByAccountId(customer.getAccountId());
+        if (customerToUpdate == null) throw new IllegalArgumentException("No such customer exists");
+        customerToUpdate.setEmail(customer.getEmail());
+        customerToUpdate.setUsername(customer.getUsername());
+        customerToUpdate.setPassword(customer.getPassword());
+        customerToUpdate.setPhoneNumber(customer.getPhoneNumber());
+        customerToUpdate.setAddress(customer.getAddress());
+        
+        //save new changes to the repository
+        customerRepository.save(customerToUpdate);
+        
         return customer;
     }
 
@@ -94,9 +98,6 @@ public class CustomerService {
     @Transactional
     public Customer deleteCustomer(Customer customer)
     {
-//        List<Appointment> appts = appointmentRepository.findAppointmentsByCustomer(customer);
-//        appointmentRepository.deleteAll(appts);
-
         customerRepository.delete(customer);
         return customer;
     }

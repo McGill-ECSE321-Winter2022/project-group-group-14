@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.grocerystore.dao.EmployeeRepository;
-
 import ca.mcgill.ecse321.grocerystore.model.Employee;
 
 @Service
@@ -50,21 +49,23 @@ public class EmployeeService {
         return employeeRepository.findByUsername(username);
     }
     
-    /** @author Samuel Valentine	 */
+    /** @author Samuel Valentine */
     @Transactional
     public Employee updateEmployeeInfo(Employee employee)
     {
-        ServiceHelpers.checkAccountInfoValidity(employee);
-        if (employee.getPassword() == null || employee.getPassword().trim().length() == 0)
-        {
-        	employee.setPassword(getEmployeeByID(employee.getAccountId()).getPassword());
-        }
-        else
-        {
-        	employee.setPassword(employee.getPassword()); 
-//            employee.setPassword(Helper.hash(employee.getPassword())); // some sources recommended using 'hash'
-        }
-        employeeRepository.save(employee);
+    	//check employee has valid info
+    	ServiceHelpers.checkAccountInfoValidity(employee);
+        
+        //update existing employee info with the new ones
+        Employee employeeToUpdate = employeeRepository.findByAccountId(employee.getAccountId());
+        if (employeeToUpdate == null) throw new IllegalArgumentException("No such employee exists");
+        employeeToUpdate.setEmail(employee.getEmail());
+        employeeToUpdate.setUsername(employee.getUsername());
+        employeeToUpdate.setPassword(employee.getPassword());
+        
+        //save new changes to the repository
+        employeeRepository.save(employeeToUpdate);
+        
         return employee;
     }
 
@@ -72,9 +73,6 @@ public class EmployeeService {
     @Transactional
     public Employee deleteEmployee(Employee employee)
     {
-//        List<Appointment> appts = appointmentRepository.findAppointmentsByEmployee(employee);
-//        appointmentRepository.deleteAll(appts);
-
     	employeeRepository.delete(employee);
         return employee;
     }
