@@ -25,7 +25,9 @@ public class OrderItemService {
     @Transactional
     public OrderItem createOrderItem(String name, int price, int currentStock)
     {
-   
+    	if (name.equals("Magazine")) throw new IllegalArgumentException("Order cannot contain a magazine.");
+    	if (name.equals("Gift Card")) throw new IllegalArgumentException("Order cannot contain a gift card.");
+
         OrderItem orderItem = new OrderItem();
         orderItem.setName(name);
         orderItem.setPrice(price);
