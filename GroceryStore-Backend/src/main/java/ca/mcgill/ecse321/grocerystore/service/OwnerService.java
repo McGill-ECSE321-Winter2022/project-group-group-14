@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.grocerystore.dao.OwnerRepository;
-
 import ca.mcgill.ecse321.grocerystore.model.Owner;
 
 @Service
@@ -50,21 +49,23 @@ public class OwnerService {
         return ownerRepository.findByUsername(username);
     }
     
-    /** @author Samuel Valentine	 */
+    /** @author Samuel Valentine */
     @Transactional
     public Owner updateOwnerInfo(Owner owner)
     {
-        ServiceHelpers.checkAccountInfoValidity(owner);
-        if (owner.getPassword() == null || owner.getPassword().trim().length() == 0)
-        {
-            owner.setPassword(getOwnerByID(owner.getAccountId()).getPassword());
-        }
-        else
-        {
-            owner.setPassword(owner.getPassword()); 
-//            owner.setPassword(Helper.hash(owner.getPassword())); // some sources recommended using 'hash'
-        }
-        ownerRepository.save(owner);
+    	//check owner has valid info
+    	ServiceHelpers.checkAccountInfoValidity(owner);
+        
+        //update existing owner info with the new ones
+        Owner ownerToUpdate = ownerRepository.findByAccountId(owner.getAccountId());
+        if (ownerToUpdate == null) throw new IllegalArgumentException("No such owner exists");
+        ownerToUpdate.setEmail(owner.getEmail());
+        ownerToUpdate.setUsername(owner.getUsername());
+        ownerToUpdate.setPassword(owner.getPassword());
+        
+        //save new changes to the repository
+        ownerRepository.save(ownerToUpdate);
+        
         return owner;
     }
 
@@ -72,9 +73,6 @@ public class OwnerService {
     @Transactional
     public Owner deleteOwner(Owner owner)
     {
-//        List<Appointment> appts = appointmentRepository.findAppointmentsByOwner(owner);
-//        appointmentRepository.deleteAll(appts);
-
         ownerRepository.delete(owner);
         return owner;
     }
