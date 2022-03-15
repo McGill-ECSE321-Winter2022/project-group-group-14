@@ -34,12 +34,17 @@ public class GroceryOrderService {
      * @return
      */
     @Transactional
-    public GroceryOrder createInStoreOrder(int totalCost){ 
-    	if (totalCost == 0) throw new IllegalArgumentException("Order made in store cannot amount to 0$. ");
+    public GroceryOrder createInStoreOrder(List<OrderItem> orderItems){ 
         GroceryOrder order = new GroceryOrder();
         order.setOrderType(OrderType.InStore);
+        int totalCost = 0; 
+        for (OrderItem oi : orderItems) {			
+        	totalCost = totalCost + oi.getPrice();
+        }
         order.setTotalCost(totalCost);
         order.setOrderStatus(OrderStatus.Completed);
+        order = groceryOrderRepository.save(order);	
+        order.setOrderItems(orderItems);
         order = groceryOrderRepository.save(order);	
         return order;
     }
@@ -127,6 +132,11 @@ public class GroceryOrderService {
         return orderList;
     }
     
+    /**
+     * @author clarissabaciu
+     * @param orderStatus
+     * @return
+     */
     @Transactional
     public List<GroceryOrder> getOrdersByOrderStatus(OrderStatus orderStatus){
     	if (orderStatus == null) throw new IllegalArgumentException("Please select a proper order status.");
@@ -192,4 +202,31 @@ public class GroceryOrderService {
     	groceryOrderRepository.delete(groceryOrder);
     	return groceryOrder; 
     } 
+    
+    /**
+     * @author clarissabaciu
+     * @return total sales for monthly report
+     */
+    @Transactional
+    public int getTotalSales(){  
+    	int sales = 0;
+    	for (GroceryOrder order : groceryOrderRepository.findByOrderStatus(OrderStatus.Completed)) {
+    		sales += order.getTotalCost();
+    	}
+    	return sales;
+    } 
+    
+
+    /**
+     * @author clarissabaciu
+     * deletes all orders, done by owner at the end of the month after montly report is generated
+     */
+    @Transactional
+    public void deleteAllOrders(){  
+    	for (GroceryOrder order : groceryOrderRepository.findByOrderStatus(OrderStatus.Completed)) {
+    		groceryOrderRepository.delete(order);
+    	}
+    } 
+
+    
 }
