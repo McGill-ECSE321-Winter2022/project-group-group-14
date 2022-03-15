@@ -7,13 +7,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.grocerystore.dto.GroceryOrderDto;
 import ca.mcgill.ecse321.grocerystore.dto.StoreScheduleDto;
+import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
 import ca.mcgill.ecse321.grocerystore.model.StoreSchedule;
 import ca.mcgill.ecse321.grocerystore.model.StoreSchedule.Day;
 import ca.mcgill.ecse321.grocerystore.service.StoreScheduleService;
@@ -25,19 +29,17 @@ public class StoreScheduleRestController {
 	@Autowired
 	private StoreScheduleService service;
 
-	@PostMapping(value = { "/storeSchedules/{day}", "/storeSchedules/{day}/" })
+	@PostMapping(value = { "/storeSchedules/{day}/{openingTime}/{closingTime}", "/storeSchedules/{day}/{openingTime}/{closingTime}/" })
 	public StoreScheduleDto createStoreSchedule(@PathVariable("day") String day,
-	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime openingTime,
-	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime closingTime)
+	@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime openingTime,
+	@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime closingTime)
 	throws IllegalArgumentException {
 		StoreSchedule storeSchedule = service.createStoreSchedule(Time.valueOf(openingTime), Time.valueOf(closingTime), Day.valueOf(day));
 		return convertToDto(storeSchedule);
 	}
 
 	@GetMapping(value = { "/storeSchedules/{day}", "/storeSchedules/{day}/" })
-	public StoreScheduleDto getStoreSchedule(@PathVariable("day") String day,
-			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime openingTime,
-			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime closingTime) throws IllegalArgumentException {
+	public StoreScheduleDto getStoreSchedule(@PathVariable("day") String day) throws IllegalArgumentException {
 		return convertToDto(service.getStoreScheduleByDayOpen(Day.valueOf(day)));
 	}
 	
@@ -49,6 +51,20 @@ public class StoreScheduleRestController {
 		}
 		return storeScheduleDtos;
 	}
+	
+//	@PutMapping(value = { "/storeSchedules", "/storeSchedules/" })
+//	public StoreScheduleDto updateStoreSchedule(@PathVariable("day") String day,
+//			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime openingTime,
+//			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime closingTime) throws IllegalArgumentException  {
+//		StoreSchedule storeSchedule  = service.updateStoreScheduleInfo(new StoreSchedule(Time.valueOf(openingTime), Time.valueOf(closingTime), Day.valueOf(day)));
+//		return convertToDto(storeSchedule);
+//	}
+	
+	@DeleteMapping({ "/storeSchedules", "/storeSchedules/" })
+	public StoreScheduleDto deleteStoreSchedule(@PathVariable("day") String day) {
+		StoreSchedule storeSchedule = service.deleteStoreSchedule(service.getStoreScheduleByDayOpen(Day.valueOf(day)));
+		return convertToDto(storeSchedule);
+		}
 	
 	private StoreScheduleDto convertToDto(StoreSchedule storeSchedule) {
 		if (storeSchedule == null) {
