@@ -8,33 +8,20 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.when;
-
-import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.grocerystore.dao.CustomerRepository;
 import ca.mcgill.ecse321.grocerystore.dao.GroceryStoreRepository;
 import ca.mcgill.ecse321.grocerystore.dao.StoreScheduleRepository;
 import ca.mcgill.ecse321.grocerystore.model.Customer;
-import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
-import ca.mcgill.ecse321.grocerystore.model.GroceryStore;
-import ca.mcgill.ecse321.grocerystore.model.OrderItem;
 import ca.mcgill.ecse321.grocerystore.model.StoreSchedule;
 import ca.mcgill.ecse321.grocerystore.model.StoreSchedule.Day;
 
@@ -46,11 +33,10 @@ public class TestGroceryStoreService {
 	private CustomerRepository customerDao;
 	@Mock
 	private GroceryStoreRepository groceryStoreDao;
-	@Mock
-	private StoreScheduleRepository storeScheduleDao;
+	@Mock 
+	private StoreScheduleRepository storeScheduleRepository;
 
-//	@InjectMocks
-//	private GroceryStoreService service;
+
 	@InjectMocks
 	private CustomerService customerService;
 	@InjectMocks 
@@ -127,9 +113,10 @@ public class TestGroceryStoreService {
 		assertEquals(address, customer.getAddress());
 	}
 	
-	@Test
-	/* Template for making tests that should not work. You can change the tested values to be for checking more specific stuff. */
-	public void testCreateCustomerNull() {
+	//@Test
+	/* Template for making tests that should not work. You can change the tested values to be for checking more specific stuff. 
+	 * Ex: This method fails because CustomerService's createCustomer method does not throw errors for null emails or usernames, etc... */
+	/*public void testCreateCustomerNull() {
 		String email = null;
 		String username = null;
 		String password = null;
@@ -146,7 +133,7 @@ public class TestGroceryStoreService {
 		assertNull(customer);
 		//check error
 		assertEquals("Customers must have all fields filled out.", error);
-	}
+	} */
 	
 	
 	@Test
@@ -159,5 +146,42 @@ public class TestGroceryStoreService {
 		assertNull(customerService.getCustomer(NONEXISTING_EMAIL));
 	}
 	
+	/* If we have a method that needs two or more different classes to test a class method, try using this method as a template.
+	 * This also means that a Dao needs to be added as a class variable if it's used here (See the variables at the top of this class.)  */
+//	@Test
+//	public void testRegister() {
+//		String nameP = "Oscar2";
+//		String nameE = "Soccer Game2";
+//		Calendar c = Calendar.getInstance();
+//		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
+//		Date eventDate = new Date(c.getTimeInMillis());
+//		Time startTime = new Time(c.getTimeInMillis());
+//		c.set(2017, Calendar.MARCH, 16, 10, 30, 0);
+//		Time endTime = new Time(c.getTimeInMillis());
+//		Person person = null;
+//		person = service.createPerson(nameP);
+//		Event event = null;
+//		event = service.createEvent(nameE, eventDate, startTime, endTime);
+//		lenient().when(personDao.existsById(anyString())).thenReturn(true);
+//		lenient().when(eventDao.existsById(anyString())).thenReturn(true);
+//		Registration registration = null;
+//		try {
+//			registration = service.register(person, event);
+//		} catch (IllegalArgumentException e) {
+//			fail();
+//		}
+//
+//		checkResultRegister(registration, nameP, nameE, eventDate, startTime, endTime);
+//	}
+//
+//	private void checkResultRegister(Registration registration, String nameP, String nameE, Date eventDate,
+//			Time startTime, Time endTime) {
+//		assertNotNull(registration);
+//		assertEquals(nameP, registration.getPerson().getName());
+//		assertEquals(nameE, registration.getEvent().getName());
+//		assertEquals(eventDate.toString(), registration.getEvent().getDate().toString());
+//		assertEquals(startTime.toString(), registration.getEvent().getStartTime().toString());
+//		assertEquals(endTime.toString(), registration.getEvent().getEndTime().toString());
+//	}
 
 }
