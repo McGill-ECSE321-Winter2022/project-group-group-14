@@ -59,6 +59,13 @@ public class GroceryOrderService {
         for (OrderItem oi : orderItems) {			
         	totalCost = totalCost + oi.getPrice();
         }
+        
+        //check if customer is in town
+        if (order.getOrderType().equals(OrderType.Delivery)) {
+        	if (customer.getAddress().contains(customer.getTown())) {
+        		totalCost+=customer.getOutOfTownFee();
+        	}
+        }
         order.setTotalCost(totalCost);				//can also add tax
         order = groceryOrderRepository.save(order);	
         order.setOrderItems(orderItems);
@@ -66,6 +73,7 @@ public class GroceryOrderService {
         order = groceryOrderRepository.save(order);	
         return order;
     }
+    
     /**
      * @author clarissabaciu
      * @param Id

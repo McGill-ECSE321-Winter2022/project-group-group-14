@@ -26,6 +26,7 @@ public class GroceryStore {
     private List<InventoryItem> inventoryItems;
     private List<StoreSchedule> storeSchedules; 
     private List<GroceryOrder> groceryOrders;
+  
     
     public GroceryStore() {
     	this.accounts = new ArrayList<Account>();
@@ -73,11 +74,5 @@ public class GroceryStore {
     public void setGroceryOrders(List<GroceryOrder> groceryOrders) {
         this.groceryOrders = groceryOrders;
     }
-    
-   
-    
 
-    
-
-    
 }
