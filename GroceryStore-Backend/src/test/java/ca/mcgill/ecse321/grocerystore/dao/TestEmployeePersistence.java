@@ -43,12 +43,12 @@ public class TestEmployeePersistence {
 		employee.addEmployeeSchedule(employeeSchedule0);
 		employee.addEmployeeSchedule(employeeSchedule1);
 			
-		//save Employee object
-		employeeRepository.save(employee);
-		
 		//save EmployeeSchedule object
 		employeeScheduleRepository.save(employeeSchedule0);
 		employeeScheduleRepository.save(employeeSchedule1);
+		
+		//save Employee object
+		employeeRepository.save(employee);
 		
 		
 		//test saved Employee object
