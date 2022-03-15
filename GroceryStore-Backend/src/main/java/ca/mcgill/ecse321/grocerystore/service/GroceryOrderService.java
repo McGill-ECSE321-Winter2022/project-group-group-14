@@ -13,6 +13,8 @@ import ca.mcgill.ecse321.grocerystore.model.Customer;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
 import ca.mcgill.ecse321.grocerystore.model.OrderItem;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder.OrderType;
+import ca.mcgill.ecse321.grocerystore.model.GroceryStore;
+
 import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.toList;
 
 
@@ -62,8 +64,8 @@ public class GroceryOrderService {
         
         //check if customer is in town
         if (order.getOrderType().equals(OrderType.Delivery)) {
-        	if (customer.getAddress().contains(customer.getTown())) {
-        		totalCost+=customer.getOutOfTownFee();
+        	if (customer.getAddress().contains(GroceryStore.town)){
+        		totalCost+=GroceryStore.outOfTownFee;
         	}
         }
         order.setTotalCost(totalCost);				//can also add tax

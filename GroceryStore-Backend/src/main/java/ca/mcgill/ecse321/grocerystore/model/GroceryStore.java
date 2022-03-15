@@ -21,6 +21,8 @@ import javax.persistence.Id;
 
 @Entity
 public class GroceryStore {
+	public static String town = "Storiko";
+	public static int outOfTownFee = 10;
     private int storeId;
     private List<Account> accounts; 
     private List<InventoryItem> inventoryItems;

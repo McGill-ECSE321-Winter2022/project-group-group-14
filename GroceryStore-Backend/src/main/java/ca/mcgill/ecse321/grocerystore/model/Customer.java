@@ -18,8 +18,6 @@ public class Customer extends Account
   //Customer Attributes
   private String address;
   private String phoneNumber;
-  private String town = "Storiko";
-  private int outOfTownFee = 10;
 
 
 
@@ -67,25 +65,7 @@ public class Customer extends Account
   {
     return phoneNumber;
   }
-  /* Code from template association_GetMany */
-  public String getTown() {
-  	return this.town;
-  }
-  public int getOutOfTownFee() {
-	  return this.outOfTownFee;
-  }
-  
-  public void setTown(String town) {
-	  this.town = town;
-  }
-  public void setOutOfTownFee(int fee) {
-	  this.outOfTownFee = fee;
-  }
-  
-  
-
  
-
 
   public String toString()
   {
