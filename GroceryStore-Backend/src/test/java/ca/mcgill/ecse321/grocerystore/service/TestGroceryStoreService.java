@@ -30,6 +30,7 @@ import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.grocerystore.dao.CustomerRepository;
 import ca.mcgill.ecse321.grocerystore.dao.GroceryStoreRepository;
+import ca.mcgill.ecse321.grocerystore.dao.StoreScheduleRepository;
 import ca.mcgill.ecse321.grocerystore.model.Customer;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
 import ca.mcgill.ecse321.grocerystore.model.GroceryStore;
@@ -45,11 +46,15 @@ public class TestGroceryStoreService {
 	private CustomerRepository customerDao;
 	@Mock
 	private GroceryStoreRepository groceryStoreDao;
+	@Mock
+	private StoreScheduleRepository storeScheduleDao;
 
 //	@InjectMocks
 //	private GroceryStoreService service;
 	@InjectMocks
 	private CustomerService customerService;
+	@InjectMocks 
+	private StoreScheduleService storeScheduleService;
 
 	private static final String CUSTOMER_EMAIL = "jim@hotmail.com";
 	private static final String NONEXISTING_EMAIL = "NotACustomer";
@@ -75,53 +80,28 @@ public class TestGroceryStoreService {
 //		lenient().when(registrationDao.save(any(Registration.class))).thenAnswer(returnParameterAsAnswer);
 	}
 	
-//	@Test
-//	public void testCreateCustomer() {
-//		assertEquals(0, service.get
-//
-//		String name = "Oscar";
-//		Person person = null;
-//		try {
-//			person = service.createPerson(name);
-//		} catch (IllegalArgumentException e) {
-//			// Check that no error occurred
-//			fail();
-//		}
-//		assertNotNull(person);
-//		assertEquals(name, person.getName());
-//	}
-//
-//	@Test
-//	public void testCreatePersonNull() {
-//		String name = null;
-//		String error = null;
-//		Person person = null;
-//		try {
-//			person = service.createPerson(name);
-//		} catch (IllegalArgumentException e) {
-//			error = e.getMessage();
-//		}
-//
-//		assertNull(person);
-//		// check error
-//		assertEquals("Person name cannot be empty!", error);
-//	}
-//
-//	@Test
-//	public void testCreatePersonEmpty() {
-//		String name = "";
-//		String error = null;
-//		Person person = null;
-//		try {
-//			person = service.createPerson(name);
-//		} catch (IllegalArgumentException e) {
-//			error = e.getMessage();
-//		}
-//		assertNull(person);
-//		// check error
-//		assertEquals("Person name cannot be empty!", error);
-//	}
+	@SuppressWarnings("deprecation")
+	@Test
+	public void testCreateStoreSchedule() {
+		Time openingTime = new Time(8, 30, 0);
+		Time closingTime = new Time(18, 0, 0);
+		Day dayOpen = Day.Monday;
+		StoreSchedule storeSchedule = null;
+		try {
+			storeSchedule = storeScheduleService.createStoreSchedule(openingTime, closingTime, dayOpen);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertNotNull(storeSchedule);
+		checkResultStoreSchedule(storeSchedule, openingTime, closingTime, dayOpen);
+	}
 	
+	private void checkResultStoreSchedule(StoreSchedule storeSchedule, Time openingTime, Time closingTime,Day dayOpen) {
+		assertNotNull(storeSchedule);
+		assertEquals(openingTime.toString(), storeSchedule.getOpeningTime().toString());
+		assertEquals(closingTime.toString(), storeSchedule.getClosingTime().toString());
+		assertEquals(dayOpen.toString(), storeSchedule.getDayOpen().toString());
+	}
 	
 	@Test
 	public void testCreateCustomer() {
@@ -175,7 +155,7 @@ public class TestGroceryStoreService {
 	}
 
 	@Test
-	public void testGetNonExistingPerson() {
+	public void testGetNonExistingCustomer() {
 		assertNull(customerService.getCustomer(NONEXISTING_EMAIL));
 	}
 	
