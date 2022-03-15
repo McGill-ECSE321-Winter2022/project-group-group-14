@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,15 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
 import org.hibernate.annotations.GenericGenerator;
-
-import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule.Shift;
 
 
 @Entity
@@ -25,26 +18,15 @@ public class GroceryOrder
 {
   public enum OrderType { InStore, PickUp, Delivery }
 
-
-  
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
-
   //Order Attributes
   private int orderId;
   private int totalCost;
   private OrderType orderType;
 
-
   //Order Associations
   private List<OrderItem> orderItems;
   private Customer customer;
   
-
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
 
   public GroceryOrder(Integer aTotalCost, OrderType aOrderType, Customer aCustomer )
   {
@@ -70,7 +52,6 @@ public class GroceryOrder
     this.orderItems = new ArrayList<OrderItem>();
   }
   
-
   public GroceryOrder()
   {
     totalCost = 0;
@@ -80,7 +61,6 @@ public class GroceryOrder
     this.customer = null;
   }
   
-  //GETTERS AND SETTERS FOR ATTRIBUTES
   
   @Id
   @GeneratedValue(generator = "increment")
@@ -109,19 +89,11 @@ public class GroceryOrder
 		this.orderType = orderType;
 	}
 
- //GETTERS AND SETTERS FOR ASSOCIATIONS
-
-	 
 	@ManyToOne
 	public Customer getCustomer() {
 		return customer;
 	}
 	 
-	  /**
-	   * paymentType needed. Cash can only be used for pickups
-	   * and InPerson.
-	   */
-	
 	 @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	 public List<OrderItem> getOrderItems() 
 	 {
@@ -132,20 +104,12 @@ public class GroceryOrder
 	  { 
 		  this.customer = aCustomer;
 		  return true;
-	  } 
-	    
+	  }  
 	 
 	 public void setOrderItems(List<OrderItem> aOrderItems) {
 		 this.orderItems = aOrderItems;
 	 }
 
-	 
-	 
-	 //DELETE AND TO STRING METHOD
-
-
-
-	 
 	 
   public String toString()
   {
