@@ -21,11 +21,14 @@ import javax.persistence.Id;
 
 @Entity
 public class GroceryStore {
+	public static String town = "Storiko";
+	public static int outOfTownFee = 10;
     private int storeId;
     private List<Account> accounts; 
     private List<InventoryItem> inventoryItems;
     private List<StoreSchedule> storeSchedules; 
     private List<GroceryOrder> groceryOrders;
+  
     
     public GroceryStore() {
     	this.accounts = new ArrayList<Account>();
@@ -73,11 +76,5 @@ public class GroceryStore {
     public void setGroceryOrders(List<GroceryOrder> groceryOrders) {
         this.groceryOrders = groceryOrders;
     }
-    
-   
-    
 
-    
-
-    
 }

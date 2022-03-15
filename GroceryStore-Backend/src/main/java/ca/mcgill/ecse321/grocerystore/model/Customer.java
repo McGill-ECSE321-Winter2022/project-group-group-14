@@ -65,9 +65,7 @@ public class Customer extends Account
   {
     return phoneNumber;
   }
-  /* Code from template association_GetMany */
  
-
 
   public String toString()
   {

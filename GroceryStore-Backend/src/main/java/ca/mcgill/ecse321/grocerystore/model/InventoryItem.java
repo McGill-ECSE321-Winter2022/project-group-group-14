@@ -18,6 +18,7 @@ public class InventoryItem
   private int price;	
   private int currentStock;
   private int itemId;
+  private boolean available;
   
  
  
@@ -26,6 +27,7 @@ public class InventoryItem
     name = aName;
     price = aPrice;
     currentStock = aCurrentStock;
+    this.available = true;
   }
   
   public InventoryItem()
@@ -33,6 +35,7 @@ public class InventoryItem
     name = null;
     price = 0;
     currentStock = 0;
+    this.available = true;
     
   }
 
@@ -88,6 +91,15 @@ public class InventoryItem
   {
     return currentStock;
   }
+  
+  public boolean getAvailability() {
+	  return this.available;
+  }
+  
+  public void setAvailability(Boolean bool) {
+	  this.available = bool;
+  }
+  
   
 
   public String toString()

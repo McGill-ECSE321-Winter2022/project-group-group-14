@@ -15,6 +15,7 @@ import ca.mcgill.ecse321.grocerystore.dto.GroceryOrderDto;
 import ca.mcgill.ecse321.grocerystore.dto.OrderItemDto;
 import ca.mcgill.ecse321.grocerystore.model.Customer;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
+import ca.mcgill.ecse321.grocerystore.model.GroceryOrder.OrderStatus;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder.OrderType;
 import ca.mcgill.ecse321.grocerystore.model.OrderItem;
 import ca.mcgill.ecse321.grocerystore.service.CustomerService;
@@ -82,12 +83,39 @@ public class GroceryOrderRestController {
 	
 	/**
 	 * @author clarissabaciu
+	 * @param Customer
+	 * @return orders by customer id
+	 */
+	@GetMapping(value = { "/orders/customer", "/orders/customer/" })
+	public List<GroceryOrderDto> getOrdersByCustomer(@RequestParam CustomerDto customerDto) throws IllegalArgumentException {
+		Customer customer = customerService.getCustomerByID(customerDto.getAccountId());
+		List<GroceryOrder> orders = orderService.getOrdersByCustomer(customer);
+		List<GroceryOrderDto> orderDtos = new ArrayList<GroceryOrderDto>(); 
+		for (GroceryOrder o: orders) {
+			orderDtos.add(convertToDto(o));
+		}
+		return orderDtos;
+	}
+	
+	
+	/**
+	 * @author clarissabaciu
 	 * @param orderType
 	 * @return orders by order type
 	 */
-	@GetMapping(value = { "/orders/{orderType}", "/orders/{orderType}/" })
+	@GetMapping(value = { "/orders/orderType/{orderType}", "/orders/orderType/{orderType}/" })
 	public List<GroceryOrderDto> getOrdersByOrderType(@PathVariable("orderType") String orderType) throws IllegalArgumentException {
 		List<GroceryOrder> orders = orderService.getOrdersByOrderType(OrderType.valueOf(orderType));
+		List<GroceryOrderDto> orderDtos = new ArrayList<GroceryOrderDto>(); 
+		for (GroceryOrder o: orders) {
+			orderDtos.add(convertToDto(o));
+		}
+		return orderDtos;
+	}
+	
+	@GetMapping(value = { "/orders/orderStatus/{orderStatus}", "/orders/orderStatus/{orderStatus}/" })
+	public List<GroceryOrderDto> getOrdersByOrderStatus(@PathVariable("orderStatus") String orderStatus) throws IllegalArgumentException {
+		List<GroceryOrder> orders = orderService.getOrdersByOrderStatus(OrderStatus.valueOf(orderStatus));
 		List<GroceryOrderDto> orderDtos = new ArrayList<GroceryOrderDto>(); 
 		for (GroceryOrder o: orders) {
 			orderDtos.add(convertToDto(o));
@@ -124,8 +152,12 @@ public class GroceryOrderRestController {
 	 * @throws IllegalArgumentException
 	 */
 	@PostMapping(value = { "/orders/inStore", "/orders/inStore/" })
-	public GroceryOrderDto createInstoreOrder(@RequestParam(name = "Total Cost") int totalCost) throws IllegalArgumentException  {
-		GroceryOrder orderInStore = orderService.createInStoreOrder(totalCost);
+	public GroceryOrderDto createInstoreOrder(@RequestParam(name = "Items") List<OrderItemDto> orderItemDtos) throws IllegalArgumentException  {
+		List<OrderItem> orderItems = new ArrayList<OrderItem>();
+		for (OrderItemDto itemDto : orderItemDtos ) {
+			orderItems.add(orderItemService.getOrderItemByID(itemDto.getItemId()));
+		}
+		GroceryOrder orderInStore = orderService.createInStoreOrder(orderItems);
 		return convertToDto(orderInStore);
 	}
 	
@@ -151,11 +183,30 @@ public class GroceryOrderRestController {
 	 * @param orderId
 	 * @return deleted order dto
 	 */
-	 @DeleteMapping("/orders/{orderId}")
-	 public GroceryOrderDto deleteEmployee(@PathVariable("orderId") String orderId) {
+	 @DeleteMapping({"/orders/{orderId}","/orders/{orderId}/"})
+	 public GroceryOrderDto deleteOrder(@PathVariable("orderId") String orderId) {
 		 GroceryOrder order = orderService.deleteOrder(orderService.getOrderById(Integer.parseInt(orderId)));
 		 return convertToDto(order);
 		  }
+	 
+	 /**
+	  * @author clarissabaciu
+	  */
+	@DeleteMapping({"/orders/deleteAll", "orders/deleteAll/"})
+	public void deleteAllOrders() {
+		 orderService.deleteAllOrders();
+	}
+	 
+	//EXTRA
+	
+	/**
+	 * @author clarissabaciu
+	 * @return total sales for completed orders
+	 */
+	@GetMapping(value = {"/orders/totalSales", "/orders/totalSales/"})
+	public int getTotalSales() {
+		return orderService.getTotalSales();
+	}
 	
 	
 	
