@@ -16,7 +16,7 @@ import ca.mcgill.ecse321.grocerystore.model.StoreSchedule.Day;
 public class StoreScheduleService {
 
 	@Autowired
-	private StoreScheduleRepository storeScheduleRepo;
+	StoreScheduleRepository storeScheduleRepo;
 
 	
 	/**
