@@ -16,6 +16,7 @@ public class GroceryOrderDto {
 	private int orderId;
     private int totalCost;
     private String orderType;
+    private String orderStatus;
     private List<OrderItemDto> orderItems;
     private CustomerDto customer;
 
@@ -29,6 +30,15 @@ public class GroceryOrderDto {
         this.orderItems = orderItems;
         this.customer = customer;
     }
+    
+    public GroceryOrderDto(int orderId, int totalCost, String orderType, String orderStatus, List<OrderItemDto> orderItems, CustomerDto customer){   
+    	this.orderId = orderId;
+    	this.totalCost = totalCost;
+        this.orderType = orderType;
+        this.orderItems = orderItems;
+        this.customer = customer;
+        this.orderStatus = orderStatus;
+    }
 
     public int getTotalCost(){
         return this.totalCost;
@@ -36,6 +46,10 @@ public class GroceryOrderDto {
 
     public String getOrderType(){
         return this.orderType;
+    }
+    
+    public String getOrderStatus(){
+        return this.orderStatus;
     }
 
     public List<OrderItemDto> getOrderItems(){
@@ -48,6 +62,5 @@ public class GroceryOrderDto {
     
     public int getOrderId() {
     	return orderId;
-    }
-    
+    } 
 }

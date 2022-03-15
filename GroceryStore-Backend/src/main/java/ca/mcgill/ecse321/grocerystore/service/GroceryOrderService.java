@@ -12,6 +12,7 @@ import ca.mcgill.ecse321.grocerystore.dao.OrderItemRepository;
 import ca.mcgill.ecse321.grocerystore.model.Customer;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
 import ca.mcgill.ecse321.grocerystore.model.OrderItem;
+import ca.mcgill.ecse321.grocerystore.model.GroceryOrder.OrderStatus;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder.OrderType;
 import ca.mcgill.ecse321.grocerystore.model.GroceryStore;
 
@@ -38,6 +39,7 @@ public class GroceryOrderService {
         GroceryOrder order = new GroceryOrder();
         order.setOrderType(OrderType.InStore);
         order.setTotalCost(totalCost);
+        order.setOrderStatus(OrderStatus.Completed);
         order = groceryOrderRepository.save(order);	
         return order;
     }
@@ -124,6 +126,14 @@ public class GroceryOrderService {
         List<GroceryOrder> orderList = groceryOrderRepository.findByOrderType(orderType);
         return orderList;
     }
+    
+    @Transactional
+    public List<GroceryOrder> getOrdersByOrderStatus(OrderStatus orderStatus){
+    	if (orderStatus == null) throw new IllegalArgumentException("Please select a proper order status.");
+        List<GroceryOrder> orderList = groceryOrderRepository.findByOrderStatus(orderStatus);
+        return orderList;
+    }
+    
     /**
      * @author clarissabaciu
      * @param orderType

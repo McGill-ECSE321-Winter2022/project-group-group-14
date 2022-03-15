@@ -17,24 +17,37 @@ import org.hibernate.annotations.GenericGenerator;
 public class GroceryOrder
 {
   public enum OrderType { InStore, PickUp, Delivery }
+  public enum OrderStatus { Received, Processing, ReadyForPickUp, BeingDelivered, Completed }
 
   //Order Attributes
   private int orderId;
   private int totalCost;
   private OrderType orderType;
+  private OrderStatus orderStatus;
 
   //Order Associations
   private List<OrderItem> orderItems;
   private Customer customer;
   
 
+  public GroceryOrder(Integer aTotalCost, OrderType aOrderType, OrderStatus orderStatus, Customer aCustomer )
+  {
+	this.orderType = aOrderType;
+    this.totalCost = aTotalCost;
+    this.customer = aCustomer;
+    this.orderItems = new ArrayList<OrderItem>();
+    this.orderStatus = orderStatus;
+  }
+  
   public GroceryOrder(Integer aTotalCost, OrderType aOrderType, Customer aCustomer )
   {
 	this.orderType = aOrderType;
     this.totalCost = aTotalCost;
     this.customer = aCustomer;
     this.orderItems = new ArrayList<OrderItem>();
+    this.orderStatus = OrderStatus.Received;
   }
+  
   
   public GroceryOrder(Customer aCustomer )
   {
@@ -42,6 +55,7 @@ public class GroceryOrder
 	orderType = null;
 	this.customer = aCustomer;
     this.orderItems = new ArrayList<OrderItem>();
+    this.orderStatus = OrderStatus.Received;
   }
   
   public GroceryOrder(Integer aTotalCost, OrderType aOrderType)
@@ -50,6 +64,7 @@ public class GroceryOrder
 	orderType = aOrderType;
 	this.customer = null;
     this.orderItems = new ArrayList<OrderItem>();
+    this.orderStatus = OrderStatus.Received;
   }
   
   public GroceryOrder()
@@ -59,6 +74,7 @@ public class GroceryOrder
     orderType = null;
     this.orderItems = new ArrayList<OrderItem>();
     this.customer = null;
+    this.orderStatus = OrderStatus.Received;
   }
   
   
@@ -88,6 +104,14 @@ public class GroceryOrder
 	public void setOrderType(OrderType orderType) {
 		this.orderType = orderType;
 	}
+	
+	public OrderStatus getOrderStatus() {
+		return this.orderStatus;
+	}
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	
 
 	@ManyToOne
 	public Customer getCustomer() {

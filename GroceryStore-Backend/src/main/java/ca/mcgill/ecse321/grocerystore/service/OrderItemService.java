@@ -72,8 +72,6 @@ public class OrderItemService {
         return (OrderItem) orderItemRepository.findByName(name);
     }
 
-   
-
     
     /** @author Youssof Mohamed */
     @Transactional
@@ -94,7 +92,6 @@ public class OrderItemService {
         
         return orderItem;
     }
-
     
     /** @author Youssof Mohamed */
     @Transactional

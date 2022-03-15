@@ -15,6 +15,7 @@ import ca.mcgill.ecse321.grocerystore.dto.GroceryOrderDto;
 import ca.mcgill.ecse321.grocerystore.dto.OrderItemDto;
 import ca.mcgill.ecse321.grocerystore.model.Customer;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
+import ca.mcgill.ecse321.grocerystore.model.GroceryOrder.OrderStatus;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder.OrderType;
 import ca.mcgill.ecse321.grocerystore.model.OrderItem;
 import ca.mcgill.ecse321.grocerystore.service.CustomerService;
@@ -85,9 +86,19 @@ public class GroceryOrderRestController {
 	 * @param orderType
 	 * @return orders by order type
 	 */
-	@GetMapping(value = { "/orders/{orderType}", "/orders/{orderType}/" })
+	@GetMapping(value = { "/orders/orderType/{orderType}", "/orders/orderType/{orderType}/" })
 	public List<GroceryOrderDto> getOrdersByOrderType(@PathVariable("orderType") String orderType) throws IllegalArgumentException {
 		List<GroceryOrder> orders = orderService.getOrdersByOrderType(OrderType.valueOf(orderType));
+		List<GroceryOrderDto> orderDtos = new ArrayList<GroceryOrderDto>(); 
+		for (GroceryOrder o: orders) {
+			orderDtos.add(convertToDto(o));
+		}
+		return orderDtos;
+	}
+	
+	@GetMapping(value = { "/orders/orderStatus/{orderStatus}", "/orders/orderStatus/{orderStatus}/" })
+	public List<GroceryOrderDto> getOrdersByOrderStatus(@PathVariable("orderStatus") String orderStatus) throws IllegalArgumentException {
+		List<GroceryOrder> orders = orderService.getOrdersByOrderStatus(OrderStatus.valueOf(orderStatus));
 		List<GroceryOrderDto> orderDtos = new ArrayList<GroceryOrderDto>(); 
 		for (GroceryOrder o: orders) {
 			orderDtos.add(convertToDto(o));
