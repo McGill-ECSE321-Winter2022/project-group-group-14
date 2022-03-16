@@ -4,6 +4,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -65,7 +66,7 @@ public class TestGroceryOrderService {
     
 
 	@BeforeAll
-	public void instantiateVariables() {
+	public static void instantiateVariables() {
 		//initialize customer
 		testCustomer.setAccountId(testId);
 		testCustomer.setAddress("39 west town"); 		//not in town
@@ -94,7 +95,7 @@ public class TestGroceryOrderService {
 		
 		//create list of order items	
 		testOrderItemsList.add(0, testOrderItem1);
-		testOrderItemsList.add(1, testOrderItem1);	
+		testOrderItemsList.add(1, testOrderItem2);	
 	}
 	
 	@BeforeEach
@@ -201,14 +202,14 @@ public class TestGroceryOrderService {
 	    * 
 	    */
 	    
-//	    //orderDao.existsById(id)
-//	    lenient().when(orderDao.existsById(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
-//	        if(invocation.getArgument(0).equals(testId)) {
-//	            return true;
-//	        } else {
-//	            return false;
-//	        }  
-//	    });
+	    //orderDao.existsById(id)
+	    lenient().when(orderDao.existsById(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
+	        if(invocation.getArgument(0).equals(testId)) {
+	            return true;
+	        } else {
+	            return false;
+	        }  
+	    });
 	    
 
 	}
@@ -216,10 +217,28 @@ public class TestGroceryOrderService {
 //-------------------------------------------------------CREATE METHODS------------------------------------------------------------
 	
 	
-	// testing  create in store order :
-	// create 1 inventory item
-	// create 2 order items of the same type
-	// create an instore order 
+	// test 1 create a normal order
+	@Test
+	public void testCreateOrder() {
+		lenient().when(customerDao.existsById(anyInt())).thenReturn(true);
+		lenient().when(orderItemDao.existsById(anyInt())).thenReturn(true);
+		GroceryOrder order = null;
+	    try{
+	    	order = orderService.createOrder(testCustomer, testOrderItemsList, testOrderType);
+	    }catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	fail();
+	    }
+	    assertNotNull(order);
+	    assertEquals(order.getOrderType(),testOrderType);
+	    assertEquals(order.getOrderStatus(),testOrderStatus);
+	    assertEquals(order.getTotalCost(),testTotalCost);
+	    assertEquals(order.getCustomer().getAccountId(),testCustomer.getAccountId());
+	    assertFalse(order.getOrderItems().isEmpty());
+        assertEquals(order.getOrderItems().get(0).getItemId(),testOrderItem1.getItemId());
+        assertEquals(order.getOrderItems().get(1).getItemId(),testOrderItem2.getItemId());
+	}
+
 	
 
 }
