@@ -2,7 +2,6 @@ package ca.mcgill.ecse321.grocerystore.service;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -94,6 +93,15 @@ public class GroceryOrderService {
     
 //-------------------------------------------------------GET METHODS------------------------------------------------------------
     
+    /**
+     * @return a list of all orders in system
+     */
+    @Transactional
+    public List<GroceryOrder> getAllOrders(){
+    	List<GroceryOrder> allOrders = toList(orderDao.findAll());
+    	if (allOrders == null) throw new IllegalArgumentException("List of orders in system is null."); 
+    	return allOrders;
+    }
   /**
   * @param Id
   * @return
@@ -104,6 +112,7 @@ public class GroceryOrderService {
 	 	if (order == null) throw new IllegalArgumentException("Please submit a valid order ID.");
 	     return order;
 	 }	
+	 
     /**
      * @param customer
      * @returna a list of orders for this particular customer
@@ -116,7 +125,6 @@ public class GroceryOrderService {
         return orderList;
     }
     
-    //can also create a method to return orders of a particular type and status
     
     /**									
      * @param orderType
@@ -143,15 +151,6 @@ public class GroceryOrderService {
     }
     
     
-    /**
-     * @return a list of all orders in system
-     */
-    @Transactional
-    public List<GroceryOrder> getAllOrders(){
-    	List<GroceryOrder> allOrders = toList(orderDao.findAll());
-    	if (allOrders == null) throw new IllegalArgumentException("List of orders in system is null."); 
-    	return allOrders;
-    }
 
   //-------------------------------------------------------UPDATE METHOD------------------------------------------------------------
     
@@ -217,7 +216,7 @@ public class GroceryOrderService {
      * @return total sales of completed orders for monthly report
      */
     @Transactional
-    public int getTotalSales(){ //should only be accessed by owner --> this will be dealt with in the view
+    public int viewTotalSales(){ //should only be accessed by owner --> this will be dealt with in the view
     	int sales = 0;
     	if (orderDao.findByOrderStatus(OrderStatus.Completed) == null) {
    		 throw new IllegalArgumentException("List of orders for order status completed is null.");  
@@ -229,8 +228,6 @@ public class GroceryOrderService {
     	return sales;
     } 
     
-
-
 
     /**
      * @param Id 
