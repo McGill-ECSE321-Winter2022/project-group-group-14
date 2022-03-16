@@ -34,6 +34,11 @@ public class StoreScheduleRestController {
 	@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime openingTime,
 	@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime closingTime)
 	throws IllegalArgumentException {
+		
+		if (service.getStoreScheduleByDayOpen(Day.valueOf(day)) != null) {
+			return null;
+		}
+		
 		StoreSchedule storeSchedule = service.createStoreSchedule(Time.valueOf(openingTime), Time.valueOf(closingTime), Day.valueOf(day));
 		return convertToDto(storeSchedule);
 	}
@@ -52,15 +57,20 @@ public class StoreScheduleRestController {
 		return storeScheduleDtos;
 	}
 	
-//	@PutMapping(value = { "/storeSchedules", "/storeSchedules/" })
-//	public StoreScheduleDto updateStoreSchedule(@PathVariable("day") String day,
-//			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime openingTime,
-//			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime closingTime) throws IllegalArgumentException  {
-//		StoreSchedule storeSchedule  = service.updateStoreScheduleInfo(new StoreSchedule(Time.valueOf(openingTime), Time.valueOf(closingTime), Day.valueOf(day)));
-//		return convertToDto(storeSchedule);
-//	}
+	@PutMapping(value = { "/storeSchedules/{day}", "/storeSchedules/{day}/" })
+	public StoreScheduleDto updateStoreSchedule(@PathVariable("day") String day,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime openingTime,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime closingTime) throws IllegalArgumentException  {
+		StoreSchedule newSchedule = service.getStoreScheduleByDayOpen(Day.valueOf(day));
+		newSchedule.setOpeningTime(Time.valueOf(openingTime));
+		newSchedule.setClosingTime(Time.valueOf(closingTime));
+		
+		StoreSchedule storeSchedule  = service.updateStoreScheduleInfo(newSchedule);
+		return convertToDto(storeSchedule);
+	}
 	
-	@DeleteMapping({ "/storeSchedules", "/storeSchedules/" })
+	
+	@DeleteMapping({ "/storeSchedules/{day}", "/storeSchedules/{day}/" })
 	public StoreScheduleDto deleteStoreSchedule(@PathVariable("day") String day) {
 		StoreSchedule storeSchedule = service.deleteStoreSchedule(service.getStoreScheduleByDayOpen(Day.valueOf(day)));
 		return convertToDto(storeSchedule);

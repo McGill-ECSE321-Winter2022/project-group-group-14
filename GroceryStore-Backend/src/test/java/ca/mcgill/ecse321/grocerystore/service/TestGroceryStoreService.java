@@ -66,29 +66,6 @@ public class TestGroceryStoreService {
 //		lenient().when(registrationDao.save(any(Registration.class))).thenAnswer(returnParameterAsAnswer);
 	}
 	
-	@SuppressWarnings("deprecation")
-	@Test
-	public void testCreateStoreSchedule() {
-		Time openingTime = new Time(8, 30, 0);
-		Time closingTime = new Time(18, 0, 0);
-		Day dayOpen = Day.Monday;
-		StoreSchedule storeSchedule = null;
-		try {
-			storeSchedule = storeScheduleService.createStoreSchedule(openingTime, closingTime, dayOpen);
-		} catch (IllegalArgumentException e) {
-			fail();
-		}
-		assertNotNull(storeSchedule);
-		checkResultStoreSchedule(storeSchedule, openingTime, closingTime, dayOpen);
-	}
-	
-	private void checkResultStoreSchedule(StoreSchedule storeSchedule, Time openingTime, Time closingTime,Day dayOpen) {
-		assertNotNull(storeSchedule);
-		assertEquals(openingTime.toString(), storeSchedule.getOpeningTime().toString());
-		assertEquals(closingTime.toString(), storeSchedule.getClosingTime().toString());
-		assertEquals(dayOpen.toString(), storeSchedule.getDayOpen().toString());
-	}
-	
 	@Test
 	public void testCreateCustomer() {
 		assertEquals(0, customerService.getAllCustomers().size());
