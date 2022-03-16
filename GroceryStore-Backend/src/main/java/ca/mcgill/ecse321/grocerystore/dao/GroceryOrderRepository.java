@@ -14,5 +14,6 @@ public interface GroceryOrderRepository extends CrudRepository <GroceryOrder, In
     List<GroceryOrder> findByOrderType(OrderType orderType);
     List<GroceryOrder> findByOrderStatus(OrderStatus orderStatus);
     List<GroceryOrder> findGroceryOrdersByCustomer(Customer customer);
+    boolean existsByCustomer(Customer customer);
 }
 

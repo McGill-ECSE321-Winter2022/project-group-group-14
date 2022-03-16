@@ -22,11 +22,11 @@ import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.toList;
 @Service
 public class GroceryOrderService {
     @Autowired
-	GroceryOrderRepository groceryOrderRepository;
+	GroceryOrderRepository orderDao;
     @Autowired
-    CustomerRepository customerRepository;
+    CustomerRepository customerDao;
     @Autowired
-    OrderItemRepository orderItemsRepository;
+    OrderItemRepository orderItemDao;
     
     /**
      * @author clarissabaciu
@@ -35,6 +35,33 @@ public class GroceryOrderService {
      */
     @Transactional
     public GroceryOrder createInStoreOrder(List<OrderItem> orderItems){ 
+		String error = "";
+		if (orderItems == null || orderItems.isEmpty()) {									//check if the orderItems list is null or empty
+		    error = "List of order items must be selected to create an order in store.";
+		} else {
+			for (OrderItem oi : orderItems) {												//for each order item, make sure they exist in the database
+				if (!orderItemDao.existsById(oi.getItemId())) {
+					error = "Item"+ oi.getName() + "does not exist.";
+				}
+			}
+		}
+		if (error.length() > 0) {
+		    throw new IllegalArgumentException(error);		//return appropriate error							
+		}
+
+//		if (orderDao.existsById))
+//			
+//			
+//	
+//		if (registrationRepository.existsByPersonAndEvent(person, event)) {
+//		    error = error + "Person is already registered to this event!";
+//		}
+//
+//		
+
+    	
+    	
+    	
         GroceryOrder order = new GroceryOrder();
         order.setOrderType(OrderType.InStore);
         int totalCost = 0; 
@@ -43,9 +70,9 @@ public class GroceryOrderService {
         }
         order.setTotalCost(totalCost);
         order.setOrderStatus(OrderStatus.Completed);
-        order = groceryOrderRepository.save(order);	
+        order = orderDao.save(order);	
         order.setOrderItems(orderItems);
-        order = groceryOrderRepository.save(order);	
+        order = orderDao.save(order);	
         return order;
     }
     
@@ -76,10 +103,10 @@ public class GroceryOrderService {
         	}
         }
         order.setTotalCost(totalCost);				//can also add tax
-        order = groceryOrderRepository.save(order);	
+        order = orderDao.save(order);	
         order.setOrderItems(orderItems);
         order.setCustomer(customer);	
-        order = groceryOrderRepository.save(order);	
+        order = orderDao.save(order);	
         return order;
     }
     
@@ -90,7 +117,7 @@ public class GroceryOrderService {
      */
     @Transactional
     public GroceryOrder getOrderById(int Id){
-    	GroceryOrder order = groceryOrderRepository.findByOrderId(Id);
+    	GroceryOrder order = orderDao.findByOrderId(Id);
     	if (order == null) throw new IllegalArgumentException("Please submit a valid order ID.");
         return order;
     }
@@ -101,9 +128,9 @@ public class GroceryOrderService {
      */
     @Transactional
     public List<GroceryOrder> getOrdersByCustomer(Customer customer){ 
-    	if (customer == null || customerRepository.findById(customer.getAccountId()) == null) throw new IllegalArgumentException("Please submit a proper customer.");  
+    	if (customer == null || customerDao.findById(customer.getAccountId()) == null) throw new IllegalArgumentException("Please submit a proper customer.");  
     	
-    	List<GroceryOrder> orderList = groceryOrderRepository.findGroceryOrdersByCustomer(customer);	
+    	List<GroceryOrder> orderList = orderDao.findGroceryOrdersByCustomer(customer);	
         return orderList;
     }
     
@@ -116,7 +143,7 @@ public class GroceryOrderService {
     public int getOrderAmountByCustomer(Customer customer){ 
     	if (customer == null) throw new IllegalArgumentException("Please submit a proper customer.");  
     	
-    	List<GroceryOrder> orderList = groceryOrderRepository.findGroceryOrdersByCustomer(customer);
+    	List<GroceryOrder> orderList = orderDao.findGroceryOrdersByCustomer(customer);
     	return orderList.size();
     }
     
@@ -128,7 +155,7 @@ public class GroceryOrderService {
     @Transactional
     public List<GroceryOrder> getOrdersByOrderType(OrderType orderType){
     	if (orderType == null) throw new IllegalArgumentException("Please select a proper order type.");
-        List<GroceryOrder> orderList = groceryOrderRepository.findByOrderType(orderType);
+        List<GroceryOrder> orderList = orderDao.findByOrderType(orderType);
         return orderList;
     }
     
@@ -140,7 +167,7 @@ public class GroceryOrderService {
     @Transactional
     public List<GroceryOrder> getOrdersByOrderStatus(OrderStatus orderStatus){
     	if (orderStatus == null) throw new IllegalArgumentException("Please select a proper order status.");
-        List<GroceryOrder> orderList = groceryOrderRepository.findByOrderStatus(orderStatus);
+        List<GroceryOrder> orderList = orderDao.findByOrderStatus(orderStatus);
         return orderList;
     }
     
@@ -152,7 +179,7 @@ public class GroceryOrderService {
     @Transactional
     public int getOrderAmountByOrderType(OrderType orderType){ 
     	if (orderType == null) throw new IllegalArgumentException("Please select a proper order type.");
-    	 List<GroceryOrder> orderList = groceryOrderRepository.findByOrderType(orderType);
+    	 List<GroceryOrder> orderList = orderDao.findByOrderType(orderType);
     	return orderList.size();
     }
     
@@ -163,7 +190,7 @@ public class GroceryOrderService {
      */
     @Transactional
     public List<GroceryOrder> getAllOrders(){
-    	List<GroceryOrder> allOrders = toList(groceryOrderRepository.findAll());
+    	List<GroceryOrder> allOrders = toList(orderDao.findAll());
     	return allOrders;
     }
     
@@ -180,7 +207,7 @@ public class GroceryOrderService {
     	if (newOrder.getTotalCost() == 0) throw new IllegalArgumentException("New order cannot amount to 0$.");
     	if (newOrder.getOrderItems().isEmpty()) throw new IllegalArgumentException("New order must contain items.");
     	
-    	GroceryOrder oldOrder = groceryOrderRepository.findByOrderId(newOrder.getOrderId());
+    	GroceryOrder oldOrder = orderDao.findByOrderId(newOrder.getOrderId());
     	if (oldOrder == null) throw new IllegalArgumentException("No such order exists in the database. Maybe create new instead");
     	
     	oldOrder.setTotalCost(newOrder.getTotalCost());
@@ -188,7 +215,7 @@ public class GroceryOrderService {
     	oldOrder.setOrderItems(newOrder.getOrderItems());
     	oldOrder.setCustomer(newOrder.getCustomer());
     	
-    	oldOrder = groceryOrderRepository.save(oldOrder);
+    	oldOrder = orderDao.save(oldOrder);
     	return oldOrder;
     }
     
@@ -199,7 +226,7 @@ public class GroceryOrderService {
      */
     @Transactional
     public GroceryOrder deleteOrder(GroceryOrder groceryOrder){ 
-    	groceryOrderRepository.delete(groceryOrder);
+    	orderDao.delete(groceryOrder);
     	return groceryOrder; 
     } 
     
@@ -210,7 +237,7 @@ public class GroceryOrderService {
     @Transactional
     public int getTotalSales(){  
     	int sales = 0;
-    	for (GroceryOrder order : groceryOrderRepository.findByOrderStatus(OrderStatus.Completed)) {
+    	for (GroceryOrder order : orderDao.findByOrderStatus(OrderStatus.Completed)) {
     		sales += order.getTotalCost();
     	}
     	return sales;
@@ -223,8 +250,8 @@ public class GroceryOrderService {
      */
     @Transactional
     public void deleteAllOrders(){  
-    	for (GroceryOrder order : groceryOrderRepository.findByOrderStatus(OrderStatus.Completed)) {
-    		groceryOrderRepository.delete(order);
+    	for (GroceryOrder order : orderDao.findByOrderStatus(OrderStatus.Completed)) {
+    		orderDao.delete(order);
     	}
     } 
 
