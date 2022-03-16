@@ -90,6 +90,7 @@ public class ServiceHelpers
             throw new IllegalArgumentException("Please input a valid day.");
         
         boolean isValidDay = false;
+        
         for (Day listedDay : Day.values()) {
             if (listedDay.equals(day)) {
                 isValidDay = true;

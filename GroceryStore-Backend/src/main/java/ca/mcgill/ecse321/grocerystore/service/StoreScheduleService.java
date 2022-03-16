@@ -25,6 +25,9 @@ public class StoreScheduleService {
 	/** Creates and saves a StoreSchedule to the repository. **/
 	@Transactional
 	public StoreSchedule createStoreSchedule(Time openingTime, Time closingTime, Day dayOpen) {
+		ServiceHelpers.checkTimeValidity(openingTime, closingTime);
+		ServiceHelpers.checkDayValidity(dayOpen);
+		
 		StoreSchedule storeSchedule = new StoreSchedule(openingTime, closingTime, dayOpen);
 
 		storeScheduleRepo.save(storeSchedule);
