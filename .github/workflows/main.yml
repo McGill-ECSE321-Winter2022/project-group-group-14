@@ -28,6 +28,13 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       working-directory: GroceryStore-Backend
+    - name: Deploy Backend
+      uses: akhileshns/heroku-deploy@v3.12.12   # plugin for automated heroku deploy
+      with:
+        heroku_api_key: 'efa7326d-b373-4b3a-a62b-971096afa56b'
+        heroku_app_name: 'grocerystore-backend-123abc'
+        heroku_email: 'samuel.valentine@mail.mcgill.ca'
+        appdir: 'GroceryStore-Backend'  # to avoid backend redeploys on frontend changes
     - name: Set up nodejs 12
       uses: actions/setup-node@v2
       with:
@@ -40,12 +47,6 @@ jobs:
       run: ./gradlew integrationTest
       working-directory: GroceryStore-Backend
     - uses: ahmadnassri/action-workflow-run-wait@v1 # because apparently builtin workflows handling is broken...
-    - name: Deploy Backend
-      uses: akhileshns/heroku-deploy@v3.12.12   # plugin for automated heroku deploy
-      with:
-        heroku_api_key: 'efa7326d-b373-4b3a-a62b-971096afa56b'
-        heroku_app_name: 'grocerystore-backend-123abc'
-        heroku_email: 'samuel.valentine@mail.mcgill.ca'
-        appdir: 'GroceryStore-Backend'  # to avoid backend redeploys on frontend changes
+    
 
 
