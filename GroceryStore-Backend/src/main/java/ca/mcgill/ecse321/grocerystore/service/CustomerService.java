@@ -7,19 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.grocerystore.dao.CustomerRepository;
-import ca.mcgill.ecse321.grocerystore.dao.AccountRepository;
-
 import ca.mcgill.ecse321.grocerystore.model.Customer;
-import ca.mcgill.ecse321.grocerystore.model.Account;
 
 @Service
 public class CustomerService {
 	
 	@Autowired
     CustomerRepository customerRepository;
-	
-	@Autowired
-	AccountRepository accountRepository;
 	
 	/** @author Samuel Valentine	 */
 	@Transactional
@@ -51,23 +45,27 @@ public class CustomerService {
 	
 	/** @author Samuel Valentine	 */
 	public boolean checkForEmailUniqueness(String email) {
-		for (Account a :  ServiceHelpers.toList(accountRepository.findAll())) {
-			if (email == a.getEmail()) {
-				return false;
-			}
+		
+		if (customerRepository.findByEmail(email) == null) {
+			return true;
 		}
-		return true;
+		
+		else {
+			return false;
+		}
 	}
 	
 	
 	/** @author Samuel Valentine	 */
 	public boolean checkForUsernameUniqueness(String username) {
-		for (Account a :  ServiceHelpers.toList(accountRepository.findAll())) {
-			if (username == a.getUsername()) {
-				return false;
-			}
+		
+		if (customerRepository.findByUsername(username) == null) {
+			return true;
 		}
-		return true;
+		
+		else { 
+			return false;
+		}
 	}
 	
 	/** @author Samuel Valentine	 */
@@ -191,5 +189,22 @@ public class CustomerService {
         customerRepository.delete(customer);
         return customer;
     }
-
+    
+    /** @author Samuel Valentine	 */
+    @Transactional
+    public Customer login(String username, String password)
+    {
+    	Customer customer = customerRepository.findByUsername(username);
+    	if (customer !=null) {
+    		if (customer.getPassword()==password) {
+    			return customer;
+    		}
+    		else {
+        		throw new IllegalArgumentException("That password is invalid for the customer account " + customer.getUsername());
+        	}
+    	}
+    	else {
+    		throw new IllegalArgumentException("That username does not exist in the system.");
+    	}
+    }
 }

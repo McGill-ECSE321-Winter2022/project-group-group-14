@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.grocerystore.dao.EmployeeRepository;
-import ca.mcgill.ecse321.grocerystore.dao.AccountRepository;
 import ca.mcgill.ecse321.grocerystore.model.Account;
 import ca.mcgill.ecse321.grocerystore.model.Employee;
 
@@ -15,8 +14,6 @@ public class EmployeeService {
 	@Autowired
 	EmployeeRepository employeeRepository;
 	
-	@Autowired
-	AccountRepository accountRepository;
 	
 	/** @author Samuel Valentine	 */
 	@Transactional
@@ -86,6 +83,25 @@ public class EmployeeService {
     }
     
     /** @author Samuel Valentine	 */
+    @Transactional
+    public Employee login(String username, String password)
+    {
+    	Employee employee = employeeRepository.findByUsername(username);
+    	if (employee!=null) {
+    		if (employee.getPassword()==password) {
+    			return employee;
+    		}
+    		else {
+        		throw new IllegalArgumentException("That password is invalid for the employee account " + employee.getUsername());
+        	}
+    	}
+    	else {
+    		throw new IllegalArgumentException("That username does not exist in the system.");
+    	}
+    }
+    
+    
+    /** @author Samuel Valentine	 */
 	public boolean checkAllInputParameters(String aEmail, String aUsername, String aPassword) {
 		
 		ServiceHelpers.checkAccountInfoValidity(aEmail, aUsername, aPassword);
@@ -101,7 +117,7 @@ public class EmployeeService {
 	
 	/** @author Samuel Valentine	 */
 	public boolean checkForEmailUniqueness(String email) {
-		for (Account a :  ServiceHelpers.toList(accountRepository.findAll())) {
+		for (Account a :  ServiceHelpers.toList(employeeRepository.findAll())) {
 			if (email == a.getEmail()) {
 				return false;
 			}
@@ -112,7 +128,7 @@ public class EmployeeService {
 	
 	/** @author Samuel Valentine	 */
 	public boolean checkForUsernameUniqueness(String username) {
-		for (Account a :  ServiceHelpers.toList(accountRepository.findAll())) {
+		for (Account a :  ServiceHelpers.toList(employeeRepository.findAll())) {
 			if (username == a.getUsername()) {
 				return false;
 			}

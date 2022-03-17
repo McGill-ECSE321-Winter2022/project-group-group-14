@@ -95,7 +95,7 @@ public class TestGroceryStoreService {
 
 		String email = "tom@gmail.com";
 		String username = "tommy";
-		String password = "nohax";
+		String password = "Nohax69";
 		String phonenumber = "5141234567";
 		String address = "500 Shopiko Road, Montreal";
 		Customer customer = null;

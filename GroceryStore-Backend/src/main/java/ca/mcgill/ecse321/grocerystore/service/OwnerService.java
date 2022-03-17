@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.grocerystore.dao.OwnerRepository;
-import ca.mcgill.ecse321.grocerystore.dao.AccountRepository;
 import ca.mcgill.ecse321.grocerystore.model.Account;
 import ca.mcgill.ecse321.grocerystore.model.Owner;
 
@@ -15,8 +14,6 @@ public class OwnerService {
 	@Autowired
     OwnerRepository ownerRepository;
 	
-	@Autowired
-	AccountRepository accountRepository;
 	
 	/** @author Samuel Valentine	 */
 	@Transactional
@@ -101,7 +98,7 @@ public class OwnerService {
 	
 	/** @author Samuel Valentine	 */
 	public boolean checkForEmailUniqueness(String email) {
-		for (Account a :  ServiceHelpers.toList(accountRepository.findAll())) {
+		for (Account a :  ServiceHelpers.toList(ownerRepository.findAll())) {
 			if (email == a.getEmail()) {
 				return false;
 			}
@@ -112,7 +109,7 @@ public class OwnerService {
 	
 	/** @author Samuel Valentine	 */
 	public boolean checkForUsernameUniqueness(String username) {
-		for (Account a :  ServiceHelpers.toList(accountRepository.findAll())) {
+		for (Account a :  ServiceHelpers.toList(ownerRepository.findAll())) {
 			if (username == a.getUsername()) {
 				return false;
 			}
@@ -138,4 +135,22 @@ public class OwnerService {
 		return (upperCasePresent && numberPresent);
 		
 	}
+	
+	/** @author Samuel Valentine	 */
+    @Transactional
+    public Owner login(String username, String password)
+    {
+    	Owner owner = ownerRepository.findByUsername(username);
+    	if (owner!=null) {
+    		if (owner.getPassword()==password) {
+    			return owner;
+    		}
+    		else {
+        		throw new IllegalArgumentException("That password is invalid for the owner account " + owner.getUsername());
+        	}
+    	}
+    	else {
+    		throw new IllegalArgumentException("That username does not exist in the system.");
+    	}
+    }
 }
