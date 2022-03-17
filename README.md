@@ -46,7 +46,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Team Member | Time Spent (h) | Responsibilities | 
 | --- | --- | --- |
 | name | #hours | Work description |
-| Yakir Bender | 0 | description |
+| Yakir Bender | 20 | Mockito template code, StoreSchedule service, dto, controller, and test methods, postman |
 | Clarissa Baciu | 0 | description |
 | Samuel Valentine | 20 | Minutes organiser and scribe, customer, owner, and employee service, dto, controller, and test methods, postman |
 | Youssof Mohamed | 20 | InventoryItem/OrderItem service, dto, controller, and test methods, postman |
