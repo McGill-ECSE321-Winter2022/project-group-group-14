@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.grocerystore.dao.EmployeeRepository;
+import ca.mcgill.ecse321.grocerystore.model.Account;
 import ca.mcgill.ecse321.grocerystore.model.Employee;
 
 @Service
@@ -13,9 +14,13 @@ public class EmployeeService {
 	@Autowired
 	EmployeeRepository employeeRepository;
 	
+	
 	/** @author Samuel Valentine	 */
 	@Transactional
 	public Employee createEmployee(String aEmail, String aUsername, String aPassword) {
+		
+		checkAllInputParameters(aEmail,aUsername,aPassword);
+		
 		Employee employee = new Employee(aEmail, aUsername, aPassword);
 		employeeRepository.save(employee);
 		return employee;
@@ -54,7 +59,7 @@ public class EmployeeService {
     public Employee updateEmployeeInfo(Employee employee)
     {
     	//check employee has valid info
-    	ServiceHelpers.checkAccountInfoValidity(employee);
+    	checkAllInputParameters(employee.getEmail(),employee.getUsername(),employee.getPassword());
         
         //update existing employee info with the new ones
         Employee employeeToUpdate = employeeRepository.findByAccountId(employee.getAccountId());
@@ -76,4 +81,78 @@ public class EmployeeService {
     	employeeRepository.delete(employee);
         return employee;
     }
+    
+    /** @author Samuel Valentine	 */
+    @Transactional
+    public Employee login(String username, String password)
+    {
+    	Employee employee = employeeRepository.findByUsername(username);
+    	if (employee!=null) {
+    		if (employee.getPassword()==password) {
+    			return employee;
+    		}
+    		else {
+        		throw new IllegalArgumentException("That password is invalid for the employee account " + employee.getUsername());
+        	}
+    	}
+    	else {
+    		throw new IllegalArgumentException("That username does not exist in the system.");
+    	}
+    }
+    
+    
+    /** @author Samuel Valentine	 */
+	public boolean checkAllInputParameters(String aEmail, String aUsername, String aPassword) {
+		
+		ServiceHelpers.checkAccountInfoValidity(aEmail, aUsername, aPassword);
+		
+		if (checkForEmailUniqueness(aEmail) == false ){
+			throw new IllegalArgumentException("An account with email " + aEmail + " already exists.");}
+		if (checkForUsernameUniqueness(aUsername) == false) {
+			throw new IllegalArgumentException("An account with username " + aUsername + " already exists.");}
+		if (checkPasswordValidity(aPassword) == false) {
+			throw new IllegalArgumentException("This password does not correspond with the requirements.");}
+		return true;
+	}
+	
+	/** @author Samuel Valentine	 */
+	public boolean checkForEmailUniqueness(String email) {
+		for (Account a :  ServiceHelpers.toList(employeeRepository.findAll())) {
+			if (email == a.getEmail()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	
+	/** @author Samuel Valentine	 */
+	public boolean checkForUsernameUniqueness(String username) {
+		for (Account a :  ServiceHelpers.toList(employeeRepository.findAll())) {
+			if (username == a.getUsername()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/** @author Samuel Valentine	 */
+	public boolean checkPasswordValidity(String password) {
+		
+		boolean upperCasePresent = false;
+		boolean numberPresent = false;
+		
+		// Include a capital letter and a number
+		for (int i=0;i < password.length();i++) {
+			if (Character.isUpperCase(password.charAt(i))) {
+				upperCasePresent = true;
+			}
+			if (Character.isDigit(password.charAt(i))) {
+				numberPresent = true;
+			}
+		}
+		return (upperCasePresent && numberPresent);
+		
+	}
+
 }

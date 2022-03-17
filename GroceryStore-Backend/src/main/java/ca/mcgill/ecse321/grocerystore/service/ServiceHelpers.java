@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.mcgill.ecse321.grocerystore.model.Account;
+import ca.mcgill.ecse321.grocerystore.model.Customer;
 import ca.mcgill.ecse321.grocerystore.model.InventoryItem;
 import ca.mcgill.ecse321.grocerystore.model.StoreSchedule.Day;
 
 
 public class ServiceHelpers
 {
+	/** @author Samuel Valentine */
     public static <T> List<T> toList(Iterable<T> iterable)
     {
         List<T> resultList = new ArrayList<T>();
@@ -21,8 +23,9 @@ public class ServiceHelpers
         }
         return resultList;
     }
-
-    public static void checkAccountInfoValidity(String email, String username, String password, String phone)
+    
+    /** @author Samuel Valentine */
+    public static void checkAccountInfoValidity(String email, String username, String password)
     {
         if (email == null || email.trim().length() == 0)
             throw new IllegalArgumentException("Please submit a valid email.");
@@ -30,10 +33,9 @@ public class ServiceHelpers
             throw new IllegalArgumentException("Please submit a valid username.");
         if (password == null || password.trim().length() == 0)
             throw new IllegalArgumentException("Please submit a valid password.");
-        if (phone == null || phone.trim().length() == 0)
-            throw new IllegalArgumentException("Please submit a valid phone.");
     }
 
+    /** @author Samuel Valentine */
     public static void checkAccountInfoValidity(Account user)
     {
         if (user == null) throw new IllegalArgumentException("Please submit a valid user object.");
@@ -42,7 +44,38 @@ public class ServiceHelpers
         if (user.getUsername() == null || user.getUsername().trim().length() == 0)
             throw new IllegalArgumentException("Please submit a valid name.");
         if (user.getPassword() == null || user.getPassword().trim().length() == 0)
-            throw new IllegalArgumentException("Please submit a valid phone.");
+            throw new IllegalArgumentException("Please submit a valid password.");
+    }
+    
+    /** @author Samuel Valentine */
+    public static void checkCustomerInfoValidity(String email, String username, String password, String phoneNumber, String address)
+    {
+        if (email == null || email.trim().length() == 0)
+            throw new IllegalArgumentException("Please submit a valid email.");
+        if (username == null || username.trim().length() == 0)
+            throw new IllegalArgumentException("Please submit a valid username.");
+        if (password == null || password.trim().length() == 0)
+            throw new IllegalArgumentException("Please submit a valid password.");
+        if (phoneNumber == null || phoneNumber.trim().length() == 0)
+        	throw new IllegalArgumentException("Please submit a valid phone number.");
+        if (address == null || address.trim().length() == 0)
+        	throw new IllegalArgumentException("Please submit a valid address.");
+    }
+    
+    /** @author Samuel Valentine */
+    public static void checkCustomerInfoValidity(Customer customer)
+    {
+        if (customer == null) throw new IllegalArgumentException("Please submit a valid customer object.");
+        if (customer.getEmail() == null || customer.getEmail().trim().length() == 0)
+            throw new IllegalArgumentException("Please submit a valid email.");
+        if (customer.getUsername() == null || customer.getUsername().trim().length() == 0)
+            throw new IllegalArgumentException("Please submit a valid username.");
+        if (customer.getPassword() == null || customer.getPassword().trim().length() == 0)
+            throw new IllegalArgumentException("Please submit a valid password.");
+        if (customer.getPhoneNumber() == null || customer.getPhoneNumber().trim().length() == 0)
+        	throw new IllegalArgumentException("Please submit a valid phone number.");
+        if (customer.getAddress() == null || customer.getAddress().trim().length() == 0)
+        	throw new IllegalArgumentException("Please submit a valid address.");
     }
     
     public static void checkItemInfoValidity(String name, int price, int currentStock)
@@ -100,4 +133,6 @@ public class ServiceHelpers
         if (!isValidDay)
             throw new IllegalArgumentException("Please input a day of the week");
     }
+    
+    
 }
