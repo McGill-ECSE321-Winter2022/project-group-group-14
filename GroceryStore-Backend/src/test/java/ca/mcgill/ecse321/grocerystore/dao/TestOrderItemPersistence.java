@@ -31,19 +31,16 @@ public class TestOrderItemPersistence {
 		String name = "batates";
 		orderItem.setName(name);
 		orderItem.setPrice(32);
-		orderItem.setCurrentStock(15);
 		
 		//set values to the second Order Item attributes
 		OrderItem orderItem2 = new OrderItem();
 		orderItem2.setName("tamatem");
 		orderItem2.setPrice(123);
-		orderItem2.setCurrentStock(74);
 		
 		//set values to the second Order Item attributes (same name as in second order item)
 		OrderItem orderItem3 = new OrderItem();
 		orderItem3.setName("tamatem");
 		orderItem3.setPrice(123);
-		orderItem3.setCurrentStock(73);
 		
 		//save Order Item objects
 		orderItemRepository.save(orderItem);
@@ -55,17 +52,14 @@ public class TestOrderItemPersistence {
 		assertNotNull(savedOrderItem);
 		assertEquals(orderItem.getName(), savedOrderItem.getName());
 		assertEquals(orderItem.getPrice(), savedOrderItem.getPrice());
-		assertEquals(orderItem.getCurrentStock(), savedOrderItem.getCurrentStock());
 		
 		//test findByName
 		List<OrderItem> savedOrderItems = orderItemRepository.findByName(orderItem2.getName());
 		assertNotNull(savedOrderItems);
 		assertEquals(orderItem2.getItemId(), savedOrderItems.get(0).getItemId());
 		assertEquals(orderItem2.getPrice(), savedOrderItems.get(0).getPrice());
-		assertEquals(orderItem2.getCurrentStock(), savedOrderItems.get(0).getCurrentStock());
 		assertEquals(orderItem3.getItemId(), savedOrderItems.get(1).getItemId());
 		assertEquals(orderItem3.getPrice(), savedOrderItems.get(1).getPrice());
-		assertEquals(orderItem3.getCurrentStock(), savedOrderItems.get(1).getCurrentStock());
 		
 	}
 

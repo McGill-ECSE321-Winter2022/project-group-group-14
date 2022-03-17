@@ -30,6 +30,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 * [Requirements](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Requirements)   
 * [Use Case Diagrams and Specifications](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Use-Cases)   
 * [Domain Model](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Domain-Model)   
+* [Software Quality Assurance Plan](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Software-Quality-Assurance-Plan)
 
 ## Effort Table (D1)
 | Team Member | Time Spent (h) | Responsibilities | 
@@ -47,6 +48,6 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | name | #hours | Work description |
 | Yakir Bender | 0 | description |
 | Clarissa Baciu | 0 | description |
-| Samuel Valentine | 0 | description |
+| Samuel Valentine | 20 | Minutes organiser and scribe, customer, owner, and employee service, dto, controller, and test methods, postman |
 | Youssof Mohamed | 0 | description |
-| Minkyu Park | 0 | description |
+| Minkyu Park | 8 | employee schedule service, dto, controller, and testmethods, postman |

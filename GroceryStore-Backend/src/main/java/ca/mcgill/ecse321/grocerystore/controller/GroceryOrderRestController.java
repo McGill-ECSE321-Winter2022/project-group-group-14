@@ -229,7 +229,7 @@ public class GroceryOrderRestController {
 		if (orderItem == null) {
 			throw new IllegalArgumentException("There is no such OrderItem.");
 		}
-		OrderItemDto orderItemDto = new OrderItemDto(orderItem.getName(),orderItem.getPrice(),orderItem.getCurrentStock(),orderItem.getItemId());
+		OrderItemDto orderItemDto = new OrderItemDto(orderItem.getName(),orderItem.getPrice(),orderItem.getItemId());
 		return orderItemDto;
 	}
 	
