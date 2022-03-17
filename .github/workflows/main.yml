@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: macos-10.15
+    runs-on: ubuntu-latest
 
 
     steps:
@@ -46,7 +46,7 @@ jobs:
     - name: Run integration tests
       run: ./gradlew integrationTest
       working-directory: GroceryStore-Backend
-    - uses: ahmadnassri/action-workflow-run-wait@v1 # because apparently builtin workflows handling is broken...
+
     
 
 
