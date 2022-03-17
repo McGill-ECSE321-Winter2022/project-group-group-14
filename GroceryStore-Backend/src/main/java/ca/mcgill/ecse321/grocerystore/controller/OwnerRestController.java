@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.grocerystore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,11 @@ public class OwnerRestController {
 	@GetMapping(value = { "/owners/{email}", "/owners/{email}/" })
 	public OwnerDto getowner(@PathVariable("email") String email) throws IllegalArgumentException {
 		return convertToDto(ownerService.getOwnerByEmail(email));
+	}
+	
+	@DeleteMapping(value = { "/owners/delete/{email}", "/owners/delete/{email}/" })
+	public void deleteOwner(@PathVariable("email") String email) throws IllegalArgumentException {
+		ownerService.deleteOwner(ownerService.getOwnerByEmail(email));
 	}
 	
 	private OwnerDto convertToDto(Owner owner) {

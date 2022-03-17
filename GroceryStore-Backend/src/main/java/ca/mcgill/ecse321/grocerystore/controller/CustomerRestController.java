@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.grocerystore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,11 @@ public class CustomerRestController {
 		return convertToDto(CustomerService.getCustomerByEmail(email));
 	}
 	
+	@DeleteMapping(value = { "/customers/delete/{email}", "/customers/delete/{email}/" })
+	public void deleteCustomer(@PathVariable("email") String email) throws IllegalArgumentException {
+		CustomerService.deleteCustomer(CustomerService.getCustomerByEmail(email));
+	}
+	
 	private CustomerDto convertToDto(Customer customer) {
 		if (customer == null) {
 			throw new IllegalArgumentException("There is no such Customer!");
@@ -36,5 +42,7 @@ public class CustomerRestController {
 		CustomerDto customerDto = new CustomerDto(customer.getEmail(),customer.getUsername(),customer.getPassword(),customer.getAccountId(),customer.getPhoneNumber(),customer.getAddress());
 		return customerDto;
 	}
+	
+	
 
 }
