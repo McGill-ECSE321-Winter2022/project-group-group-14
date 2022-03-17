@@ -49,5 +49,5 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Yakir Bender | 0 | description |
 | Clarissa Baciu | 0 | description |
 | Samuel Valentine | 20 | Minutes organiser and scribe, customer, owner, and employee service, dto, controller, and test methods, postman |
-| Youssof Mohamed | 0 | description |
+| Youssof Mohamed | 20 | InventoryItem/OrderItem service, dto, controller, and test methods, postman |
 | Minkyu Park | 8 | employee schedule service, dto, controller, and testmethods, postman |
