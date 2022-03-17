@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.grocerystore.service;
 
 import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.toList;
-import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.checkItemInfoValidity;
 
 import java.util.List;
 
@@ -21,14 +20,15 @@ public class OrderItemService {
 	/** @author Youssof Mohamed */
     @Autowired
     OrderItemRepository orderItemRepository;
+    @Autowired
     InventoryItemRepository inventoryItemRepository;
     
     /** @author Youssof Mohamed */
     @Transactional
-    public OrderItem createOrderItem(String name, int price, int currentStock)
+    public OrderItem createOrderItem(String name)
     {
     	//check order item has valid info
-    	checkItemInfoValidity(name,price,currentStock);
+    	if(inventoryItemRepository == null) throw new IllegalArgumentException("No items in inventory");
     	InventoryItem inventoryItem = inventoryItemRepository.findByName(name);
     	if(inventoryItem==null) throw new IllegalArgumentException("No item exists in inventory named '" + name + "'");
     	if(inventoryItem.getCurrentStock()==0) throw new IllegalArgumentException(name + " item is out of stock");
@@ -38,12 +38,12 @@ public class OrderItemService {
     	inventoryItem.setCurrentStock(inventoryItem.getCurrentStock()-1);
         OrderItem orderItem = new OrderItem();
         orderItem.setName(name);
-        orderItem.setPrice(price);
-        orderItem.setCurrentStock(currentStock);
+        orderItem.setPrice(inventoryItem.getPrice());
         
         //save changes to repository
-        orderItemRepository.save(orderItem);
         inventoryItemRepository.save(inventoryItem);
+        orderItemRepository.save(orderItem);
+        
         
         return orderItem;
     }
@@ -67,37 +67,37 @@ public class OrderItemService {
     
     /** @author Youssof Mohamed */
     @Transactional
-    public OrderItem getOrderItemByName(String name)
+    public List<OrderItem> getOrderItemsByName(String name)
     {
-        return (OrderItem) orderItemRepository.findByName(name);
+        return orderItemRepository.findByName(name);
     }
 
     
-    /** @author Youssof Mohamed */
-    @Transactional
-    public OrderItem updateOrderItemInfo(OrderItem orderItem)
-    {
-    	//check order item has valid info
-        checkItemInfoValidity(orderItem);
-        
-        //update existing order item info with the new ones
-        OrderItem orderItemToUpdate = orderItemRepository.findByItemId(orderItem.getItemId());
-        if (orderItemToUpdate == null) throw new IllegalArgumentException("No such order item exists");
-        orderItemToUpdate.setName(orderItem.getName());
-        orderItemToUpdate.setPrice(orderItem.getPrice());
-        orderItemToUpdate.setCurrentStock(orderItem.getCurrentStock());
-        
-        //save new changes to the repository
-        orderItemRepository.save(orderItemToUpdate);
-        
-        return orderItem;
-    }
+//    /** @author Youssof Mohamed */
+//    @Transactional
+//    public OrderItem updateOrderItemInfo(OrderItem orderItem)
+//    {
+//    	//check order item has valid info
+//        checkItemInfoValidity(orderItem);
+//        
+//        //update existing order item info with the new ones
+//        OrderItem orderItemToUpdate = orderItemRepository.findByItemId(orderItem.getItemId());
+//        if (orderItemToUpdate == null) throw new IllegalArgumentException("No such order item exists");
+//        orderItemToUpdate.setName(orderItem.getName());
+//        orderItemToUpdate.setPrice(orderItem.getPrice());
+//        orderItemToUpdate.setCurrentStock(orderItem.getCurrentStock());
+//        
+//        //save new changes to the repository
+//        orderItemRepository.save(orderItemToUpdate);
+//        
+//        return orderItem;
+//    }
     
     /** @author Youssof Mohamed */
     @Transactional
-    public OrderItem deleteOrderItem(OrderItem OrderItem)
+    public void deleteOrderItem(String name)
     {
-        orderItemRepository.delete(OrderItem);
-        return OrderItem;
+    	List<OrderItem> orderItems = orderItemRepository.findByName(name);
+        orderItemRepository.deleteById(orderItems.get(0).getItemId());
     }
 }

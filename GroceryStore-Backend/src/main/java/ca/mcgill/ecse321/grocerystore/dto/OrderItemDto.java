@@ -4,17 +4,15 @@ public class OrderItemDto {
 	
 	private String name;
 	private int price;
-	private int currentStock;
 	private int itemId;
 	
 	public OrderItemDto() {
 		
 	}
 	
-	public OrderItemDto(String name, int price, int currentStock, int itemId) {
+	public OrderItemDto(String name, int price, int itemId) {
 		this.name = name;
 		this.price = price;
-		this.currentStock = currentStock;
 		this.itemId = itemId;
 	}
 	
@@ -26,9 +24,6 @@ public class OrderItemDto {
 		return price;
 	}
 
-	public int getCurrentStock() {
-		return currentStock;
-	}
 
 	public int getItemId() {
 		return itemId;
