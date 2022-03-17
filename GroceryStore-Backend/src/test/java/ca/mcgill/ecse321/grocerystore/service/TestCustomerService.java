@@ -26,17 +26,11 @@ public class TestCustomerService
     @InjectMocks
     private CustomerService service;
 
-    private static final int testID = 1;
-    private static final int wrongID = 420;
-    private static final String testString = "test";
-    private static final String wrongString = "wrong";
-    private static final String emptyString = "";
-
     @BeforeEach
     public void setMockOutput()
     {
     	lenient().when(customerDao.findById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-            if (invocation.getArgument(0).equals(testID))
+            if (invocation.getArgument(0).equals(1))
             {
                 Customer customer = new Customer();
                 customer.setEmail("dave2@gmail.com");
@@ -165,7 +159,7 @@ public class TestCustomerService
         Customer customer = null;
         try
         {
-            customer = service.getCustomerByID(wrongID);
+            customer = service.getCustomerByID(420);
 
         } catch (IllegalArgumentException e)
         {
