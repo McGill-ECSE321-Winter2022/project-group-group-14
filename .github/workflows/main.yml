@@ -34,7 +34,6 @@ jobs:
         heroku_api_key: 'efa7326d-b373-4b3a-a62b-971096afa56b'
         heroku_app_name: 'grocerystore-backend-123abc'
         heroku_email: 'youssof.mohamed@mail.mcgill.ca'
-        appdir: 'GroceryStore-Backend'  # to avoid backend redeploys on frontend changes
     - name: Set up nodejs 12
       uses: actions/setup-node@v2
       with:
