@@ -26,7 +26,6 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 ## Links
 * [Wiki Home Page](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki)
 * [Meeting Minutes D1](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Meeting-Minutes-(Deliverable-1))
-* [Meeting Minutes D2](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Meeting-Minutes-(Deliverable-2))
 * [Requirements](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Requirements)   
 * [Use Case Diagrams and Specifications](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Use-Cases)   
 * [Domain Model](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Domain-Model)   
@@ -42,12 +41,22 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Youssof Mohamed | 15 | use-case diagrams, use-case scenarios, JPA annotations, persistence |
 | Minkyu Park | 13 | use-case diagrams, use-case scenarios, JPA annotations |
 
+
+# Deliverable 2
+## Links
+* [Wiki Home Page](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki)
+* [Meeting Minutes D2](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Meeting-Minutes-(Deliverable-2))
+* [Updated Domain Model](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Domain-Model-Updated)   
+* [Software Quality Assurance Plan](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Software-Quality-Assurance-Plan)
+* [RESTful Service Endpoints](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Restful-Service-Endpoints)
+
+
 ## Effort Table (D2)
 | Team Member | Time Spent (h) | Responsibilities | 
 | --- | --- | --- |
 | name | #hours | Work description |
 | Yakir Bender | 20 | Mockito template code, StoreSchedule service, dto, controller, and test methods, postman |
-| Clarissa Baciu | 35+ | Redesign model classes for more intuitive layout, Fix issues and get build working for deliverable 1, finalize persistence testing, regenerate umple code, convert all bidirecional associations to unidirectional in model classes, assign tasks, dtos, service methods and service method testing for GroceryOrder class, addition of attributes to model classes (p2)    |
+| Clarissa Baciu | 35+ | Redesign model classes for more intuitive layout, Fix issues and get build working for deliverable 1, finalize persistence testing, regenerate umple code, convert all bidirecional associations to unidirectional in model classes, assign tasks, dtos, service methods and service method testing for GroceryOrder class, addition of attributes to model classes (p2), Documentation Deliverable 2   |
 | Samuel Valentine | 20 | Minutes organiser and scribe, customer, owner, and employee service, dto, controller, and test methods, postman |
 | Youssof Mohamed | 20 | InventoryItem/OrderItem service, dto, controller, and test methods, postman |
 | Minkyu Park | 8 | employee schedule service, dto, controller, and testmethods, postman |
