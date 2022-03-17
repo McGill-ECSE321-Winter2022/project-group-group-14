@@ -29,7 +29,6 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 * [Requirements](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Requirements)   
 * [Use Case Diagrams and Specifications](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Use-Cases)   
 * [Domain Model](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Domain-Model)   
-* [Software Quality Assurance Plan](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Software-Quality-Assurance-Plan)
 
 ## Effort Table (D1)
 | Team Member | Time Spent (h) | Responsibilities | 
@@ -56,7 +55,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | --- | --- | --- |
 | name | #hours | Work description |
 | Yakir Bender | 20 | Mockito template code, StoreSchedule service, dto, controller, and test methods, postman |
-| Clarissa Baciu | 40+ | Redesign model classes for more intuitive layout, fix issues and get build working for deliverable 1, finalize persistence testing, regenerate umple code, convert all bidirecional associations to unidirectional in model classes, assign tasks, dtos, service methods and service method testing for GroceryOrder class, addition of attributes to model classes (p2), documentation for deliverable 2 (domain model update) |
+| Clarissa Baciu | 40+ | Redesign model classes for more intuitive layout, fix issues and get build working for deliverable 1, finalize persistence testing, regenerate umple code, convert all bidirecional associations to unidirectional in model classes, assign tasks, dtos, service methods and service method testing for GroceryOrder class, addition of attributes to model classes (p2), documentation for deliverable 2 (domain model update, software quality assurance plan, RESTFul endpoints) |
 | Samuel Valentine | 20 | Minutes organiser and scribe, customer, owner, and employee service, dto, controller, and test methods, postman |
 | Youssof Mohamed | 20 | InventoryItem/OrderItem service, dto, controller, and test methods, postman |
 | Minkyu Park | 8 | employee schedule service, dto, controller, and testmethods, postman |
