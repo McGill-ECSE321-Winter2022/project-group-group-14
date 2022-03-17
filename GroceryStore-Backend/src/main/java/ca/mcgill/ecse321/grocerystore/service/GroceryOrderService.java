@@ -84,7 +84,7 @@ public class GroceryOrderService {
         	totalCost = totalCost + oi.getPrice();
         }
         order.setTotalCost(totalCost);						
-        order.setOrderStatus(OrderStatus.Completed);		//order is automatically completed since it is made in store
+        order.setOrderStatus(OrderStatus.Received);		//order is automatically completed since it is made in store
         order = orderDao.save(order);	
         order.setOrderItems(orderItems);
         order = orderDao.save(order);	
