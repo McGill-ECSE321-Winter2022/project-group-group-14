@@ -58,7 +58,7 @@ public class InventoryItemService {
     
     /** @author Youssof Mohamed */
     @Transactional
-    public InventoryItem getInventoryItemByID(int itemId)
+    public InventoryItem getInventoryItemById(int itemId)
     {
         return inventoryItemRepository.findByItemId(itemId);
     }
@@ -97,16 +97,22 @@ public class InventoryItemService {
     public InventoryItem deleteInventoryItem(String name)
     {
         InventoryItem inventoryItem = inventoryItemRepository.findByName(name);
-        List<OrderItem> orderItems = orderItemRepository.findByName(inventoryItem.getName());
-        for(OrderItem orderItem : orderItems) {
-        	orderItemRepository.delete(orderItem);
+        if(orderItemRepository!=null) {
+        	List<OrderItem> orderItems = orderItemRepository.findByName(inventoryItem.getName());
+        	if(orderItems!=null) {
+        		for(OrderItem orderItem : orderItems) {
+                	orderItemRepository.delete(orderItem);
+                }
+        	}
+            
         }
+        
         inventoryItemRepository.delete(inventoryItem);
         return inventoryItem;
     }
     
     @Transactional
-    public void toggleInventoryItemAvailability(InventoryItem inventoryItem) {
+    public InventoryItem toggleInventoryItemAvailability(InventoryItem inventoryItem) {
     	InventoryItem item = inventoryItemRepository.findByItemId(inventoryItem.getItemId());
     	if (item == null) throw new IllegalArgumentException("No such inventory item exists");
     	if (item.getAvailability()) {
@@ -114,6 +120,7 @@ public class InventoryItemService {
     	}else {
     		item.setAvailability(true);
     	}
-    	inventoryItemRepository.save(item); 	
+    	inventoryItemRepository.save(item); 
+    	return item;
     }
 }

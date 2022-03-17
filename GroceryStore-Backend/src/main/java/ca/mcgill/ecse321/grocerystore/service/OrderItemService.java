@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.grocerystore.service;
 
 import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.toList;
+import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.checkItemInfoValidity;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class OrderItemService {
     public OrderItem createOrderItem(String name)
     {
     	//check order item has valid info
-    	if(inventoryItemRepository == null) throw new IllegalArgumentException("No items in inventory");
+//    	if(inventoryItemRepository == null) throw new IllegalArgumentException("No items in inventory");
     	InventoryItem inventoryItem = inventoryItemRepository.findByName(name);
     	if(inventoryItem==null) throw new IllegalArgumentException("No item exists in inventory named '" + name + "'");
     	if(inventoryItem.getCurrentStock()==0) throw new IllegalArgumentException(name + " item is out of stock");
@@ -73,25 +74,25 @@ public class OrderItemService {
     }
 
     
-//    /** @author Youssof Mohamed */
-//    @Transactional
-//    public OrderItem updateOrderItemInfo(OrderItem orderItem)
-//    {
-//    	//check order item has valid info
-//        checkItemInfoValidity(orderItem);
-//        
-//        //update existing order item info with the new ones
-//        OrderItem orderItemToUpdate = orderItemRepository.findByItemId(orderItem.getItemId());
-//        if (orderItemToUpdate == null) throw new IllegalArgumentException("No such order item exists");
-//        orderItemToUpdate.setName(orderItem.getName());
-//        orderItemToUpdate.setPrice(orderItem.getPrice());
-//        orderItemToUpdate.setCurrentStock(orderItem.getCurrentStock());
-//        
-//        //save new changes to the repository
-//        orderItemRepository.save(orderItemToUpdate);
-//        
-//        return orderItem;
-//    }
+    /** @author Youssof Mohamed */
+    @Transactional
+    public OrderItem updateOrderItemInfo(String name, int price)
+    {
+    	//check order item has valid info
+        checkItemInfoValidity(name, price, 15);
+        
+        //update existing order item info with the new ones
+        List<OrderItem> orderItemToUpdate = orderItemRepository.findByName(name);
+        if (orderItemToUpdate == null) throw new IllegalArgumentException("No such order item exists");
+        if (orderItemToUpdate.get(0) == null) throw new IllegalArgumentException("No such order item exists");
+        orderItemToUpdate.get(0).setName(name);
+        orderItemToUpdate.get(0).setPrice(price);
+        
+        //save new changes to the repository
+        orderItemRepository.save(orderItemToUpdate.get(0));
+        
+        return orderItemToUpdate.get(0);
+    }
     
     /** @author Youssof Mohamed */
     @Transactional
