@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.grocerystore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,10 @@ public class InventoryItemRestController {
 	@GetMapping(value = { "/inventoryItems/{name}", "/inventoryItems/{name}/" })
 	public InventoryItemDto getInventoryItem(@PathVariable("name") String name) throws IllegalArgumentException {
 		return convertToDto(inventoryItemService.getInventoryItemByName(name));
+	}
+	@DeleteMapping(value = { "/inventoryItems/{name}", "/inventoryItems/{name}/" })
+	public void deleteInventoryItem(@PathVariable("name") String name) throws IllegalArgumentException {
+		inventoryItemService.deleteInventoryItem(name);
 	}
 	
 	private InventoryItemDto convertToDto(InventoryItem inventoryItem) {
