@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.grocerystore.dao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +93,11 @@ public class TestGroceryOrderPersistence {
         assertFalse(orderdb.getOrderItems().isEmpty());
         assertEquals(orderdb.getOrderItems().get(0).getItemId(),id1);
         assertEquals(orderdb.getOrderItems().get(1).getItemId(),id2);
+        
+        boolean exists = groceryOrderRepository.existsByCustomer(customer);
+        assertTrue(exists);
+        
+        
 	}
 	
 	
@@ -99,7 +105,7 @@ public class TestGroceryOrderPersistence {
 	/** @author: Clarissa Baciu */
 	@Test
 	public void testPersistAndLoadGroceryOrderByOrderType() {
-		GroceryOrder order1 = new GroceryOrder(5, OrderType.Delivery);
+		GroceryOrder order1 = new GroceryOrder(5, OrderType.Delivery);		//creating 2 delivery and 1 pick up order
 		GroceryOrder order2 = new GroceryOrder(10, OrderType.Delivery);
 		GroceryOrder order3 = new GroceryOrder(15,OrderType.PickUp);
 
@@ -147,6 +153,8 @@ public class TestGroceryOrderPersistence {
 		assertEquals(orderList.get(0).getOrderId(),order1.getOrderId());
 		assertEquals(orderList.get(1).getOrderId(),order2.getOrderId());
 	}
+	
+	
 
 
 } 
