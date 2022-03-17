@@ -1,0 +1,49 @@
+{
+	"variables": [],
+	"info": {
+		"name": "TestInventoryItem",
+		"_postman_id": "9efbc38e-18fd-9897-cff4-68fe88a8bfb6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create inventory item",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8074/inventoryItems/Ketchup/?price=2&currentStock=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8074",
+					"path": [
+						"inventoryItems",
+						"Ketchup",
+						""
+					],
+					"query": [
+						{
+							"key": "price",
+							"value": "2",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "currentStock",
+							"value": "5",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

@@ -34,6 +34,11 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+task integrationTest(type: Exec) {
+	//dependsOn 'build'
+	commandLine "newman", "run", "TestInventoryItem.postman_collection.json"
+}
+
 //test {
 //	useJUnitPlatform()
 //}
