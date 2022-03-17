@@ -58,7 +58,7 @@ public class InventoryItemService {
     
     /** @author Youssof Mohamed */
     @Transactional
-    public InventoryItem getInventoryItemByID(int itemId)
+    public InventoryItem getInventoryItemById(int itemId)
     {
         return inventoryItemRepository.findByItemId(itemId);
     }
@@ -97,10 +97,13 @@ public class InventoryItemService {
     public InventoryItem deleteInventoryItem(String name)
     {
         InventoryItem inventoryItem = inventoryItemRepository.findByName(name);
-        List<OrderItem> orderItems = orderItemRepository.findByName(inventoryItem.getName());
-        for(OrderItem orderItem : orderItems) {
-        	orderItemRepository.delete(orderItem);
+        if(orderItemRepository!=null) {
+        	List<OrderItem> orderItems = orderItemRepository.findByName(inventoryItem.getName());
+            for(OrderItem orderItem : orderItems) {
+            	orderItemRepository.delete(orderItem);
+            }
         }
+        
         inventoryItemRepository.delete(inventoryItem);
         return inventoryItem;
     }

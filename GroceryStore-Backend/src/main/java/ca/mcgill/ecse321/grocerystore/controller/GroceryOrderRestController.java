@@ -139,7 +139,7 @@ public class GroceryOrderRestController {
 		Customer customer = customerService.getCustomerByEmail(customerDto.getEmail());
 		List<OrderItem> orderItems = new ArrayList<OrderItem>();
 		for (OrderItemDto itemDto : orderItemDtos ) {
-			orderItems.add(orderItemService.getOrderItemByID(itemDto.getItemId()));
+			orderItems.add(orderItemService.getOrderItemById(itemDto.getItemId()));
 		}
 		GroceryOrder order = orderService.createOrder(customer,orderItems, OrderType.valueOf(orderType));
 		return convertToDto(order);
@@ -155,7 +155,7 @@ public class GroceryOrderRestController {
 	public GroceryOrderDto createInstoreOrder(@RequestParam(name = "Items") List<OrderItemDto> orderItemDtos) throws IllegalArgumentException  {
 		List<OrderItem> orderItems = new ArrayList<OrderItem>();
 		for (OrderItemDto itemDto : orderItemDtos ) {
-			orderItems.add(orderItemService.getOrderItemByID(itemDto.getItemId()));
+			orderItems.add(orderItemService.getOrderItemById(itemDto.getItemId()));
 		}
 		GroceryOrder orderInStore = orderService.createInStoreOrder(orderItems);
 		return convertToDto(orderInStore);

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.grocerystore.dto.OrderItemDto;
@@ -30,6 +32,10 @@ public class OrderItemRestController {
 	@GetMapping(value = { "/orderItems/{name}", "/orderItems/{name}/" })
 	public List<OrderItemDto> getOrderItem(@PathVariable("name") String name) throws IllegalArgumentException {
 		return convertToDto(orderItemService.getOrderItemsByName(name));
+	}
+	@PutMapping(value = { "/orderItems/{name}", "/orderItems/{name}/" })
+	public OrderItemDto updateOrderItem(@PathVariable("name") String name, @RequestParam int price) throws IllegalArgumentException {
+		return convertToDto(orderItemService.updateOrderItemInfo(name,price));
 	}
 	@DeleteMapping(value = { "/orderItems/{name}", "/orderItems/{name}/" })
 	public void deleteOrderItem(@PathVariable("name") String name) throws IllegalArgumentException {

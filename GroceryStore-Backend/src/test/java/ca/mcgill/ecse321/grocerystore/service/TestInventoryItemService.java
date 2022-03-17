@@ -5,8 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +22,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.grocerystore.dao.InventoryItemRepository;
-import ca.mcgill.ecse321.grocerystore.dao.OrderItemRepository;
 import ca.mcgill.ecse321.grocerystore.model.InventoryItem;
 
 
@@ -26,12 +29,8 @@ import ca.mcgill.ecse321.grocerystore.model.InventoryItem;
 public class TestInventoryItemService {
 	
 	@Mock
-	private OrderItemRepository orderItemDao;
-	@Mock
 	private InventoryItemRepository inventoryItemDao;
 
-	@InjectMocks
-	private OrderItemService orderItemService;
 	@InjectMocks
 	private InventoryItemService inventoryItemService;
 
@@ -57,6 +56,40 @@ public class TestInventoryItemService {
 	    		return null;
 	    	}
 	    });
+	    lenient().when(inventoryItemDao.findByItemId(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
+	    	if(invocation.getArgument(0).equals(3)) {
+	    		InventoryItem inventoryItem = new InventoryItem();
+	    		inventoryItem.setName(INVENTORY_ITEM_NAME);
+	    		inventoryItem.setPrice(7);
+	    		inventoryItem.setCurrentStock(12);
+	    		inventoryItem.setItemId(3);
+	    		return inventoryItem;
+	    	} else {
+	    		return null;
+	    	}
+	    });
+	    
+	    lenient().when(inventoryItemDao.findAll()).thenAnswer( (InvocationOnMock invocation) -> {
+	    	
+	    	InventoryItem inventoryItem = new InventoryItem();
+    		inventoryItem.setName("kosa");
+    		inventoryItem.setPrice(12);
+    		inventoryItem.setCurrentStock(17);
+    		InventoryItem inventoryItem2 = new InventoryItem();
+    		inventoryItem2.setName("btngan");
+    		inventoryItem2.setPrice(12);
+    		inventoryItem2.setCurrentStock(17);
+    		InventoryItem inventoryItem3 = new InventoryItem();
+    		inventoryItem3.setName("krnb");
+    		inventoryItem3.setPrice(12);
+    		inventoryItem3.setCurrentStock(17);
+           
+    		List<InventoryItem> inventoryItems = new ArrayList<InventoryItem>();
+    		inventoryItems.add(inventoryItem);
+    		inventoryItems.add(inventoryItem2);
+    		inventoryItems.add(inventoryItem3);
+	    		return inventoryItems;
+	    });
 	    
 		// Whenever anything is saved, just return the parameter object
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
@@ -68,7 +101,6 @@ public class TestInventoryItemService {
 	
 	@Test
 	public void testCreateInventoryItem() {
-		assertEquals(0, orderItemService.getAllOrderItems().size());
 
 		String name = "bateekh";
 		int price = 7;
@@ -106,6 +138,20 @@ public class TestInventoryItemService {
 	}
 	
 	@Test
+	public void testGetAllInventoryItems() {
+		
+		List<InventoryItem> inventoryItems = null;
+		try {
+			inventoryItems = inventoryItemService.getAllInventoryItems();
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNotNull(inventoryItems);
+		assertEquals(3, inventoryItems.size());
+	}
+	
+	@Test
 	public void testDeleteInventoryItem() {
 		
 		InventoryItem inventoryItem = inventoryItemService.getInventoryItemByName(INVENTORY_ITEM_NAME);
@@ -113,7 +159,7 @@ public class TestInventoryItemService {
 		
 		try {
 			deletedInventoryItem = inventoryItemService.deleteInventoryItem(INVENTORY_ITEM_NAME);
-			inventoryItem = inventoryItemService.getInventoryItemByID(inventoryItem.getItemId());
+			inventoryItem = inventoryItemService.getInventoryItemById(inventoryItem.getItemId());
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
@@ -123,7 +169,33 @@ public class TestInventoryItemService {
 		assertEquals(deletedInventoryItem.getName(), INVENTORY_ITEM_NAME);
 	}
 	
-	
+	@Test
+	public void testGetInventoryItemByName() {
+		
+		InventoryItem inventoryItem = null;
+		try {
+			inventoryItem = inventoryItemService.getInventoryItemByName(INVENTORY_ITEM_NAME);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNotNull(inventoryItem);
+		assertEquals(inventoryItem.getName(), INVENTORY_ITEM_NAME);
+	}
+	@Test
+	public void testGetInventoryItemById() {
+		
+		InventoryItem inventoryItem = null;
+		try {
+			inventoryItem = inventoryItemService.getInventoryItemById(3);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNotNull(inventoryItem);
+		assertEquals(inventoryItem.getName(), INVENTORY_ITEM_NAME);
+		assertEquals(inventoryItem.getItemId(), 3);
+	}
 	
 	@Test
 	public void testGetExistingInventoryItem() {
