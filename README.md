@@ -56,7 +56,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | --- | --- | --- |
 | name | #hours | Work description |
 | Yakir Bender | 20 | Mockito template code, StoreSchedule service, dto, controller, and test methods, postman |
-| Clarissa Baciu | 40+ | Redesign model classes for more intuitive layout, Fix issues and get build working for deliverable 1, finalize persistence testing, regenerate umple code, convert all bidirecional associations to unidirectional in model classes, assign tasks, dtos, service methods and service method testing for GroceryOrder class, addition of attributes to model classes (p2), Documentation Deliverable 2 (domain model update) |
+| Clarissa Baciu | 40+ | Redesign model classes for more intuitive layout, fix issues and get build working for deliverable 1, finalize persistence testing, regenerate umple code, convert all bidirecional associations to unidirectional in model classes, assign tasks, dtos, service methods and service method testing for GroceryOrder class, addition of attributes to model classes (p2), documentation for deliverable 2 (domain model update) |
 | Samuel Valentine | 20 | Minutes organiser and scribe, customer, owner, and employee service, dto, controller, and test methods, postman |
 | Youssof Mohamed | 20 | InventoryItem/OrderItem service, dto, controller, and test methods, postman |
 | Minkyu Park | 8 | employee schedule service, dto, controller, and testmethods, postman |
