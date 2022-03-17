@@ -58,7 +58,7 @@ public class GroceryOrderService {
         }
         
         if (order.getOrderType().equals(OrderType.Delivery)) {			//if order is a delivery and customer is out of town, add extra fee
-        	if (customer.getAddress().contains(GroceryStore.town)){
+        	if (!customer.getAddress().contains(GroceryStore.town)){
         		totalCost+=GroceryStore.outOfTownFee;
         	}
         }
@@ -285,7 +285,7 @@ public class GroceryOrderService {
      */
     @Transactional
     public GroceryOrder payForOrder(String paymentInfo, GroceryOrder order) { 	//payment info should be hashed
-    	if (!isPaymentValid(paymentInfo))throw new IllegalArgumentException("Payment information is invalid");  
+    	if (!isPaymentValid(paymentInfo))throw new IllegalArgumentException("Payment information is invalid.");  
     	if (order == null) throw new IllegalArgumentException("Please submit a valid order ID."); 
     	if (!order.getOrderStatus().equals(OrderStatus.Received)){
     		throw new IllegalArgumentException("Order does not have a received status, it is " + order.getOrderStatus().toString() + " instead. Payment has already been submitted?"); 
