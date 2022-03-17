@@ -7,6 +7,7 @@ import java.util.List;
 
 import ca.mcgill.ecse321.grocerystore.model.Account;
 import ca.mcgill.ecse321.grocerystore.model.Customer;
+import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule.Shift;
 import ca.mcgill.ecse321.grocerystore.model.InventoryItem;
 import ca.mcgill.ecse321.grocerystore.model.StoreSchedule.Day;
 
@@ -132,6 +133,23 @@ public class ServiceHelpers
         }
         if (!isValidDay)
             throw new IllegalArgumentException("Please input a day of the week");
+    }
+    
+    public static void checkShiftValidity(Shift shift)
+    {
+        if (shift == null)
+            throw new IllegalArgumentException("Please input a valid shift.");
+        
+        boolean isValidShift = false;
+        
+        for (Shift listedShift : Shift.values()) {
+            if (listedShift.equals(shift)) {
+                isValidShift = true;
+                break;
+            }
+        }
+        if (!isValidShift)
+            throw new IllegalArgumentException("Please input a valid shift");
     }
     
     
