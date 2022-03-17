@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
 
@@ -41,6 +42,8 @@ public class TestOrderItemService {
 
 	private static final String ORDER_ITEM_NAME = "Jelly Beans";
 	private static final String NON_EXISTING_ORDER_ITEM = "Flying Chocolate";
+	private static final String NON_EXISTING_ORDER_ITEM2 = "Real Flying Chocolate";
+	private static final String UNAVAILABLE_ORDER_ITEM = "Big boy";
 
 	@BeforeEach
 	public void setMockOutput() {
@@ -52,30 +55,93 @@ public class TestOrderItemService {
 	    		inventoryItem.setCurrentStock(17);
 	            OrderItem orderItem = new OrderItem();
 	            orderItem.setName(ORDER_ITEM_NAME);
+	            orderItem.setPrice(13);
 	    		List<OrderItem> orderItems = new ArrayList<OrderItem>();
 	    		orderItems.add(orderItem);
 	            return orderItems;
-	        } else {
+	        } else if(invocation.getArgument(0).equals("bateekh")) {
+	        	InventoryItem inventoryItem = new InventoryItem();
+	    		inventoryItem.setName("bateekh");
+	    		inventoryItem.setPrice(12);
+	    		inventoryItem.setCurrentStock(17);
+	    		OrderItem orderItem = new OrderItem();
+	    		orderItem.setName("bateekh");
+	    		orderItem.setPrice(12);
+	    		List<OrderItem> orderItems = new ArrayList<OrderItem>();
+	    		orderItems.add(orderItem);
+	    		return orderItems;
+	        }
+	    		else {
 	            return null;
 	        }
 	    });
 	    
 	    lenient().when(inventoryItemDao.findByName(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
-	    	if(invocation.getArgument(0).equals(ORDER_ITEM_NAME)) {
-	    		InventoryItem inventoryItem = new InventoryItem();
-	    		inventoryItem.setPrice(12);
-	    		inventoryItem.setCurrentStock(17);
-	    		inventoryItem.setName(ORDER_ITEM_NAME);
-	    		return inventoryItem;
-	    	} else if(invocation.getArgument(0).equals("bateekh")) {
+	    	if(invocation.getArgument(0).equals("bateekh")) {
 	    		InventoryItem inventoryItem = new InventoryItem();
 	    		inventoryItem.setName("bateekh");
 	    		inventoryItem.setPrice(12);
 	    		inventoryItem.setCurrentStock(17);
 	    		return inventoryItem;
+	    	} else if(invocation.getArgument(0).equals(NON_EXISTING_ORDER_ITEM2)) {
+	    		InventoryItem inventoryItem = new InventoryItem();
+	    		inventoryItem.setName(NON_EXISTING_ORDER_ITEM2);
+	    		inventoryItem.setPrice(12);
+	    		inventoryItem.setCurrentStock(0);
+	    		return inventoryItem;
+	    	} else if(invocation.getArgument(0).equals(UNAVAILABLE_ORDER_ITEM)) {
+	    		InventoryItem inventoryItem = new InventoryItem();
+	    		inventoryItem.setName(UNAVAILABLE_ORDER_ITEM);
+	    		inventoryItem.setPrice(12);
+	    		inventoryItem.setCurrentStock(12);
+	    		inventoryItem.setAvailability(false);
+	    		return inventoryItem;
+	    	}
+	    	
+	    	else {
+	    		return null;
+	    	}
+	    });
+	    
+	    lenient().when(orderItemDao.findByItemId(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
+	    	if(invocation.getArgument(0).equals(3)) {
+	    		InventoryItem inventoryItem = new InventoryItem();
+	    		inventoryItem.setName(ORDER_ITEM_NAME);
+	    		inventoryItem.setPrice(7);
+	    		inventoryItem.setCurrentStock(12);
+	    		OrderItem orderItem = new OrderItem();
+		        orderItem.setName(ORDER_ITEM_NAME);
+		        orderItem.setItemId(3);
+	    		return orderItem;
 	    	} else {
 	    		return null;
 	    	}
+	    });
+	    
+	    lenient().when(orderItemDao.findAll()).thenAnswer( (InvocationOnMock invocation) -> {
+	    	
+	    	InventoryItem inventoryItem = new InventoryItem();
+    		inventoryItem.setName("kosa");
+    		inventoryItem.setPrice(12);
+    		inventoryItem.setCurrentStock(17);
+    		InventoryItem inventoryItem2 = new InventoryItem();
+    		inventoryItem2.setName("btngan");
+    		inventoryItem2.setPrice(13);
+    		inventoryItem.setCurrentStock(15);
+            OrderItem orderItem = new OrderItem();
+            orderItem.setName("kosa");
+            orderItem.setPrice(12);
+            OrderItem orderItem2 = new OrderItem();
+            orderItem2.setName("kosa");
+            orderItem2.setPrice(12);
+            OrderItem orderItem3 = new OrderItem();
+            orderItem3.setName("btngan");
+            orderItem3.setPrice(13);
+    		List<OrderItem> orderItems = new ArrayList<OrderItem>();
+    		orderItems.add(orderItem);
+    		orderItems.add(orderItem2);
+    		orderItems.add(orderItem3);
+	    		return orderItems;
 	    });
 	    
 		// Whenever anything is saved, just return the parameter object
@@ -89,8 +155,6 @@ public class TestOrderItemService {
 	
 	@Test
 	public void testCreateOrderItem() {
-		assertEquals(0, orderItemService.getAllOrderItems().size());
-
 		String name = "bateekh";
 		InventoryItem inventoryItem = inventoryItemDao.findByName(name);
 		OrderItem orderItem = null;
@@ -103,6 +167,77 @@ public class TestOrderItemService {
 		assertNotNull(orderItem);
 		assertEquals(name, orderItem.getName());
 		assertEquals(inventoryItem.getPrice(), orderItem.getPrice());
+	}
+	@Test
+	public void testCreateOrderItemEmptyInventory() {
+		
+		String error = null;
+		OrderItem orderItem = null;
+		try {
+			orderItem = orderItemService.createOrderItem(NON_EXISTING_ORDER_ITEM);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			error = e.getMessage();
+		}
+		
+		assertNull(orderItem);
+		assertEquals(error, "No item exists in inventory named '" + NON_EXISTING_ORDER_ITEM + "'");
+	}
+	@Test
+	public void testCreateOrderItemOutOfStock() {
+		
+		String error = null;
+		OrderItem orderItem = null;
+		try {
+			orderItem = orderItemService.createOrderItem(NON_EXISTING_ORDER_ITEM2);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			error = e.getMessage();
+		}
+		
+		assertNull(orderItem);
+		assertEquals(error, NON_EXISTING_ORDER_ITEM2 + " item is out of stock");
+	}
+	@Test
+	public void testCreateOrderItemUnavailable() {
+		
+		String error = null;
+		OrderItem orderItem = null;
+		try {
+			orderItem = orderItemService.createOrderItem(UNAVAILABLE_ORDER_ITEM);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			error = e.getMessage();
+		}
+		
+		assertNull(orderItem);
+		assertEquals(error, UNAVAILABLE_ORDER_ITEM + " item is not available for order");
+	}
+	@Test
+	public void testGetAllOrderItems() {
+		
+		List<OrderItem> orderItems = null;
+		try {
+			orderItems = orderItemService.getAllOrderItems();
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNotNull(orderItems);
+		assertEquals(3, orderItems.size());
+	}
+	@Test
+	public void testGetOrderItemsByName() {
+		
+		List<OrderItem> orderItems = null;
+		try {
+			orderItems = orderItemService.getOrderItemsByName(ORDER_ITEM_NAME);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNotNull(orderItems);
+		assertEquals(1, orderItems.size());
 	}
 	
 	@Test
@@ -120,28 +255,53 @@ public class TestOrderItemService {
 		assertNull(orderItem);
 	}
 	
+	@Test
+	public void testGetOrderItemById() {
+		
+		OrderItem orderItem = null;
+		try {
+			orderItem = orderItemService.getOrderItemByID(3);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNotNull(orderItem);
+		assertEquals(orderItem.getName(), ORDER_ITEM_NAME);
+		assertEquals(orderItem.getItemId(), 3);
+	}
+	
+	@Test
+	public void testUpdateOrderItem() {
+//		assertEquals(0, orderItemService.getAllOrderItems().size());
+		
+		
+		String name = "bateekh";
+		
+		int price = 9;
+		OrderItem updatedOrderItem = null;
+		
+		try {
+			updatedOrderItem = orderItemService.updateOrderItemInfo(name,price);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNotNull(updatedOrderItem);
+		assertEquals(name, updatedOrderItem.getName());
+		assertEquals(price, updatedOrderItem.getPrice());
+	}
 //	@Test
-//	public void testUpdateOrderItem() {
+//	public void testUpdateOrderItemNull() {
 ////		assertEquals(0, orderItemService.getAllOrderItems().size());
 //		
+//		
 //		String name = "bateekh";
-//		int price = 7;
-//		int currentStock = 12;
 //		
-//		InventoryItem inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock);
-//		inventoryItemDao.save(inventoryItem);
-//		OrderItem orderItem = orderItemService.createOrderItem(name);
-//		
-//		name = "bateekh";
-//		price = 9;
-//		currentStock = 13;
-//		orderItem.setName(name);
-//		orderItem.setPrice(price);
-//		orderItem.setCurrentStock(currentStock);
+//		int price = 9;
 //		OrderItem updatedOrderItem = null;
 //		
 //		try {
-//			updatedOrderItem = orderItemService.updateOrderItemInfo(orderItem);
+//			updatedOrderItem = orderItemService.updateOrderItemInfo(name,price);
 //		} catch (IllegalArgumentException e) {
 //			// Check that no error occurred
 //			fail();
@@ -149,7 +309,6 @@ public class TestOrderItemService {
 //		assertNotNull(updatedOrderItem);
 //		assertEquals(name, updatedOrderItem.getName());
 //		assertEquals(price, updatedOrderItem.getPrice());
-//		assertEquals(currentStock, updatedOrderItem.getCurrentStock());
 //	}
 	
 	
