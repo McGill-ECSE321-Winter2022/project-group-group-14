@@ -162,15 +162,16 @@ public class GroceryOrderRestController {
 	/**
 	 * @param orderId
 	 */
-	 @DeleteMapping({"/orders/{orderId}","/orders/{orderId}/"})
-	 public void deleteOrder(@PathVariable("orderId") String orderId) {
-		 orderService.deleteOrder(orderService.getOrderById(Integer.parseInt(orderId)));
+	 @DeleteMapping({"/orders/delete/{orderId}","/orders/delete/{orderId}/"})
+	 public GroceryOrderDto deleteOrder(@PathVariable("orderId") String orderId) {
+		 GroceryOrder order = orderService.deleteOrder(orderService.getOrderById(Integer.parseInt(orderId)));
+		 return convertToDto(order);
 		  }
 	 
 
-	@DeleteMapping({"/orders/deleteAll", "orders/deleteAll/"})
-	public void deleteAllOrders() {
-		 orderService.deleteAllOrders();
+	@DeleteMapping({"/orders/delete/all/completed", "orders/delete/all/completed/"})
+	public void deleteAllCompletesOrders() {
+		 orderService.deleteAllCompletedOrders();
 	}
 	 
 //-------------------------------------------------------EXTRA METHODS------------------------------------------------------------
@@ -187,8 +188,9 @@ public class GroceryOrderRestController {
 	 * @param orderId
 	 */
 	@GetMapping(value = {"/orders/status/update/{orderId}/","/orders/status/update/{orderId}"})
-	public void updateOrderStatus(@PathVariable("orderId") String orderId) {
-		orderService.updateOrderStatus(Integer.parseInt(orderId));
+	public GroceryOrderDto updateOrderStatus(@PathVariable("orderId") String orderId) {
+		GroceryOrder order = orderService.updateOrderStatus(orderService.getOrderById(Integer.parseInt(orderId)));
+		return convertToDto(order);
 	}
 	
 	/**
@@ -196,7 +198,7 @@ public class GroceryOrderRestController {
 	 */
 	@GetMapping(value = {"/orders/status/view/{orderId}/","/orders/status/view/{orderId}"})
 	public String viewOrderStatus(@PathVariable("orderId") String orderId) {
-		OrderStatus status = orderService.viewOrderStatus(Integer.parseInt(orderId));
+		OrderStatus status = orderService.viewOrderStatus(orderService.getOrderById(Integer.parseInt(orderId)));
 		return status.toString(); 	
 	}
 	
@@ -204,8 +206,9 @@ public class GroceryOrderRestController {
 	 * @param orderId
 	 */
 	@GetMapping(value = {"/orders/payment/{orderId}","/orders/payment/{orderId}/"})
-	public void payForOrder(@PathVariable("orderId") String orderId, @RequestParam(name = "Payment Information") String paymentInformation) {
-		orderService.payForOrder(paymentInformation, Integer.parseInt(orderId));	// should add hashing for deliverable 3
+	public GroceryOrderDto payForOrder(@PathVariable("orderId") String orderId, @RequestParam(name = "Payment Information") String paymentInformation) {
+		GroceryOrder order = orderService.payForOrder(paymentInformation,orderService.getOrderById(Integer.parseInt(orderId)));	// should add hashing for deliverable 3
+		return convertToDto(order);
 	}
 	
 //-------------------------------------------------------CONVERSIONS------------------------------------------------------------

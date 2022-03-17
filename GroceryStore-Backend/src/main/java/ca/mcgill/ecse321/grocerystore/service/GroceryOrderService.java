@@ -190,17 +190,17 @@ public class GroceryOrderService {
      * @param groceryOrder
      */
     @Transactional
-    public void deleteOrder(GroceryOrder groceryOrder){ 
+    public GroceryOrder deleteOrder(GroceryOrder groceryOrder){ 
     	if (groceryOrder == null || !orderDao.existsById(groceryOrder.getOrderId())) throw new IllegalArgumentException("Please submit a valid grocery order.");
-    	if (!groceryOrder.getOrderStatus().equals(OrderStatus.Completed))throw new IllegalArgumentException("Are you sure you want to delete an order that has not been completed?");
     	orderDao.delete(groceryOrder);
+    	return groceryOrder;	
     } 
     
     /**
      * deletes all orders, done by owner at the end of the month after montly report is generated
      */
     @Transactional
-    public void deleteAllOrders(){  
+    public void deleteAllCompletedOrders(){  
     	if (orderDao.findByOrderStatus(OrderStatus.Completed) == null) {
     		 throw new IllegalArgumentException("List of orders for order status completed is null.");  
     	}
@@ -233,8 +233,7 @@ public class GroceryOrderService {
      * @param Id 
      */  
     @Transactional
-    public void updateOrderStatus(int Id){   //should only be done by an employee/owner account --> we will take care of this in the view for the ui
-    	GroceryOrder order = orderDao.findByOrderId(Id);
+    public GroceryOrder updateOrderStatus(GroceryOrder order){   //should only be done by an employee/owner account --> we will take care of this in the view for the ui
     	if (order == null) throw new IllegalArgumentException("Please submit a valid order ID."); //validation for proper id
     	if (order.getOrderStatus() == null) throw new IllegalArgumentException("Order status of the order is null. Cannot be updated.");
     	if (order.getOrderStatus().equals(OrderStatus.Completed)) {			//if order is already completed, order status no longer needs to be updated
@@ -245,29 +244,33 @@ public class GroceryOrderService {
     	}
     	if (order.getOrderStatus().equals(OrderStatus.Received)) { 	//update from received --> processing as employee prepares order
     		order.setOrderStatus(OrderStatus.Processing);
-    		orderDao.save(order);
+    		order = orderDao.save(order);
+    		return order;
     	} else if (order.getOrderStatus().equals(OrderStatus.Processing)) {		// update from processing 
     		if (order.getOrderType() == null) throw new IllegalArgumentException("Order type is not set."); //make sure order has a type
     		if (order.getOrderType().equals(OrderType.Delivery)){
     			order.setOrderStatus(OrderStatus.BeingDelivered);	
-        		orderDao.save(order);	
+    			order = orderDao.save(order);
+        		return order;	
     		}else if (order.getOrderType().equals(OrderType.PickUp)) {
     			order.setOrderStatus(OrderStatus.ReadyForPickUp);
-        		orderDao.save(order);
+    			order = orderDao.save(order);
+        		return order;
     		}
     	}else{ 	// once order is picked up or delivered, set to completetd
     		order.setOrderStatus(OrderStatus.Completed);
-    		orderDao.save(order);
+    		order = orderDao.save(order);
+    		return order;
     	}
+    	return order;
     } 
     
     /**
      * @param Id
      */
     @Transactional
-    public OrderStatus viewOrderStatus(int Id) { //customer should be able to view the status of their orders
-    	GroceryOrder order = orderDao.findByOrderId(Id);
-    	if (order == null) throw new IllegalArgumentException("Please submit a valid order ID."); 
+    public OrderStatus viewOrderStatus(GroceryOrder order) { //customer should be able to view the status of their orders
+    	if (order == null) throw new IllegalArgumentException("Please select a valid order."); 
     	if (order.getOrderStatus() == null) {								//if order is already completed, order status no longer needs to be updated
    		 throw new IllegalArgumentException("Order has no status.");  	
     	}
@@ -281,15 +284,15 @@ public class GroceryOrderService {
      * if payment info is valid, change order from completed --> processing
      */
     @Transactional
-    public void payForOrder(String paymentInfo, int  Id) { 	//payment info should be hashed
+    public GroceryOrder payForOrder(String paymentInfo, GroceryOrder order) { 	//payment info should be hashed
     	if (!isPaymentValid(paymentInfo))throw new IllegalArgumentException("Payment information is invalid");  
-    	GroceryOrder order = orderDao.findByOrderId(Id);
     	if (order == null) throw new IllegalArgumentException("Please submit a valid order ID."); 
-    	if (!order.getOrderStatus().equals(OrderStatus.Completed)){
-    		throw new IllegalArgumentException("Order does not have a completed status, it is" + order.getOrderStatus().toString() + "instead. Cannot submit payment."); 
+    	if (!order.getOrderStatus().equals(OrderStatus.Received)){
+    		throw new IllegalArgumentException("Order does not have a received status, it is " + order.getOrderStatus().toString() + " instead. Payment has already been submitted?"); 
     	}
     	order.setOrderStatus(OrderStatus.Processing);
-    	orderDao.save(order);	
+    	order = orderDao.save(order);	
+    	return order;
     }
     
   //-------------------------------------------------------VALIDATION------------------------------------------------------------

@@ -5,7 +5,6 @@ import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder.OrderStatus;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder.OrderType;
 import ca.mcgill.ecse321.grocerystore.model.Customer;
-import ca.mcgill.ecse321.grocerystore.model.OrderItem;
 
 import java.util.List;
 
