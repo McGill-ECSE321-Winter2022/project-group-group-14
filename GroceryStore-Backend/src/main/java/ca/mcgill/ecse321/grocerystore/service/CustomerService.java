@@ -168,7 +168,7 @@ public class CustomerService {
     	ServiceHelpers.checkAccountInfoValidity(customer);
         
         //update existing customer info with the new ones
-        Customer customerToUpdate = customerRepository.findByAccountId(customer.getAccountId());
+        Customer customerToUpdate = customerRepository.findByUsername(customer.getUsername());
         if (customerToUpdate == null) throw new IllegalArgumentException("No such customer exists");
         customerToUpdate.setEmail(customer.getEmail());
         customerToUpdate.setUsername(customer.getUsername());
