@@ -28,4 +28,15 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       working-directory: GroceryStore-Backend
+    - name: Set up nodejs 12
+      uses: actions/setup-node@v2
+      with:
+        node-version: '12'
+    - name: Upgrade npm
+      run: npm install -g npm@latest  # make sure we are on at least npm 7
+    - name: Install newman
+      run: npm install -g newman
+    - name: Run integration tests
+      run: ./gradlew integrationTest
+      working-directory: GroceryStore-Backend
 
