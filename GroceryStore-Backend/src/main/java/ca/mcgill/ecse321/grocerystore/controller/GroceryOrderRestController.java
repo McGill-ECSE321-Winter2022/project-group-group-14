@@ -21,6 +21,7 @@ import ca.mcgill.ecse321.grocerystore.model.OrderItem;
 import ca.mcgill.ecse321.grocerystore.service.CustomerService;
 import ca.mcgill.ecse321.grocerystore.service.GroceryOrderService;
 import ca.mcgill.ecse321.grocerystore.service.OrderItemService;
+import ca.mcgill.ecse321.grocerystore.controller.OrderItemRestController;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -46,15 +47,27 @@ public class GroceryOrderRestController {
  //-------------------------------------------------------CREATE MAPPINGS------------------------------------------------------------
 
 	
-	/**
-	 * @param customerDto, list of orderItemDtos, orderType
-	 * @return delivery/pickup OrderDto
-	 */
-	@PostMapping(value = { "/orders", "/orders/" })
-	public GroceryOrderDto createOrder(@RequestParam(name = "Customer") CustomerDto customerDto,@RequestParam(name = "Items") List<OrderItemDto> orderItemDtos,
-			@RequestParam(name = "Order Type") String orderType) throws IllegalArgumentException  {
-		Customer customer = customerService.getCustomerByEmail(customerDto.getEmail());
-		List<OrderItem> orderItems = new ArrayList<OrderItem>();
+//	/**
+//	 * @param customerDto, list of orderItemDtos, orderType
+//	 * @return delivery/pickup OrderDto
+//	 */
+//	@PostMapping(value = { "/orders", "/orders/" })
+//	public GroceryOrderDto createOrder(@RequestParam(name = "Customer") CustomerDto customerDto,@RequestParam(name = "Items") List<OrderItemDto> orderItemDtos,
+//			@RequestParam(name = "Order Type") String orderType) throws IllegalArgumentException  {
+//		Customer customer = customerService.getCustomerByEmail(customerDto.getEmail());
+//		List<OrderItem> orderItems = new ArrayList<OrderItem>();
+//		for (OrderItemDto itemDto : orderItemDtos ) {
+//			orderItems.add(orderItemService.getOrderItemByID(itemDto.getItemId()));
+//		}
+//		GroceryOrder order = orderService.createOrder(customer,orderItems, OrderType.valueOf(orderType));
+//		return convertToDto(order);
+//	}
+	@PostMapping(value = { "/orders/{email}/{orderName}/{orderType}", "/orders/{email}/{orderName}/{orderType}/" })
+	public GroceryOrderDto createOrder(@PathVariable  String email,@PathVariable String orderName,
+			@PathVariable String orderType) throws IllegalArgumentException  {
+		Customer customer = customerService.getCustomerByEmail(email);
+		List<OrderItem> orderItems = orderItemService.getOrderItemsByName(orderName);
+		List<OrderItemDto> orderItemDtos = convertToDto(orderItems);
 		for (OrderItemDto itemDto : orderItemDtos ) {
 			orderItems.add(orderItemService.getOrderItemByID(itemDto.getItemId()));
 		}
@@ -245,6 +258,19 @@ public class GroceryOrderRestController {
 			itemDtos.add(convertToDto(oi));
 		}
 		return itemDtos	;
+	}
+	
+	private List<OrderItemDto> convertToDto(List<OrderItem> orderItems) {
+		List<OrderItemDto> orderItemsDto = new ArrayList<OrderItemDto>(orderItems.size());
+		
+		for(OrderItem orderItem : orderItems) {
+			if (orderItem == null) {
+				throw new IllegalArgumentException("There is no such OrderItem!");
+			}
+			orderItemsDto.add(new OrderItemDto(orderItem.getName(),orderItem.getPrice(),orderItem.getItemId()));
+			}
+		
+		return orderItemsDto;
 	}
 
 }
