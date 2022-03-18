@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.mcgill.ecse321.grocerystore.dto.GroceryOrderDto;
 import ca.mcgill.ecse321.grocerystore.dto.StoreScheduleDto;
-import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
 import ca.mcgill.ecse321.grocerystore.model.StoreSchedule;
 import ca.mcgill.ecse321.grocerystore.model.StoreSchedule.Day;
 import ca.mcgill.ecse321.grocerystore.service.StoreScheduleService;

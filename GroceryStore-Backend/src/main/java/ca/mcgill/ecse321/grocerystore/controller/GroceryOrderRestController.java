@@ -21,7 +21,6 @@ import ca.mcgill.ecse321.grocerystore.model.OrderItem;
 import ca.mcgill.ecse321.grocerystore.service.CustomerService;
 import ca.mcgill.ecse321.grocerystore.service.GroceryOrderService;
 import ca.mcgill.ecse321.grocerystore.service.OrderItemService;
-import ca.mcgill.ecse321.grocerystore.controller.OrderItemRestController;
 
 import java.util.List;
 import java.util.ArrayList;
