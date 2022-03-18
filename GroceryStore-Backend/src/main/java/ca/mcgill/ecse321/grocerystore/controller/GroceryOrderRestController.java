@@ -67,10 +67,10 @@ public class GroceryOrderRestController {
 			@PathVariable String orderType) throws IllegalArgumentException  {
 		Customer customer = customerService.getCustomerByEmail(email);
 		List<OrderItem> orderItems = orderItemService.getOrderItemsByName(orderName);
-		List<OrderItemDto> orderItemDtos = convertToDto(orderItems);
-		for (OrderItemDto itemDto : orderItemDtos ) {
-			orderItems.add(orderItemService.getOrderItemByID(itemDto.getItemId()));
-		}
+//		List<OrderItemDto> orderItemDtos = convertToDto(orderItems);
+//		for (OrderItemDto itemDto : orderItemDtos ) {
+//			orderItems.add(orderItemService.getOrderItemByID(itemDto.getItemId()));
+//		}
 		GroceryOrder order = orderService.createOrder(customer,orderItems, OrderType.valueOf(orderType));
 		return convertToDto(order);
 	}
