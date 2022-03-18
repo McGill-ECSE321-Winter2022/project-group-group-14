@@ -1,22 +1,40 @@
 {
-	"variables": [],
 	"info": {
+		"_postman_id": "dd7fb374-3e8f-44ff-b323-77d2c1a23615",
 		"name": "TestInventoryItem",
-		"_postman_id": "9efbc38e-18fd-9897-cff4-68fe88a8bfb6",
-		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Create inventory item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create Inventory Item\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const response = pm.response.json();\r",
+							"\r",
+							"    console.log(response[0].itemId);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
+				"method": "POST",
+				"header": [],
 				"url": {
-					"raw": "http://localhost:8074/inventoryItems/Ketchup/?price=2&currentStock=5",
-					"protocol": "http",
+					"raw": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/Ketchup/?price=2&currentStock=5",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"grocerystore-backend-123abc",
+						"herokuapp",
+						"com"
 					],
-					"port": "8074",
 					"path": [
 						"inventoryItems",
 						"Ketchup",
@@ -25,23 +43,177 @@
 					"query": [
 						{
 							"key": "price",
-							"value": "2",
-							"equals": true,
-							"description": ""
+							"value": "2"
 						},
 						{
 							"key": "currentStock",
-							"value": "5",
-							"equals": true,
-							"description": ""
+							"value": "5"
 						}
-					],
-					"variable": []
-				},
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create order item 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create OrderItem\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create order item 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create OrderItem\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create order item 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create OrderItem\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get order items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create OrderItem\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
-				"description": ""
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete order item 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete order item 1\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete order item 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete order item\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get order items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create OrderItem\", function() {\r",
+							"    const response = pm.response.json();\r",
+							"\r",
+							"    console.log(response[0].itemId);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
 			},
 			"response": []
 		}
