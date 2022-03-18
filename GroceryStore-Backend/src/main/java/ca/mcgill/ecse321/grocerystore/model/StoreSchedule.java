@@ -4,7 +4,6 @@ package ca.mcgill.ecse321.grocerystore.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
