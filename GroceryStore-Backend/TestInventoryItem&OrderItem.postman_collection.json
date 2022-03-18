@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "dd7fb374-3e8f-44ff-b323-77d2c1a23615",
-		"name": "TestInventoryItem",
+		"name": "TestInventoryItem&OrderItem",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
@@ -212,6 +212,29 @@
 				"method": "GET",
 				"header": [],
 				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete inventory item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete Inventory Item\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/Ketchup/"
 			},
 			"response": []
 		}

@@ -1,10 +1,33 @@
 {
 	"info": {
-		"_postman_id": "dd7fb374-3e8f-44ff-b323-77d2c1a23615",
-		"name": "TestInventoryItem",
+		"_postman_id": "e21ac9f5-c3ac-444e-a7b3-b049b445f5d5",
+		"name": "GroceryOrder",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Create customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create customer\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/customers/sam@gmail.com/samv/123Abc/9999999999/123Abc/"
+			},
+			"response": []
+		},
 		{
 			"name": "Create inventory item",
 			"event": [
@@ -101,13 +124,13 @@
 			"response": []
 		},
 		{
-			"name": "Create order item 3",
+			"name": "Create order",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Create Order Item 3\", function() {\r",
+							"pm.test(\"Create order\", function() {\r",
 							"    pm.response.to.have.status(200)\r",
 							"})\r",
 							""
@@ -119,18 +142,18 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orders/sam@gmail.com/Ketchup/Delivery"
 			},
 			"response": []
 		},
 		{
-			"name": "Get order items",
+			"name": "Delete order",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Get Order Items\", function() {\r",
+							"pm.test(\"Delete order\", function() {\r",
 							"    pm.response.to.have.status(200)\r",
 							"})\r",
 							""
@@ -140,9 +163,9 @@
 				}
 			],
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
-				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orders/delete/1"
 			},
 			"response": []
 		},
@@ -193,13 +216,13 @@
 			"response": []
 		},
 		{
-			"name": "Get order items",
+			"name": "Delete inventory item",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Get Remaining Order Item\", function() {\r",
+							"pm.test(\"Delete Inventory Item\", function() {\r",
 							"    pm.response.to.have.status(200)\r",
 							"})\r",
 							""
@@ -209,9 +232,32 @@
 				}
 			],
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
-				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete inventory item Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete Inventory Item\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/customers/sam@gmail.com"
 			},
 			"response": []
 		}
