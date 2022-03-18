@@ -1,21 +1,14 @@
 package ca.mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import ca.mcgill.ecse321.grocerystore.model.GroceryOrder.OrderType;
-import ca.mcgill.ecse321.grocerystore.model.StoreSchedule.Day;
 
 import javax.persistence.Id;
 
