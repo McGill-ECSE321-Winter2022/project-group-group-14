@@ -97,13 +97,12 @@ public class InventoryItemService {
     public InventoryItem deleteInventoryItem(String name)
     {
         InventoryItem inventoryItem = inventoryItemRepository.findByName(name);
-        if(orderItemRepository!=null) {
-        	List<OrderItem> orderItems = orderItemRepository.findByName(inventoryItem.getName());
-        	if(orderItems!=null) {
-        		for(OrderItem orderItem : orderItems) {
-                	orderItemRepository.delete(orderItem);
-                }
-        	}
+        List<OrderItem> orderItems = orderItemRepository.findByName(inventoryItem.getName());
+        if(orderItems!=null) {
+    		for(OrderItem orderItem : orderItems) {
+            	orderItemRepository.delete(orderItem);
+            }
+        	
             
         }
         
@@ -112,8 +111,8 @@ public class InventoryItemService {
     }
     
     @Transactional
-    public InventoryItem toggleInventoryItemAvailability(InventoryItem inventoryItem) {
-    	InventoryItem item = inventoryItemRepository.findByItemId(inventoryItem.getItemId());
+    public InventoryItem toggleInventoryItemAvailability(String name) {
+    	InventoryItem item = inventoryItemRepository.findByName(name);
     	if (item == null) throw new IllegalArgumentException("No such inventory item exists");
     	if (item.getAvailability()) {
     		item.setAvailability(false);

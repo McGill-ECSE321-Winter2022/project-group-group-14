@@ -2,13 +2,13 @@ package ca.mcgill.ecse321.grocerystore.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.lenient;
 
 import java.util.ArrayList;
@@ -52,6 +52,7 @@ public class TestInventoryItemService {
 	    		inventoryItem.setName(INVENTORY_ITEM_NAME);
 	    		inventoryItem.setPrice(7);
 	    		inventoryItem.setCurrentStock(12);
+	    		inventoryItem.setAvailability(true);
 	    		return inventoryItem;
 	    	} else if(invocation.getArgument(0).equals("tamween")) {
 	    		InventoryItem inventoryItem = new InventoryItem();
@@ -64,7 +65,7 @@ public class TestInventoryItemService {
 	    		inventoryItem.setName(INVENTORY_ITEM_NAME_2);
 	    		inventoryItem.setPrice(7);
 	    		inventoryItem.setCurrentStock(12);
-	    		
+	    		inventoryItem.setAvailability(false);
 	    		return inventoryItem;
 	    	} else {
 	    		return null;
@@ -78,14 +79,14 @@ public class TestInventoryItemService {
 	    		inventoryItem.setCurrentStock(12);
 	    		inventoryItem.setItemId(3);
 	    		return inventoryItem;
-	    	} else if(invocation.getArgument(0).equals(7)){
-	    		InventoryItem inventoryItem = new InventoryItem();
-	    		inventoryItem.setName(INVENTORY_ITEM_NAME);
-	    		inventoryItem.setPrice(7);
-	    		inventoryItem.setCurrentStock(12);
-	    		inventoryItem.setItemId(7);
-	    		inventoryItem.setAvailability(false);
-	    		return inventoryItem;
+//	    	} else if(invocation.getArgument(0).equals(7)){
+//	    		InventoryItem inventoryItem = new InventoryItem();
+//	    		inventoryItem.setName(INVENTORY_ITEM_NAME);
+//	    		inventoryItem.setPrice(7);
+//	    		inventoryItem.setCurrentStock(12);
+//	    		inventoryItem.setItemId(7);
+//	    		inventoryItem.setAvailability(false);
+//	    		return inventoryItem;
 	    	} else {
 	    		return null;
 	    	}
@@ -153,6 +154,24 @@ public class TestInventoryItemService {
 		assertEquals(currentStock, inventoryItem.getCurrentStock());
 	}
 	@Test
+	public void testCreateExistingInventoryItem() {
+		
+		String error = null;
+		String name = INVENTORY_ITEM_NAME;
+		int price = 7;
+		int currentStock = 12;
+		InventoryItem inventoryItem = null;
+		try {
+			inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			error = e.getMessage();
+		}
+		assertNotNull(error);
+		assertNull(inventoryItem);
+		assertEquals("Item: '" + INVENTORY_ITEM_NAME + "' already exists", error);
+	}
+	@Test
 	public void testUpdateInventoryItem() {
 		
 		String name = "tamween";
@@ -170,6 +189,25 @@ public class TestInventoryItemService {
 		assertEquals(name, updatedInventoryItem.getName());
 		assertEquals(price, updatedInventoryItem.getPrice());
 		assertEquals(currentStock, updatedInventoryItem.getCurrentStock());
+	}
+	@Test
+	public void testUpdateNonExistingInventoryItem() {
+		
+		String error = null;
+		String name = NON_EXISTING_INVENTORY_ITEM;
+		int price = 9;
+		int currentStock = 13;
+		InventoryItem updatedInventoryItem = null;
+		
+		try {
+			updatedInventoryItem = inventoryItemService.updateInventoryItemInfo(name,price,currentStock);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			error = e.getMessage();
+		}
+		assertNotNull(error);
+		assertNull(updatedInventoryItem);
+		assertEquals("No such inventory item exists", error);
 	}
 	
 	@Test
@@ -271,33 +309,47 @@ public class TestInventoryItemService {
 	
 	@Test
 	public void testToggleInventoryItemAvailabilityToFalse() {
-		InventoryItem inventoryItem = new InventoryItem();
-		inventoryItem.setItemId(3);
 		InventoryItem updated = null;
 		try
         {
-            updated = inventoryItemService.toggleInventoryItemAvailability(inventoryItem);
+            updated = inventoryItemService.toggleInventoryItemAvailability(INVENTORY_ITEM_NAME);
 
         } catch (IllegalArgumentException e)
         {
             fail();
         }
+		assertNotNull(updated);
 		assertFalse(updated.getAvailability());
 	}
 	@Test
 	public void testToggleInventoryItemAvailabilityToTrue() {
-		InventoryItem inventoryItem = new InventoryItem();
-		inventoryItem.setItemId(7);
 		InventoryItem updated = null;
 		try
 		{
-			updated = inventoryItemService.toggleInventoryItemAvailability(inventoryItem);
+			updated = inventoryItemService.toggleInventoryItemAvailability(INVENTORY_ITEM_NAME_2);
 			
 		} catch (IllegalArgumentException e)
 		{
 			fail();
 		}
 		assertTrue(updated.getAvailability());
+	}
+	@Test
+	public void testToggleNonExistingInventoryItemAvailability() {
+		
+		String error = null;
+		InventoryItem updated = null;
+		try
+		{
+			updated = inventoryItemService.toggleInventoryItemAvailability(NON_EXISTING_INVENTORY_ITEM);
+			
+		} catch (IllegalArgumentException e)
+		{
+			error=e.getMessage();
+		}
+		assertNotNull(error);
+		assertNull(updated);
+		assertEquals("No such inventory item exists", error);
 	}
 
 }

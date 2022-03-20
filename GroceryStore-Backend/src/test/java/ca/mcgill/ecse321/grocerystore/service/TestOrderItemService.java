@@ -144,7 +144,6 @@ public class TestOrderItemService {
 	    		return orderItems;
 	    });
 	    
-		// Whenever anything is saved, just return the parameter object
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		};
@@ -161,7 +160,6 @@ public class TestOrderItemService {
 		try {
 			orderItem = orderItemService.createOrderItem(name);
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
 			fail();
 		}
 		assertNotNull(orderItem);
@@ -176,7 +174,6 @@ public class TestOrderItemService {
 		try {
 			orderItem = orderItemService.createOrderItem(NON_EXISTING_ORDER_ITEM);
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
 			error = e.getMessage();
 		}
 		
@@ -191,7 +188,6 @@ public class TestOrderItemService {
 		try {
 			orderItem = orderItemService.createOrderItem(NON_EXISTING_ORDER_ITEM2);
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
 			error = e.getMessage();
 		}
 		
@@ -220,7 +216,6 @@ public class TestOrderItemService {
 		try {
 			orderItems = orderItemService.getAllOrderItems();
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
 			fail();
 		}
 		assertNotNull(orderItems);
@@ -233,7 +228,6 @@ public class TestOrderItemService {
 		try {
 			orderItems = orderItemService.getOrderItemsByName(ORDER_ITEM_NAME);
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
 			fail();
 		}
 		assertNotNull(orderItems);
@@ -243,16 +237,17 @@ public class TestOrderItemService {
 	@Test
 	public void testDeleteOrderItem() {
 		
+		OrderItem deletedOrderItem = null;
 		OrderItem orderItem = orderItemService.getOrderItemsByName(ORDER_ITEM_NAME).get(0);
 		
 		try {
-			orderItemService.deleteOrderItem(ORDER_ITEM_NAME);
+			deletedOrderItem = orderItemService.deleteOrderItem(ORDER_ITEM_NAME);
 			orderItem = orderItemService.getOrderItemByID(orderItem.getItemId());
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
 			fail();
 		}
 		assertNull(orderItem);
+		assertNotNull(deletedOrderItem);
 	}
 	
 	@Test
@@ -262,7 +257,6 @@ public class TestOrderItemService {
 		try {
 			orderItem = orderItemService.getOrderItemByID(3);
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
 			fail();
 		}
 		assertNotNull(orderItem);
@@ -272,7 +266,6 @@ public class TestOrderItemService {
 	
 	@Test
 	public void testUpdateOrderItem() {
-//		assertEquals(0, orderItemService.getAllOrderItems().size());
 		
 		
 		String name = "bateekh";
@@ -283,33 +276,32 @@ public class TestOrderItemService {
 		try {
 			updatedOrderItem = orderItemService.updateOrderItemInfo(name,price);
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
 			fail();
 		}
 		assertNotNull(updatedOrderItem);
 		assertEquals(name, updatedOrderItem.getName());
 		assertEquals(price, updatedOrderItem.getPrice());
 	}
-//	@Test
-//	public void testUpdateOrderItemNull() {
-////		assertEquals(0, orderItemService.getAllOrderItems().size());
-//		
-//		
-//		String name = "bateekh";
-//		
-//		int price = 9;
-//		OrderItem updatedOrderItem = null;
-//		
-//		try {
-//			updatedOrderItem = orderItemService.updateOrderItemInfo(name,price);
-//		} catch (IllegalArgumentException e) {
-//			// Check that no error occurred
-//			fail();
-//		}
-//		assertNotNull(updatedOrderItem);
-//		assertEquals(name, updatedOrderItem.getName());
-//		assertEquals(price, updatedOrderItem.getPrice());
-//	}
+	
+	
+	@Test
+	public void testUpdateOrderItemNull() {
+		
+		String error = null;
+		String name = "manga";
+		
+		int price = 9;
+		OrderItem updatedOrderItem = null;
+		
+		try {
+			updatedOrderItem = orderItemService.updateOrderItemInfo(name,price);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNotNull(error);
+		assertNull(updatedOrderItem);
+		assertEquals("No such order item exists", error);
+	}
 	
 	
 	
