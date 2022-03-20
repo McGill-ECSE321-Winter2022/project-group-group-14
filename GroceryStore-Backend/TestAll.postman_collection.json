@@ -1,0 +1,559 @@
+{
+	"info": {
+		"_postman_id": "b875808e-5883-47eb-948d-fb9194b80b01",
+		"name": "TestAll",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create customer\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    // const response = pm.response.json()\r",
+							"    // pm.expect(response.length).to.eql(1)\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/customers/sam@gmail.com/samv/123Abc/9999999999/123Abc/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get customer\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/customers/sam@gmail.com"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete customer\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/customers/delete/sam@gmail.com/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create employee\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/employees/sam@gmail.com/samv/123Abc/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get employee\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/employees/sam@gmail.com/"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete employee\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/employees/delete/sam@gmail.com"
+			},
+			"response": []
+		},
+		{
+			"name": "Create EmployeeSchedule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create EmployeeSchedule\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/employeeSchedules/Morning/Monday"
+			},
+			"response": []
+		},
+		{
+			"name": "Get EmployeeSchedule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get EmployeeSchedule\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/employeeSchedules/Monday"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All EmployeeSchedules",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get All EmployeeSchedule\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/employeeSchedules"
+			},
+			"response": []
+		},
+		{
+			"name": "Update EmployeeSchedule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Update EmployeeSchedule\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "https://grocerystore-backend-123abc.herokuapp.com/employeeSchedules/Monday?shift=Afternoon",
+					"protocol": "https",
+					"host": [
+						"grocerystore-backend-123abc",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"employeeSchedules",
+						"Monday"
+					],
+					"query": [
+						{
+							"key": "shift",
+							"value": "Afternoon"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete EmployeeSchedule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete EmployeeSchedule\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/employeeSchedules/Monday"
+			},
+			"response": []
+		},
+		{
+			"name": "Create inventory item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create Inventory Item\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    \r",
+							"})\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/create/Ketchup/?price=2&currentStock=5",
+					"protocol": "https",
+					"host": [
+						"grocerystore-backend-123abc",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"inventoryItems",
+						"create",
+						"Ketchup",
+						""
+					],
+					"query": [
+						{
+							"key": "price",
+							"value": "2"
+						},
+						{
+							"key": "currentStock",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create order item 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create Order Item 1\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/create/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create order item 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create Order Item 2\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/create/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create order item 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create Order Item 3\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/create/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get order items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Order Items\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/getByName/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete order item 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete order item 1\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/delete/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete order item 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete order item 2\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/delete/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get order items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get Remaining Order Item\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/get/"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete inventory item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete Inventory Item\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/delete/Ketchup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create owner",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/owners/sam@gmail.com/samv/123Abc/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get owner",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get owner\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/owners/sam@gmail.com"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete owner",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete owner\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/owners/delete/sam@gmail.com"
+			},
+			"response": []
+		}
+	]
+}
