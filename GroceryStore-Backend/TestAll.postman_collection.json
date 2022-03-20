@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "91cdb7cd-3913-4799-bcab-64472bedba25",
+		"_postman_id": "b875808e-5883-47eb-948d-fb9194b80b01",
 		"name": "TestAll",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -300,6 +300,7 @@
 					],
 					"path": [
 						"inventoryItems",
+						"create",
 						"Ketchup",
 						""
 					],
@@ -554,6 +555,5 @@
 			},
 			"response": []
 		}
-
 	]
 }
