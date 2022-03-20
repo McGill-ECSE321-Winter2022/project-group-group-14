@@ -28,7 +28,7 @@ public class InventoryItemRestController {
 	//-------------------------------------------------------CREATE MAPPINGS------------------------------------------------------------
 	
 	/**@author Youssof Mohamed*/
-	@PostMapping(value = { "/inventoryItems/{name}", "/inventoryItems/{name}/" })
+	@PostMapping(value = { "/inventoryItems/create/{name}", "/inventoryItems/create/{name}/" })
 	public InventoryItemDto createInventoryItem(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock) throws IllegalArgumentException {
 		InventoryItem inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock);
 		return convertToDto(inventoryItem);
@@ -37,14 +37,14 @@ public class InventoryItemRestController {
 	//-------------------------------------------------------UPDATE MAPPINGS------------------------------------------------------------
 	
 	/**@author Youssof Mohamed*/
-	@PutMapping(value = { "/inventoryItems/{name}", "/inventoryItems/{name}/" })
+	@PutMapping(value = { "/inventoryItems/update/{name}", "/inventoryItems/update/{name}/" })
 	public InventoryItemDto upadateInventoryItem(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock) throws IllegalArgumentException {
 		InventoryItem inventoryItem = inventoryItemService.updateInventoryItemInfo(name,price,currentStock);
 		return convertToDto(inventoryItem);
 	}
 	
 	/**@author Youssof Mohamed*/
-	@PutMapping(value = { "/inventoryItems/{name}", "/inventoryItems/{name}/" })
+	@PutMapping(value = { "/inventoryItems/toggle/{name}", "/inventoryItems/toggle/{name}/" })
 	public InventoryItemDto toggleInventoryItemAvailability(@PathVariable("name") String name) throws IllegalArgumentException {
 		InventoryItem inventoryItem = inventoryItemService.toggleInventoryItemAvailability(name);
 		return convertToDto(inventoryItem);
@@ -53,19 +53,19 @@ public class InventoryItemRestController {
 	//-------------------------------------------------------GET MAPPINGS------------------------------------------------------------
 	
 	/**@author Youssof Mohamed*/
-	@GetMapping(value = { "/inventoryItems/{name}", "/inventoryItems/{name}/" })
+	@GetMapping(value = { "/inventoryItems/getByName/{name}", "/inventoryItems/getByName/{name}/" })
 	public InventoryItemDto getInventoryItemByName(@PathVariable("name") String name) throws IllegalArgumentException {
 		return convertToDto(inventoryItemService.getInventoryItemByName(name));
 	}
 	
 	/**@author Youssof Mohamed*/
-	@GetMapping(value = { "/inventoryItems", "/inventoryItems/" })
+	@GetMapping(value = { "/inventoryItems/getById", "/inventoryItems/getById/" })
 	public InventoryItemDto getInventoryItemById(@RequestParam int id) throws IllegalArgumentException {
 		return convertToDto(inventoryItemService.getInventoryItemById(id));
 	}
 	
 	/**@author Youssof Mohamed*/
-	@GetMapping(value = { "/inventoryItems", "/inventoryItems/" })
+	@GetMapping(value = { "/inventoryItems/get", "/inventoryItems/get/" })
 	public List<InventoryItemDto> getInventoryItems() throws IllegalArgumentException {
 		return convertToDto(inventoryItemService.getAllInventoryItems());
 	}
@@ -73,7 +73,7 @@ public class InventoryItemRestController {
 	//-------------------------------------------------------DELETE MAPPINGS------------------------------------------------------------
 	
 	/**@author Youssof Mohamed*/
-	@DeleteMapping(value = { "/inventoryItems/{name}", "/inventoryItems/{name}/" })
+	@DeleteMapping(value = { "/inventoryItems/delete/{name}", "/inventoryItems/delete/{name}/" })
 	public void deleteInventoryItem(@PathVariable("name") String name) throws IllegalArgumentException {
 		inventoryItemService.deleteInventoryItem(name);
 	}

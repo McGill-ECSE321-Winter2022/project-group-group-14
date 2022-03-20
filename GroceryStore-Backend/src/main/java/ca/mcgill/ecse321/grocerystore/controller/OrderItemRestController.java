@@ -27,7 +27,7 @@ public class OrderItemRestController {
 	//-------------------------------------------------------CREATE MAPPINGS------------------------------------------------------------
 	
 	/**@author Youssof Mohamed*/
-	@PostMapping(value = { "/orderItems/{name}", "/orderItems/{name}/" })
+	@PostMapping(value = { "/orderItems/create/{name}", "/orderItems/create/{name}/" })
 	public OrderItemDto createOrderItem(@PathVariable("name") String name) throws IllegalArgumentException {
 		OrderItem orderItem = orderItemService.createOrderItem(name);
 		return convertToDto(orderItem);
@@ -37,7 +37,7 @@ public class OrderItemRestController {
 	//-------------------------------------------------------UPDATE MAPPINGS------------------------------------------------------------
 	
 	/**@author Youssof Mohamed*/
-	@PutMapping(value = { "/orderItems/{name}", "/orderItems/{name}/" })
+	@PutMapping(value = { "/orderItems/update/{name}", "/orderItems/update/{name}/" })
 	public OrderItemDto updateOrderItem(@PathVariable("name") String name,@RequestParam int price) throws IllegalArgumentException {
 		OrderItem orderItem = orderItemService.updateOrderItemInfo(name,price);
 		return convertToDto(orderItem);
@@ -48,19 +48,19 @@ public class OrderItemRestController {
 	//-------------------------------------------------------GET MAPPINGS------------------------------------------------------------
 	
 	/**@author Youssof Mohamed*/
-	@GetMapping(value = { "/orderItems/{name}", "/orderItems/{name}/" })
+	@GetMapping(value = { "/orderItems/getByName/{name}", "/orderItems/getByName/{name}/" })
 	public List<OrderItemDto> getOrderItemByName(@PathVariable("name") String name) throws IllegalArgumentException {
 		return convertToDto(orderItemService.getOrderItemsByName(name));
 	}
 	
 	/**@author Youssof Mohamed*/
-	@GetMapping(value = { "/orderItems", "/orderItems/" })
+	@GetMapping(value = { "/orderItems/getById", "/orderItems/getById/" })
 	public OrderItemDto getOrderItemById(@RequestParam int id) throws IllegalArgumentException {
 		return convertToDto(orderItemService.getOrderItemByID(id));
 	}
 	
 	/**@author Youssof Mohamed*/
-	@GetMapping(value = { "/orderItems", "/orderItems/" })
+	@GetMapping(value = { "/orderItems/get", "/orderItems/get/" })
 	public List<OrderItemDto> getAllOrderItems() throws IllegalArgumentException {
 		return convertToDto(orderItemService.getAllOrderItems());
 	}
@@ -71,7 +71,7 @@ public class OrderItemRestController {
 	
 	
 	/**@author Youssof Mohamed*/
-	@DeleteMapping(value = { "/orderItems/{name}", "/orderItems/{name}/" })
+	@DeleteMapping(value = { "/orderItems/delete/{name}", "/orderItems/delete/{name}/" })
 	public OrderItemDto deleteOrderItem(@PathVariable("name") String name) throws IllegalArgumentException {
 		return convertToDto(orderItemService.deleteOrderItem(name));
 	}
