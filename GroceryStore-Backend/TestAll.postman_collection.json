@@ -73,7 +73,7 @@
 				"url": "https://grocerystore-backend-123abc.herokuapp.com/customers/delete/sam@gmail.com/"
 			},
 			"response": []
-		},
+		}
 		{
 			"name": "Create Employee",
 			"event": [
@@ -139,7 +139,7 @@
 				"url": "https://grocerystore-backend-123abc.herokuapp.com/employees/delete/sam@gmail.com"
 			},
 			"response": []
-		},
+		}
 		{
 			"name": "Create EmployeeSchedule",
 			"event": [
@@ -267,7 +267,7 @@
 				"url": "https://grocerystore-backend-123abc.herokuapp.com/employeeSchedules/Monday"
 			},
 			"response": []
-		},
+		}
 		{
 			"name": "Create inventory item",
 			"event": [
@@ -336,7 +336,7 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/create/Ketchup/"
 			},
 			"response": []
 		},
@@ -359,7 +359,7 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/create/Ketchup/"
 			},
 			"response": []
 		},
@@ -382,7 +382,7 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/create/Ketchup/"
 			},
 			"response": []
 		},
@@ -405,7 +405,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/getByName/Ketchup/"
 			},
 			"response": []
 		},
@@ -428,7 +428,7 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/delete/Ketchup/"
 			},
 			"response": []
 		},
@@ -451,7 +451,7 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/delete/Ketchup/"
 			},
 			"response": []
 		},
@@ -500,7 +500,7 @@
 				"url": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/Ketchup/"
 			},
 			"response": []
-		},
+		}
 		{
 			"name": "Create owner",
 			"request": {
