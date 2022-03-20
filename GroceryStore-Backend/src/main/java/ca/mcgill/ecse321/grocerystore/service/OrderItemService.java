@@ -29,7 +29,6 @@ public class OrderItemService {
     public OrderItem createOrderItem(String name)
     {
     	//check order item has valid info
-//    	if(inventoryItemRepository == null) throw new IllegalArgumentException("No items in inventory");
     	InventoryItem inventoryItem = inventoryItemRepository.findByName(name);
     	if(inventoryItem==null) throw new IllegalArgumentException("No item exists in inventory named '" + name + "'");
     	if(inventoryItem.getCurrentStock()==0) throw new IllegalArgumentException(name + " item is out of stock");
@@ -84,7 +83,7 @@ public class OrderItemService {
         //update existing order item info with the new ones
         List<OrderItem> orderItemToUpdate = orderItemRepository.findByName(name);
         if (orderItemToUpdate == null) throw new IllegalArgumentException("No such order item exists");
-        if (orderItemToUpdate.get(0) == null) throw new IllegalArgumentException("No such order item exists");
+//        if (orderItemToUpdate.size() == 0) throw new IllegalArgumentException("No such order item exists");
         orderItemToUpdate.get(0).setName(name);
         orderItemToUpdate.get(0).setPrice(price);
         
@@ -96,9 +95,10 @@ public class OrderItemService {
     
     /** @author Youssof Mohamed */
     @Transactional
-    public void deleteOrderItem(String name)
+    public OrderItem deleteOrderItem(String name)
     {
     	List<OrderItem> orderItems = orderItemRepository.findByName(name);
         orderItemRepository.deleteById(orderItems.get(0).getItemId());
+        return orderItems.get(0);
     }
 }

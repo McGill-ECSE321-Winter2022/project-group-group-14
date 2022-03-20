@@ -36,7 +36,7 @@ tasks.named('test') {
 
 task integrationTest(type: Exec) {
 	//dependsOn 'build'
-	task integrationTest(type: Exec) {
+	//task integrationTest(type: Exec) {
 	//dependsOn 'build'
 	commandLine "newman", "run", "TestInventoryItem&OrderItem.postman_collection.json"
 	commandLine "newman", "run", "GroceryOrder.postman_collection.json"
@@ -45,7 +45,7 @@ task integrationTest(type: Exec) {
 	commandLine "newman", "run", "TestOwner.postman_collection.json"
 	commandLine "newman", "run", "Test.postman_collection.json"
 	commandLine "newman", "run", "TestEmployeeSchedule.postman_collection.json"
-}
+//}
 }
 
 //test {
