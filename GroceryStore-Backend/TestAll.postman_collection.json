@@ -291,7 +291,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/Ketchup/?price=2&currentStock=5",
+					"raw": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/create/Ketchup/?price=2&currentStock=5",
 					"protocol": "https",
 					"host": [
 						"grocerystore-backend-123abc",
@@ -474,7 +474,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/Ketchup/"
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/orderItems/get/"
 			},
 			"response": []
 		},
@@ -497,7 +497,7 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/Ketchup/"
+				"url": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/delete/Ketchup/"
 			},
 			"response": []
 		},
