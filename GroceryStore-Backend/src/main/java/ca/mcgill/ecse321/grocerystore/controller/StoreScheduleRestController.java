@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.grocerystore.controller;
 
 import java.sql.Time;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +30,17 @@ public class StoreScheduleRestController {
 
 	@PostMapping(value = { "/storeSchedules/{day}/{openingTime}/{closingTime}", "/storeSchedules/{day}/{openingTime}/{closingTime}/" })
 	public StoreScheduleDto createStoreSchedule(@PathVariable("day") String day,
-	@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime openingTime,
-	@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime closingTime)
+	@PathVariable String openingTime, @PathVariable String closingTime)
 	throws IllegalArgumentException {
 		
 		if (service.getStoreScheduleByDayOpen(Day.valueOf(day)) != null) {
 			return null;
 		}
 		
-		StoreSchedule storeSchedule = service.createStoreSchedule(Time.valueOf(openingTime), Time.valueOf(closingTime), Day.valueOf(day));
+		LocalTime newOpen = convertToLocalTime(openingTime);
+		LocalTime newClose = convertToLocalTime(closingTime);
+		
+		StoreSchedule storeSchedule = service.createStoreSchedule(Time.valueOf(newOpen), Time.valueOf(newClose), Day.valueOf(day));
 		return convertToDto(storeSchedule);
 	}
 
@@ -57,11 +60,13 @@ public class StoreScheduleRestController {
 	
 	@PutMapping(value = { "/storeSchedules/{day}", "/storeSchedules/{day}/" })
 	public StoreScheduleDto updateStoreSchedule(@PathVariable("day") String day,
-			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime openingTime,
-			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime closingTime) throws IllegalArgumentException  {
+			@RequestParam String openingTime, @RequestParam String closingTime) throws IllegalArgumentException  {
+		LocalTime newOpen = convertToLocalTime(openingTime);
+		LocalTime newClose = convertToLocalTime(closingTime);
+		
 		StoreSchedule newSchedule = service.getStoreScheduleByDayOpen(Day.valueOf(day));
-		newSchedule.setOpeningTime(Time.valueOf(openingTime));
-		newSchedule.setClosingTime(Time.valueOf(closingTime));
+		newSchedule.setOpeningTime(Time.valueOf(newOpen));
+		newSchedule.setClosingTime(Time.valueOf(newClose));
 		
 		StoreSchedule storeSchedule  = service.updateStoreScheduleInfo(newSchedule);
 		return convertToDto(storeSchedule);
@@ -80,5 +85,16 @@ public class StoreScheduleRestController {
 		}
 		StoreScheduleDto storeScheduleDto = new StoreScheduleDto(storeSchedule.getOpeningTime(), storeSchedule.getClosingTime(), storeSchedule.getDayOpen());
 		return storeScheduleDto;
+	}
+	
+	private LocalTime convertToLocalTime(String time) {
+		if (time == null) {
+			throw new IllegalArgumentException("The provided Time cannot be null.");
+		}
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+		LocalTime convertedTime = LocalTime.parse(time, dtf);
+		return convertedTime;
+		
 	}
 }
