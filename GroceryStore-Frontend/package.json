@@ -19,7 +19,9 @@
     "jquery": "^3.6.0",
     "popper.js": "^1.12.9",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "postinstall": "npm run build",
+    "start": "node server.js"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -87,4 +89,5 @@
     "last 2 versions",
     "not ie <= 8"
   ]
+  
 }
