@@ -18,7 +18,7 @@ jobs:
           heroku_api_key: 'efa7326d-b373-4b3a-a62b-971096afa56b'
           heroku_app_name: "grocerystore-frontend-123abc" #Must be unique in Heroku
           heroku_email: "youssof.mohamed@mail.mcgill.ca"
-          dontuseforce: false
+          appdir: "GroceryStore-Frontend"
   build:
 
     runs-on: ubuntu-latest
