@@ -15,9 +15,9 @@ jobs:
       - name: push frontend
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "event-registration-fe" #Must be unique in Heroku
-          heroku_email: "ding.ma@mail.mcgill.ca"
+          heroku_api_key: 'efa7326d-b373-4b3a-a62b-971096afa56b'
+          heroku_app_name: "grocerystore-frontend-123abc" #Must be unique in Heroku
+          heroku_email: "youssof.mohamed@mail.mcgill.ca"
           dontuseforce: false
   build:
 
