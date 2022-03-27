@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    
     <router-view></router-view>
   </div>
+
 </template>
 
 <script>
@@ -12,12 +13,78 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@900&display=swap');
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  border-bottom: 1px;
 }
+
+.navBar {
+  list-style-type: none;
+  margin: 0;
+  padding-right: 80px;
+  padding-left: 80px;
+  overflow: hidden;
+  background-color: white;
+  border-bottom: 1px solid;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.page {
+  float: right;
+}
+
+.logo {
+  font-family: 'Merriweather', serif;
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+}
+
+li a{
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+li a:hover {
+  background-color: #EAEDEA;
+  color: black;
+  text-decoration: none;
+  transition: 0.5s;
+
+}
+
+.button {
+  margin-top: 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid #111;
+  border-radius: 12px;
+  transition: 0.5s;
+}
+
+.button:hover {
+  /*background-color: #EAEDEA;*/
+  box-shadow: 0px 0px 3px 1px #888888;
+  color: black;
+  transform: scale(1.03);
+  transition: 0.5s;
+}
+
+
 </style>

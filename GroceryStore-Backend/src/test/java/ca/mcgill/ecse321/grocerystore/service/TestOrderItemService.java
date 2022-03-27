@@ -96,6 +96,12 @@ public class TestOrderItemService {
 	    		inventoryItem.setCurrentStock(12);
 	    		inventoryItem.setAvailability(false);
 	    		return inventoryItem;
+	    	} else if(invocation.getArgument(0).equals("besella")) {
+	    		InventoryItem inventoryItem = new InventoryItem();
+	    		inventoryItem.setName("besella");
+	    		inventoryItem.setPrice(12);
+	    		inventoryItem.setCurrentStock(17);
+	    		return inventoryItem;
 	    	}
 	    	
 	    	else {
@@ -112,6 +118,12 @@ public class TestOrderItemService {
 	    		OrderItem orderItem = new OrderItem();
 		        orderItem.setName(ORDER_ITEM_NAME);
 		        orderItem.setItemId(3);
+	    		return orderItem;
+	    	}
+	    	else if(invocation.getArgument(0).equals(5)) {
+	    		OrderItem orderItem = new OrderItem();
+		        orderItem.setName("besella");
+		        orderItem.setItemId(5);
 	    		return orderItem;
 	    	} else {
 	    		return null;
@@ -151,6 +163,7 @@ public class TestOrderItemService {
 		lenient().when(inventoryItemDao.save(any(InventoryItem.class))).thenAnswer(returnParameterAsAnswer);
 	}
 	
+	//-------------------CreateOrderItem()---------------------------
 	
 	@Test
 	public void testCreateOrderItem() {
@@ -209,61 +222,40 @@ public class TestOrderItemService {
 		assertNull(orderItem);
 		assertEquals(error, UNAVAILABLE_ORDER_ITEM + " item is not available for order");
 	}
-	@Test
-	public void testGetAllOrderItems() {
-		
-		List<OrderItem> orderItems = null;
-		try {
-			orderItems = orderItemService.getAllOrderItems();
-		} catch (IllegalArgumentException e) {
-			fail();
-		}
-		assertNotNull(orderItems);
-		assertEquals(3, orderItems.size());
-	}
-	@Test
-	public void testGetOrderItemsByName() {
-		
-		List<OrderItem> orderItems = null;
-		try {
-			orderItems = orderItemService.getOrderItemsByName(ORDER_ITEM_NAME);
-		} catch (IllegalArgumentException e) {
-			fail();
-		}
-		assertNotNull(orderItems);
-		assertEquals(1, orderItems.size());
-	}
 	
+	//-------------------CancelOrderItem()---------------------------
+
 	@Test
-	public void testDeleteOrderItem() {
-		
+	public void testCancelOrderItem() {
 		OrderItem deletedOrderItem = null;
-		OrderItem orderItem = orderItemService.getOrderItemsByName(ORDER_ITEM_NAME).get(0);
 		
 		try {
-			deletedOrderItem = orderItemService.deleteOrderItem(ORDER_ITEM_NAME);
-			orderItem = orderItemService.getOrderItemByID(orderItem.getItemId());
+			deletedOrderItem = orderItemService.cancelOrderItem(5);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		assertNull(orderItem);
+		assertNull(orderItemService.getOrderItemsByName(deletedOrderItem.getName()));
 		assertNotNull(deletedOrderItem);
 	}
 	
+	
 	@Test
-	public void testGetOrderItemById() {
+	public void testCancelNonExistingOrderItem() {
+		String error = null;
+		OrderItem deletedOrderItem = null;
 		
-		OrderItem orderItem = null;
 		try {
-			orderItem = orderItemService.getOrderItemByID(3);
+			deletedOrderItem = orderItemService.cancelOrderItem(4);
 		} catch (IllegalArgumentException e) {
-			fail();
+			error = e.getMessage();
 		}
-		assertNotNull(orderItem);
-		assertEquals(orderItem.getName(), ORDER_ITEM_NAME);
-		assertEquals(orderItem.getItemId(), 3);
+		assertNotNull(error);
+		assertEquals(error,"No order item exists with that id");
+		assertNull(deletedOrderItem);
 	}
 	
+	//-------------------UpdateOrderItem()---------------------------
+
 	@Test
 	public void testUpdateOrderItem() {
 		
@@ -303,27 +295,78 @@ public class TestOrderItemService {
 		assertEquals("No such order item exists", error);
 	}
 	
+	//-------------------GetMethods---------------------------
 	
-	
+	//getAll()
 	@Test
-	public void testGetExistingOrderItem() {
-		OrderItem orderItem = null;
-        try
-        {
-            orderItem = orderItemService.getOrderItemsByName(ORDER_ITEM_NAME).get(0);
-
-        } catch (IllegalArgumentException e)
-        {
-            fail();
-        }
-        assertNotNull(orderItem);
-        assertEquals(ORDER_ITEM_NAME, orderItem.getName());
+	public void testGetAllOrderItems() {
+		
+		List<OrderItem> orderItems = null;
+		try {
+			orderItems = orderItemService.getAllOrderItems();
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertNotNull(orderItems);
+		assertEquals(3, orderItems.size());
 	}
-
+	
+	//getById()
+	@Test
+	public void testGetOrderItemById() {
+		
+		OrderItem orderItem = null;
+		try {
+			orderItem = orderItemService.getOrderItemByID(3);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertNotNull(orderItem);
+		assertEquals(orderItem.getName(), ORDER_ITEM_NAME);
+		assertEquals(orderItem.getItemId(), 3);
+	}
+	
+	
+	//getByName()
+	@Test
+	public void testGetOrderItemsByName() {
+		
+		List<OrderItem> orderItems = null;
+		try {
+			orderItems = orderItemService.getOrderItemsByName(ORDER_ITEM_NAME);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertNotNull(orderItems);
+		assertEquals(1, orderItems.size());
+		assertEquals(ORDER_ITEM_NAME, orderItems.get(0).getName());
+	}
+	
+	//Non Existing
 	@Test
 	public void testGetNonExistingCustomer() {
 		assertNull(orderItemService.getOrderItemsByName(NON_EXISTING_ORDER_ITEM));
 	}
+	
+	//-------------------DeleteOrderItem()---------------------------
+	
+	@Test
+	public void testDeleteOrderItem() {
+		
+		OrderItem deletedOrderItem = null;
+		OrderItem orderItem = orderItemService.getOrderItemsByName(ORDER_ITEM_NAME).get(0);
+		
+		try {
+			deletedOrderItem = orderItemService.deleteOrderItem(ORDER_ITEM_NAME);
+			orderItem = orderItemService.getOrderItemByID(orderItem.getItemId());
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertNull(orderItem);
+		assertNotNull(deletedOrderItem);
+	}
+	
+	
 	
 
 }
