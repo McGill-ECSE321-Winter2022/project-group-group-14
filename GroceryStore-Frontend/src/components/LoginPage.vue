@@ -5,7 +5,7 @@
       <div class="col-md-3">      </div>
       <div class="col-md-6">
 
-        <br>
+        <!-- <br>
         <br>
 
         <h2 class="heading">Log In</h2>
@@ -48,22 +48,51 @@
             <option value="owner">Owner</option>
           </select>
           <!-- <input type="submit" value="Submit"> -->
-        </form>
+        <!-- </form> -->
 
-        <br>
-        <br>
+        <!-- <br>
+        <br> -->
 
-            <button @click="loginUser(userId, password)" type="LoginButton" class="button">
+            <!-- <button @click="loginUser(userId, password)" type="LoginButton" class="button">
               Log In
-            </button>
+            </button> -->
+            <router-link to="/showCustomerInventoryItems">
+              <button class="button">
+                Customer Shopping Log In
+              </button>
+            </router-link>
+
+            <router-link to="/deleteCustomerAccount">
+              <button class="button">
+                Customer Administration Log In
+              </button>
+            </router-link>
+
+            <router-link to="/showEmployeeInventoryItems">
+              <button class="button">
+                Employee Shopping Log In
+              </button>
+            </router-link>
+
+            <router-link to="/showEmployeeInventoryItems">
+              <button class="button">
+                Employee Administration Log In
+              </button>
+            </router-link>
+
+            <router-link to="/shop">
+              <button class="button">
+                Owner Log In
+              </button>
+            </router-link>
 
             <br>
           
-            <router-link to="/">
+            <!-- <router-link to="/">
               <button type="CreateButton" class="button">
                 Don't have an account? Create an account
               </button>
-            </router-link>
+            </router-link> -->
 
 
       </div>
