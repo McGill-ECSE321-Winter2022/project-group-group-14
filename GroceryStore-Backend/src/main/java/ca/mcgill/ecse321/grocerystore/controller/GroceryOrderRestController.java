@@ -45,32 +45,17 @@ public class GroceryOrderRestController {
 
  //-------------------------------------------------------CREATE MAPPINGS------------------------------------------------------------
 
-	
-//	/**
-//	 * @param customerDto, list of orderItemDtos, orderType
-//	 * @return delivery/pickup OrderDto
-//	 */
-//	@PostMapping(value = { "/orders", "/orders/" })
-//	public GroceryOrderDto createOrder(@RequestParam(name = "Customer") CustomerDto customerDto,@RequestParam(name = "Items") List<OrderItemDto> orderItemDtos,
-//			@RequestParam(name = "Order Type") String orderType) throws IllegalArgumentException  {
-//		Customer customer = customerService.getCustomerByEmail(customerDto.getEmail());
-//		List<OrderItem> orderItems = new ArrayList<OrderItem>();
-//		for (OrderItemDto itemDto : orderItemDtos ) {
-//			orderItems.add(orderItemService.getOrderItemByID(itemDto.getItemId()));
-//		}
-//		GroceryOrder order = orderService.createOrder(customer,orderItems, OrderType.valueOf(orderType));
-//		return convertToDto(order);
-//	}
-	@PostMapping(value = { "/orders/{email}/{orderName}/{orderType}", "/orders/{email}/{orderName}/{orderType}/" })
-	public GroceryOrderDto createOrder(@PathVariable  String email,@PathVariable String orderName,
-			@PathVariable String orderType) throws IllegalArgumentException  {
+	@PostMapping(value = { "/orders/delivery/{email}", "/orders/delivery/{email}/" })
+	public GroceryOrderDto createDeliveryOrder(@PathVariable  String email) throws IllegalArgumentException  {
 		Customer customer = customerService.getCustomerByEmail(email);
-		List<OrderItem> orderItems = orderItemService.getOrderItemsByName(orderName);
-//		List<OrderItemDto> orderItemDtos = convertToDto(orderItems);
-//		for (OrderItemDto itemDto : orderItemDtos ) {
-//			orderItems.add(orderItemService.getOrderItemByID(itemDto.getItemId()));
-//		}
-		GroceryOrder order = orderService.createOrder(customer,orderItems, OrderType.valueOf(orderType));
+		GroceryOrder order = orderService.createDeliveryOrder(customer);
+		return convertToDto(order);
+	}
+	
+	@PostMapping(value = { "/orders/pickup/{email}", "/orders/pickup/{email}/" })
+	public GroceryOrderDto createPickupOrder(@PathVariable  String email) throws IllegalArgumentException  {
+		Customer customer = customerService.getCustomerByEmail(email);
+		GroceryOrder order = orderService.createPickupOrder(customer);
 		return convertToDto(order);
 	}
 	
@@ -79,15 +64,42 @@ public class GroceryOrderRestController {
 	 * @return InStore OrderDto 
 	 */
 	@PostMapping(value = { "/orders/inStore", "/orders/inStore/" })
-	public GroceryOrderDto createInstoreOrder(@RequestParam(name = "Items") List<OrderItemDto> orderItemDtos) throws IllegalArgumentException  {
-		List<OrderItem> orderItems = new ArrayList<OrderItem>();
-		for (OrderItemDto itemDto : orderItemDtos ) {
-			orderItems.add(orderItemService.getOrderItemByID(itemDto.getItemId()));
-		}
-		GroceryOrder orderInStore = orderService.createInStoreOrder(orderItems);
+	public GroceryOrderDto createInstoreOrder() throws IllegalArgumentException  {
+		GroceryOrder orderInStore = orderService.createInStoreOrder();
 		return convertToDto(orderInStore);
 	}
+	
+	//-------------------------------------------------------ADD TO ORDER------------------------------------------------------------	
 
+	@PostMapping(value = { "/orders/add/{orderId}/", "/orders/add/{orderId}" })
+	public GroceryOrderDto addOrderItems(@PathVariable  String orderId,@RequestParam String itemName, @RequestParam int quantity) throws IllegalArgumentException  {
+		GroceryOrder order = orderService.getOrderById(Integer.parseInt(orderId));
+		List<OrderItem> orderItems = new ArrayList<OrderItem>();
+		for (int i = 0 ; i<quantity ;i++ ) {	//loop over everything to create order items
+			OrderItem orderItem = orderItemService.createOrderItem(itemName);
+			orderItems.add(orderItem);
+		}
+		
+		GroceryOrder updatedOrder = orderService.addOrderItems(order,orderItems);
+		return convertToDto(updatedOrder);
+	}
+
+	//-------------------------------------------------------Finished adding to order--------------------------------------	
+	
+	/**
+	 * 
+	 * @param orderId
+	 * @return should change order from received -> processing
+	 */
+	@PostMapping(value = { "/orders/place/{orderId}/", "/orders/place/{orderId}" }) 
+	public GroceryOrderDto placeOrder(@PathVariable  String orderId) throws IllegalArgumentException  {
+		GroceryOrder order = orderService.getOrderById(Integer.parseInt(orderId));
+		GroceryOrder placedOrder = orderService.placeOrder(order);
+		return convertToDto(placedOrder);
+	}
+
+	
+	
 	//-------------------------------------------------------GET METHODS------------------------------------------------------------
 	
 	/**
@@ -182,9 +194,20 @@ public class GroceryOrderRestController {
 	 
 
 	@DeleteMapping({"/orders/delete/all/completed", "orders/delete/all/completed/"})
-	public void deleteAllCompletesOrders() {
+	public void deleteAllCompletedOrders() {
 		 orderService.deleteAllCompletedOrders();
 	}
+	
+
+	@DeleteMapping({"/orders/deleteItem/{orderId}/{itemName}", "orders/delete/all/{orderId}/{itemName}/"})
+	public GroceryOrderDto deleteItemFromOrder(@PathVariable("orderId") String orderId,@RequestParam String itemName, @RequestParam int quantity) throws IllegalArgumentException  {
+		GroceryOrder order = orderService.getOrderById(Integer.parseInt(orderId));
+		List<OrderItem> orderItems = orderItemService.getOrderItemsByName(itemName);
+		GroceryOrder updatedOrder = orderService.deleteItemFromOrder(order, orderItems, quantity);
+		return convertToDto(updatedOrder);
+		
+	}
+	
 	 
 //-------------------------------------------------------EXTRA METHODS------------------------------------------------------------
 	
@@ -198,6 +221,9 @@ public class GroceryOrderRestController {
 	
 	/**
 	 * @param orderId
+	 * updates order status to the next one, should be done by an employee 
+	 * order status 
+	 * received -> processing -> beingDelivered/ReadyForPickUp -> completed 
 	 */
 	@GetMapping(value = {"/orders/status/update/{orderId}/","/orders/status/update/{orderId}"})
 	public GroceryOrderDto updateOrderStatus(@PathVariable("orderId") String orderId) {
@@ -214,15 +240,15 @@ public class GroceryOrderRestController {
 		return status.toString(); 	
 	}
 	
-	/**
-	 * @param orderId
-	 */
-	@GetMapping(value = {"/orders/payment/{orderId}","/orders/payment/{orderId}/"})
-	public GroceryOrderDto payForOrder(@PathVariable("orderId") String orderId, @RequestParam(name = "Payment Information") String paymentInformation) {
-		GroceryOrder order = orderService.payForOrder(paymentInformation,orderService.getOrderById(Integer.parseInt(orderId)));	// should add hashing for deliverable 3
-		return convertToDto(order);
-	}
-	
+//	/**
+//	 * @param orderId
+//	 */
+//	@GetMapping(value = {"/orders/payment/{orderId}","/orders/payment/{orderId}/"})
+//	public GroceryOrderDto payForOrder(@PathVariable("orderId") String orderId, @RequestParam(name = "Payment Information") String paymentInformation) {
+//		GroceryOrder order = orderService.payForOrder(paymentInformation,orderService.getOrderById(Integer.parseInt(orderId)));	// should add hashing for deliverable 3
+//		return convertToDto(order);
+//	}
+//	
 //-------------------------------------------------------CONVERSIONS------------------------------------------------------------
 	
 	private GroceryOrderDto convertToDto(GroceryOrder o) {
