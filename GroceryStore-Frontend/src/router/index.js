@@ -8,6 +8,11 @@ import ModifyEmployees from '@/components/ModifyEmployees'
 import DeleteOwnerAccount from '@/components/DeleteOwnerAccount'
 import LoginPage from '@/components/LoginPage'
 import CreateCustomer from '@/components/CreateCustomer'
+import ModifyStoreSchedule from '@/components/ModifyStoreSchedule'
+import ViewStoreScheduleOwner from '@/components/ViewStoreScheduleOwner'
+import Report from '@/components/Report'
+import ModifyCustomers from '@/components/ModifyCustomers'
+import EmployeeSchedules from '@/components/EmployeeSchedules'
 
 
 Vue.use(Router)
@@ -53,6 +58,31 @@ export default new Router({
       path: '/deleteOwnerAccount',
       name: 'DeleteOwnerAccount',
       component: DeleteOwnerAccount
+    },
+    {
+      path: '/modifyStoreSchedule',
+      name: 'ModifyStoreSchedule',
+      component: ModifyStoreSchedule
+    },
+    {
+      path: '/viewStoreScheduleOwner',
+      name: 'ViewStoreScheduleOwner',
+      component: ViewStoreScheduleOwner
+    },
+    {
+      path: '/report',
+      name: 'Report',
+      component: Report
+    },
+    {
+      path: '/modifyCustomers',
+      name: 'ModifyCustomers',
+      component: ModifyCustomers
+    },
+    {
+      path: '/employeeSchedules',
+      name: 'EmployeeSchedules',
+      component: EmployeeSchedules
     }
   ]
 })

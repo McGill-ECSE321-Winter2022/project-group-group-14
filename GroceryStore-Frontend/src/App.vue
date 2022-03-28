@@ -56,6 +56,7 @@ export default {
   display: block;
   color: black;
   text-align: center;
+  font-size: 14px;
   padding: 14px 16px;
   text-decoration: none;
   transition: 0.5s;

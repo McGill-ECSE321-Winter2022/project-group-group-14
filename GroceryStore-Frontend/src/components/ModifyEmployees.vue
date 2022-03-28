@@ -5,10 +5,10 @@
         <li class="page"><a href="#/modifyStoreSchedule">Modify Store Schedule</a></li>
         <li class="page"><a href="#/report">Report</a></li>
         <li class="page"><a href="#/modifyItems">Modify Inventory Items</a></li> 
-        <li class="page"><a href="#/viewStoreSchedule">View Store Schedule</a></li>
+        <li class="page"><a href="#/viewStoreScheduleOwner">View Store Schedule</a></li>
         <li class="page"><a href="#/employeeSchedules">Employee Schedules</a></li>
         <li class="page"><a href="#/modifyEmployees">Modify Employees</a></li>
-        <li class="page"><a href="#/modifyCustomers"Modify Customers</a></li>
+        <li class="page"><a href="#/modifyCustomers">Modify Customers</a></li>
         <li class="page"><a href="#/deleteOwnerAccount">Delete Account</a></li> 
         
   </ul>
