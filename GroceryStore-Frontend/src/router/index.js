@@ -6,11 +6,24 @@ import ModifyInventoryItems from '@/components/ModifyInventoryItems'
 import ModifyItems from '@/components/ModifyItems'
 import ModifyEmployees from '@/components/ModifyEmployees'
 import DeleteOwnerAccount from '@/components/DeleteOwnerAccount'
+import LoginPage from '@/components/LoginPage'
+import CreateCustomer from '@/components/CreateCustomer'
+
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/',
+      name: 'Login',
+      component: LoginPage
+    },
+    {
+      path: '/createCustomer',
+      name: 'CreateCustomer',
+      component: CreateCustomer
+    },
     {
       path: '/shop',
       name: 'Shop',
