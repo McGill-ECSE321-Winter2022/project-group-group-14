@@ -48,6 +48,46 @@ public class OrderItemService {
         return orderItem;
     }
 
+    /** @author Youssof Mohamed */
+    @Transactional
+    public OrderItem cancelOrderItem(int id)
+    {
+    	//check order item has valid info
+    	OrderItem orderItem = orderItemRepository.findByItemId(id);
+    	if(orderItem==null) throw new IllegalArgumentException("No order item exists with that id");
+    	InventoryItem inventoryItem = inventoryItemRepository.findByName(orderItem.getName());
+    	if(inventoryItem==null) throw new IllegalArgumentException("No item exists in inventory named '" + orderItem.getName() + "'");
+    	
+    	//set order item attributes
+    	inventoryItem.setCurrentStock(inventoryItem.getCurrentStock()+1);
+    	
+        orderItemRepository.deleteById(orderItem.getItemId());
+    	
+        //save changes to repository        
+        inventoryItemRepository.save(inventoryItem);
+        
+        
+        return orderItem;
+    }
+    
+    /** @author Youssof Mohamed */
+    @Transactional
+    public OrderItem updateOrderItemInfo(String name, int price)
+    {
+    	//check order item has valid info
+        checkItemInfoValidity(name, price, 15);
+        
+        //update existing order item info with the new ones
+        List<OrderItem> orderItemToUpdate = orderItemRepository.findByName(name);
+        if (orderItemToUpdate == null) throw new IllegalArgumentException("No such order item exists");
+        orderItemToUpdate.get(0).setName(name);
+        orderItemToUpdate.get(0).setPrice(price);
+        
+        //save new changes to the repository
+        orderItemRepository.save(orderItemToUpdate.get(0));
+        
+        return orderItemToUpdate.get(0);
+    }
     
     /** @author Youssof Mohamed */
     @Transactional
@@ -72,26 +112,6 @@ public class OrderItemService {
         return orderItemRepository.findByName(name);
     }
 
-    
-    /** @author Youssof Mohamed */
-    @Transactional
-    public OrderItem updateOrderItemInfo(String name, int price)
-    {
-    	//check order item has valid info
-        checkItemInfoValidity(name, price, 15);
-        
-        //update existing order item info with the new ones
-        List<OrderItem> orderItemToUpdate = orderItemRepository.findByName(name);
-        if (orderItemToUpdate == null) throw new IllegalArgumentException("No such order item exists");
-//        if (orderItemToUpdate.size() == 0) throw new IllegalArgumentException("No such order item exists");
-        orderItemToUpdate.get(0).setName(name);
-        orderItemToUpdate.get(0).setPrice(price);
-        
-        //save new changes to the repository
-        orderItemRepository.save(orderItemToUpdate.get(0));
-        
-        return orderItemToUpdate.get(0);
-    }
     
     /** @author Youssof Mohamed */
     @Transactional
