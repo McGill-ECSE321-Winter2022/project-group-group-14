@@ -4,6 +4,7 @@
         <li class="logo">STORIKO</li>
         <li class="page"><a href="#/modifyStoreSchedule">Modify Store Schedule</a></li>
         <li class="page"><a href="#/report">Report</a></li>
+        <li class="page"><a href="#/showInventoryItemsOwner">Show Inventory Items</a></li> 
         <li class="page"><a href="#/modifyItems">Modify Inventory Items</a></li> 
         <li class="page"><a href="#/viewStoreScheduleOwner">View Store Schedule</a></li>
         <li class="page"><a href="#/employeeSchedules">Employee Schedules</a></li>
@@ -21,9 +22,8 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-
-ul {
-  list-style-type: none;
+.page a {
+        font-size: 13px;
 }
 
 

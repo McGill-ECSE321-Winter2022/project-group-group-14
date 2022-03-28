@@ -1,15 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Shop from '@/components/Shop'
 import GroceryStore from '@/components/GroceryStore'
 import ModifyInventoryItems from '@/components/ModifyInventoryItems'
-import ModifyItems from '@/components/ModifyItems'
 import ModifyEmployees from '@/components/ModifyEmployees'
 import DeleteOwnerAccount from '@/components/DeleteOwnerAccount'
 import LoginPage from '@/components/LoginPage'
 import CreateCustomer from '@/components/CreateCustomer'
 import ModifyStoreSchedule from '@/components/ModifyStoreSchedule'
 import ViewStoreScheduleOwner from '@/components/ViewStoreScheduleOwner'
+import ShowInventoryItemsOwner from '@/components/ShowInventoryItemsOwner'
 import Report from '@/components/Report'
 import ModifyCustomers from '@/components/ModifyCustomers'
 import EmployeeSchedules from '@/components/EmployeeSchedules'
@@ -43,24 +42,14 @@ export default new Router({
       component: CreateCustomer
     },
     {
-      path: '/shop',
-      name: 'Shop',
-      component: Shop
-    },
-    {
       path: '/king',
       name: 'GroceryStore',
       component: GroceryStore
     },
     {
-      path: '/modifyInvItems',
+      path: '/modifyItems',
       name: 'ModifyInventoryItems',
       component: ModifyInventoryItems
-    },
-    {
-      path: '/modifyItems',
-      name: 'ModifyItems',
-      component: ModifyItems
     },
     {
       path: '/modifyEmployees',
@@ -86,6 +75,11 @@ export default new Router({
       path: '/report',
       name: 'Report',
       component: Report
+    },
+    {
+      path: '/showInventoryItemsOwner',
+      name: 'ShowInventoryItemsOwner',
+      component: ShowInventoryItemsOwner
     },
     {
       path: '/modifyCustomers',
