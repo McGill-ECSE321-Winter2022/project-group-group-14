@@ -74,13 +74,13 @@
               </button>
             </router-link>
 
-            <router-link to="/showEmployeeInventoryItems">
+            <router-link to="/deleteEmployeeAccount">
               <button class="button">
                 Employee Administration Log In
               </button>
             </router-link>
 
-            <router-link to="/shop">
+            <router-link to="/showInventoryItemsOwner">
               <button class="button">
                 Owner Log In
               </button>

@@ -26,6 +26,10 @@ export default {
   border-bottom: 1px;
 }
 
+ul {
+  list-style-type: none;
+}
+
 .navBar {
   list-style-type: none;
   margin: 0;
@@ -42,6 +46,7 @@ export default {
 .page {
   float: right;
 }
+
 
 .logo {
   font-family: 'Merriweather', serif;
@@ -69,6 +74,17 @@ export default {
   transition: 0.5s;
 
 }
+.edit {
+    margin-top: 20px;
+    font-size: 12px;
+    color: black;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+.edit:hover {
+  color:#111;
+}
+
 
 .button {
   font-size: 12px;
@@ -87,5 +103,40 @@ export default {
   transition: 0.3s;
 }
 
+.info {
+  font-weight: 700;
+}
 
+.item-name {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.add-item {
+  margin-top: 30px;
+}
+
+.item{
+  padding: 50px 0px 50px 0px;
+  margin: 0;
+}
+
+.grid-item{
+  margin: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.grid-container {
+  display: grid;
+  row-gap: 70px;
+  column-gap: 90px;
+  margin-left: 150px;
+  margin-right: 150px;
+  grid-template-columns: auto auto auto;
+  margin-top: 150px;
+  margin-bottom: 100px;
+}
 </style>
