@@ -102,7 +102,7 @@ public class GroceryOrderService {
  public GroceryOrder placeOrder(GroceryOrder order) { //SHOULD ONLY BE CALLED ONCE WE ARE DONE ADDING ITEMS TO THE COMPLETED ORDER
 	 checkOrderValidity(order.getCustomer(), order.getOrderItems(), order.getOrderType());
 	 if (order.getOrderStatus() == null) throw new IllegalArgumentException("Order status is null."); 
-	 if (!(order.getOrderStatus().equals(OrderStatus.Completed)))throw new IllegalArgumentException("Order has already been placed "); 
+	 if (!(order.getOrderStatus().equals(OrderStatus.Received)))throw new IllegalArgumentException("Order has already been placed "); 
 	 if (order.getOrderType().equals(OrderType.InStore)) { //for in store automatically set to completed
 		 order.setOrderStatus(OrderStatus.Completed);
 	 }else {		//for delivery or pick up set to processing, employee will set it to the next 
@@ -114,9 +114,9 @@ public class GroceryOrderService {
  
  @Transactional
  public GroceryOrder addOrderItems(GroceryOrder order, List<OrderItem> orderItems){ 
-	 if (order == null || !orderDao.existsById(order.getOrderId())) throw new IllegalArgumentException("Please submit a valid grocery order.");
+	 if (order == null || orderDao.findByOrderId(order.getOrderId())!=null) throw new IllegalArgumentException("Please submit a valid grocery order.");
 	 if (orderItems == null || orderItems.size() == 0) throw new IllegalArgumentException("Please submit a valid list of orderItems");
-	 if (!(order.getOrderStatus().equals(OrderStatus.Completed)))throw new IllegalArgumentException("Can only add items to a completed order."); 
+	 if (!(order.getOrderStatus().equals(OrderStatus.Received)))throw new IllegalArgumentException("Can only add items to a received order."); 
 	 checkOrderValidity(order.getCustomer(), order.getOrderType());
 	  
      //setting the total price of the order
@@ -366,27 +366,28 @@ public class GroceryOrderService {
      * 
      * if payment info is valid, change order from completed --> processing
      */
-    @Transactional
-    public GroceryOrder payForOrder(String paymentInfo, GroceryOrder order) { 	//payment info should be hashed
-    	if (!isPaymentValid(paymentInfo))throw new IllegalArgumentException("Payment information is invalid.");  
-    	if (order == null) throw new IllegalArgumentException("Please submit a valid order ID."); 
-    	if (!order.getOrderStatus().equals(OrderStatus.Received)){
-    		throw new IllegalArgumentException("Order does not have a received status, it is " + order.getOrderStatus().toString() + " instead. Payment has already been submitted?"); 
-    	}
-    	order.setOrderStatus(OrderStatus.Processing);
-    	order = orderDao.save(order);	
-    	return order;
-    }
-    
+    //WILL HAVE TO ADD EXTRA ENUMERATION TO CLASS FOR "PAYED" -- can no longer be checked for received --> processing
+//    @Transactional
+//    public GroceryOrder payForOrder(String paymentInfo, GroceryOrder order) { 	//payment info should be hashed
+//    	if (!isPaymentValid(paymentInfo))throw new IllegalArgumentException("Payment information is invalid.");  
+//    	if (order == null) throw new IllegalArgumentException("Please submit a valid order ID."); 
+//    	if (!order.getOrderStatus().equals(OrderStatus.Received)){
+//    		throw new IllegalArgumentException("Order does not have a received status, it is " + order.getOrderStatus().toString() + " instead. Payment has already been submitted?"); 
+//    	}
+//    	order.setOrderStatus(OrderStatus.Processing);
+//    	order = orderDao.save(order);	
+//    	return order;
+//    }
+//    
   //-------------------------------------------------------VALIDATION------------------------------------------------------------
     
-    private boolean isPaymentValid(String paymentInfo) {	//16 credit numbers, 4 expiration, 3 cvv, 6 postal code --> + how to secure/ hash this information
-    	if (paymentInfo == null || paymentInfo.length() == 0 || paymentInfo.length()!= 29) {
-    		return false;
-    	}
-    	return true; 
-    }
-    
+//    private boolean isPaymentValid(String paymentInfo) {	//16 credit numbers, 4 expiration, 3 cvv, 6 postal code --> + how to secure/ hash this information
+//    	if (paymentInfo == null || paymentInfo.length() == 0 || paymentInfo.length()!= 29) {
+//    		return false;
+//    	}
+//    	return true; 
+//    }
+//    
     public void checkOrderValidity(Customer customer, List<OrderItem> orderItems, OrderType orderType) {
     	//if it is instore, order does not need a customer
     	if (orderType == null) throw new IllegalArgumentException("Please select a proper order type.");

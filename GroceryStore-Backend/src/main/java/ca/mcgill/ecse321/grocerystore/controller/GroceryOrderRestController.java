@@ -91,7 +91,7 @@ public class GroceryOrderRestController {
 	 * @param orderId
 	 * @return should change order from received -> processing
 	 */
-	@PostMapping(value = { "/orders/place/{orderId}/", "/orders/place/{orderId}}" }) 
+	@PostMapping(value = { "/orders/place/{orderId}/", "/orders/place/{orderId}" }) 
 	public GroceryOrderDto placeOrder(@PathVariable  String orderId) throws IllegalArgumentException  {
 		GroceryOrder order = orderService.getOrderById(Integer.parseInt(orderId));
 		GroceryOrder placedOrder = orderService.placeOrder(order);
@@ -240,15 +240,15 @@ public class GroceryOrderRestController {
 		return status.toString(); 	
 	}
 	
-	/**
-	 * @param orderId
-	 */
-	@GetMapping(value = {"/orders/payment/{orderId}","/orders/payment/{orderId}/"})
-	public GroceryOrderDto payForOrder(@PathVariable("orderId") String orderId, @RequestParam(name = "Payment Information") String paymentInformation) {
-		GroceryOrder order = orderService.payForOrder(paymentInformation,orderService.getOrderById(Integer.parseInt(orderId)));	// should add hashing for deliverable 3
-		return convertToDto(order);
-	}
-	
+//	/**
+//	 * @param orderId
+//	 */
+//	@GetMapping(value = {"/orders/payment/{orderId}","/orders/payment/{orderId}/"})
+//	public GroceryOrderDto payForOrder(@PathVariable("orderId") String orderId, @RequestParam(name = "Payment Information") String paymentInformation) {
+//		GroceryOrder order = orderService.payForOrder(paymentInformation,orderService.getOrderById(Integer.parseInt(orderId)));	// should add hashing for deliverable 3
+//		return convertToDto(order);
+//	}
+//	
 //-------------------------------------------------------CONVERSIONS------------------------------------------------------------
 	
 	private GroceryOrderDto convertToDto(GroceryOrder o) {
