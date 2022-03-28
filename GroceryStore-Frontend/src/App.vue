@@ -52,7 +52,7 @@ export default {
   padding: 14px 16px;
 }
 
-li a{
+.page a{
   display: block;
   color: black;
   text-align: center;
@@ -61,7 +61,7 @@ li a{
   transition: 0.5s;
 }
 
-li a:hover {
+.page a:hover {
   background-color: #EAEDEA;
   color: black;
   text-decoration: none;
@@ -70,6 +70,7 @@ li a:hover {
 }
 
 .button {
+  font-size: 12px;
   margin-top: 10px;
   background-color: white;
   color: black;
@@ -82,8 +83,7 @@ li a:hover {
   /*background-color: #EAEDEA;*/
   box-shadow: 0px 0px 3px 1px #888888;
   color: black;
-  transform: scale(1.03);
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 
