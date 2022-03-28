@@ -8,7 +8,12 @@ import ModifyEmployees from '@/components/ModifyEmployees'
 import DeleteOwnerAccount from '@/components/DeleteOwnerAccount'
 import LoginPage from '@/components/LoginPage'
 import CreateCustomer from '@/components/CreateCustomer'
-
+import DeleteCustomerAccount from '@/components/DeleteCustomerAccount'
+import UpdateCustomerAccount from '@/components/UpdateCustomerAccount'
+import ViewCustomerStoreSchedule from '@/components/ViewCustomerStoreSchedule'
+import ShowCustomerInventoryItems from '@/components/ShowCustomerInventoryItems'
+import ViewModifyCustomerGroceryOrders from '@/components/ViewModifyCustomerGroceryOrders'
+import CustomerPayment from '@/components/CustomerPayment'
 
 Vue.use(Router)
 
@@ -53,6 +58,36 @@ export default new Router({
       path: '/deleteOwnerAccount',
       name: 'DeleteOwnerAccount',
       component: DeleteOwnerAccount
+    },
+    {
+      path: '/deleteCustomerAccount',
+      name: 'DeleteCustomerAccount',
+      component: DeleteCustomerAccount
+    },
+    {
+      path: '/updateCustomerAccount',
+      name: 'UpdateCustomerAccount',
+      component: UpdateCustomerAccount
+    },
+    {
+      path: '/viewCustomerStoreSchedule',
+      name: 'ViewCustomerStoreSchedule',
+      component: ViewCustomerStoreSchedule
+    },
+    {
+      path: '/showCustomerInventoryItems',
+      name: 'ShowCustomerInventoryItems',
+      component: ShowCustomerInventoryItems
+    },
+    {
+      path: '/viewModifyCustomerGroceryOrders',
+      name: 'ViewModifyCustomerGroceryOrders',
+      component: ViewModifyCustomerGroceryOrders
+    },
+    {
+      path: '/customerPayment',
+      name: 'CustomerPayment',
+      component: CustomerPayment
     }
   ]
 })
