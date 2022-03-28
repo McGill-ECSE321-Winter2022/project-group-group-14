@@ -39,57 +39,98 @@ public class GroceryOrderService {
     
   //-------------------------------------------------------CREATE METHODS------------------------------------------------------------
     
-    /**
-     * @param customer
-     * @param orderItems
-     * @param orderType
-     * @return 
-     */
-    @Transactional
-    public GroceryOrder createOrder(Customer customer, List<OrderItem> orderItems, OrderType orderType){ 
-    	
-    	checkOrderValidity(customer,orderItems,orderType);
-    	
-    	GroceryOrder order = new GroceryOrder();
-        order.setOrderType(orderType);
-        int totalCost = 0; 
-        for (OrderItem oi : orderItems) {			//go through items and calculate total order cost
-        	totalCost = totalCost + oi.getPrice();
-        }
-        
-        if (order.getOrderType().equals(OrderType.Delivery)) {			//if order is a delivery and customer is out of town, add extra fee
-        	if (!customer.getAddress().contains(GroceryStore.town)){
-        		totalCost+=GroceryStore.outOfTownFee;
-        	}
-        }
-        order.setTotalCost(totalCost);				
-        order = orderDao.save(order);			//save order before setting associations
-        order.setOrderItems(orderItems);
-        order.setCustomer(customer);	
-        order = orderDao.save(order);	
-        return order;
-    }
+
+  /**
+   * 
+   * @param customer
+   * @return create empty delivery order
+   */
+  @Transactional
+  public GroceryOrder createDeliveryOrder(Customer customer){ 
+	  ServiceHelpers.checkAccountInfoValidity(customer);
+      GroceryOrder order = new GroceryOrder();		
+      order.setOrderType(OrderType.Delivery);
+      int totalCost = 0;   
+	//if order is a delivery and customer is out of town, add extra fee
+  	  if (!customer.getAddress().contains(GroceryStore.town)){
+  		totalCost+=GroceryStore.outOfTownFee;
+  	  }
+      order.setTotalCost(totalCost);						
+      order.setOrderStatus(OrderStatus.Received);	
+      order = orderDao.save(order);	
+      order.setCustomer(customer);	
+      order = orderDao.save(order);	
+      return order;
+  }
+  
+  /**
+   * 
+   * @param customer
+   * @return create empty pick up order
+   */
+  @Transactional
+  public GroceryOrder createPickupOrder(Customer customer){ 
+	  ServiceHelpers.checkAccountInfoValidity(customer);
+      GroceryOrder order = new GroceryOrder();		
+      order.setOrderType(OrderType.PickUp);
+      int totalCost = 0; 
+      order.setTotalCost(totalCost);						
+      order.setOrderStatus(OrderStatus.Received);	
+      order = orderDao.save(order);	
+      order.setCustomer(customer);	
+      order = orderDao.save(order);	
+      return order;
+  }
+  
+  /**
+   * 
+   * @return create empty in store order
+   */
+  @Transactional
+  public GroceryOrder createInStoreOrder(){ 
+      GroceryOrder order = new GroceryOrder();		
+      order.setOrderType(OrderType.InStore);
+      int totalCost = 0; 
+      order.setTotalCost(totalCost);						
+      order.setOrderStatus(OrderStatus.Received); //when employee is done adding items, the order will be marked as completed
+      order = orderDao.save(order);	
+      return order;
+  }
+     
+
+ @Transactional
+ public GroceryOrder placeOrder(GroceryOrder order) { //SHOULD ONLY BE CALLED ONCE WE ARE DONE ADDING ITEMS TO THE COMPLETED ORDER
+	 checkOrderValidity(order.getCustomer(), order.getOrderItems(), order.getOrderType());
+	 if (order.getOrderStatus() == null) throw new IllegalArgumentException("Order status is null."); 
+	 if (!(order.getOrderStatus().equals(OrderStatus.Completed)))throw new IllegalArgumentException("Order has already been placed "); 
+	 if (order.getOrderType().equals(OrderType.InStore)) { //for in store automatically set to completed
+		 order.setOrderStatus(OrderStatus.Completed);
+	 }else {		//for delivery or pick up set to processing, employee will set it to the next 
+		 order.setOrderStatus(OrderStatus.Processing);
+	 }
+	 order = orderDao.save(order);
+	 return order;
+ }
+ 
+ @Transactional
+ public GroceryOrder addOrderItems(GroceryOrder order, List<OrderItem> orderItems){ 
+	 if (order == null || !orderDao.existsById(order.getOrderId())) throw new IllegalArgumentException("Please submit a valid grocery order.");
+	 if (orderItems == null || orderItems.size() == 0) throw new IllegalArgumentException("Please submit a valid list of orderItems");
+	 if (!(order.getOrderStatus().equals(OrderStatus.Completed)))throw new IllegalArgumentException("Can only add items to a completed order."); 
+	 checkOrderValidity(order.getCustomer(), order.getOrderType());
+	  
+     //setting the total price of the order
+	 int totalItemPrice = 0; 
+     for (OrderItem oi : orderItems) {			//go through items and calculate total order cost
+     	totalItemPrice = totalItemPrice + oi.getPrice();
+     }
+     order.setTotalCost(order.getTotalCost()+totalItemPrice);	//add to the current order price			
+     order = orderDao.save(order);			//save order before setting associations
+     order.setOrderItems(orderItems);
+     order = orderDao.save(order);	
+     return order;
+ }
     
-    /**
-     * @param totalCost
-     * @return
-     */
-    @Transactional
-    public GroceryOrder createInStoreOrder(List<OrderItem> orderItems){ 
-    	checkOrderValidity(orderItems);
-        GroceryOrder order = new GroceryOrder();		
-        order.setOrderType(OrderType.InStore);
-        int totalCost = 0; 
-        for (OrderItem oi : orderItems) {					//find total cost based on items contained in order
-        	totalCost = totalCost + oi.getPrice();
-        }
-        order.setTotalCost(totalCost);						
-        order.setOrderStatus(OrderStatus.Received);		//order is automatically completed since it is made in store
-        order = orderDao.save(order);	
-        order.setOrderItems(orderItems);
-        order = orderDao.save(order);	
-        return order;
-    }
     
 //-------------------------------------------------------GET METHODS------------------------------------------------------------
     
@@ -192,9 +233,53 @@ public class GroceryOrderService {
     @Transactional
     public GroceryOrder deleteOrder(GroceryOrder groceryOrder){ 
     	if (groceryOrder == null || !orderDao.existsById(groceryOrder.getOrderId())) throw new IllegalArgumentException("Please submit a valid grocery order.");
+    	if (!groceryOrder.getOrderStatus().equals(OrderStatus.Completed)) { //if the order has not been completed yet, items must be returned to inventory
+    		for (OrderItem oi: groceryOrder.getOrderItems()) {
+    			if(oi==null) continue;
+    			InventoryItem inventoryItem = inventoryItemDao.findByName(oi.getName());
+    			if(inventoryItem==null) inventoryItem = new InventoryItem(oi.getName(), oi.getPrice(),0);
+    			inventoryItem.setCurrentStock(inventoryItem.getCurrentStock()+1);
+    			inventoryItemDao.save(inventoryItem);
+    			orderItemDao.delete(oi);
+    		}
+    	}
     	orderDao.delete(groceryOrder);
     	return groceryOrder;	
     } 
+    
+    @Transactional
+    public GroceryOrder deleteItemFromOrder(GroceryOrder groceryOrder, List<OrderItem> orderItems, int quantity){ 
+    	if (groceryOrder == null || !orderDao.existsById(groceryOrder.getOrderId())) throw new IllegalArgumentException("Please submit a valid grocery order.");
+    	if (!groceryOrder.getOrderStatus().equals(OrderStatus.Received)) throw new IllegalArgumentException("Can only remove items from an order that has not been placed yet!");
+    	if (quantity == 0) throw new IllegalArgumentException("Quantity has to be larger than 0.");
+    	if (orderItems.isEmpty()||orderItems == null) throw new IllegalArgumentException("Please submit a list of items that is not empty or null.");
+    	for (OrderItem oi : orderItems) { //check item valididty
+    		if (oi == null || !orderItemDao.existsById(oi.getItemId())) {
+    			throw new IllegalArgumentException("Item "+ oi.getName() + " does not exist in database or is null.");
+    		}
+    	}
+    	
+    	InventoryItem inventoryItem = inventoryItemDao.findByName(orderItems.get(0).getName());
+    	if (inventoryItem == null) { 
+    		inventoryItem  =  new InventoryItem(orderItems.get(0).getName(), orderItems.get(0).getPrice(), 0); //CREATE NEW INVENTORY ITEM IF IT DOES NOT EXIST
+    		inventoryItemDao.save(inventoryItem);
+    	}
+    	int currentStock = inventoryItem.getCurrentStock();
+    	int currentPrice = groceryOrder.getTotalCost();
+    	for (OrderItem oi : orderItems) {
+    		currentStock+=1;
+    		currentPrice = currentPrice - oi.getPrice();
+    		orderItemDao.delete(oi);
+
+    	}
+		inventoryItem.setCurrentStock(currentStock);
+		groceryOrder.setTotalCost(currentPrice);
+		inventoryItemDao.save(inventoryItem);	
+    	groceryOrder =  orderDao.save(groceryOrder);
+    	
+    	return groceryOrder;	
+    } 
+    
     
     /**
      * deletes all orders, done by owner at the end of the month after montly report is generated
@@ -230,8 +315,8 @@ public class GroceryOrderService {
     
 
     /**
-     * @param Id 
-     */  
+     * @param Id  //updates orderder status to the next one 
+     */  	
     @Transactional
     public GroceryOrder updateOrderStatus(GroceryOrder order){   //should only be done by an employee/owner account --> we will take care of this in the view for the ui
     	if (order == null) throw new IllegalArgumentException("Please submit a valid order ID."); //validation for proper id
@@ -242,10 +327,8 @@ public class GroceryOrderService {
     	if (order.getOrderStatus() == null) {								//if order is already completed, order status no longer needs to be updated
     		 throw new IllegalArgumentException("Order has no status.");  	
     	}
-    	if (order.getOrderStatus().equals(OrderStatus.Received)) { 	//update from received --> processing as employee prepares order
-    		order.setOrderStatus(OrderStatus.Processing);
-    		order = orderDao.save(order);
-    		return order;
+    	if (order.getOrderStatus().equals(OrderStatus.Received)) { 	//should have already been updated once order had been marked as completed, 
+    		 throw new IllegalArgumentException("Order is still being received, was not marked as completed by the customer.");  
     	} else if (order.getOrderStatus().equals(OrderStatus.Processing)) {		// update from processing 
     		if (order.getOrderType() == null) throw new IllegalArgumentException("Order type is not set."); //make sure order has a type
     		if (order.getOrderType().equals(OrderType.Delivery)){
@@ -305,8 +388,9 @@ public class GroceryOrderService {
     }
     
     public void checkOrderValidity(Customer customer, List<OrderItem> orderItems, OrderType orderType) {
-    	if (customer == null || !customerDao.existsById(customer.getAccountId())) throw new IllegalArgumentException("Please select a proper customer.");  	
+    	//if it is instore, order does not need a customer
     	if (orderType == null) throw new IllegalArgumentException("Please select a proper order type.");
+    	if (!orderType.equals(OrderType.InStore) && (customer == null || !customerDao.existsById(customer.getAccountId()))) throw new IllegalArgumentException("Please select a proper customer.");  	
     	if (orderItems.isEmpty()||orderItems == null) throw new IllegalArgumentException("Please submit a list of items that is not empty or null.");
     	for (OrderItem oi : orderItems) {
     		if (oi == null || !orderItemDao.existsById(oi.getItemId())) {
@@ -314,7 +398,11 @@ public class GroceryOrderService {
     		}
     	}
     }
-    
+    public void checkOrderValidity(Customer customer, OrderType orderType) {
+    	//if it is instore, order does not need a customer
+    	if (orderType == null) throw new IllegalArgumentException("Please select a proper order type.");
+    	if (!orderType.equals(OrderType.InStore) && (customer == null || !customerDao.existsById(customer.getAccountId()))) throw new IllegalArgumentException("Please select a proper customer.");  	
+    }
     public void checkOrderValidity(List<OrderItem> orderItems){
     	if (orderItems.isEmpty()||orderItems == null) throw new IllegalArgumentException("Please submit a list of items that is not empty or null.");
     	for (OrderItem oi : orderItems) {
