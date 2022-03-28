@@ -3,11 +3,23 @@ import Router from 'vue-router'
 import Shop from '@/components/Shop'
 import GroceryStore from '@/components/GroceryStore'
 import ModifyInventoryItems from '@/components/ModifyInventoryItems'
+import LoginPage from '@/components/LoginPage'
+import CreateCustomer from '@/components/CreateCustomer'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/',
+      name: 'Login',
+      component: LoginPage
+    },
+    {
+      path: '/createCustomer',
+      name: 'CreateCustomer',
+      component: CreateCustomer
+    },
     {
       path: '/shop',
       name: 'Shop',
