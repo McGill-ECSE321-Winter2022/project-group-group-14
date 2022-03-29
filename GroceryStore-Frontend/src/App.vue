@@ -2,6 +2,7 @@
   <div id="app">
     
     <router-view></router-view>
+
   </div>
 
 </template>
@@ -85,9 +86,28 @@ ul {
   color:#111;
 }
 
+.verticalandhorizontal-center{
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
 
 .button {
   font-size: 12px;
+  margin-top: 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid #111;
+  border-radius: 12px;
+  transition: 0.5s;
+}
+
+.largeButton {
+  font-size: 18px;
   margin-top: 10px;
   background-color: white;
   color: black;

@@ -11,6 +11,7 @@
           <li class="page"><a href="#/modifyEmployees">Modify Employees</a></li>
           <li class="page"><a href="#/modifyCustomers">Modify Customers</a></li>
           <li class="page"><a href="#/deleteOwnerAccount">Delete Account</a></li> 
+          <li class="page"><a href="#/">Log Out</a></li>  
           
     </ul>
     <div class="grid-container">

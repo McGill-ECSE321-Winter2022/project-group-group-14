@@ -26,6 +26,9 @@ import ModifyGroceryOrderStatus from '@/components/ModifyGroceryOrderStatus'
 import ShowEmployeeInventoryItems from '@/components/ShowEmployeeInventoryItems'
 import ViewModifyEmployeeGroceryOrders from '@/components/ViewModifyEmployeeGroceryOrders'
 import EmployeePayment from '@/components/EmployeePayment'
+import CustomerWelcomePage from '@/components/CustomerWelcomePage'
+import EmployeeWelcomePage from '@/components/EmployeeWelcomePage'
+import OwnerWelcomePage from '@/components/OwnerWelcomePage'
 
 Vue.use(Router)
 
@@ -160,6 +163,21 @@ export default new Router({
       path: '/employeePayment',
       name: 'EmployeePayment',
       component: EmployeePayment
+    },
+    {
+      path: '/customerWelcomePage',
+      name: 'CustomerWelcomePage',
+      component: CustomerWelcomePage
+    },
+    {
+      path: '/employeeWelcomePage',
+      name: 'EmployeeWelcomePage',
+      component: EmployeeWelcomePage
+    },
+    {
+      path: '/ownerWelcomePage',
+      name: 'OwnerWelcomePage',
+      component: OwnerWelcomePage
     }
   ]
 })

@@ -6,7 +6,8 @@
         <li class="page"><a href="#/createCustomerFromEmployee">Create Customer</a></li>
         <li class="page"><a href="#/updateCustomerFromEmployee">Update Customer</a></li>
         <li class="page"><a href="#/viewStoreEmployeeScheduleEmployee">Schedule</a></li>  
-        <li class="page"><a href="#/modifyGroceryOrderStatus">Order Status</a></li>       
+        <li class="page"><a href="#/modifyGroceryOrderStatus">Order Status</a></li>    
+        <li class="page"><a href="#/">Log Out</a></li>     
   </ul>
   </div>
 </template>
