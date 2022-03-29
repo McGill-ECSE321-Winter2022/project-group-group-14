@@ -46,7 +46,7 @@
           />
         </div>
 
-        <h6 class="subheading">Addresses must contain ___ and be ___ </h6>
+        <h6 class="subheading">Please enter a valid address </h6>
         <div class="form-floating mb-3">
           <input
             type="text"
@@ -98,15 +98,5 @@
 
 
 <style scoped>
-
-</style>
-
-
-
-
-
-
-
-<style>
 
 </style>
