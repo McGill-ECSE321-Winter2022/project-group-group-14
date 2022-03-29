@@ -178,6 +178,11 @@ export default new Router({
       path: '/ownerWelcomePage',
       name: 'OwnerWelcomePage',
       component: OwnerWelcomePage
+    },
+    {
+      path: '/viewOrderStatus',
+      name: 'ViewOrderStatus',
+      component: ViewOrderStatus
     }
   ]
 })
