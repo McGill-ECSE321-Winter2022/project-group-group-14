@@ -7,21 +7,29 @@
 
         <div class="verticalandhorizontal-center">
             <h2 class="heading">Welcome Customer! </h2>
-
+            <br>
+                <h4> Place an order : </h4>
                     <router-link to="/showCustomerInventoryItems">
                         <button class="largeButton">
-                            Make your order
+                            Delivery
                         </button>
+
                     </router-link>
-
-                    <br>
-
-                    <router-link to="/viewCustomerStoreSchedule">
+                     <router-link to="/showCustomerInventoryItems">
                         <button class="largeButton">
-                            Something else
+                           Pick up
                         </button>
                     </router-link>
-        
+                    <br>
+                    <br>
+                <h4> Already placed an order? </h4>   
+
+                    <router-link to="/viewOrderStatus">
+                        <button class="largeButton">
+                            View your order's status
+                        </button>
+                    </router-link>
+                
         </div>
     </div>
 </template>

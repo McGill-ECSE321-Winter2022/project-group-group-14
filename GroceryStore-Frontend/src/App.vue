@@ -132,6 +132,16 @@ ul {
         transform: translate(-50%, -50%);
     }
 
+.button_delete{
+  font-size: 12px;
+  margin-top: 10px;
+  background-color: white;
+  color: red;
+  border: 1px solid #111;
+  border-radius: 12px;
+  transition: 0.5s;
+
+}
 
 .button {
   font-size: 12px;

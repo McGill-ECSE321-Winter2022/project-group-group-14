@@ -29,6 +29,10 @@ import EmployeePayment from '@/components/EmployeePayment'
 import CustomerWelcomePage from '@/components/CustomerWelcomePage'
 import EmployeeWelcomePage from '@/components/EmployeeWelcomePage'
 import OwnerWelcomePage from '@/components/OwnerWelcomePage'
+import ViewOrderStatus from '@/components/ViewOrderStatus'
+import ViewCart from '@/components/ViewCart'
+import ThankYou from '@/components/ThankYou'
+import ViewIncompleteOrders from '@/components/ViewIncompleteOrders'
 
 Vue.use(Router)
 
@@ -178,6 +182,26 @@ export default new Router({
       path: '/ownerWelcomePage',
       name: 'OwnerWelcomePage',
       component: OwnerWelcomePage
+    },
+    {
+      path: '/viewOrderStatus',
+      name: 'ViewOrderStatus',
+      component: ViewOrderStatus
+    },
+    {
+      path: '/viewCart',
+      name: 'ViewCart',
+      component: ViewCart
+    },
+    {
+      path: '/thankYou',
+      name: 'ThankYou',
+      component: ThankYou
+    },
+    {
+      path: '/viewIncompleteOrders',
+      name: 'ViewIncompleteOrders',
+      component: ViewIncompleteOrders
     }
   ]
 })
