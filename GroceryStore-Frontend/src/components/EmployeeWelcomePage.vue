@@ -16,7 +16,7 @@
 
                     <br>
 
-                    <router-link to="/viewStoreEmployeeScheduleFromEmployee">
+                    <router-link to="/viewStoreEmployeeScheduleEmployee">
                         <button class="largeButton">
                             Something else
                         </button>
