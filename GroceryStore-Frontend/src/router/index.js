@@ -30,6 +30,7 @@ import CustomerWelcomePage from '@/components/CustomerWelcomePage'
 import EmployeeWelcomePage from '@/components/EmployeeWelcomePage'
 import OwnerWelcomePage from '@/components/OwnerWelcomePage'
 import ViewOrderStatus from '@/components/ViewOrderStatus'
+import ViewCart from '@/components/ViewCart'
 
 Vue.use(Router)
 
@@ -184,6 +185,11 @@ export default new Router({
       path: '/viewOrderStatus',
       name: 'ViewOrderStatus',
       component: ViewOrderStatus
+    },
+    {
+      path: '/viewCart',
+      name: 'ViewCart',
+      component: ViewCart
     }
   ]
 })
