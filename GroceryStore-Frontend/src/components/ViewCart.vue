@@ -28,7 +28,7 @@
 
                 <br>
 
-                    <router-link to="/customerPayment">
+                    <router-link to="/thankYou">
                         <button class="largeButton">
                             Place Order
                         </button>

@@ -1,7 +1,7 @@
 <template>
   <div>
   <ul class="navBar">
-        <li class="logo">STORIKO</li>
+        <li class="logo">ahh</li>
         <li class="page"><a href="#/">Log Out</a></li>  
         <li class="page"><a href="#/viewCart">View Cart</a></li>
         <li class="page"><a href="#/showCustomerInventoryItems">View Items</a></li>
