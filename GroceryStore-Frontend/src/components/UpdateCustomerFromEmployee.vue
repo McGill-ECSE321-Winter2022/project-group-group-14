@@ -28,7 +28,6 @@
         </div>
 
         <br>
-        <br>
 
         <h6 class="subheading">Emails must be unique within the system</h6>
         <div class="form-floating mb-3">
@@ -96,7 +95,7 @@
 
            
               <button class="largeButton" type="CreateButton">
-                Create Account
+                Update Account
               </button>
 
         </div>

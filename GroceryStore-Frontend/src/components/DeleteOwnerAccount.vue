@@ -14,6 +14,50 @@
         <li class="page"><a href="#/">Log Out</a></li>  
         
   </ul>
+  <div class="verticalandhorizontal-center">
+
+        <h2 class="heading">Delete An Account</h2>
+
+        <br>
+
+        <h6 class="subheading">To delete an account, first enter your password</h6>
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            v-model="Password"
+            class="form-control"
+            id="floatingInput"
+            placeholder="Owner Password"
+            required
+          />
+        </div>
+
+        <br>
+        <br>
+
+        <h6 class="subheading">Select the account to delete</h6>
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            v-model="Username"
+            class="form-control"
+            id="floatingInput"
+            placeholder="Username of account to delete"
+            required
+          />
+        </div>
+        
+           
+        <button class="largeButton" type="CreateButton">
+          Delete Customer Account
+        </button>
+        <br>
+        <button class="largeButton" type="CreateButton">
+          Delete Employee Account
+        </button>
+
+        </div>
+
   </div>
 </template>
 
