@@ -32,6 +32,7 @@ import OwnerWelcomePage from '@/components/OwnerWelcomePage'
 import ViewOrderStatus from '@/components/ViewOrderStatus'
 import ViewCart from '@/components/ViewCart'
 import ThankYou from '@/components/ThankYou'
+import ViewIncompleteOrders from '@/components/ViewIncompleteOrders'
 
 Vue.use(Router)
 
@@ -196,6 +197,11 @@ export default new Router({
       path: '/thankYou',
       name: 'ThankYou',
       component: ThankYou
+    },
+    {
+      path: '/viewIncompleteOrders',
+      name: 'ViewIncompleteOrders',
+      component: ViewIncompleteOrders
     }
   ]
 })

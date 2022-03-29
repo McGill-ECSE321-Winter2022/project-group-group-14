@@ -10,10 +10,17 @@
 
                     <router-link to="/showEmployeeInventoryItems">
                         <button class="largeButton">
-                            Make an order
+                            Place an order
                         </button>
                     </router-link>
 
+                    <br>
+
+                     <router-link to="/viewIncompleteOrders">
+                        <button class="largeButton">
+                            View all incomplete orders
+                        </button>
+                    </router-link>
                     <br>
 
                     <router-link to="/viewStoreEmployeeScheduleEmployee">
