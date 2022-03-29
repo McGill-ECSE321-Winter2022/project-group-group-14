@@ -13,8 +13,6 @@
         <li class="page"><a href="#/deleteOwnerAccount">Delete Account</a></li> 
         <li class="page"><a href="#/">Log Out</a></li>  
   </ul>
-   <h2 class="heading">Report</h2>
-
   </div>
 </template>
 
