@@ -31,6 +31,43 @@ ul {
   list-style-type: none;
 }
 
+.navbar-brand {
+  font-family: 'Merriweather', serif;
+}
+.navbar {
+  font-family: 'Nunito', sans-serif;
+  background-color: white;
+  border-bottom: 1px solid;
+  padding-right: 80px;
+  padding-left: 80px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.nav-item {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  transition: 0.3s;
+ }
+
+ .nav-item:hover {
+   background-color: #EAEDEA;
+   color:black;
+   transition: 0.3s;
+ }
+
+.navbar-light .navbar-nav .nav-link { 
+  color:black;
+  transition: 0.3s;
+}
+
+.navbar-light:hover .navbar-nav:hover .nav-link:hover { 
+  color:black;
+  transition: 0.3s;
+}
+
 .navBar {
   list-style-type: none;
   margin: 0;
@@ -153,8 +190,8 @@ ul {
 
 .grid-item{
   margin: 10px;
-  margin-left: 50px;
-  margin-right: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
   border: 1px solid black;
   border-radius: 10px;
 }
