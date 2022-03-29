@@ -4,7 +4,8 @@
         <li class="logo">STORIKO</li>
         <li class="page"><a href="#/showCustomerInventoryItems">Show Inventory Items</a></li>
         <li class="page"><a href="#/viewModifyGroceryOrders">View Grocery Orders</a></li>
-        <li class="page"><a href="#/customerPayment">Payment</a></li>        
+        <li class="page"><a href="#/customerPayment">Payment</a></li>  
+        <li class="page"><a href="#/">Log Out</a></li>        
   </ul>
   </div>
 </template>

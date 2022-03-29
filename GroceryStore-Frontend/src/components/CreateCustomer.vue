@@ -1,14 +1,11 @@
 <template>
-  <div>
-      <div class="row">
-      <div class="col-md-3">     </div>
-      <div class="col-md-6">
-
-        <br>
-        <br>
+  <div >
+    <ul class="navBar">
+      <li class="logo">STORIKO</li>      
+    </ul>
+    <div class="verticalandhorizontal-center">
 
         <h2 class="heading">Create Customer Account</h2>
-        <h5 class="subheading"></h5>
 
         <br>
         <br>
@@ -79,26 +76,31 @@
         <div>
 
             <router-link to="/">
-              <button class="button" type="CreateButton">
+              <button class="largeButton" type="CreateButton">
                 Create Account
               </button>
             </router-link>
             <br>          
-            <button class="button" @click="cancel(userId, password)" type="CancelButton">
-              Cancel
-            </button>
+            <router-link to="/">
+              <button class="largeButton">
+                Cancel
+              </button>
+            </router-link>
 
         </div>
 
+    </div>
     <br />
     <br />
-
-    </div>
-    </div>
-
-  <div class="col-md-3"></div>
   </div>
 </template>
+
+
+
+<style scoped>
+
+</style>
+
 
 
 

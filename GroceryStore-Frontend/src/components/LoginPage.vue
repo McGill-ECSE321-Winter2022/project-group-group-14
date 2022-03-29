@@ -1,20 +1,15 @@
 <template>
   <div >
-
-    <div class="row">
-      <div class="col-md-3">      </div>
-      <div class="col-md-6">
-
-        <!-- <br>
-        <br>
+    <ul class="navBar">
+      <li class="logo">STORIKO</li>      
+    </ul>
+    <div class="verticalandhorizontal-center">
 
         <h2 class="heading">Log In</h2>
-        <h5 class="subheading"></h5>
 
         <br>
         <br>
 
-        <label for="floatingInput">Username</label>
         <div class="form-floating mb-3">
           <input
             type="text"
@@ -25,7 +20,7 @@
             required
           />
         </div>
-        <label for="floatingPassword">Password</label>
+
         <div class="form-floating">
           <input
             type="text"
@@ -40,63 +35,52 @@
         <br>
         <br>
 
-        <form action="/action_page.php">
+        <!-- <form action="/action_page.php">
           <label for="cars">Account Type:</label>
           <select name="accountType" id="accountType">
             <option value="customer">Customer</option>
             <option value="employee">Employee</option>
             <option value="owner">Owner</option>
           </select>
-          <!-- <input type="submit" value="Submit"> -->
-        <!-- </form> -->
-
-        <!-- <br>
+        </form> -->
+<!-- 
+        <br>
         <br> -->
 
-            <!-- <button @click="loginUser(userId, password)" type="LoginButton" class="button">
-              Log In
-            </button> -->
-            <router-link to="/showCustomerInventoryItems">
-              <button class="button">
-                Customer Shopping Log In
+            <router-link to="/customerWelcomePage">
+              <button class="largeButton">
+                Customer Log In
               </button>
             </router-link>
 
-            <router-link to="/deleteCustomerAccount">
-              <button class="button">
-                Customer Administration Log In
+            <br>
+
+            <router-link to="/employeeWelcomePage">
+              <button class="largeButton">
+                Employee Log In
               </button>
             </router-link>
 
-            <router-link to="/showEmployeeInventoryItems">
-              <button class="button">
-                Employee Shopping Log In
-              </button>
-            </router-link>
+            <br>
 
-            <router-link to="/deleteEmployeeAccount">
-              <button class="button">
-                Employee Administration Log In
-              </button>
-            </router-link>
-
-            <router-link to="/showInventoryItemsOwner">
-              <button class="button">
+            <router-link to="/ownerWelcomePage">
+              <button class="largeButton">
                 Owner Log In
               </button>
             </router-link>
 
             <br>
-          
-            <!-- <router-link to="/">
+            <br>
+            <br>
+            <br>
+
+            <p>Don't have an account?</p>
+            <router-link to="/createCustomer">
               <button type="CreateButton" class="button">
-                Don't have an account? Create an account
+                 Create an account
               </button>
-            </router-link> -->
+            </router-link>
 
-
-      </div>
-      <div class="col-md-3"></div>
     </div>
     <br />
     <br />
@@ -106,14 +90,5 @@
 
 
 <style scoped>
-.register-href {
-  padding: 20px 1px;
-  font-size: 25px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 120px;
-  text-align: left;
-}
 
 </style>
