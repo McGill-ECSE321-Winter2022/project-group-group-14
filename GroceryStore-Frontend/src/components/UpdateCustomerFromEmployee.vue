@@ -19,7 +19,7 @@
         <div class="form-floating mb-3">
           <input
             type="text"
-            v-model="UsernameToChance"
+            v-model="UsernameToChange"
             class="form-control"
             id="floatingInput"
             placeholder="Old Username"
