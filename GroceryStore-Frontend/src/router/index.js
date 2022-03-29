@@ -29,6 +29,7 @@ import EmployeePayment from '@/components/EmployeePayment'
 import CustomerWelcomePage from '@/components/CustomerWelcomePage'
 import EmployeeWelcomePage from '@/components/EmployeeWelcomePage'
 import OwnerWelcomePage from '@/components/OwnerWelcomePage'
+import ViewOrderStatus from '@/components/ViewOrderStatus'
 
 Vue.use(Router)
 
