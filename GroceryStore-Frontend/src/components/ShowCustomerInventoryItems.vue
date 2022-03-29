@@ -2,10 +2,11 @@
   <div>
   <ul class="navBar">
         <li class="logo">STORIKO</li>
-        <li class="page"><a href="#/showCustomerInventoryItems">Show Inventory Items</a></li>
-        <li class="page"><a href="#/viewModifyCustomerGroceryOrders">View Grocery Orders</a></li>
-        <li class="page"><a href="#/customerPayment">Payment</a></li>        
         <li class="page"><a href="#/">Log Out</a></li>  
+        <li class="page"><a href="#/viewCart">View Cart</a></li>
+        <li class="page"><a href="#/showCustomerInventoryItems">View Items</a></li>
+        <!-- <li class="page"><a href="#/viewModifyCustomerGroceryOrders">View Past Grocery Orders</a></li> -->
+        <!-- <li class="page"><a href="#/customerPayment">Payment</a></li>         -->
   </ul>
   <div class="grid-container">
       <div class="grid-item" v-for="inventoryItem in inventoryItems" :key=inventoryItem.name>
