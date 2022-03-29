@@ -1,76 +1,34 @@
 <template>
     <div >
-        <ul class="navBar">
-            <li class="logo">STORIKO</li>      
-            <li class="page"><a href="#/">Log Out</a></li>  
-        </ul>
+        <b-navbar fixed="top" toggleable="lg">
+      <b-navbar-brand>STORIKO</b-navbar-brand>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-collapse id="nav-collapse" is-nav>
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item-dropdown text="InventoryItems">
+              <b-dropdown-item href="#/showInventoryItemsOwner">Show Inventory Items</b-dropdown-item>
+              <b-dropdown-item href="#/modifyItems">Modify Inventory Items</b-dropdown-item>
+            </b-nav-item-dropdown>
+            <b-nav-item-dropdown text="Schedules">
+              <b-dropdown-item href="#/modifyStoreSchedule">Modify Store Schedule</b-dropdown-item>
+              <b-dropdown-item href="#/viewStoreScheduleOwner">View Store Schedule</b-dropdown-item>
+              <b-dropdown-item href="#/employeeSchedules">Employee Schedules</b-dropdown-item>
+            </b-nav-item-dropdown>
+            <b-nav-item-dropdown text="Modify Accounts">
+              <b-dropdown-item href="#/modifyEmployees">Modify Employees</b-dropdown-item>
+              <b-dropdown-item href="#/modifyCustomers">Modify Customers</b-dropdown-item>
+              <b-dropdown-item href="#/deleteOwnerAccount">Delete Account</b-dropdown-item>
+            </b-nav-item-dropdown>
+            <b-nav-item href="#/report">Report</b-nav-item>
+          </b-navbar-nav>
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item href="#/">Log Out</b-nav-item>
+          </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
 
         <div class="verticalandhorizontal-center">
             <h2 class="heading">Welcome Owner! </h2>
-                    <br>
-                    <router-link to="/viewStoreScheduleOwner">
-                        <button class="largeButton">
-                            View Store Schedule
-                        </button>
-                    </router-link>
-                    <br>
-                    <br>
-                    <router-link to="/modifyStoreSchedule">
-                        <button class="largeButton">
-                            Modify Store Schedule
-                        </button>
-                    </router-link>
-                    <br>
-                    <br>
-                    <router-link to="/employeeSchedules">
-                        <button class="largeButton">
-                            Employee schedules
-                        </button>
-                    </router-link>
-                    <br>
-                    <br>
-                    <router-link to="/deleteOwnerAccount">
-                        <button class="largeButton">
-                            Delete an account
-                        </button>
-                    </router-link>
-                    <br>
-                    <br>
-                    <router-link to="/modifyCustomers">
-                        <button class="largeButton">
-                            Modify a customer account
-                        </button>
-                    </router-link>
-                    <br>
-                    <br>
-                    <router-link to="/modifyEmployees">
-                        <button class="largeButton">
-                            Modify an employee account
-                        </button>
-                    </router-link>
-                    <br>
-                    <br>
-                    <router-link to="/modifyItems">
-                        <button class="largeButton">
-                            Modify inventory item
-                        </button>
-                    </router-link>
-                    <br>
-                    <br>
-                    <router-link to="/showInventoryItemsOwner">
-                        <button class="largeButton">
-                            View inventory items
-                        </button>
-                    </router-link>
-                    <br>
-                    <br>
-                    <router-link to="/report">
-                        <button class="largeButton">
-                            View Report
-                        </button>
-                    </router-link>
-                    
-        
         </div>
     </div>
 </template>
