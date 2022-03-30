@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" >
     
     <router-view></router-view>
 
@@ -14,6 +14,9 @@ export default {
 </script>
 
 <style>
+
+/*------------------------ App Styles -------------------- */
+
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@900&display=swap');
 
@@ -27,21 +30,38 @@ export default {
   border-bottom: 1px;
 }
 
+.background-img {
+    background-image: url("assets/orange5.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 665px;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  }
+
 ul {
   list-style-type: none;
 }
 
+
+/*------------------------ Navigation Bar Styles -------------------- */
+
 .navbar-brand {
   font-family: 'Merriweather', serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #f7a851;
+
 }
 .navbar {
   font-family: 'Nunito', sans-serif;
   background-color: white;
-  border-bottom: 1px solid;
+  border-bottom: 3px solid #f7a851;
   padding-right: 80px;
   padding-left: 80px;
   padding-top: 0;
   padding-bottom: 0;
+  box-sizing: border-box;
 }
 
 .nav-item {
@@ -50,10 +70,11 @@ ul {
   padding-left: 15px;
   padding-right: 15px;
   transition: 0.3s;
+  box-sizing: border-box;
  }
 
  .nav-item:hover {
-   background-color: #EAEDEA;
+   background-color: #f7a851;
    color:black;
    transition: 0.3s;
  }
@@ -69,17 +90,21 @@ ul {
 }
 
 .navBar {
+  
   list-style-type: none;
   margin: 0;
   padding-right: 80px;
   padding-left: 80px;
   overflow: hidden;
   background-color: white;
-  border-bottom: 1px solid;
+  border-bottom: 3px solid #f7a851;
   position: fixed;
   top: 0;
   width: 100%;
 }
+
+/*------------------------ Old Navigation Bar Styles -------------------- */
+
 
 .page {
   float: right;
@@ -112,6 +137,10 @@ ul {
   transition: 0.5s;
 
 }
+
+/*------------------------ Show Inventory Items Styles -------------------- */
+
+
 .edit {
     margin-top: 20px;
     font-size: 12px;
@@ -121,53 +150,6 @@ ul {
 }
 .edit:hover {
   color:#111;
-}
-
-.verticalandhorizontal-center{
-        margin: 0;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-    }
-
-.button_delete{
-  font-size: 12px;
-  margin-top: 10px;
-  background-color: white;
-  color: red;
-  border: 1px solid #111;
-  border-radius: 12px;
-  transition: 0.5s;
-
-}
-
-.button {
-  font-size: 12px;
-  margin-top: 10px;
-  background-color: white;
-  color: black;
-  border: 1px solid #111;
-  border-radius: 12px;
-  transition: 0.5s;
-}
-
-.largeButton {
-  font-size: 18px;
-  margin-top: 10px;
-  background-color: white;
-  color: black;
-  border: 1px solid #111;
-  border-radius: 12px;
-  transition: 0.5s;
-}
-
-.button:hover {
-  /*background-color: #EAEDEA;*/
-  box-shadow: 0px 0px 3px 1px #888888;
-  color: black;
-  transition: 0.3s;
 }
 
 .info {
@@ -188,12 +170,19 @@ ul {
   margin: 0;
 }
 
-.grid-item{
+.grid-item {
+  box-shadow: 0 0 15px 5px rgb(0,0,0,0.2);
   margin: 10px;
   padding-left: 50px;
   padding-right: 50px;
   border: 1px solid black;
   border-radius: 10px;
+  transition: 0.3s;
+}
+
+.grid-item:hover {
+  box-shadow: 0 0 10px 3px rgb(0,0,0,0.2);
+  transition: 0.3s;
 }
 
 .grid-container {
@@ -206,4 +195,64 @@ ul {
   margin-top: 150px;
   margin-bottom: 100px;
 }
+
+/*------------------------ Input Form Styles -------------------- */
+
+.verticalandhorizontal-center{
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+
+/*------------------------ Button Styles -------------------- */
+
+
+.button_delete{
+  font-size: 12px;
+  margin-top: 10px;
+  background-color: white;
+  color: red;
+  border: 1px solid #111;
+  border-radius: 12px;
+  transition: 0.5s;
+
+}
+
+.button {
+  font-size: 12px;
+}
+
+.largeButton {
+  font-size: 18px;
+}
+
+.mediumButton {
+  font-size: 15px;
+}
+
+.button, .largeButton, .mediumButton {
+  margin-bottom: 15px;
+  margin-right: 10px;
+  margin-left: 10px;
+  background-color: white;
+  box-shadow: 0px 0px 2px 2px #c7c7c7;
+  color: black;
+  border: none;
+  border-radius: 12px;
+  transition: 0.5s;
+}
+
+.mediumButton:hover, .largeButton:hover, .button:hover {
+  box-shadow: 0px 0px 8px 2px #c7c7c7;
+  border-color: #f7a851;
+  color: white;
+  background-color: #f7a851;
+  transition: 0.3s;
+}
+
+
 </style>
