@@ -1,38 +1,39 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import GroceryStore from '@/components/GroceryStore'
-import ModifyInventoryItems from '@/components/ModifyInventoryItems'
-import ModifyEmployees from '@/components/ModifyEmployees'
-import DeleteOwnerAccount from '@/components/DeleteOwnerAccount'
 import LoginPage from '@/components/LoginPage'
-import CreateCustomer from '@/components/CreateCustomer'
-import ModifyStoreSchedule from '@/components/ModifyStoreSchedule'
-import ViewStoreScheduleOwner from '@/components/ViewStoreScheduleOwner'
-import ShowInventoryItemsOwner from '@/components/ShowInventoryItemsOwner'
-import Report from '@/components/Report'
-import ModifyCustomers from '@/components/ModifyCustomers'
-import EmployeeSchedules from '@/components/EmployeeSchedules'
-import DeleteCustomerAccount from '@/components/DeleteCustomerAccount'
-import UpdateCustomerAccount from '@/components/UpdateCustomerAccount'
-import ViewCustomerStoreSchedule from '@/components/ViewCustomerStoreSchedule'
-import ShowCustomerInventoryItems from '@/components/ShowCustomerInventoryItems'
-import ViewModifyCustomerGroceryOrders from '@/components/ViewModifyCustomerGroceryOrders'
-import CustomerPayment from '@/components/CustomerPayment'
-import DeleteEmployeeAccount from '@/components/DeleteEmployeeAccount'
-import CreateCustomerFromEmployee from '@/components/CreateCustomerFromEmployee'
-import UpdateCustomerFromEmployee from '@/components/UpdateCustomerFromEmployee'
-import ViewStoreEmployeeScheduleFromEmployee from '@/components/ViewStoreEmployeeScheduleFromEmployee'
-import ModifyGroceryOrderStatus from '@/components/ModifyGroceryOrderStatus'
-import ShowEmployeeInventoryItems from '@/components/ShowEmployeeInventoryItems'
-import ViewModifyEmployeeGroceryOrders from '@/components/ViewModifyEmployeeGroceryOrders'
-import EmployeePayment from '@/components/EmployeePayment'
-import CustomerWelcomePage from '@/components/CustomerWelcomePage'
-import EmployeeWelcomePage from '@/components/EmployeeWelcomePage'
-import OwnerWelcomePage from '@/components/OwnerWelcomePage'
-import ViewOrderStatus from '@/components/ViewOrderStatus'
-import ViewCart from '@/components/ViewCart'
-import ThankYou from '@/components/ThankYou'
-import ViewIncompleteOrders from '@/components/ViewIncompleteOrders'
+//owner imports
+import OwnerWelcomePage from '@/components/owner/OwnerWelcomePage'
+import ViewStoreScheduleOwner from '@/components/owner/ViewStoreScheduleOwner'
+import DeleteOwnerAccount from '@/components/owner/DeleteOwnerAccount'
+import ShowInventoryItemsOwner from '@/components/owner/ShowInventoryItemsOwner'
+import ModifyCustomers from '@/components/owner/ModifyCustomers'
+import ModifyInventoryItems from '@/components/owner/ModifyInventoryItems'
+import ModifyEmployees from '@/components/owner/ModifyEmployees'
+import ModifyStoreSchedule from '@/components/owner/ModifyStoreSchedule'
+import Report from '@/components/owner/Report'
+//employee imports
+import EmployeeSchedules from '@/components/employee/EmployeeSchedules'
+import DeleteEmployeeAccount from '@/components/employee/DeleteEmployeeAccount'
+import CreateCustomerFromEmployee from '@/components/employee/CreateCustomerFromEmployee'
+import UpdateCustomerFromEmployee from '@/components/employee/UpdateCustomerFromEmployee'
+import ViewStoreEmployeeScheduleFromEmployee from '@/components/employee/ViewStoreEmployeeScheduleFromEmployee'
+import ModifyGroceryOrderStatus from '@/components/employee/ModifyGroceryOrderStatus'
+import ShowEmployeeInventoryItems from '@/components/employee/ShowEmployeeInventoryItems'
+import EmployeeWelcomePage from '@/components/employee/EmployeeWelcomePage'
+import ViewIncompleteOrders from '@/components/employee/ViewIncompleteOrders'
+//customer imports
+import CreateCustomer from '@/components/customer/CreateCustomer'
+import DeleteCustomerAccount from '@/components/customer/DeleteCustomerAccount'
+import UpdateCustomerAccount from '@/components/customer/UpdateCustomerAccount'
+import ViewCustomerStoreSchedule from '@/components/customer/ViewCustomerStoreSchedule'
+import ShowCustomerInventoryItems from '@/components/customer/ShowCustomerInventoryItems'
+import ViewModifyCustomerGroceryOrders from '@/components/customer/ViewModifyCustomerGroceryOrders'
+import CustomerPayment from '@/components/customer/CustomerPayment'
+import CustomerWelcomePage from '@/components/customer/CustomerWelcomePage'
+import ViewOrderStatus from '@/components/customer/ViewOrderStatus'
+import ViewCart from '@/components/customer/ViewCart'
+import ThankYou from '@/components/customer/ThankYou'
 
 Vue.use(Router)
 
@@ -157,16 +158,6 @@ export default new Router({
       path: '/showEmployeeInventoryItems',
       name: 'ShowEmployeeInventoryItems',
       component: ShowEmployeeInventoryItems
-    },
-    {
-      path: '/viewModifyEmployeeGroceryOrders',
-      name: 'ViewModifyEmployeeGroceryOrders',
-      component: ViewModifyEmployeeGroceryOrders
-    },
-    {
-      path: '/employeePayment',
-      name: 'EmployeePayment',
-      component: EmployeePayment
     },
     {
       path: '/customerWelcomePage',
