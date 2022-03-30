@@ -1,24 +1,18 @@
 <template>
     <div >
-        <b-navbar fixed="top">
-      <b-navbar-brand>STORIKO</b-navbar-brand>
-    
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item href="#/">Log Out</b-nav-item>
-          </b-navbar-nav>
-    
-    </b-navbar>
-
+    <CustomerNavigationBar></CustomerNavigationBar>
         <div class="verticalandhorizontal-center">
             <h2 class="heading">Welcome Customer! </h2>
             <br>
                 <h4> Place an order : </h4>
+                <br>
                     <router-link to="/showCustomerInventoryItems">
                         <button class="largeButton">
                             Delivery
                         </button>
 
                     </router-link>
+                    <br>
                      <router-link to="/showCustomerInventoryItems">
                         <button class="largeButton">
                            Pick up
@@ -26,7 +20,8 @@
                     </router-link>
                     <br>
                     <br>
-                <h4> Already placed an order? </h4>   
+                <h4> Already placed an order? </h4>  
+                <br> 
 
                     <router-link to="/viewOrderStatus">
                         <button class="largeButton">
@@ -38,5 +33,19 @@
     </div>
 </template>
 
-<style scoped>
+<style>
+.largeButton {
+    width: 250px;
+}
 </style>
+
+
+<script>
+import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
+export default{
+    name:'CustomerWelcomePage',
+    components:{
+        CustomerNavigationBar
+    }
+}
+</script>

@@ -1,6 +1,5 @@
 <template>
-  <div>
- 
+<div>
   <b-navbar fixed="top" toggleable="lg">
       <b-navbar-brand>STORIKO</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -14,18 +13,5 @@
           </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-  </div>
+</div>
 </template>
-
-<script>
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-
-
-
-
-
-</style>
