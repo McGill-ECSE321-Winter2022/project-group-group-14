@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" >
     
     <router-view></router-view>
 
@@ -27,17 +27,29 @@ export default {
   border-bottom: 1px;
 }
 
+.background-img {
+    background-image: url("assets/orang2.jpeg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 750px;
+    object-fit: none;
+  }
+
 ul {
   list-style-type: none;
 }
 
 .navbar-brand {
   font-family: 'Merriweather', serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #f7a851;
+
 }
 .navbar {
   font-family: 'Nunito', sans-serif;
   background-color: white;
-  border-bottom: 1px solid;
+  border-bottom: 3px solid #f7a851;
   padding-right: 80px;
   padding-left: 80px;
   padding-top: 0;
@@ -69,13 +81,14 @@ ul {
 }
 
 .navBar {
+  
   list-style-type: none;
   margin: 0;
   padding-right: 80px;
   padding-left: 80px;
   overflow: hidden;
   background-color: white;
-  border-bottom: 1px solid;
+  border-bottom: 3px solid #f7a851;
   position: fixed;
   top: 0;
   width: 100%;
@@ -163,10 +176,41 @@ ul {
   transition: 0.5s;
 }
 
-.button:hover {
+.mediumButton {
+  font-size: 15px;
+  margin-top: 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid #111;
+  border-radius: 12px;
+  transition: 0.5s;
+}
+
+.mediumButton:hover{
   /*background-color: #EAEDEA;*/
   box-shadow: 0px 0px 3px 1px #888888;
-  color: black;
+  border-color: white;
+  color: white;
+  background-color: #f7a851;
+  transition: 0.3s;
+}
+
+
+.largeButton:hover{
+  /*background-color: #EAEDEA;*/
+  box-shadow: 0px 0px 3px 1px #888888;
+  border-color: white;
+  color: white;
+  background-color: #f7a851;
+  transition: 0.3s;
+}
+
+.button:hover{
+  /*background-color: #EAEDEA;*/
+  box-shadow: 0px 0px 3px 1px #888888;
+  border-color: white;
+  color: white;
+  background-color: #f7a851;
   transition: 0.3s;
 }
 
