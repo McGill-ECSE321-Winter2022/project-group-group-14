@@ -26,20 +26,63 @@
           </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+
+
+
+<span v-if="errorPerson" style="color:red">Error: {{errorPerson}} </span>
   </div>
 </template>
 
-<script>
+<script src="./StoreScheduleCustomer.js">
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
-
-
-.page a {
-  font-size: 13px;
+h1, h2 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bold;
 }
 
+td,th {
+    border: 1px solid rgb(190, 190, 190);
+    padding: 10px;
+}
 
+td {
+    text-align: center;
+}
 
+tr:nth-child(even) {
+    background-color: #eee;
+}
+
+th[scope="row"] {
+    background-color: #d7d9f2;
+}
+
+caption {
+    padding: 10px;
+    caption-side: top;
+}
+
+table {
+    
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    
+    width: 75%;
+    table-layout: auto;
+    border-collapse: separate;
+    border: 2px solid rgb(200, 200, 200);
+    letter-spacing: 1px;
+    font-family: sans-serif;
+    font-size: .8rem;
+}
+
+.news {
+  width: 25%;
+}
 </style>
