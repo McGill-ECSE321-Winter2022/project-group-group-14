@@ -1,10 +1,14 @@
 <template>
     <div >
-    <ul class="navBar">
-        <li class="logo">STORIKO</li>
-        <li class="page"><a href="#/">Log Out</a></li>
+    <b-navbar fixed="top">
+      <b-navbar-brand>STORIKO</b-navbar-brand>
+    
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item href="#/">Log Out</b-nav-item>
+          </b-navbar-nav>
+    
+    </b-navbar>
 
-    </ul>
 
         <div class="verticalandhorizontal-center">
             <h2 class="heading">Thank You for your order</h2>

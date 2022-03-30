@@ -2,9 +2,7 @@
     <div >
         <b-navbar fixed="top">
       <b-navbar-brand>STORIKO</b-navbar-brand>
-      
-     
-
+    
           <b-navbar-nav class="ml-auto">
             <b-nav-item href="#/">Log Out</b-nav-item>
           </b-navbar-nav>

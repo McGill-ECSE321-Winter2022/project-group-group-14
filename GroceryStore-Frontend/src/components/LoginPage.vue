@@ -1,6 +1,7 @@
 <template>
 <div>
   <div class="background-img">
+  </div>
     <b-navbar fixed="top">
       <b-navbar-brand>STORIKO</b-navbar-brand>
       
@@ -88,7 +89,6 @@
       <br />
       <br />
     </div>
-  </div>
 </div>  
 </template>
 
@@ -100,5 +100,6 @@
     background-color: white;
     border-radius: 4%;
     margin-top: 1%;
+    box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
   }
 </style>
