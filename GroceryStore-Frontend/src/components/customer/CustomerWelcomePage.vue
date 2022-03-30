@@ -1,14 +1,7 @@
 <template>
     <div >
-        <b-navbar fixed="top">
-      <b-navbar-brand>STORIKO</b-navbar-brand>
+    <CustomerNavigationBar></CustomerNavigationBar>
     
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item href="#/">Log Out</b-nav-item>
-          </b-navbar-nav>
-    
-    </b-navbar>
-
         <div class="verticalandhorizontal-center">
             <h2 class="heading">Welcome Customer! </h2>
             <br>
@@ -40,3 +33,21 @@
 
 <style scoped>
 </style>
+
+
+<script>
+import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
+// import CustomerNavigationBar.vue from '@/customer/CustomerNavigationBar.vue'
+
+// export default defineComponent({
+//     setup() {
+        
+//     },
+// })
+export default{
+    name:'CustomerWelcomePage',
+    components:{
+        CustomerNavigationBar
+    }
+}
+</script>
