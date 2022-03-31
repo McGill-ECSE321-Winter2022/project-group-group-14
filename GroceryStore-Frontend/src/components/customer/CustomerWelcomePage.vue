@@ -1,6 +1,10 @@
 <template>
     <div >
-    <CustomerNavigationBar></CustomerNavigationBar>
+        <CustomerNavigationBar></CustomerNavigationBar>
+
+        <div class="background-img">
+            <img src="../../assets/orange3.jpg">
+        </div>
         <div class="verticalandhorizontal-center">
             <h2 class="heading">Welcome Customer! </h2>
             <br>
@@ -37,6 +41,13 @@
 .largeButton {
     width: 250px;
 }
+.verticalandhorizontal-center {
+    padding: 2% 6% 2% 6%;
+    background-color: white;
+    border-radius: 4%;
+    margin-top: 1%;
+    box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
+  }
 </style>
 
 

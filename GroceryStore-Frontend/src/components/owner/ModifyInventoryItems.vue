@@ -27,24 +27,69 @@
           </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-    <div>
-        <div class="form">
-            
-                <label for="iname">Name</label>
-                <input type="text" id="iname" name="name" placeholder="Enter Inventory Item Name">
-            
-            
-                <label for="iprice">Price</label>
-                <input type="number" id="iprice" name="price" placeholder="Enter Inventory Item Price">
-            
-            
-                <label for="istock">Stock Number</label>
-                <input type="number" id="istock" name="currentStock" placeholder="Enter Inventory Item Stock">
+        
+        <div class="verticalandhorizontal-center">
+
+        <h2 class="heading">Create / Update Inventory Items</h2>
+
+        <br>
+
+        <h6 class="subheading">Names must be unique within the system</h6>
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            v-model="newInventoryItem.name"
+            class="form-control"
+            id="floatingInput"
+            placeholder="Inventory Item's Name"
+            required
+          />
         </div>
 
-        <button class="button" @click="createInventoryItem(inventoryItem.name,inventoryItem.price,inventoryItem.currentStock)">Create Inventory Item</button>
-        <button class="button">Update Inventory Item</button>
+        <h6 class="subheading">Price must be a positive integer</h6>
+        <div class="form-floating mb-3">
+          <input
+            type="number"
+            min="1"
+            v-model="newInventoryItem.price"
+            class="form-control"
+            id="floatingInput"
+            placeholder="Inventory Item's Price"
+            required
+          />
+        </div>
+
+        <h6 class="subheading">Stock number must be a positive integer</h6>
+        <div class="form-floating mb-3">
+          <input
+            type="number"
+            min="1"
+            v-model="newInventoryItem.currentStock"
+            class="form-control"
+            id="floatingPassword"
+            placeholder="Inventory Item Stock Number"
+            required
+          />
+        </div>
+        <div>
+              <button class="largeButton" type="CreateButton" @click="createInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock)">
+                Create Inventory Item
+              </button>
+              <br>
+              <button class="largeButton" type="CreateButton">
+                Update Inventory Item
+              </button>
+        </div>
+        <div>
+        <span v-if="errorInventory" style="color:red">Error: {{errorInventory}} </span>
+        <ul class="item" >
+                  <li class="info item-name" v-for="inventoryItem in inventoryItems" :key=inventoryItem.name>
+                    {{ inventoryItem.name }}
+                  </li>
+        </ul>
     </div>
+        </div>
+        
   </div>
 </template>
 <script src="./modifyInventoryItem.js">
