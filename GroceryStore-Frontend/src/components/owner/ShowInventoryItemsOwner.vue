@@ -45,9 +45,9 @@
                   <li class="info add-item">
                     <button class="button">Remove Item</button>
                   </li>
-                  <li class="info edit">
+                  <!-- <li class="info edit">
                     <a  href="#/modifyItems">Edit Item</a>
-                  </li>
+                  </li> -->
                   
         </ul>
       </div>

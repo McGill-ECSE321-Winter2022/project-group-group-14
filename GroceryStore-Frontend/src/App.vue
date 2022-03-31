@@ -30,13 +30,16 @@ export default {
   border-bottom: 1px;
 }
 
-.background-img {
-    background-image: url("assets/orange5.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    height: 665px;
+.background-img, .background-img2, .background-img3{
+    /* background: url("assets/orange5.jpg") no-repeat center fixed;  */
+    height: 100vh;
     filter: blur(8px);
-    -webkit-filter: blur(8px);
+    -webkit-filter: blur(8px)
+  }
+
+  .background-img>img, .background-img2>img .background-img3>img {
+    width:100%;
+    height: 100%;
   }
 
 ul {
@@ -175,7 +178,6 @@ ul {
   margin: 10px;
   padding-left: 50px;
   padding-right: 50px;
-  border: 1px solid black;
   border-radius: 10px;
   transition: 0.3s;
 }
@@ -234,19 +236,19 @@ ul {
   font-size: 15px;
 }
 
-.button, .largeButton, .mediumButton {
+.button, .largeButton, .mediumButton, .dropdown-list{
   margin-bottom: 15px;
   margin-right: 10px;
   margin-left: 10px;
   background-color: white;
-  box-shadow: 0px 0px 2px 2px #c7c7c7;
+  box-shadow: 0px 0px 5px 1px #c7c7c7;
   color: black;
   border: none;
   border-radius: 12px;
   transition: 0.5s;
 }
 
-.mediumButton:hover, .largeButton:hover, .button:hover {
+.mediumButton:hover, .largeButton:hover, .button:hover{
   box-shadow: 0px 0px 8px 2px #c7c7c7;
   border-color: #f7a851;
   color: white;
@@ -254,5 +256,10 @@ ul {
   transition: 0.3s;
 }
 
+
+.dropdown-list {
+  width: 3em;
+  border-radius: 10px;
+}
 
 </style>
