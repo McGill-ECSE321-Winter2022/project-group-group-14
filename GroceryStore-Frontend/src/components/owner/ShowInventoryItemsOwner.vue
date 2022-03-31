@@ -43,7 +43,7 @@
                     Stock: {{ inventoryItem.currentStock }}
                   </li>
                   <li class="info add-item">
-                    <button class="button">Remove Item</button>
+                    <button class="button" @click="deleteInventoryItem(inventoryItem.name)">Remove Item</button>
                   </li>
                   <!-- <li class="info edit">
                     <a  href="#/modifyItems">Edit Item</a>

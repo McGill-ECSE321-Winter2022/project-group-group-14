@@ -9,6 +9,9 @@
     
     </b-navbar>
 
+         <div class="background-img">
+            <img src="../../assets/orange8.jpg">
+        </div>
         <div class="verticalandhorizontal-center">
             <h2 class="heading">Welcome Employee! </h2>
 
@@ -38,4 +41,15 @@
 </template>
 
 <style scoped>
+.verticalandhorizontal-center {
+    padding: 2% 6% 2% 6%;
+    background-color: white;
+    border-radius: 4%;
+    margin-top: 1%;
+    box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
+  }
+.heading {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
 </style>

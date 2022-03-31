@@ -27,7 +27,7 @@
           </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-        
+    <div class="bg-color-gradient">
         <div class="verticalandhorizontal-center">
 
         <h2 class="heading">Create / Update Inventory Items</h2>
@@ -76,26 +76,29 @@
                 Create Inventory Item
               </button>
               <br>
-              <button class="largeButton" type="CreateButton">
+              <button class="largeButton" type="UpdateButton" @click="updateInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock)">
                 Update Inventory Item
               </button>
+              <button class="largeButton" type="DeleteButton" @click="deleteInventoryItem(newInventoryItem.name)">
+                Delete Inventory Item
+              </button>
         </div>
-        <div>
-        <span v-if="errorInventory" style="color:red">Error: {{errorInventory}} </span>
-        <ul class="item" >
-                  <li class="info item-name" v-for="inventoryItem in inventoryItems" :key=inventoryItem.name>
-                    {{ inventoryItem.name }}
-                  </li>
-        </ul>
+        
+      </div>
     </div>
-        </div>
         
   </div>
 </template>
 <script src="./modifyInventoryItem.js">
 </script>
 <style scoped>
-
+.verticalandhorizontal-center {
+    padding: 2% 6% 2% 6%;
+    background-color: white;
+    border-radius: 4%;
+    margin-top: 1%;
+    box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
+  }
     .page a {
         font-size: 13px;
     }
@@ -131,6 +134,10 @@
         margin-bottom: 30px;
     }
 
+
+.bg-color-gradient {
+  height: 100vh;
+}
     
   
 </style>

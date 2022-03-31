@@ -27,18 +27,30 @@
       </b-collapse>
     </b-navbar>
 
+        <div class="bg-color-gradient">
+            
+        </div>
         <div class="verticalandhorizontal-center">
-            <h2 class="heading">Welcome Owner! </h2>
+            <h1 class="heading">Welcome Owner! </h1>
         </div>
     </div>
 </template>
 
 <style scoped>
+
+h1 {
+  font-size: 60px;
+}
+
+.bg-color-gradient {
+  height: 100vh;
+}
+
 .verticalandhorizontal-center {
     padding: 2% 6% 2% 6%;
-    background-color: white;
+    background-color: transparent; 
     border-radius: 15px;
     margin-top: 1%;
-    box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
+    box-shadow: 0 0 10px 7px rgb(0,0,0,0);
   }
 </style>
