@@ -1,6 +1,7 @@
 <template>
 <div>
   <div class="background-img">
+    <img src="../assets/orange5.jpg">
   </div>
     <b-navbar fixed="top">
       <b-navbar-brand>STORIKO</b-navbar-brand>
@@ -86,8 +87,6 @@
               </router-link>
 
       </div>
-      <br />
-      <br />
     </div>
 </div>  
 </template>
