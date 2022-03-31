@@ -29,60 +29,157 @@
 
 
 
+<form>
+
+<label for="day">Select Day:</label>
+  <input class="selectDay" list="days" name="day">
+  <datalist id="days">
+    <option value="Sunday"></option>
+    <option value="Monday"></option>
+    <option value="Tuesday"></option>
+    <option value="Wednesday"></option>
+    <option value="Thursday"></option>
+    <option value="Friday"></option>
+    <option value="Saturday"></option>
+  </datalist>
+
+<label for="time">Select new Opening Time:</label>
+  <input class="changeOpen" list="times" name="time">
+  <datalist id="times">
+    <option value="08:00"></option>
+    <option value="08:15"></option>
+    <option value="08:30"></option>
+    <option value="08:45"></option>
+    <option value="09:00"></option>
+    <option value="09:15"></option>
+    <option value="09:30"></option>
+    <option value="09:45"></option>
+    <option value="10:00"></option>
+    <option value="10:15"></option>
+    <option value="10:30"></option>
+    <option value="10:45"></option>
+    <option value="11:00"></option>
+    <option value="11:15"></option>
+    <option value="11:30"></option>
+    <option value="11:45"></option>
+    <option value="12:00"></option>
+    <option value="12:15"></option>
+    <option value="12:30"></option>
+    <option value="12:45"></option>
+    <option value="13:00"></option>
+    <option value="13:15"></option>
+    <option value="13:30"></option>
+    <option value="13:45"></option>
+    <option value="14:00"></option>
+    <option value="14:15"></option>
+    <option value="14:30"></option>
+    <option value="14:45"></option>
+    <option value="15:00"></option>
+    <option value="15:15"></option>
+    <option value="15:30"></option>
+    <option value="15:45"></option>
+    <option value="16:00"></option>
+    <option value="16:15"></option>
+    <option value="16:30"></option>
+    <option value="16:45"></option>
+    <option value="17:00"></option>
+    <option value="17:15"></option>
+    <option value="17:30"></option>
+    <option value="17:45"></option>
+    <option value="18:00"></option>
+    <option value="18:15"></option>
+    <option value="18:30"></option>
+    <option value="18:45"></option>
+    <option value="19:00"></option>
+    <option value="19:15"></option>
+    <option value="19:30"></option>
+    <option value="19:45"></option>
+    <option value="20:00"></option>
+  </datalist>
+
+<label for="time">Select new Closing Time:</label>
+  <input class="changeClose" list="times" name="time">
+  <datalist id="times">
+    <option value="08:00"></option>
+    <option value="08:15"></option>
+    <option value="08:30"></option>
+    <option value="08:45"></option>
+    <option value="09:00"></option>
+    <option value="09:15"></option>
+    <option value="09:30"></option>
+    <option value="09:45"></option>
+    <option value="10:00"></option>
+    <option value="10:15"></option>
+    <option value="10:30"></option>
+    <option value="10:45"></option>
+    <option value="11:00"></option>
+    <option value="11:15"></option>
+    <option value="11:30"></option>
+    <option value="11:45"></option>
+    <option value="12:00"></option>
+    <option value="12:15"></option>
+    <option value="12:30"></option>
+    <option value="12:45"></option>
+    <option value="13:00"></option>
+    <option value="13:15"></option>
+    <option value="13:30"></option>
+    <option value="13:45"></option>
+    <option value="14:00"></option>
+    <option value="14:15"></option>
+    <option value="14:30"></option>
+    <option value="14:45"></option>
+    <option value="15:00"></option>
+    <option value="15:15"></option>
+    <option value="15:30"></option>
+    <option value="15:45"></option>
+    <option value="16:00"></option>
+    <option value="16:15"></option>
+    <option value="16:30"></option>
+    <option value="16:45"></option>
+    <option value="17:00"></option>
+    <option value="17:15"></option>
+    <option value="17:30"></option>
+    <option value="17:45"></option>
+    <option value="18:00"></option>
+    <option value="18:15"></option>
+    <option value="18:30"></option>
+    <option value="18:45"></option>
+    <option value="19:00"></option>
+    <option value="19:15"></option>
+    <option value="19:30"></option>
+    <option value="19:45"></option>
+    <option value="20:00"></option>
+  </datalist>
+
+<br></br>
+  <input class="confirmation" type="submit" value="Change Time">
+</form>
+
 <span v-if="errorPerson" style="color:red">Error: {{errorPerson}} </span>
   </div>
 </template>
 
-<script src="./StoreScheduleCustomer.js">
+<script src="./StoreScheduleOwner.js">
 </script>
 
 
 <style scoped>
-h1, h2 {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: bold;
+
+.selectDay {
+  margin-top: 12%;
+  margin-right: 6%;
 }
 
-td,th {
-    border: 1px solid rgb(190, 190, 190);
-    padding: 10px;
+.changeOpen {
+  margin-top: 12%;
+  margin-right: 6%;
 }
 
-td {
-    text-align: center;
+.changeClose {
+  margin-top: 12%;
 }
 
-tr:nth-child(even) {
-    background-color: #eee;
-}
-
-th[scope="row"] {
-    background-color: #d7d9f2;
-}
-
-caption {
-    padding: 10px;
-    caption-side: top;
-}
-
-table {
-    
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 3%;
-    
-    width: 75%;
-    table-layout: auto;
-    border-collapse: separate;
-    border: 2px solid rgb(200, 200, 200);
-    letter-spacing: 1px;
-    font-family: sans-serif;
-    font-size: .8rem;
-}
-
-.news {
-  width: 25%;
+.confirmation {
+  margin-top: 20%;
 }
 </style>
