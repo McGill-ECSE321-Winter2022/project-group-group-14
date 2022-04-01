@@ -30,11 +30,15 @@ export default {
   border-bottom: 1px;
 }
 
+.bg-color-gradient {
+    background-image: linear-gradient(white,antiquewhite);
+}
+
 .background-img, .background-img2, .background-img3{
     /* background: url("assets/orange5.jpg") no-repeat center fixed;  */
     height: 100vh;
     filter: blur(8px);
-    -webkit-filter: blur(8px)
+    -webkit-filter: blur(8px);
   }
 
   .background-img>img, .background-img2>img .background-img3>img {
@@ -104,6 +108,10 @@ ul {
   position: fixed;
   top: 0;
   width: 100%;
+}
+
+.dropdown-item:active {
+  background-color:#f7a851;
 }
 
 /*------------------------ Old Navigation Bar Styles -------------------- */
@@ -176,26 +184,29 @@ ul {
 .grid-item {
   box-shadow: 0 0 15px 5px rgb(0,0,0,0.2);
   margin: 10px;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 7%;
+  padding-right: 7%;
   border-radius: 10px;
   transition: 0.3s;
+  background-color: white;
 }
 
 .grid-item:hover {
-  box-shadow: 0 0 10px 3px rgb(0,0,0,0.2);
+  box-shadow: 0 0 10px 2px rgb(0,0,0,0.2);
   transition: 0.3s;
 }
 
 .grid-container {
+  background-image: linear-gradient(rgb(255, 254, 254),rgb(255, 251, 246));
   display: grid;
   row-gap: 70px;
   column-gap: 90px;
-  margin-left: 150px;
-  margin-right: 150px;
+  padding-left: 150px;
+  padding-right: 150px;
   grid-template-columns: auto auto auto;
-  margin-top: 150px;
-  margin-bottom: 100px;
+  padding-top: 150px;
+  padding-bottom: 100px;
+  min-height: 100vh;
 }
 
 /*------------------------ Input Form Styles -------------------- */
@@ -260,6 +271,22 @@ ul {
 .dropdown-list {
   width: 3em;
   border-radius: 10px;
+}
+
+/*------------------------ Responsive changes -------------------- */
+
+@media (max-width: 1170px){
+  .grid-container {
+    grid-template-columns: auto auto;
+  }
+}
+
+
+@media (max-width: 875px){
+  .grid-container {
+    grid-template-columns: auto;
+  }
+
 }
 
 </style>

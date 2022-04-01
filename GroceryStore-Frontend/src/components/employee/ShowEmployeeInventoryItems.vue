@@ -31,7 +31,7 @@
                   Stock: {{ inventoryItem.currentStock }}
                 </li>
                 <li class="info">
-                  <button class="button add-item" @click="createInventoryItem(inventoryItem.name,inventoryItem.price,inventoryItem.currentStock)">Add Item</button>
+                  <button class="button add-item">Add to Cart</button>
                 </li>
                 
       </ul>
