@@ -47,7 +47,7 @@ methods: {
           .then(response => {
           // JSON responses are automatically parsed.
             this.storeSchedules.push(response.data)
-            this.errorSchedule = ''
+            this.errorSchedule = day + ' is created successfully!'
             this.newStoreSchedule = ''
           })
           .catch(e => {
@@ -57,11 +57,11 @@ methods: {
           })
       },
       updateStoreSchedule: function (openTime,closeTime,day) {
-        AXIOS.put('/storeSchedules/update/'.concat(day), {}, {params: {params: {openingTime: openTime, closingTime: closeTime}}})
+        AXIOS.put('/storeSchedules/update/'.concat(day), {}, {params: {openingTime: openTime, closingTime: closeTime}})
           .then(response => {
           // JSON responses are automatically parsed.
             this.storeSchedules.push(response.data)
-            this.errorSchedule = ''
+            this.errorSchedule = day + ' is updated successfully!'
             this.newStoreSchedule = ''
           })
           .catch(e => {
@@ -74,8 +74,7 @@ methods: {
         AXIOS.delete('/storeSchedules/delete/'.concat(day), {}, {})
           .then(response => {
           // JSON responses are automatically parsed.
-            // this.storeSchedules
-            this.errorSchedule = ''
+            this.errorSchedule = day + ' is deleted successfully!'
             this.newStoreSchedule = ''
           })
           .catch(e => {

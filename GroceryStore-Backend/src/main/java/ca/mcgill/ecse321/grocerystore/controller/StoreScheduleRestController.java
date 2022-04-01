@@ -28,9 +28,9 @@ public class StoreScheduleRestController {
 	@Autowired
 	private StoreScheduleService service;
 
-	@PostMapping(value = { "/storeSchedules/{day}/{openingTime}/{closingTime}", "/storeSchedules/{day}/{openingTime}/{closingTime}/" })
+	@PostMapping(value = { "/storeSchedules/create/{day}", "/storeSchedules/create/{day}/" })
 	public StoreScheduleDto createStoreSchedule(@PathVariable("day") String day,
-	@PathVariable String openingTime, @PathVariable String closingTime)
+	@RequestParam String openingTime, @RequestParam String closingTime)
 	throws IllegalArgumentException {
 		
 		if (service.getStoreScheduleByDayOpen(Day.valueOf(day)) != null) {
@@ -49,7 +49,7 @@ public class StoreScheduleRestController {
 		return convertToDto(service.getStoreScheduleByDayOpen(Day.valueOf(day)));
 	}
 	
-	@GetMapping(value = { "/storeSchedules", "/storeSchedules/" })
+	@GetMapping(value = { "/storeSchedules/get", "/storeSchedules/get/" })
 	public List<StoreScheduleDto> getAllStoreSchedules() {
 		List<StoreScheduleDto> storeScheduleDtos = new ArrayList<>();
 		for (StoreSchedule storeSchedule : service.getAllStoreSchedules()) {
@@ -58,21 +58,19 @@ public class StoreScheduleRestController {
 		return storeScheduleDtos;
 	}
 	
-	@PutMapping(value = { "/storeSchedules/update/{day}", "/storeSchedules/{day}/" })
+	@PutMapping(value = { "/storeSchedules/update/{day}", "/storeSchedules/update/{day}/" })
 	public StoreScheduleDto updateStoreSchedule(@PathVariable("day") String day,
 			@RequestParam String openingTime, @RequestParam String closingTime) throws IllegalArgumentException  {
 		LocalTime newOpen = convertToLocalTime(openingTime);
 		LocalTime newClose = convertToLocalTime(closingTime);
 		
-		StoreSchedule newSchedule = service.getStoreScheduleByDayOpen(Day.valueOf(day));
-		newSchedule.setOpeningTime(Time.valueOf(newOpen));
-		newSchedule.setClosingTime(Time.valueOf(newClose));
-		
-		StoreSchedule storeSchedule  = service.updateStoreScheduleInfo(newSchedule);
+		StoreSchedule storeSchedule  = service.updateStoreScheduleInfo(Day.valueOf(day), Time.valueOf(newOpen), Time.valueOf(newClose));
 		return convertToDto(storeSchedule);
 	}
 	
-	@PutMapping(value = { "/storeSchedules/update/openingTime/{day}", "/storeSchedules/{day}/" })
+	
+	/**
+	@PutMapping(value = { "/storeSchedules/update/openingTime/{day}", "/storeSchedules/update/openingTime/{day}/" })
 	public StoreScheduleDto updateStoreScheduleOpeningTime(@PathVariable("day") String day,
 			@RequestParam String openingTime) throws IllegalArgumentException  {
 		LocalTime newOpen = convertToLocalTime(openingTime);
@@ -84,7 +82,7 @@ public class StoreScheduleRestController {
 		return convertToDto(storeSchedule);
 	}
 	
-	@PutMapping(value = { "/storeSchedules/update/closingTime/{day}", "/storeSchedules/{day}/" })
+	@PutMapping(value = { "/storeSchedules/update/closingTime/{day}", "/storeSchedules/update/closingTime/{day}/" })
 	public StoreScheduleDto updateStoreScheduleClosingTime(@PathVariable("day") String day,
 			@RequestParam String closingTime) throws IllegalArgumentException  {
 		LocalTime newClose = convertToLocalTime(closingTime);
@@ -95,6 +93,7 @@ public class StoreScheduleRestController {
 		StoreSchedule storeSchedule  = service.updateStoreScheduleInfo(newSchedule);
 		return convertToDto(storeSchedule);
 	}
+	**/
 	
 	
 	@DeleteMapping({ "/storeSchedules/{day}", "/storeSchedules/{day}/" })
