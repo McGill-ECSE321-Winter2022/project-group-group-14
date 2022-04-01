@@ -58,7 +58,7 @@ public class StoreScheduleRestController {
 		return storeScheduleDtos;
 	}
 	
-	@PutMapping(value = { "/storeSchedules/{day}", "/storeSchedules/{day}/" })
+	@PutMapping(value = { "/storeSchedules/update/{day}", "/storeSchedules/{day}/" })
 	public StoreScheduleDto updateStoreSchedule(@PathVariable("day") String day,
 			@RequestParam String openingTime, @RequestParam String closingTime) throws IllegalArgumentException  {
 		LocalTime newOpen = convertToLocalTime(openingTime);
@@ -72,7 +72,7 @@ public class StoreScheduleRestController {
 		return convertToDto(storeSchedule);
 	}
 	
-	@PutMapping(value = { "/storeSchedules/{day}", "/storeSchedules/{day}/" })
+	@PutMapping(value = { "/storeSchedules/update/openingTime/{day}", "/storeSchedules/{day}/" })
 	public StoreScheduleDto updateStoreScheduleOpeningTime(@PathVariable("day") String day,
 			@RequestParam String openingTime) throws IllegalArgumentException  {
 		LocalTime newOpen = convertToLocalTime(openingTime);
@@ -84,7 +84,7 @@ public class StoreScheduleRestController {
 		return convertToDto(storeSchedule);
 	}
 	
-	@PutMapping(value = { "/storeSchedules/{day}", "/storeSchedules/{day}/" })
+	@PutMapping(value = { "/storeSchedules/update/closingTime/{day}", "/storeSchedules/{day}/" })
 	public StoreScheduleDto updateStoreScheduleClosingTime(@PathVariable("day") String day,
 			@RequestParam String closingTime) throws IllegalArgumentException  {
 		LocalTime newClose = convertToLocalTime(closingTime);

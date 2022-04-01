@@ -1,6 +1,12 @@
 <template>
   <div class="inventory">
-    
+    <div id="popup1" class="overlay" v-if="errorInventory">
+          <div class="popup">
+            <h5>{{ errorInventory }}</h5>
+            <!-- <button class="mediumButton" >Close</button> -->
+            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+          </div>
+        </div>
     <b-navbar fixed="top" toggleable="lg">
       <b-navbar-brand>STORIKO</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -27,7 +33,8 @@
           </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-        
+    <div class="bg-color-gradient">
+      
         <div class="verticalandhorizontal-center">
 
         <h2 class="heading">Create / Update Inventory Items</h2>
@@ -76,19 +83,16 @@
                 Create Inventory Item
               </button>
               <br>
-              <button class="largeButton" type="CreateButton">
+              <button class="largeButton" type="UpdateButton" @click="updateInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock)">
                 Update Inventory Item
               </button>
+              <button class="largeButton" type="DeleteButton" @click="deleteInventoryItem(newInventoryItem.name)">
+                Delete Inventory Item
+              </button>
         </div>
-        <div>
-        <span v-if="errorInventory" style="color:red">Error: {{errorInventory}} </span>
-        <ul class="item" >
-                  <li class="info item-name" v-for="inventoryItem in inventoryItems" :key=inventoryItem.name>
-                    {{ inventoryItem.name }}
-                  </li>
-        </ul>
+        
+      </div>
     </div>
-        </div>
         
   </div>
 </template>
@@ -96,6 +100,39 @@
 </script>
 <style scoped>
 
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  opacity: 100%;
+  z-index: 100;
+}
+
+.popup {
+  margin: auto;
+  margin-top: 40vh;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  transition: all 5s ease-in-out;
+}
+
+
+
+.verticalandhorizontal-center {
+    padding: 2% 6% 2% 6%;
+    background-color: white;
+    border-radius: 4%;
+    margin-top: 1%;
+    box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
+  }
     .page a {
         font-size: 13px;
     }
@@ -117,6 +154,10 @@
         margin: 30px;
     }
 
+    .mediumButton {
+      margin: 0;
+    }
+
     label {
         font-size: 18px;
         margin-bottom: 0;
@@ -131,6 +172,10 @@
         margin-bottom: 30px;
     }
 
+
+.bg-color-gradient {
+  height: 100vh;
+}
     
   
 </style>

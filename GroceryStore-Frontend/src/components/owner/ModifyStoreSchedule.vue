@@ -151,7 +151,7 @@
     <option value="20:00"></option>
   </datalist>
 
-<br></br>
+<br>
   <input class="confirmation" type="submit" value="Change Time">
 </form>
 

@@ -46,29 +46,44 @@ methods: {
           .then(response => {
           // JSON responses are automatically parsed.
             this.inventoryItems.push(response.data)
-            this.errorInventory = ''
+            this.errorInventory = itemName + ' is created successfully!'
             this.newInventoryItem = ''
           })
           .catch(e => {
             var errorMsg = e.response.data.message
             console.log(errorMsg)
-            this.errorPerson = errorMsg
+            this.errorInventory = errorMsg
           })
       },
       updateInventoryItem: function (itemName,itemPrice,itemStock) {
-        AXIOS.post('/inventoryItems/update/'.concat(itemName), {itemPrice}, {itemStock})
+        AXIOS.put('/inventoryItems/update/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock}})
           .then(response => {
           // JSON responses are automatically parsed.
             this.inventoryItems.push(response.data)
-            this.errorInventory = ''
+            this.errorInventory = itemName + ' is updated successfully!'
             this.newInventoryItem = ''
           })
           .catch(e => {
             var errorMsg = e.response.data.message
             console.log(errorMsg)
-            this.errorPerson = errorMsg
+            this.errorInventory = errorMsg
+          })
+      },
+      deleteInventoryItem: function (itemName) {
+        AXIOS.delete('/inventoryItems/delete/'.concat(itemName), {}, {})
+          .then(response => {
+          // JSON responses are automatically parsed.
+            // this.inventoryItems
+            this.errorInventory = itemName + ' is deleted successfully!'
+            this.newInventoryItem = ''
+          })
+          .catch(e => {
+            var errorMsg = e.response.data.message
+            console.log(errorMsg)
+            this.errorInventory = errorMsg
           })
       }
+
 
 }
 }
