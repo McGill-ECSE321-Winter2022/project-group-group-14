@@ -9,7 +9,7 @@ export default {
 name: 'storeschedule',
 data () {
     return {
-    storeschedules: [],
+    storeSchedules: [],
     newStoreSchedule: '',
     errorSchedule: '',
     response: []
