@@ -38,7 +38,7 @@ export default {
     /* background: url("assets/orange5.jpg") no-repeat center fixed;  */
     height: 100vh;
     filter: blur(8px);
-    -webkit-filter: blur(8px)
+    -webkit-filter: blur(8px);
   }
 
   .background-img>img, .background-img2>img .background-img3>img {

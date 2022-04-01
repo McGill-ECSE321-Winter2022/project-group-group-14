@@ -1,6 +1,12 @@
 <template>
   <div class="inventory">
-    
+    <div id="popup1" class="overlay" v-if="errorInventory">
+          <div class="popup">
+            <h5>{{ errorInventory }}</h5>
+            <!-- <button class="mediumButton" >Close</button> -->
+            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+          </div>
+        </div>
     <b-navbar fixed="top" toggleable="lg">
       <b-navbar-brand>STORIKO</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -28,6 +34,7 @@
       </b-collapse>
     </b-navbar>
     <div class="bg-color-gradient">
+      
         <div class="verticalandhorizontal-center">
 
         <h2 class="heading">Create / Update Inventory Items</h2>
@@ -92,6 +99,33 @@
 <script src="./modifyInventoryItem.js">
 </script>
 <style scoped>
+
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  opacity: 100%;
+  z-index: 100;
+}
+
+.popup {
+  margin: auto;
+  margin-top: 40vh;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  transition: all 5s ease-in-out;
+}
+
+
+
 .verticalandhorizontal-center {
     padding: 2% 6% 2% 6%;
     background-color: white;
@@ -118,6 +152,10 @@
         font-size: 17px;
         width: fit-content;
         margin: 30px;
+    }
+
+    .mediumButton {
+      margin: 0;
     }
 
     label {
