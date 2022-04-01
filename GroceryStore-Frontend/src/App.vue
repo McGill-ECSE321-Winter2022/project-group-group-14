@@ -87,7 +87,7 @@ ul {
  }
 
 .navbar-light .navbar-nav .nav-link { 
-  color:black;
+  /* color:black; */
   transition: 0.3s;
 }
 
