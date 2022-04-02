@@ -18,7 +18,6 @@
           <div class="form-floating mb-3">
             <input
               type="text"
-              v-model="userId"
               class="form-control"
               id="floatingInput"
               placeholder="Username"
@@ -29,7 +28,6 @@
           <div class="form-floating">
             <input
               type="text"
-              v-model="password"
               class="form-control"
               id="floatingPassword"
               placeholder="Password"

@@ -1,7 +1,9 @@
 <template>
   <div class="modEmp">
   <b-navbar fixed="top" toggleable="lg">
-      <b-navbar-brand>STORIKO</b-navbar-brand>
+      <router-link to="/ownerWelcomePage">
+        <b-navbar-brand>STORIKO</b-navbar-brand>
+      </router-link>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import GroceryStore from '@/components/GroceryStore'
 import LoginPage from '@/components/LoginPage'
 //owner imports
+import EmployeeSchedules from '@/components/owner/EmployeeSchedules'
 import OwnerWelcomePage from '@/components/owner/OwnerWelcomePage'
 import ViewStoreScheduleOwner from '@/components/owner/ViewStoreScheduleOwner'
 import DeleteOwnerAccount from '@/components/owner/DeleteOwnerAccount'
@@ -13,7 +14,7 @@ import ModifyEmployees from '@/components/owner/ModifyEmployees'
 import ModifyStoreSchedule from '@/components/owner/ModifyStoreSchedule'
 import Report from '@/components/owner/Report'
 //employee imports
-import EmployeeSchedules from '@/components/employee/EmployeeSchedules'
+import EmployeeSchedulesFromEmployee from '@/components/employee/EmployeeSchedulesFromEmployee'
 import DeleteEmployeeAccount from '@/components/employee/DeleteEmployeeAccount'
 import CreateCustomerFromEmployee from '@/components/employee/CreateCustomerFromEmployee'
 import UpdateCustomerFromEmployee from '@/components/employee/UpdateCustomerFromEmployee'
@@ -98,6 +99,11 @@ export default new Router({
       path: '/employeeSchedules',
       name: 'EmployeeSchedules',
       component: EmployeeSchedules
+    },
+    {
+      path: '/employeeSchedulesFromEmployee',
+      name: 'EmployeeSchedulesFromEmployee',
+      component: EmployeeSchedulesFromEmployee
     },
     {
       path: '/deleteCustomerAccount',

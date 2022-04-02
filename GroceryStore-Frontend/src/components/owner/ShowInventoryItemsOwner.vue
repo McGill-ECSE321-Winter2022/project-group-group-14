@@ -1,7 +1,9 @@
 <template>
   <div>
     <b-navbar fixed="top" toggleable="lg">
-      <b-navbar-brand>STORIKO</b-navbar-brand>
+      <router-link to="/ownerWelcomePage">
+        <b-navbar-brand>STORIKO</b-navbar-brand>
+      </router-link>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
@@ -43,7 +45,7 @@
                     Stock: {{ inventoryItem.currentStock }}
                   </li>
                   <li class="info add-item">
-                    <button class="button" @click="deleteInventoryItem(inventoryItem.name)">Remove Item</button>
+                    <button class="button" @click="deleteInventoryItem(inventoryItem.name)" onClick="window.location.reload();">Remove Item</button>
                   </li>
                   <!-- <li class="info edit">
                     <a  href="#/modifyItems">Edit Item</a>

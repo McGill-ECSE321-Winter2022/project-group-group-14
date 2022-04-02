@@ -1,8 +1,18 @@
 <template>
   <div >
-    <ul class="navBar">
-      <li class="logo">STORIKO</li>      
-    </ul>
+     <div id="popup1" class="overlay" v-if="errorCustomer">
+          <div class="popup">
+            <h5>{{ errorCustomer }}</h5>
+            <!-- <button class="mediumButton" >Close</button> -->
+            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+          </div>
+        </div>
+    <b-navbar fixed="top" >
+      
+      <b-navbar-brand>STORIKO</b-navbar-brand>
+      
+      
+    </b-navbar>
     <div class="verticalandhorizontal-center">
 
         <h2 class="heading">Create Customer Account</h2>
@@ -14,7 +24,7 @@
         <div class="form-floating mb-3">
           <input
             type="text"
-            v-model="Email"
+            v-model="newCustomerAccount.email"
             class="form-control"
             id="floatingInput"
             placeholder="Email"
@@ -26,7 +36,7 @@
         <div class="form-floating mb-3">
           <input
             type="text"
-            v-model="Username"
+            v-model="newCustomerAccount.username"
             class="form-control"
             id="floatingInput"
             placeholder="Username"
@@ -37,8 +47,8 @@
         <h6 class="subheading">Passwords must contain both a capital letter and numerical character</h6>
         <div class="form-floating mb-3">
           <input
-            type="text"
-            v-model="Password"
+            type="password"
+            v-model="newCustomerAccount.password"
             class="form-control"
             id="floatingPassword"
             placeholder="Password"
@@ -50,7 +60,7 @@
         <div class="form-floating mb-3">
           <input
             type="text"
-            v-model="Address"
+            v-model="newCustomerAccount.address"
             class="form-control"
             id="floatingInput"
             placeholder="Address"
@@ -62,7 +72,7 @@
         <div class="form-floating mb-3">
           <input
             type="text"
-            v-model="PhoneNumber"
+            v-model="newCustomerAccount.phoneNumber"
             class="form-control"
             id="floatingInput"
             placeholder="Phone Number"
@@ -75,17 +85,16 @@
 
         <div>
 
-            <router-link to="/">
-              <button class="largeButton" type="CreateButton">
+            
+              <button class="largeButton" type="CreateButton" @click="createCustomerAccount(newCustomerAccount.email,newCustomerAccount.username,newCustomerAccount.password,newCustomerAccount.phoneNumber,newCustomerAccount.address)">
                 Create Account
               </button>
-            </router-link>
+            
             <br>          
-            <router-link to="/">
               <button class="largeButton">
                 Cancel
               </button>
-            </router-link>
+            
 
         </div>
 
@@ -95,8 +104,38 @@
   </div>
 </template>
 
+<script src="./createCustomer.js">
+
+</script>
 
 
 <style scoped>
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  opacity: 100%;
+  z-index: 100;
+}
 
+.popup {
+  margin: auto;
+  margin-top: 40vh;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  transition: all 5s ease-in-out;
+}
+.verticalandhorizontal-center {
+    padding: 2% 6% 2% 6%;
+    background-color: white;
+    border-radius: 4%;
+    margin-top: 1%;
+    box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
+  }
 </style>

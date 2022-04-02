@@ -1,7 +1,9 @@
 <template>
     <div >
         <b-navbar fixed="top">
-      <b-navbar-brand>STORIKO</b-navbar-brand>
+      <router-link to="/employeeWelcomePage">
+        <b-navbar-brand>STORIKO</b-navbar-brand>
+      </router-link>
     
           <b-navbar-nav class="ml-auto">
             <b-nav-item href="#/">Log Out</b-nav-item>
