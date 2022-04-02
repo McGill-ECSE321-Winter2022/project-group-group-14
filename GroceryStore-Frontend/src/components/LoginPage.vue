@@ -1,13 +1,14 @@
 <template>
 <div>
-        <!-- <div id="popup1" class="overlay" v-if="errorCustomer">
+        <div id="popup1" class="overlay" v-if="errorCustomer">
           <div class="popup">
             <h5>{{ errorCustomer }}</h5>
             <router-link :to="{ name: 'customerWelcomePage', params: { email: account.email }}">
             <button class="mediumButton">Close</button>
             </router-link>
           </div>
-        </div> -->
+        </div>
+
         <div id="popup1" class="overlay" v-if="errorEmployee">
           <div class="popup">
             <h5>{{ errorEmployee }}</h5>
@@ -16,6 +17,7 @@
             </router-link>
           </div>
         </div>
+
         <div id="popup1" class="overlay" v-if="errorOwner">
           <div class="popup">
             <h5>{{ errorOwner }}</h5>
@@ -62,9 +64,9 @@
             />
           </div> -->
 
-          <div class="form-floating">
+          <div class="form-floating mb-3">
             <input
-              type="text"
+              type="password"
               v-model="account.password"
               class="form-control"
               id="floatingPassword"
@@ -89,16 +91,12 @@
           <br>
           <br> -->
 
-              <!-- <router-link :to="{ name: 'customerWelcomePage', params: { email: account.email }}">
-                <button v-bind:disabled="!account.email || !account.password" class="mediumButton"> -->
 
-                <!-- <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginCustomer(account.email,account.password)"> -->
+                <!-- <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginCustomer(account.email,account.password)">
                 
-                  <!-- Customer Log In
+                  Customer Log In
 
                 </button> -->
-                
-              <!-- </router-link> -->
 
 
               <router-link :to="{ name: 'customerWelcomePage', params: { email: account.email }}">
@@ -164,7 +162,7 @@ export default {
             errorCustomer: '',
             reponse: []
         }
-    }
+    },
 
     // created: function(){
     //     AXIOS.post('/customers/youssof@gmail.com/youssof5/123Abc/1111stavenue/5148888888')
@@ -176,20 +174,20 @@ export default {
     //     })
     // },
 
-    // methods: {
-    //   loginCustomer: function (email, password){
-    //     AXIOS.get('/customers/login/'.concat(email).concat("/").concat(password))
-    //     .then(response => {
-    //        this.errorCustomer = newEmail + ' is logged in Successfully!'
-    //         })
-    //         .catch(e => {
-    //             var errorMsg = e.response.data.message
-    //             console.log(errorMsg)
-    //             this.errorCustomer = errorMsg
-    //         })
-    //     }
-    //   }
-    
+    methods: {
+      loginCustomer: function (email, password){
+        AXIOS.get('/customers/login/'.concat(email).concat("/").concat(password))
+        .then(response => {
+           this.errorCustomer = newEmail + ' is logged in Successfully!'
+            })
+            .catch(e => {
+                var errorMsg = e.response.data.message
+                console.log(errorMsg)
+                this.errorCustomer = errorMsg
+            })
+        }
+      }
+
 }
 
 
