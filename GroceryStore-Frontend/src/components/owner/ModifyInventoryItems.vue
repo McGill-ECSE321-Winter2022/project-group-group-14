@@ -8,7 +8,9 @@
           </div>
         </div>
     <b-navbar fixed="top" toggleable="lg">
-      <b-navbar-brand>STORIKO</b-navbar-brand>
+      <router-link to="/ownerWelcomePage">
+        <b-navbar-brand>STORIKO</b-navbar-brand>
+      </router-link>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
@@ -79,14 +81,14 @@
           />
         </div>
         <div>
-              <button class="largeButton" type="CreateButton" @click="createInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock)">
+              <button class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="CreateButton" @click="createInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock)">
                 Create Inventory Item
               </button>
               <br>
-              <button class="largeButton" type="UpdateButton" @click="updateInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock)">
+              <button class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="UpdateButton" @click="updateInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock)">
                 Update Inventory Item
               </button>
-              <button class="largeButton" type="DeleteButton" @click="deleteInventoryItem(newInventoryItem.name)">
+              <button class="largeButton" v-bind:disabled="!newInventoryItem.name" type="DeleteButton" @click="deleteInventoryItem(newInventoryItem.name)">
                 Delete Inventory Item
               </button>
         </div>
