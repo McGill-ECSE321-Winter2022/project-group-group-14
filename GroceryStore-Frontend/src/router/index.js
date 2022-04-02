@@ -51,6 +51,16 @@ export default new Router({
       component: CustomerWelcomePage
     },
     {
+      path:'/employeeWelcomePage/:email', 
+      name: 'employeeWelcomePage',
+      component: EmployeeWelcomePage
+    },
+    {
+      path:'/ownerWelcomePage/:email', 
+      name: 'ownerWelcomePage',
+      component: OwnerWelcomePage
+    },
+    {
       path: '/',
       name: 'Login',
       component: LoginPage

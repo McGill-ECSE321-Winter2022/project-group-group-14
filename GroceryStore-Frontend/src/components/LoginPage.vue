@@ -1,5 +1,30 @@
 <template>
 <div>
+        <!-- <div id="popup1" class="overlay" v-if="errorCustomer">
+          <div class="popup">
+            <h5>{{ errorCustomer }}</h5>
+            <router-link :to="{ name: 'customerWelcomePage', params: { email: account.email }}">
+            <button class="mediumButton">Close</button>
+            </router-link>
+          </div>
+        </div> -->
+        <div id="popup1" class="overlay" v-if="errorEmployee">
+          <div class="popup">
+            <h5>{{ errorEmployee }}</h5>
+            <router-link :to="{ name: 'employeeWelcomePage', params: { email: account.email }}">
+            <button class="mediumButton">Close</button>
+            </router-link>
+          </div>
+        </div>
+        <div id="popup1" class="overlay" v-if="errorOwner">
+          <div class="popup">
+            <h5>{{ errorOwner }}</h5>
+            <router-link :to="{ name: 'ownerWelcomePage', params: { email: account.email }}">
+            <button class="mediumButton">Close</button>
+            </router-link>
+          </div>
+        </div>
+
   <div class="background-img">
     <img src="../assets/orange5.jpg">
   </div>
@@ -59,19 +84,32 @@
               <option value="owner">Owner</option>
             </select>
           </form> -->
-  <!-- 
+
+          <!-- 
           <br>
           <br> -->
 
+              <!-- <router-link :to="{ name: 'customerWelcomePage', params: { email: account.email }}">
+                <button v-bind:disabled="!account.email || !account.password" class="mediumButton"> -->
+
+                <!-- <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginCustomer(account.email,account.password)"> -->
+                
+                  <!-- Customer Log In
+
+                </button> -->
+                
+              <!-- </router-link> -->
+
+
               <router-link :to="{ name: 'customerWelcomePage', params: { email: account.email }}">
-                <button v-bind:disabled="!account.email || !account.password" class="mediumButton" >
+                <button v-bind:disabled="!account.email || !account.password" class="mediumButton">
                   Customer Log In
                 </button>
               </router-link>
 
               <br>
 
-              <router-link to="/employeeWelcomePage">
+              <router-link :to="{ name: 'employeeWelcomePage', params: { email: account.email }}">
                 <button v-bind:disabled="!account.email || !account.password" class="mediumButton">
                   Employee Log In
                 </button>
@@ -79,7 +117,7 @@
 
               <br>
 
-              <router-link to="/ownerWelcomePage">
+              <router-link :to="{ name: 'ownerWelcomePage', params: { email: account.email }}">
                 <button v-bind:disabled="!account.email || !account.password" class="mediumButton">
                   Owner Log In
                 </button>
@@ -121,10 +159,7 @@ export default {
             customers: [],
             account: {
                 email: '',
-                // username: '',
                 password: ''
-                // address: '',
-                // phoneNumber: ''
             },
             errorCustomer: '',
             reponse: []
@@ -142,27 +177,19 @@ export default {
     // },
 
     // methods: {
-    //     loginCustomer: function (email, password){
-    //       AXIOS.get('/customers/'.concat(email))
-    //       .then(response => {
-    //         router.push({ name: 'user', params: { username: 'eduardo' } })
-    //       })
+    //   loginCustomer: function (email, password){
+    //     AXIOS.get('/customers/login/'.concat(email).concat("/").concat(password))
+    //     .then(response => {
+    //        this.errorCustomer = newEmail + ' is logged in Successfully!'
+    //         })
+    //         .catch(e => {
+    //             var errorMsg = e.response.data.message
+    //             console.log(errorMsg)
+    //             this.errorCustomer = errorMsg
+    //         })
     //     }
-
-        // createCustomerAccount: function (newEmail, newUsername, newPassword, newPhoneNumber, newAddress){
-        //     AXIOS.post('/customers/'.concat(newEmail).concat('/').concat(newUsername).concat('/').concat(newPassword).concat('/').concat(newPhoneNumber).concat('/').concat(newAddress),{},{})
-        //     .then(response => {
-        //         this.customers.push(response.data)
-        //         this.errorCustomer = newEmail + ' is created successfully!'
-        //         this.newCustomerAccount = ''
-        //     })
-        //     .catch(e => {
-        //         var errorMsg = e.response.data.message
-        //         console.log(errorMsg)
-        //         this.errorCustomer = errorMsg
-        //     })
-        // }
-    // }
+    //   }
+    
 }
 
 
