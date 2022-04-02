@@ -33,10 +33,19 @@
             
         </div>
         <div class="verticalandhorizontal-center">
-            <h1 class="heading">Welcome Owner! </h1>
+            <h1 class="heading">Welcome {{this.email}} (Owner)! </h1>
         </div>
     </div>
 </template>
+
+<script>
+export default{
+    data()
+    {
+        return {email:this.$route.params.email}
+    }
+}
+</script>
 
 <style scoped>
 

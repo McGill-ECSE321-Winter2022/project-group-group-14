@@ -15,7 +15,7 @@
         </div>
         <div class="verticalandhorizontal-center">
 
-            <h2 class="heading">Welcome Customer! </h2>
+            <h2 class="heading">Welcome {{this.email}} (Customer)! </h2>
             <br>
 
                 <h4> Place an order : </h4>
@@ -87,8 +87,13 @@
 import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
 export default{
     name:'CustomerWelcomePage',
+    data()
+    {
+        return {email:this.$route.params.email}
+    },
     components:{
         CustomerNavigationBar
     }
+    
 }
 </script>

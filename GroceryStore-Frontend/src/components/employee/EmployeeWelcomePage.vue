@@ -15,7 +15,7 @@
             <img src="../../assets/orange8.jpg">
         </div>
         <div class="verticalandhorizontal-center">
-            <h2 class="heading">Welcome Employee! </h2>
+            <h2 class="heading">Welcome {{this.email}} (Employee)! </h2>
 
                     <router-link to="/showEmployeeInventoryItems">
                         <button class="largeButton">
@@ -41,6 +41,15 @@
         </div>
     </div>
 </template>
+
+<script>
+export default{
+    data()
+    {
+        return {email:this.$route.params.email}
+    }
+}
+</script>
 
 <style scoped>
 .verticalandhorizontal-center {

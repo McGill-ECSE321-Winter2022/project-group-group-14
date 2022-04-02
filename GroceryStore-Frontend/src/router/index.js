@@ -39,7 +39,27 @@ import ThankYou from '@/components/customer/ThankYou'
 Vue.use(Router)
 
 export default new Router({
+
+  // const routes=[
+  //   {path:'/customerWelcomePage/id', component:CustomerWelcomePage}
+  // ],
+
   routes: [
+    {
+      path:'/customerWelcomePage/:email', 
+      name: 'customerWelcomePage',
+      component: CustomerWelcomePage
+    },
+    {
+      path:'/employeeWelcomePage/:email', 
+      name: 'employeeWelcomePage',
+      component: EmployeeWelcomePage
+    },
+    {
+      path:'/ownerWelcomePage/:email', 
+      name: 'ownerWelcomePage',
+      component: OwnerWelcomePage
+    },
     {
       path: '/',
       name: 'Login',
