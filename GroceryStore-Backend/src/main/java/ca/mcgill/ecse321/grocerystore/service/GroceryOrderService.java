@@ -1,15 +1,18 @@
 package ca.mcgill.ecse321.grocerystore.service;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import ca.mcgill.ecse321.grocerystore.dao.CustomerRepository;
 import ca.mcgill.ecse321.grocerystore.dao.GroceryOrderRepository;
 import ca.mcgill.ecse321.grocerystore.dao.InventoryItemRepository;
 import ca.mcgill.ecse321.grocerystore.dao.OrderItemRepository;
+import ca.mcgill.ecse321.grocerystore.dto.OrderItemDto;
 import ca.mcgill.ecse321.grocerystore.model.Customer;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
 import ca.mcgill.ecse321.grocerystore.model.OrderItem;
@@ -114,7 +117,7 @@ public class GroceryOrderService {
  
  @Transactional
  public GroceryOrder addOrderItems(GroceryOrder order, List<OrderItem> orderItems){ 
-	 if (order == null || orderDao.findByOrderId(order.getOrderId())!=null) throw new IllegalArgumentException("Please submit a valid grocery order.");
+	 if (order == null || orderDao.findByOrderId(order.getOrderId())==null) throw new IllegalArgumentException("Please submit a valid grocery order.");
 	 if (orderItems == null || orderItems.size() == 0) throw new IllegalArgumentException("Please submit a valid list of orderItems");
 	 if (!(order.getOrderStatus().equals(OrderStatus.Received)))throw new IllegalArgumentException("Can only add items to a received order."); 
 	 checkOrderValidity(order.getCustomer(), order.getOrderType());
@@ -134,6 +137,17 @@ public class GroceryOrderService {
     
 //-------------------------------------------------------GET METHODS------------------------------------------------------------
     
+	 @Transactional
+	 public List<OrderItem> getOrderItems(GroceryOrder order){
+		 if (order == null || orderDao.findByOrderId(order.getOrderId())==null) throw new IllegalArgumentException("Please submit a valid grocery order.");
+		 List<OrderItem> items = order.getOrderItems();
+		 if (items.isEmpty()) throw new IllegalArgumentException("There are no items in this order.");
+		 return items;
+	 }
+
+	
+ 
+ 
     /**
      * @return a list of all orders in system
      */
