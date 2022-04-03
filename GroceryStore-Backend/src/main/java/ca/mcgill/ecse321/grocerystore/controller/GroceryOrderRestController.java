@@ -129,9 +129,9 @@ public class GroceryOrderRestController {
 	 * @param Customer
 	 * @return orders by customer id
 	 */
-	@GetMapping(value = { "/orders/customer", "/orders/customer/" })
-	public List<GroceryOrderDto> getOrdersByCustomer(@RequestParam CustomerDto customerDto) throws IllegalArgumentException {
-		Customer customer = customerService.getCustomerByID(customerDto.getAccountId());
+	@GetMapping(value = { "/orders/{customerEmail}", "/orders/customerEmail/" })
+	public List<GroceryOrderDto> getOrdersByCustomer(@PathVariable("email") String email) throws IllegalArgumentException {
+		Customer customer = customerService.getCustomerByEmail(email);
 		List<GroceryOrder> orders = orderService.getOrdersByCustomer(customer);
 		List<GroceryOrderDto> orderDtos = new ArrayList<GroceryOrderDto>(); 
 		for (GroceryOrder o: orders) {
