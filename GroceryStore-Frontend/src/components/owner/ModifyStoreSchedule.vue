@@ -177,13 +177,13 @@
         <div>
 
            
-              <button class="largeButton" type="CreateButton" @click="createStoreSchedule(newStoreSchedule.openingTime, newStoreSchedule.closingTime, newStoreSchedule.dayOpen)">
+              <button class="largeButton" v-bind:disabled="!newStoreSchedule.openingTime || !newStoreSchedule.closingTime || !newStoreSchedule.dayOpen" type="CreateButton" @click="createStoreSchedule(newStoreSchedule.openingTime, newStoreSchedule.closingTime, newStoreSchedule.dayOpen)">
                 Create Day Schedule
               </button>
-              <button class="largeButton" type="CreateButton" @click="updateStoreSchedule(newStoreSchedule.openingTime, newStoreSchedule.closingTime, newStoreSchedule.dayOpen)">
+              <button class="largeButton" v-bind:disabled="!newStoreSchedule.openingTime || !newStoreSchedule.closingTime || !newStoreSchedule.dayOpen" type="CreateButton" @click="updateStoreSchedule(newStoreSchedule.openingTime, newStoreSchedule.closingTime, newStoreSchedule.dayOpen)">
                 Update Day Schedule
               </button>
-              <button class="largeButton" type="DeleteButton" @click="deleteStoreSchedule(newStoreSchedule.dayOpen)">
+              <button class="largeButton" type="DeleteButton" v-bind:disabled="!newStoreSchedule.dayOpen" @click="deleteStoreSchedule(newStoreSchedule.dayOpen)">
                 Delete Day Schedule
               </button>
 

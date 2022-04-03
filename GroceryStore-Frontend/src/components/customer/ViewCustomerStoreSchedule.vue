@@ -35,7 +35,7 @@
   </div>
 </template>
 
-<script src="./StoreScheduleCustomer.js">
+<script src="./storeScheduleCustomers.js">
 </script>
 
 
