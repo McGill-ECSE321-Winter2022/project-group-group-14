@@ -34,11 +34,6 @@
 
                 </li>
 
-                <li class="info" v-if="curremail">
-                  email : {{curremail}}
-
-                </li>
-
                 <li class="info" v-if="groceryOrders[0].orderId">
                   id : {{groceryOrders[0].orderId}}
 
@@ -58,7 +53,7 @@
                   <input
                     type="number"
                     min="0"
-                    v-model="newGroceryOrder.quantity"
+                    v-model="inventoryItem.quantity"
                     class="form-control"
                     id="floatingInput"
                     placeholder="Quantity"
@@ -66,7 +61,7 @@
                   />
                 </div>
                 <li class="info">
-                  <button class="mediumButton add-item">Add to Cart</button>
+                  <button class="mediumButton add-item" @click="addOrderItems(groceryOrders[0].orderId,inventoryItem.name,inventoryItem.quantity)">Add to Cart</button>
                 </li> 
                 
          </ul>
@@ -114,11 +109,12 @@ export default {
         }, 
         inventoryItems: [],
         newInventoryItem: {
-        name: '',
-        price: '',
-        currentStock: ''
+
+          name: '',
+          price: '',
+          currentStock: '',
+          quantity:''
         }, 
-        quantity:'',
         errorInventory: '',
         response: []
         }
@@ -141,6 +137,7 @@ export default {
             .then(response => {
             // JSON responses are automatically parsed.
                 this.groceryOrders.push(response.data)
+                console.log(response.data)
                 this.errorInventory = ''
                 this.newInventoryItem = ''
             })
@@ -165,7 +162,10 @@ export default {
 
         }
 
-    }
+    },
+//     beforeMount(){
+//       this.getOrder(this.email)
+//  },
 }
 
   
