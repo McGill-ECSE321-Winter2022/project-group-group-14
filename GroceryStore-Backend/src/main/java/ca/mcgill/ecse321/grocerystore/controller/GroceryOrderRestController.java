@@ -77,7 +77,7 @@ public class GroceryOrderRestController {
 	public ResponseEntity<?>  createInstoreOrder() throws IllegalArgumentException  {
 		try {
 			GroceryOrder orderInStore = orderService.createInStoreOrder();
-			return ResponseEntity.ok(new GroceryOrderDto(orderInStore.getOrderId(),orderInStore.getTotalCost(), orderInStore.getOrderType().toString(),orderInStore.getOrderStatus().toString());
+			return ResponseEntity.ok(new GroceryOrderDto(orderInStore.getOrderId(),orderInStore.getTotalCost(), orderInStore.getOrderType().toString(),orderInStore.getOrderStatus().toString()));
 		}catch(IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
