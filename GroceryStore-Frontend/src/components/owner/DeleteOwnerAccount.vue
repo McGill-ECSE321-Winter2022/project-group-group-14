@@ -84,7 +84,6 @@
 
 <script>
 import axios from 'axios'
-// var config = require('../../../config')
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
