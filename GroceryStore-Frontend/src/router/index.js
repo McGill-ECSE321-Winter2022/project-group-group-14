@@ -51,12 +51,12 @@ export default new Router({
       component: CustomerWelcomePage
     },
     {
-      path:'/employeeWelcomePage/:email', 
+      path:'/employeeWelcomePage/', 
       name: 'employeeWelcomePage',
       component: EmployeeWelcomePage
     },
     {
-      path:'/ownerWelcomePage/:email', 
+      path:'/ownerWelcomePage/', 
       name: 'ownerWelcomePage',
       component: OwnerWelcomePage
     },
@@ -141,7 +141,7 @@ export default new Router({
       component: ViewCustomerStoreSchedule
     },
     {
-      path: '/showCustomerInventoryItems',
+      path: '/showCustomerInventoryItems/:email',
       name: 'ShowCustomerInventoryItems',
       component: ShowCustomerInventoryItems
     },
@@ -206,7 +206,7 @@ export default new Router({
       component: ViewOrderStatus
     },
     {
-      path: '/viewCart',
+      path: '/viewCart/:email',
       name: 'ViewCart',
       component: ViewCart
     },

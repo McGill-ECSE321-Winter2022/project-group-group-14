@@ -1,5 +1,6 @@
 <template>
     <div >
+
             <div id="popup1" class="overlay" v-if="successMsg">
                 <div class="popup">
                  <h5>{{ successMsg }}</h5>
@@ -17,8 +18,10 @@
             <button class="mediumButton" onClick="window.location.reload();">Close</button>
         </div>
     </div>
+
         <CustomerNavigationBar></CustomerNavigationBar>
 
+        
         <div class="background-img">
             <img src="../../assets/orange3.jpg">
         </div>
@@ -93,6 +96,7 @@
 <script>
 import axios from 'axios'
 import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
+
 var config = require('../../../config')
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
@@ -105,6 +109,7 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })  
+
 
 export default{
     name:'CustomerWelcomePage',

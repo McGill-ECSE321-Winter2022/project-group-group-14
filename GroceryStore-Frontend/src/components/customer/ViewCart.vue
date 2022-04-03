@@ -12,7 +12,7 @@
 
             <br>
             <br>
-                <h4> If order is a delivery order, feature customer address here</h4>
+                <h4> Hello {{email}}.If order is a delivery order, feature customer address here</h4>
                 <h4> Address is not correct?</h4><router-link to="/modifyAddress">
                         <button class="largeButton">
                             Modify Address
@@ -46,6 +46,12 @@ export default{
     name:'CustomerWelcomePage',
     components:{
         CustomerNavigationBar
-    }
+    },
+    data () {
+        return {
+            email : this.$route.params.email,
+        }
+    },
+
 }
 </script>
