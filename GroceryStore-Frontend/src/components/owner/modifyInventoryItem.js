@@ -19,9 +19,9 @@ data () {
     return {
     inventoryItems: [],
     newInventoryItem: {
-      name: '',
-      price: '',
-      currentStock: ''
+      name: this.$route.params.nameToEdit,
+      price: this.$route.params.priceToEdit,
+      currentStock: this.$route.params.currentStockToEdit
     }, 
     errorInventory: '',
     response: []
