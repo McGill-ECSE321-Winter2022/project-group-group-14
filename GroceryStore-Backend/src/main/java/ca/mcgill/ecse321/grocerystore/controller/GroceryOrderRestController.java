@@ -45,19 +45,19 @@ public class GroceryOrderRestController {
 	private OrderItemService orderItemService;
 
  //-------------------------------------------------------CREATE MAPPINGS------------------------------------------------------------
-	public CustomerDto createTempCustomer(String email) {
-		Customer customer = customerService.createCustomer(email,"username1","abC123","5145543332","38greenlane");
-		return convertToCDto(customer);
-		
-	}//temporary fct
-	
+//	public CustomerDto createTempCustomer(String email) {
+//		Customer customer = customerService.createCustomer(email,"username1","abC123","5145543332","38greenlane");
+//		return convertToCDto(customer);
+//		
+//	}//temporary fct
+//	
 	
 	
 	@PostMapping(value = { "/orders/delivery/{email}", "/orders/delivery/{email}/" })
 	public ResponseEntity<?> createDeliveryOrder(@PathVariable  String email) throws IllegalArgumentException  {
 		try {
 			//should be deleted afterwards
-			createTempCustomer(email);
+//			createTempCustomer(email);
 			Customer customer = customerService.getCustomerByEmail(email);
 			GroceryOrder order = orderService.createDeliveryOrder(customer);
 					
@@ -72,7 +72,7 @@ public class GroceryOrderRestController {
 	public ResponseEntity<?>  createPickupOrder(@PathVariable  String email) throws IllegalArgumentException  {
 		try {
 			//should be deleted afterwards
-			createTempCustomer(email);
+//			createTempCustomer(email);
 			
 			Customer customer = customerService.getCustomerByEmail(email);
 			GroceryOrder order = orderService.createPickupOrder(customer);
@@ -168,15 +168,12 @@ public class GroceryOrderRestController {
 		}
 	}
 	
-	
-	/**
-	 * @param Customer
-	 * @return orders by customer id
-	 */
-	@GetMapping(value = { "/orders/customer", "/orders/customer/" })
-	public ResponseEntity<?>  getOrdersByCustomer(@RequestParam CustomerDto customerDto) throws IllegalArgumentException {
-		try {
-			Customer customer = customerService.getCustomerByID(customerDto.getAccountId());
+
+	@GetMapping(value =  { "/orders/{email}", "/orders/{email}/" })
+	public ResponseEntity<?>  getOrdersByCustomer(@PathVariable("email") String email) throws IllegalArgumentException {
+		try{
+			Customer customer = customerService.getCustomerByEmail(email);
+		
 			List<GroceryOrder> orders = orderService.getOrdersByCustomer(customer);
 			List<GroceryOrderDto> orderDtos = new ArrayList<GroceryOrderDto>(); 
 			for (GroceryOrder o: orders) {

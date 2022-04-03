@@ -3,7 +3,7 @@
 
     
 
-  <b-navbar fixed="top" toggleable="lg">
+  <!-- <b-navbar fixed="top" toggleable="lg">
       <router-link to="/customerWelcomePage">
         <b-navbar-brand>STORIKO</b-navbar-brand>
       </router-link>
@@ -17,13 +17,20 @@
             <b-nav-item href="#/">Log Out</b-nav-item>
           </b-navbar-nav>
       </b-collapse>
-    </b-navbar>
+    </b-navbar> -->
+    <CustomerNavigationBar></CustomerNavigationBar>
 
 
   <div class="grid-container">
     
       <div class="grid-item" v-for="inventoryItem in inventoryItems" :key=inventoryItem.name>
       <ul class="item">
+
+                <li class="info">
+                  email : {{email}}
+                </li>
+
+
 
                 <li class="info item-name">
                   {{ inventoryItem.name }}
