@@ -1,6 +1,6 @@
 <template>
   <div>
-  <b-navbar fixed="top" toggleable="lg">
+  <!-- <b-navbar fixed="top" toggleable="lg">
       <router-link to="/customerWelcomePage">
         <b-navbar-brand>STORIKO</b-navbar-brand>
       </router-link>
@@ -15,8 +15,8 @@
             <b-nav-item href="#/">Log Out</b-nav-item>
           </b-navbar-nav>
       </b-collapse>
-    </b-navbar>
-
+    </b-navbar> -->
+    <CustomerNavigationBar></CustomerNavigationBar>
     <table>
       <caption style="text-align:center">Weekly Schedule</caption>
     <tr>

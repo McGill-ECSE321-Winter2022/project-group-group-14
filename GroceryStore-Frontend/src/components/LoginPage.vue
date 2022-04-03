@@ -220,6 +220,10 @@ export default {
           this.errorOwner = e.reponse.data
           console.log("didnt work")
         })
+        AXIOS.get('/customers/getAll')
+        .then(response=> {
+          console.log(response.data)
+        })
     },
 
     methods: {

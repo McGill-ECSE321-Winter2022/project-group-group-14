@@ -40,11 +40,27 @@ Vue.use(Router)
 
 export default new Router({
 
-  // const routes=[
-  //   {path:'/customerWelcomePage/id', component:CustomerWelcomePage}
-  // ],
-
   routes: [
+    {
+      path:'/viewOrderStatus/:email', 
+      name: 'ViewOrderStatus',
+      component: ViewOrderStatus
+    },
+    {
+      path:'/viewCustomerStoreSchedule/:email', 
+      name: 'ViewCustomerStoreSchedule',
+      component: ViewCustomerStoreSchedule
+    },
+    {
+      path:'/updateCustomerAccount/:email', 
+      name: 'UpdateCustomerAccount',
+      component: UpdateCustomerAccount
+    },
+    {
+      path:'/DeleteCustomerAccount/:email', 
+      name: 'DeleteCustomerAccount',
+      component: DeleteCustomerAccount
+    },
     {
       path:'/customerWelcomePage/:email', 
       name: 'customerWelcomePage',

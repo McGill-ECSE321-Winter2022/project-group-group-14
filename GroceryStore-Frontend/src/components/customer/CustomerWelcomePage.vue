@@ -4,11 +4,11 @@
             <div id="popup1" class="overlay" v-if="successMsg">
                 <div class="popup">
                  <h5>{{ successMsg }}</h5>
-                 <router-link to="/showEmployeeInventoryItems">
-                <button class="largeButton">
-                    View grocery items
-                </button>
-            </router-link>
+                 <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail }}">
+                    <button class="largeButton">
+                        View grocery items
+                    </button>
+                 </router-link>
 
             </div>
          </div>
@@ -19,7 +19,6 @@
         </div>
     </div>
 
-        <CustomerNavigationBar></CustomerNavigationBar>
 
         
         <div class="background-img">
@@ -50,8 +49,8 @@
 
                 <h4> Already placed an order? </h4>  
                 <br> 
-
-                <router-link to="/viewOrderStatus">
+                
+                <router-link :to="{ name: 'ViewOrderStatus', params: { email: curremail }}">
                     <button class="largeButton">
                         View your order's status
                     </button>
@@ -63,13 +62,13 @@
                 <h4> Something else: </h4>  
                 <br> 
 
-                <router-link to="/updateCustomerAccount">
+                <router-link :to="{ name: 'UpdateCustomerAccount', params: { email: curremail }}">
                     <button class="largeButton">
                         Account Settings
                     </button>
                 </router-link>
                 <br>
-                <router-link to="/viewCustomerStoreSchedule">
+                <router-link :to="{ name: 'ViewCustomerStoreSchedule', params: { email: curremail }}">
                     <button class="largeButton">
                         Store Schedule
                     </button>
@@ -116,6 +115,10 @@ export default{
     data()
     {
         return {
+
+            
+            curremail : this.$route.params.email,
+
             // customers : [],
             // newCustomer : {
             //     email:this.$route.params.email,
@@ -125,7 +128,6 @@ export default{
             //     address:'38 street green',
             // },
             // curremail : this.$route.params.email,
-            curremail : this.$route.params.email,
 
 
             groceryOrders: [],
@@ -145,6 +147,10 @@ export default{
     components:{
         CustomerNavigationBar
     },
+
+
+
+
     methods: {
         createDeliveryOrder : function(email){
             AXIOS.post('/orders/delivery/'.concat(email), {}, {})
