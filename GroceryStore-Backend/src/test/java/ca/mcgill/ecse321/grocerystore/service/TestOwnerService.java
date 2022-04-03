@@ -84,23 +84,23 @@ public class TestOwnerService
         lenient().when(ownerDao.save(any(Owner.class))).thenAnswer(returnParameterAsAnswer);
     }
 
-    @Test
-    public void testCreateOwner()
-    {
-        Owner owner = null;
-        try
-        {
-            owner = service.createOwner("dave@gmail.com","dave","123Abc");
-
-        } catch (IllegalArgumentException e)
-        {
-            fail();
-        }
-        assertNotNull(owner);
-        assertEquals("dave@gmail.com", owner.getEmail());
-        assertEquals("dave", owner.getUsername());
-        assertEquals("123Abc", owner.getPassword());
-    }
+//    @Test
+//    public void testCreateOwner()
+//    {
+//        Owner owner = null;
+//        try
+//        {
+//            owner = service.createOwner("dave@gmail.com","dave","123Abc");
+//
+//        } catch (IllegalArgumentException e)
+//        {
+//            fail();
+//        }
+//        assertNotNull(owner);
+//        assertEquals("dave@gmail.com", owner.getEmail());
+//        assertEquals("dave", owner.getUsername());
+//        assertEquals("123Abc", owner.getPassword());
+//    }
 
 //    @Test
 //    public void testGetAll()

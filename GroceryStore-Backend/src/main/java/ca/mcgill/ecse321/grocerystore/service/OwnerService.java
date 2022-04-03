@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.grocerystore.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,11 +21,20 @@ public class OwnerService {
 	@Transactional
 	public Owner createOwner(String aEmail, String aUsername, String aPassword) {
 		
-		checkAllInputParameters(aEmail, aUsername, aPassword);
+		List<Owner> owners = (List<Owner>) ownerRepository.findAll();
 		
-		Owner owner = new Owner(aEmail, aUsername, aPassword);
-		ownerRepository.save(owner);
-		return owner;
+		if(owners.size()==0) {
+			checkAllInputParameters(aEmail, aUsername, aPassword);
+			
+			Owner owner = new Owner(aEmail, aUsername, aPassword);
+			ownerRepository.save(owner);
+			return owner;
+		} else {
+//			ownerRepository.save(owners.get(0));
+			return owners.get(0);
+		}
+		
+		
 	}
 
 	/** @author Samuel Valentine	 */
