@@ -26,7 +26,7 @@
       <div class="grid-item" v-for="inventoryItem in inventoryItems" :key=inventoryItem.name>
       <ul class="item">
                 <li class="info">
-
+                  email : {{email}}
                 </li>
                 <li class="info item-name">
                   {{ inventoryItem.name }}

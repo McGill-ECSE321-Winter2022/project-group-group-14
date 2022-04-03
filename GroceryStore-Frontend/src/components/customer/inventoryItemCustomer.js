@@ -23,6 +23,7 @@ components:{
 
 data () {
     return {
+    email : this.$route.params.email,
     inventoryItems: [],
     newInventoryItem: {
       name: '',
