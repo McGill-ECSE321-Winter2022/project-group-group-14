@@ -45,12 +45,22 @@ public class GroceryOrderRestController {
 	private OrderItemService orderItemService;
 
  //-------------------------------------------------------CREATE MAPPINGS------------------------------------------------------------
-
+	public CustomerDto createTempCustomer(String email) {
+		Customer customer = customerService.createCustomer(email,"username1","abC123","5145543332","38greenlane");
+		return convertToCDto(customer);
+		
+	}//temporary fct
+	
+	
+	
 	@PostMapping(value = { "/orders/delivery/{email}", "/orders/delivery/{email}/" })
 	public ResponseEntity<?> createDeliveryOrder(@PathVariable  String email) throws IllegalArgumentException  {
 		try {
+			//should be deleted afterwards
+			createTempCustomer(email);
 			Customer customer = customerService.getCustomerByEmail(email);
 			GroceryOrder order = orderService.createDeliveryOrder(customer);
+					
 			return ResponseEntity.ok(new GroceryOrderDto(order.getOrderId(),order.getTotalCost(), order.getOrderType().toString(),order.getOrderStatus().toString(), convertToCDto(customer)));	
 		}catch(IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -61,6 +71,9 @@ public class GroceryOrderRestController {
 	@PostMapping(value = { "/orders/pickup/{email}", "/orders/pickup/{email}/" })
 	public ResponseEntity<?>  createPickupOrder(@PathVariable  String email) throws IllegalArgumentException  {
 		try {
+			//should be deleted afterwards
+			createTempCustomer(email);
+			
 			Customer customer = customerService.getCustomerByEmail(email);
 			GroceryOrder order = orderService.createPickupOrder(customer);
 			return ResponseEntity.ok(new GroceryOrderDto(order.getOrderId(),order.getTotalCost(), order.getOrderType().toString(),order.getOrderStatus().toString(), convertToCDto(customer)));
