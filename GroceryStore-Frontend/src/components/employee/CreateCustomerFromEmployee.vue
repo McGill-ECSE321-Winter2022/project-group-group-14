@@ -149,7 +149,7 @@ export default {
                 this.newCustomerAccount = ''
             })
             .catch(e => {
-                var errorMsg = e.response.data.message
+                var errorMsg = e.response.data
                 console.log(errorMsg)
                 this.errorCustomer = errorMsg
             })
