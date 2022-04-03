@@ -32,7 +32,7 @@
     <div class="verticalandhorizontal-center">
       <h2 class="heading">Report</h2>
       <br>
-      <h3 class="heading">Total Sales : {{totalSales}} </h3>
+      <h3 class="heading">Total Sales :$ {{totalSales}}.00 </h3>
 
 
 
