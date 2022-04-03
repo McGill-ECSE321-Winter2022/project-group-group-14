@@ -138,19 +138,19 @@ public class OwnerService {
 	
 	/** @author Samuel Valentine	 */
     @Transactional
-    public Owner login(String username, String password)
+    public Owner login(String email, String password)
     {
-    	Owner owner = ownerRepository.findByUsername(username);
+    	Owner owner = ownerRepository.findByEmail(email);
     	if (owner!=null) {
-    		if (owner.getPassword()==password) {
+    		if (owner.getPassword().equals(password)) {
     			return owner;
     		}
     		else {
-        		throw new IllegalArgumentException("That password is invalid for the owner account " + owner.getUsername());
+        		throw new IllegalArgumentException("That password is invalid for the owner account " + owner.getEmail());
         	}
     	}
     	else {
-    		throw new IllegalArgumentException("That username does not exist in the system.");
+    		throw new IllegalArgumentException("That email does not exist in the system.");
     	}
     }
 }

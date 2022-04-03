@@ -84,19 +84,19 @@ public class EmployeeService {
     
     /** @author Samuel Valentine	 */
     @Transactional
-    public Employee login(String username, String password)
+    public Employee login(String email, String password)
     {
-    	Employee employee = employeeRepository.findByUsername(username);
+    	Employee employee = employeeRepository.findByEmail(email);
     	if (employee!=null) {
-    		if (employee.getPassword()==password) {
+    		if (employee.getPassword().equals(password)) {
     			return employee;
     		}
     		else {
-        		throw new IllegalArgumentException("That password is invalid for the employee account " + employee.getUsername());
+        		throw new IllegalArgumentException("That password is invalid for the employee account " + employee.getEmail());
         	}
     	}
     	else {
-    		throw new IllegalArgumentException("That username does not exist in the system.");
+    		throw new IllegalArgumentException("That email does not exist in the system.");
     	}
     }
     

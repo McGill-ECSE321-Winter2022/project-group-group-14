@@ -319,7 +319,7 @@ public class TestCustomerService
     	Customer customer = null;
         try
         {
-            customer = service.login("dave2", "123Abc");
+            customer = service.login("dave2@gmail.com", "123Abc");
 
         } catch (IllegalArgumentException e)
         {

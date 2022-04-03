@@ -192,19 +192,19 @@ public class CustomerService {
     
     /** @author Samuel Valentine	 */
     @Transactional
-    public Customer login(String username, String password)
+    public Customer login(String email, String password)
     {
-    	Customer customer = customerRepository.findByUsername(username);
+    	Customer customer = customerRepository.findByEmail(email);
     	if (customer !=null) {
-    		if (customer.getPassword()==password) {
+    		if (customer.getPassword().equals(password)) {
     			return customer;
     		}
     		else {
-        		throw new IllegalArgumentException("That password is invalid for the customer account " + customer.getUsername());
+        		throw new IllegalArgumentException("That password is invalid for the customer account " + customer.getEmail());
         	}
     	}
     	else {
-    		throw new IllegalArgumentException("That username does not exist in the system.");
+    		throw new IllegalArgumentException("That email does not exist in the system.");
     	}
     }
 }

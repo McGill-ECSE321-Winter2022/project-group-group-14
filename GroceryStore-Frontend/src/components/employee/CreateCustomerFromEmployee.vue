@@ -1,6 +1,12 @@
 <template>
   <div>
-  
+  <div id="popup1" class="overlay" v-if="errorCustomer">
+          <div class="popup">
+            <h5>{{ errorCustomer }}</h5>
+            <!-- <button class="mediumButton" >Close</button> -->
+            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+          </div>
+        </div>
   <b-navbar fixed="top" toggleable="lg">
       <router-link to="/employeeWelcomePage">
         <b-navbar-brand>STORIKO</b-navbar-brand>

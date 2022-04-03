@@ -234,7 +234,7 @@ public class TestEmployeeService
     	Employee employee = null;
         try
         {
-            employee = service.login("dave2", "123Abc");
+            employee = service.login("dave2@gmail.com", "123Abc");
 
         } catch (IllegalArgumentException e)
         {

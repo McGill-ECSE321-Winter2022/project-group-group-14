@@ -134,17 +134,17 @@
 
               <br>
 
-              <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginEmployee(account.email,account.password)">
+              <!-- <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginEmployee(account.email,account.password)">
                 
                 Employee Log In
 
-              </button>
+              </button> -->
 
-              <!-- <router-link :to="{ name: 'employeeWelcomePage', params: { email: account.email }}">
+              <router-link :to="{ name: 'employeeWelcomePage', params: { email: account.email }}">
                 <button v-bind:disabled="!account.email || !account.password" class="mediumButton">
                   Employee Log In
                 </button>
-              </router-link> -->
+              </router-link>
 
               <br>
 
