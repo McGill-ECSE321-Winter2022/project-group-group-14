@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.grocerystore.dao.EmployeeRepository;
 import ca.mcgill.ecse321.grocerystore.model.Account;
+import ca.mcgill.ecse321.grocerystore.model.Customer;
 import ca.mcgill.ecse321.grocerystore.model.Employee;
 
 @Service
@@ -52,6 +53,23 @@ public class EmployeeService {
     public Employee getEmployeeByUsername(String username)
     {
         return employeeRepository.findByUsername(username);
+    }
+    
+    @Transactional 
+    public Employee updateEmployee(String oldUsername, String newEmail, String newUsername, String newPassword) {
+    	
+    	Employee employeeToUpdate = employeeRepository.findByUsername(oldUsername);
+    	if (employeeToUpdate == null) throw new IllegalArgumentException("No such employee exists");
+        employeeToUpdate.setEmail(newEmail);
+        employeeToUpdate.setUsername(newUsername);
+        employeeToUpdate.setPassword(newPassword);
+        
+        ServiceHelpers.checkAccountInfoValidity(employeeToUpdate);
+        
+        //save new changes to the repository
+        employeeRepository.save(employeeToUpdate);
+        
+        return employeeToUpdate;
     }
     
     /** @author Samuel Valentine */
