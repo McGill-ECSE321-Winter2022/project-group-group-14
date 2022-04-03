@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.grocerystore.dto;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author clarissabaciu
@@ -23,12 +24,23 @@ public class GroceryOrderDto {
     public GroceryOrderDto(){   //empty constructor
     }
 
-    public GroceryOrderDto(int orderId, int totalCost, String orderType, List<OrderItemDto> orderItems, CustomerDto customer){   
+    
+    public GroceryOrderDto(int orderId, int totalCost, String orderType, String orderStatus){   
     	this.orderId = orderId;
     	this.totalCost = totalCost;
         this.orderType = orderType;
-        this.orderItems = orderItems;
+        this.orderItems = new ArrayList<OrderItemDto>();
+        this.customer = null;
+        this.orderStatus = orderStatus;
+    }
+    
+    public GroceryOrderDto(int orderId, int totalCost, String orderType, String orderStatus, CustomerDto customer){   
+    	this.orderId = orderId;
+    	this.totalCost = totalCost;
+        this.orderType = orderType;
+        this.orderItems =  new ArrayList<OrderItemDto>();
         this.customer = customer;
+        this.orderStatus = orderStatus;
     }
     
     public GroceryOrderDto(int orderId, int totalCost, String orderType, String orderStatus, List<OrderItemDto> orderItems, CustomerDto customer){   
@@ -37,6 +49,14 @@ public class GroceryOrderDto {
         this.orderType = orderType;
         this.orderItems = orderItems;
         this.customer = customer;
+        this.orderStatus = orderStatus;
+    }
+    public GroceryOrderDto(int orderId, int totalCost, String orderType, String orderStatus, List<OrderItemDto> orderItems){   
+    	this.orderId = orderId;
+    	this.totalCost = totalCost;
+        this.orderType = orderType;
+        this.orderItems = orderItems;
+        this.customer = null;
         this.orderStatus = orderStatus;
     }
 
