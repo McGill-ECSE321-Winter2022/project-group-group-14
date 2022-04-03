@@ -31,16 +31,15 @@
 
     <div class="verticalandhorizontal-center">
       <h2 class="heading">Report</h2>
+      <br>
+      <h3 class="heading">Total Sales : {{totalSales}} </h3>
 
-       <div>
-       <ul style="list-style-type:square">
-        <li>stuff</li>
-        </ul>    
-       </div>
+
 
       <div v-for= "groceryOrder in groceryOrders" :key=groceryOrder.orderId>
         <ul style="list-style-type:square">
-        <li>{{ groceryOrder.orderId}}</li>
+          <li> Order Id : {{ groceryOrder.orderId}}, Order Cost : {{ groceryOrder.totalCost}}, Order Type : {{ groceryOrder.orderType}}, Order Status : {{ groceryOrder.orderStatus}}</li>
+
         </ul>
 
          
@@ -75,6 +74,7 @@ export default{
   {
     return {
         groceryOrders: [],
+        totalSales : '',
         newGroceryOrder: {
             orderId:'',
             totalCost:'',
@@ -94,15 +94,24 @@ export default{
       .then(response => {
           // JSON responses are automatically parsed.
           this.groceryOrders = response.data
-           console.log(this.groceryOrders)
 
       }).catch(e => {
           this.successMsg = ''
           var errorMsg = e.response.data
           console.log(errorMsg)
           this.errorOrder = errorMsg
+      }),
+       AXIOS.get('/orders/sales')
+      .then(response => {
+          // JSON responses are automatically parsed.
+          this.totalSales = response.data
+      }).catch(e => {
+          this.successMsg = ''
+          var errorMsg = e.response.data
+          console.log(errorMsg)
+          this.errorOrder = errorMsg
       })
-    
+
     }
 }
 </script>

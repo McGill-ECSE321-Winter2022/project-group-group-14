@@ -42,7 +42,6 @@ export default{
                 this.orders.push(response.data) //add dto to the list of orders
                 this.successMsg = 'Order has been successfully created! Please navigate to the list of inventory items : '
                 this.errorOrder = ''
-                console.log(response.data)
                 this.newGroceryOrder = ''
             })
             .catch(e => {
