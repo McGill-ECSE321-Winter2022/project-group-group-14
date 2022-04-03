@@ -1,6 +1,6 @@
 <template>
   <div>
-  <b-navbar fixed="top" toggleable="lg">
+  <!-- <b-navbar fixed="top" toggleable="lg">
       <router-link to="/customerWelcomePage">
         <b-navbar-brand>STORIKO</b-navbar-brand>
       </router-link>
@@ -15,7 +15,8 @@
             <b-nav-item href="#/">Log Out</b-nav-item>
           </b-navbar-nav>
       </b-collapse>
-    </b-navbar>
+    </b-navbar> -->
+    <CustomerNavigationBar></CustomerNavigationBar>
   <div class="verticalandhorizontal-center">
 
         <h2 class="heading">Delete Account</h2>
@@ -43,7 +44,23 @@
 </template>
 
 <script>
+import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
+export default{
+    name:'DeleteCustomer',
+    data()
+    {
+        return {
+            curremail : this.$route.params.email,
+        }
+
+    },
+    components:{
+        CustomerNavigationBar
+    }
+    
+}
 </script>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

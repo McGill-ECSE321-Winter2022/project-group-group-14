@@ -4,7 +4,7 @@
             <div id="popup1" class="overlay" v-if="successMsg">
                 <div class="popup">
                  <h5>{{ successMsg }}</h5>
-                 <router-link to="/showEmployeeInventoryItems">
+                 <router-link :to="{ name: 'showCustomerInventoryItems', params: { email: account.email }}">
                 <button class="largeButton">
                     View grocery items
                 </button>
@@ -19,7 +19,6 @@
         </div>
     </div>
 
-        <CustomerNavigationBar></CustomerNavigationBar>
 
         
         <div class="background-img">
@@ -116,6 +115,10 @@ export default{
     data()
     {
         return {
+
+            
+            curremail : this.$route.params.email,
+
             // customers : [],
             // newCustomer : {
             //     email:this.$route.params.email,
@@ -125,7 +128,6 @@ export default{
             //     address:'38 street green',
             // },
             // curremail : this.$route.params.email,
-            curremail : this.$route.params.email,
 
 
             groceryOrders: [],

@@ -36,7 +36,7 @@
           />
         </div>
            
-              <button class="largeButton" type="CreateButton">
+              <button class="largeButton" type="CreateButton" @click="deleteEmployeeAccount()">
                 Delete Your Account
               </button>
 
@@ -47,7 +47,93 @@
 </template>
 
 <script>
+import axios from 'axios'
+// var config = require('../../../config')
+
+var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
+var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
+
+var AXIOS = axios.create({
+    baseURL: backendUrl,
+    headers: { 'Access-Control-Allow-Origin': frontendUrl }
+  })  
+
+export default {
+    name: 'deleteAccount',
+    data () {
+        return {
+            Owner:{
+              password: ''
+            },
+            AccountToDelete: {
+                email: ''
+            },
+            errorDelete: '',
+            reponse: []
+        }
+    },
+
+    // created: function(){
+    //     AXIOS.post('/customers/youssof@gmail.com/youssof5/123Abc/1111stavenue/5148888888')
+    //     .then(response => {
+    //         this.customers = response.data
+    //     })
+    //     .catch(e => {
+    //         this.errorCustomer = e
+    //     })
+    // },
+
+    methods: {
+        deleteEmployeeAccount: function (){
+            AXIOS.delete('/employees/delete/'.concat(email))
+            .then(response => {
+                this.errorDelete = email + ' has been deleted successfully!'
+                this.AccountToDelete = '',
+                this.Owner = ''
+            })
+            .catch(e => {
+                var errorMsg = e.response.data
+                console.log(errorMsg)
+                this.errorDelete = errorMsg
+            })
+        }
+    }
+
+
+}
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  opacity: 100%;
+  z-index: 100;
+}
+
+.popup {
+  margin: auto;
+  margin-top: 40vh;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  transition: all 5s ease-in-out;
+}
+.verticalandhorizontal-center {
+    padding: 2% 6% 2% 6%;
+    background-color: white;
+    border-radius: 4%;
+    margin-top: 1%;
+    box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
+  }
+</style>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

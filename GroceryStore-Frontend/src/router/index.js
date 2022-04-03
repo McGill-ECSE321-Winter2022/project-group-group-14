@@ -45,6 +45,56 @@ export default new Router({
   // ],
 
   routes: [
+    // {
+    //   path:'/customerNavigationBar/:email', 
+    //   name: 'CustomerNavigationBar',
+    //   component: CustomerNavigationBar
+    // },
+    // {
+    //   path:'/viewOrderStatus/:email', 
+    //   name: 'ViewOrderStatus',
+    //   component: ViewOrderStatus
+    // },
+    // {
+    //   path:'/viewModifyCustomerGroceryOrder/:email', 
+    //   name: 'ViewModifyCustomerGroceryOrder',
+    //   component: ViewModifyCustomerGroceryOrder
+    // },
+    // {
+    //   path:'/viewCustomerStoreSchedule/:email', 
+    //   name: 'ViewCustomerStoreSchedule',
+    //   component: ViewCustomerStoreSchedule
+    // },
+    // {
+    //   path:'/viewCart/:email', 
+    //   name: 'ViewCart',
+    //   component: ViewCart
+    // },
+    // {
+    //   path:'/updateCustomerAccount/:email', 
+    //   name: 'UpdateCustomerAccount',
+    //   component: UpdateCustomerAccount
+    // },
+    // {
+    //   path:'/thankYou/:email', 
+    //   name: 'ThankYou',
+    //   component: CustomerPayment
+    // },
+    // {
+    //   path:'/showCustomerInventoryItems/:email', 
+    //   name: 'ShowCusomerInventoryItems',
+    //   component: ShowCustomerInventoryItems
+    // },
+    // {
+    //   path:'/deleteCustomerAccount/:email', 
+    //   name: 'DeleteCustomer',
+    //   component: DeleteCustomerAccount
+    // },
+    // {
+    //   path:'/customerPayment/:email', 
+    //   name: 'customerPayment',
+    //   component: CustomerPayment
+    // },
     {
       path:'/customerWelcomePage/:email', 
       name: 'customerWelcomePage',
