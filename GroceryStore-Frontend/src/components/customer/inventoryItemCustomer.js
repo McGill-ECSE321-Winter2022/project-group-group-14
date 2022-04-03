@@ -1,5 +1,6 @@
 import axios from 'axios'
 var config = require('../../../config')
+import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
@@ -15,6 +16,11 @@ var AXIOS = axios.create({
 
 export default {
 name: 'inventoryitem',
+
+components:{
+    CustomerNavigationBar
+},
+
 data () {
     return {
     inventoryItems: [],

@@ -1,6 +1,6 @@
 <template>
     <div >
-        <b-navbar fixed="top" >
+        <!-- <b-navbar fixed="top" >
             <router-link to="/customerWelcomePage">
                 <b-navbar-brand>STORIKO</b-navbar-brand>
             </router-link>
@@ -8,8 +8,10 @@
                 <b-navbar-nav class="ml-auto">
                     <b-nav-item href="#/">Log Out</b-nav-item>
                 </b-navbar-nav>
-        </b-navbar>
+        </b-navbar> -->
+        <CustomerNavigationBar></CustomerNavigationBar>
 
+        
         <div class="background-img">
             <img src="../../assets/orange3.jpg">
         </div>
@@ -85,6 +87,7 @@
 
 <script>
 import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
+
 export default{
     name:'CustomerWelcomePage',
     data()
