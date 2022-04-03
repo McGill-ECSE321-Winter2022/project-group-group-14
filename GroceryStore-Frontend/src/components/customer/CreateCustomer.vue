@@ -85,15 +85,19 @@
 
         <div>
 
-            
+            <router-link to="/">
               <button class="largeButton" type="CreateButton" @click="createCustomerAccount(newCustomerAccount.email,newCustomerAccount.username,newCustomerAccount.password,newCustomerAccount.phoneNumber,newCustomerAccount.address)">
                 Create Account
               </button>
+            </router-link>
             
-            <br>          
+            <br> 
+
+            <router-link to="/">         
               <button class="largeButton">
                 Cancel
               </button>
+            </router-link>
             
 
         </div>

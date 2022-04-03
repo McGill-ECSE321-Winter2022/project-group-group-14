@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div id="popup1" class="overlay" v-if="errorDelete">
+          <div class="popup">
+            <h5>{{ errorDelete }}</h5>
+            <!-- <button class="mediumButton" >Close</button> -->
+            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+          </div>
+        </div>
   <b-navbar fixed="top" toggleable="lg">
       <router-link to="/ownerWelcomePage">
         <b-navbar-brand>STORIKO</b-navbar-brand>
@@ -38,7 +45,7 @@
         <div class="form-floating mb-3">
           <input
             type="text"
-            v-model="Password"
+            v-model="Owner.password"
             class="form-control"
             id="floatingInput"
             placeholder="Owner Password"
@@ -49,24 +56,24 @@
         <br>
         <br>
 
-        <h6 class="subheading">Select the account to delete</h6>
+        <h6 class="subheading">Select the account to delete by its email</h6>
         <div class="form-floating mb-3">
           <input
             type="text"
-            v-model="Username"
+            v-model="AccountToDelete.email"
             class="form-control"
             id="floatingInput"
-            placeholder="Username of account to delete"
+            placeholder="Email of account to delete"
             required
           />
         </div>
         
            
-        <button class="largeButton" type="CreateButton">
+        <button class="largeButton" type="CreateButton" @click="deleteCustomerAccount(Owner.password,AccountToDelete.email)">
           Delete Customer Account
         </button>
         <br>
-        <button class="largeButton" type="CreateButton">
+        <button class="largeButton" type="CreateButton" @click="deleteEmployeeAccount(Owner.password,AccountToDelete.email)">
           Delete Employee Account
         </button>
 
@@ -76,10 +83,98 @@
 </template>
 
 <script>
+import axios from 'axios'
+// var config = require('../../../config')
+
+var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
+var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
+
+var AXIOS = axios.create({
+    baseURL: backendUrl,
+    headers: { 'Access-Control-Allow-Origin': frontendUrl }
+  })  
+
+export default {
+    name: 'deleteAccount',
+    data () {
+        return {
+            Owner:{
+              password: ''
+            },
+            AccountToDelete: {
+                email: ''
+            },
+            errorDelete: '',
+            reponse: []
+        }
+    },
+
+    // created: function(){
+    //     AXIOS.post('/customers/youssof@gmail.com/youssof5/123Abc/1111stavenue/5148888888')
+    //     .then(response => {
+    //         this.customers = response.data
+    //     })
+    //     .catch(e => {
+    //         this.errorCustomer = e
+    //     })
+    // },
+
+    methods: {
+        deleteCustomerAccount: function (password, email){
+            AXIOS.delete('/customers/delete/'.concat(email))
+            .then(response => {
+                this.errorDelete = email + ' has been deleted successfully!'
+                this.AccountToDelete = '',
+                this.Owner = ''
+            })
+            .catch(e => {
+                var errorMsg = e.response.data
+                console.log(errorMsg)
+                this.errorDelete = errorMsg
+            })
+        },
+        deleteEmployeeAccount: function (password, email){
+            AXIOS.delete('/employees/delete/'.concat(email))
+            .then(response => {
+                this.errorDelete = email + ' has been deleted successfully!'
+                this.AccountToDelete = '',
+                this.Owner = ''
+            })
+            .catch(e => {
+                var errorMsg = e.response.data
+                console.log(errorMsg)
+                this.errorDelete = errorMsg
+            })
+        }
+    }
+
+
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  opacity: 100%;
+  z-index: 100;
+}
+
+.popup {
+  margin: auto;
+  margin-top: 40vh;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  transition: all 5s ease-in-out;
+}
 .verticalandhorizontal-center {
     padding: 2% 6% 2% 6%;
     background-color: white;
@@ -87,11 +182,4 @@
     margin-top: 1%;
     box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
   }
-.page a {
-        font-size: 13px;
-}
-
-
-
-
 </style>
