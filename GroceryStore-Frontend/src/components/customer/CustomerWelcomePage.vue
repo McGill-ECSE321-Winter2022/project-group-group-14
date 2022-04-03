@@ -4,7 +4,7 @@
             <div id="popup1" class="overlay" v-if="successMsg">
                 <div class="popup">
                  <h5>{{ successMsg }}</h5>
-                 <router-link to="/showEmployeeInventoryItems">
+                 <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail }}">
                 <button class="largeButton">
                     View grocery items
                 </button>
@@ -168,7 +168,7 @@ export default{
                 this.groceryOrders.push(response.data) //add dto to the list of orders
                 this.successMsg = 'Order has been successfully created! Please navigate to the list of inventory items : '
                 this.errorOrder = ''
-                console.log(this.groceryOrders)
+                console.log(response.data)
                 this.newGroceryOrder = ''
             })
             .catch(e => {
