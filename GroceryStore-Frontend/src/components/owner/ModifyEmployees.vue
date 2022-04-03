@@ -1,5 +1,14 @@
 <template>
   <div class="modEmp">
+
+      <div id="popup1" class="overlay" v-if="errorEmployee">
+          <div class="popup">
+            <h5>{{ errorEmployee}}</h5>
+            <!-- <button class="mediumButton" >Close</button> -->
+            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+          </div>
+        </div>
+
   <b-navbar fixed="top" toggleable="lg">
       <router-link to="/ownerWelcomePage">
         <b-navbar-brand>STORIKO</b-navbar-brand>
@@ -38,7 +47,7 @@
         <div class="form-floating mb-3">
           <input
             type="text"
-            v-model="UsernameToChange"
+            v-model="oldEmployeeAccount.usernameToChange"
             class="form-control"
             id="floatingInput"
             placeholder="Old Username"
@@ -51,10 +60,10 @@
         <div class="form-floating mb-3">
           <input
             type="text"
-            v-model="Email"
+            v-model="newEmployeeAccount.email"
             class="form-control"
             id="floatingInput"
-            placeholder="New Email"
+            placeholder="Email"
             required
           />
         </div>
@@ -63,10 +72,10 @@
         <div class="form-floating mb-3">
           <input
             type="text"
-            v-model="Username"
+            v-model="newEmployeeAccount.username"
             class="form-control"
             id="floatingInput"
-            placeholder="New Username"
+            placeholder="Username"
             required
           />
         </div>
@@ -74,23 +83,22 @@
         <h6 class="subheading">Passwords must contain both a capital letter and numerical character</h6>
         <div class="form-floating mb-3">
           <input
-            type="text"
-            v-model="Password"
+            type="password"
+            v-model="newEmployeeAccount.password"
             class="form-control"
             id="floatingPassword"
-            placeholder="New Password"
+            placeholder="Password"
             required
           />
         </div>
-        <div>
 
            
-              <button class="largeButton" type="CreateButton">
-                Update Account
+              <button class="largeButton" type="CreateButton" @click="createEmployeeAccount(newEmployeeAccount.email,newEmployeeAccount.username,newEmployeeAccount.password)">
+                Create Account
               </button>
               <br>
               <button class="largeButton" type="CreateButton">
-                Create Account
+                Update Account
               </button>
 
         </div>
@@ -100,21 +108,86 @@
 </template>
 
 <script>
+import axios from 'axios'
+// var config = require('../../../config')
+
+var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
+var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
+
+var AXIOS = axios.create({
+    baseURL: backendUrl,
+    headers: { 'Access-Control-Allow-Origin': frontendUrl }
+  })  
+
+export default {
+    name: 'createemployee',
+    data () {
+        return {
+            employees: [],
+            oldEmployeeAccount:{
+              usernameToChange: ''
+            },
+            newEmployeeAccount: {
+                email: '',
+                username: '',
+                password: ''
+            },
+            errorEmployee: '',
+            reponse: []
+        }
+    },
+
+    // created: function(){
+    //     AXIOS.post('/customers/youssof@gmail.com/youssof5/123Abc/1111stavenue/5148888888')
+    //     .then(response => {
+    //         this.customers = response.data
+    //     })
+    //     .catch(e => {
+    //         this.errorCustomer = e
+    //     })
+    // },
+
+    methods: {
+        createEmployeeAccount: function (newEmail, newUsername, newPassword){
+            AXIOS.post('/employees/'.concat(newEmail).concat('/').concat(newUsername).concat('/').concat(newPassword),{},{})
+            .then(response => {
+                this.employees.push(response.data)
+                this.errorEmployee = newEmail + ' is created successfully!'
+                this.newEmployeeAccount = ''
+            })
+            .catch(e => {
+                var errorMsg = e.response.data
+                console.log(errorMsg)
+                this.errorEmployee = errorMsg
+            })
+        }
+    }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  opacity: 100%;
+  z-index: 100;
 }
 
-
-
-.page a {
-  font-size: 13px;
+.popup {
+  margin: auto;
+  margin-top: 40vh;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  transition: all 5s ease-in-out;
 }
-
-
 .verticalandhorizontal-center {
     padding: 2% 6% 2% 6%;
     background-color: white;
@@ -122,5 +195,4 @@ h1, h2 {
     margin-top: 1%;
     box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
   }
-
 </style>

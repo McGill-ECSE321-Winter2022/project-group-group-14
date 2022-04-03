@@ -234,7 +234,7 @@ public class TestOwnerService
     	Owner owner = null;
         try
         {
-            owner = service.login("dave2", "123Abc");
+            owner = service.login("dave2@gmail.com", "123Abc");
 
         } catch (IllegalArgumentException e)
         {
