@@ -49,14 +49,15 @@ public class GroceryOrderRestController {
 	public GroceryOrderDto createDeliveryOrder(@PathVariable  String email) throws IllegalArgumentException  {
 		Customer customer = customerService.getCustomerByEmail(email);
 		GroceryOrder order = orderService.createDeliveryOrder(customer);
-		return convertToDto(order);
+		return new GroceryOrderDto(order.getOrderId(),order.getTotalCost(), order.getOrderType().toString(),order.getOrderStatus().toString(), convertToCDto(customer));	
+
 	}
 	
 	@PostMapping(value = { "/orders/pickup/{email}", "/orders/pickup/{email}/" })
 	public GroceryOrderDto createPickupOrder(@PathVariable  String email) throws IllegalArgumentException  {
 		Customer customer = customerService.getCustomerByEmail(email);
 		GroceryOrder order = orderService.createPickupOrder(customer);
-		return convertToDto(order);
+		return new GroceryOrderDto(order.getOrderId(),order.getTotalCost(), order.getOrderType().toString(),order.getOrderStatus().toString(), convertToCDto(customer));	
 	}
 	
 	/**
@@ -66,7 +67,8 @@ public class GroceryOrderRestController {
 	@PostMapping(value = { "/orders/inStore", "/orders/inStore/" })
 	public GroceryOrderDto createInstoreOrder() throws IllegalArgumentException  {
 		GroceryOrder orderInStore = orderService.createInStoreOrder();
-		return convertToDto(orderInStore);
+		return new GroceryOrderDto(orderInStore.getOrderId(),orderInStore.getTotalCost(), orderInStore.getOrderType().toString(),orderInStore.getOrderStatus().toString());	
+
 	}
 	
 	//-------------------------------------------------------ADD TO ORDER------------------------------------------------------------	
@@ -251,14 +253,24 @@ public class GroceryOrderRestController {
 //	
 //-------------------------------------------------------CONVERSIONS------------------------------------------------------------
 	
+
+	
 	private GroceryOrderDto convertToDto(GroceryOrder o) {
 		if (o == null) throw new IllegalArgumentException("There is no such OrderItem!");
-		CustomerDto customerDto = convertToDto(o.getCustomer());
-		List<OrderItemDto> itemDtos = convertToDtos(o.getOrderItems());
-		return new GroceryOrderDto(o.getOrderId(),o.getTotalCost(), o.getOrderType().toString(), itemDtos, customerDto);	
+		if (o.getOrderType().equals(OrderType.InStore)) { //if the order is in store, it is not associated to a customer
+			
+			List<OrderItemDto> itemDtos = convertToDtos(o.getOrderItems());
+			return new GroceryOrderDto(o.getOrderId(),o.getTotalCost(), o.getOrderType().toString(),o.getOrderStatus().toString(), itemDtos);	
+		}else {
+			CustomerDto customerDto = convertToCDto(o.getCustomer());
+			List<OrderItemDto> itemDtos = convertToDtos(o.getOrderItems());
+			return new GroceryOrderDto(o.getOrderId(),o.getTotalCost(), o.getOrderType().toString(),o.getOrderStatus().toString(), itemDtos, customerDto);	
+			
+		}
+		
 	}
 	
-	private CustomerDto convertToDto(Customer customer) {
+	private CustomerDto convertToCDto(Customer customer) {
 		if (customer == null) {
 			throw new IllegalArgumentException("There is no such Customer!");
 		}
@@ -275,9 +287,9 @@ public class GroceryOrderRestController {
 	}
 	
 	private List<OrderItemDto> convertToDtos(List<OrderItem> orderItems) {
-		if (orderItems.isEmpty()) {
-			throw new IllegalArgumentException("This list of order items is empty.");
-		}
+//		if (orderItems.isEmpty()) {
+//			throw new IllegalArgumentException("This list of order items is empty.");
+//		}
 		List<OrderItemDto> itemDtos = new ArrayList<OrderItemDto>();
 		for (OrderItem oi : orderItems) {
 			itemDtos.add(convertToDto(oi));
@@ -285,17 +297,17 @@ public class GroceryOrderRestController {
 		return itemDtos	;
 	}
 	
-	private List<OrderItemDto> convertToDto(List<OrderItem> orderItems) {
-		List<OrderItemDto> orderItemsDto = new ArrayList<OrderItemDto>(orderItems.size());
-		
-		for(OrderItem orderItem : orderItems) {
-			if (orderItem == null) {
-				throw new IllegalArgumentException("There is no such OrderItem!");
-			}
-			orderItemsDto.add(new OrderItemDto(orderItem.getName(),orderItem.getPrice(),orderItem.getItemId()));
-			}
-		
-		return orderItemsDto;
-	}
+//	private List<OrderItemDto> convertToDto(List<OrderItem> orderItems) {
+//		List<OrderItemDto> orderItemsDto = new ArrayList<OrderItemDto>(orderItems.size());
+//		
+//		for(OrderItem orderItem : orderItems) {
+//			if (orderItem == null) {
+//				throw new IllegalArgumentException("There is no such OrderItem!");
+//			}
+//			orderItemsDto.add(new OrderItemDto(orderItem.getName(),orderItem.getPrice(),orderItem.getItemId()));
+//			}
+//		
+//		return orderItemsDto;
+//	}
 
 }
