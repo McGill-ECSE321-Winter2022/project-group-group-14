@@ -51,7 +51,7 @@ methods: {
             this.newStoreSchedule = ''
           })
           .catch(e => {
-            var errorMsg = e.response.data.message
+            var errorMsg = e.response.data
             console.log(errorMsg)
             this.errorSchedule = errorMsg
           })
@@ -65,7 +65,7 @@ methods: {
             this.newStoreSchedule = ''
           })
           .catch(e => {
-            var errorMsg = e.response.data.message
+            var errorMsg = e.response.data
             console.log(errorMsg)
             this.errorSchedule = errorMsg
           })
@@ -78,7 +78,7 @@ methods: {
             this.newStoreSchedule = ''
           })
           .catch(e => {
-            var errorMsg = e.response.data.message
+            var errorMsg = e.response.data
             console.log(errorMsg)
             this.errorSchedule = errorMsg
           })
