@@ -13,11 +13,11 @@
             </div>
          </div>
         <div id="popup2" class="overlay" v-if="errorOrder">
-        <div class="popup">
-            <h5>{{ errorOrder }}</h5>
-            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+            <div class="popup">
+                <h5>{{ errorOrder }}</h5>
+                <button class="mediumButton" onClick="window.location.reload();">Close</button>
+            </div>
         </div>
-    </div>
 
         <CustomerNavigationBar></CustomerNavigationBar>
 
@@ -130,7 +130,8 @@ export default{
 
             groceryOrders: [],
             newGroceryOrder: {
-                orderId:'',
+                // orderId: this.$route.params.orderId,
+                orderId : '',
                 totalCost:'',
                 orderType:'',
                 orderStatus:'',

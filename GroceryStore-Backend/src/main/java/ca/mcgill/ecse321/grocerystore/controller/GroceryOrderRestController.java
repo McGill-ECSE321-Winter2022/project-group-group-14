@@ -137,12 +137,12 @@ public class GroceryOrderRestController {
 	
 	//-------------------------------------------------------GET METHODS------------------------------------------------------------
 	
-	@GetMapping(value = { "/orders/orderItems/{orderId}", "/orders/orderItems/get/{orderId}/" })
+	@GetMapping(value = { "/orders/orderItems/{orderId}", "/orders/orderItems/{orderId}/" })
 	public ResponseEntity<?> getOrderItems(@PathVariable("orderId") String orderId) throws IllegalArgumentException {
 		try {
 			GroceryOrder order = orderService.getOrderById(Integer.parseInt(orderId));
 			
-			return ResponseEntity.ok(convertToDtos(groceryOrderService.getOrderItems(order)));
+			return ResponseEntity.ok(convertToDtos(orderService.getOrderItems(order)));
 			
 		}catch(IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

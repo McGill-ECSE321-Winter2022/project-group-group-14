@@ -1,8 +1,6 @@
 <template>
   <div>
 
-    
-
   <!-- <b-navbar fixed="top" toggleable="lg">
       <router-link to="/customerWelcomePage">
         <b-navbar-brand>STORIKO</b-navbar-brand>
@@ -18,7 +16,23 @@
           </b-navbar-nav>
       </b-collapse>
     </b-navbar> -->
+
+      <div id="popup1" class="overlay" v-if="errorInventory">
+        <div class="popup">
+            <h5>{{ errorInventory }}</h5>
+            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+        </div>
+    </div>
     <CustomerNavigationBar></CustomerNavigationBar>
+
+      <div id="popup1" class="overlay" v-if="successMsg">
+        <div class="popup">
+            <h5>{{ successMsg }}</h5>
+            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+        </div>
+    </div>
+    <CustomerNavigationBar></CustomerNavigationBar>
+
 
 
   <div class="grid-container">
@@ -100,6 +114,7 @@ export default {
         curremail : this.$route.params.email,
         groceryOrders: [],
         newGroceryOrder: {
+            // orderId:this.$route.params.orderId,
             orderId:'',
             totalCost:'',
             orderType:'',
@@ -140,11 +155,12 @@ export default {
                 console.log(response.data)
                 this.errorInventory = ''
                 this.newInventoryItem = ''
+                this.successMsg = 'Successfully added!'
             })
             .catch(e => {
                 var errorMsg = e.response.data
                 console.log(errorMsg)
-                this.errorPerson = errorMsg
+                this.errorInventory = errorMsg
             })
         },
         getOrder: function (email){
@@ -171,8 +187,40 @@ export default {
   
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  opacity: 100%;
+  z-index: 100;
+}
+
+.popup {
+  margin: auto;
+  margin-top: 40vh;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  transition: all 5s ease-in-out;
+}
+
+.verticalandhorizontal-center {
+    padding: 2% 6% 2% 6%;
+    background-color: white;
+    border-radius: 4%;
+    margin-top: 1%;
+    box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
+  }
+.heading {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
 
 </style>
