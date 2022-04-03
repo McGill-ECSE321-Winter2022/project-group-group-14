@@ -21,9 +21,14 @@ public class OwnerRestController {
 	private OwnerService ownerService;
 	
 	@PostMapping(value = { "/owners/{email}/{username}/{password}", "/owners/{email}/{username}/{password}/" })
-	public OwnerDto createOwner(@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password) throws IllegalArgumentException {
+	public ResponseEntity<?> createOwner(@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password) throws IllegalArgumentException {
+		try {
 		Owner owner = ownerService.createOwner(email,username,password);
-		return convertToDto(owner);
+		return ResponseEntity.ok(convertToDto(owner));
+		}
+		catch(IllegalArgumentException e){
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@GetMapping(value = { "/owners/{email}", "/owners/{email}/" })

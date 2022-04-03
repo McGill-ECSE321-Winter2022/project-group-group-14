@@ -21,9 +21,15 @@ public class EmployeeRestController {
 	private EmployeeService EmployeeService;
 	
 	@PostMapping(value = { "/employees/{email}/{username}/{password}", "/employees/{email}/{username}/{password}/" })
-	public EmployeeDto createEmployee(@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password) throws IllegalArgumentException {
-		Employee employee = EmployeeService.createEmployee(email,username,password);
-		return convertToDto(employee);
+	public ResponseEntity<?> createEmployee(@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password) throws IllegalArgumentException {
+		
+		try {
+			Employee employee = EmployeeService.createEmployee(email,username,password);
+			return ResponseEntity.ok(convertToDto(employee));
+		}
+		catch(IllegalArgumentException e){
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@GetMapping(value = { "/employees/{email}", "/employees/{email}/" })
