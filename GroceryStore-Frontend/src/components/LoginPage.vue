@@ -148,7 +148,7 @@
 
               <br>
 
-              <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginCustomer(account.email,account.password)">
+              <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginOwner(account.email,account.password)">
                 
                 Owner Log In
 
@@ -171,10 +171,6 @@
                   Create an account
                 </button>
               </router-link>
-
-              <button  type="CreateOwnerButton" class="button" @click="createOwner()">
-                Create owner
-              </button>
 
       </div>
     </div>
@@ -214,17 +210,17 @@ export default {
         }
     },
 
-    // created: function(){
-    //     AXIOS.post('/owners/dude@gmail.com/dude/123Abc')
-    //     .then(response => {
-    //       this.owners.push(response.data)
-    //       console.log(response.data)
-    //     })
-    //     .catch(e => {
-    //       this.errorOwner = e.reponse.data
-    //       console.log("didnt work")
-    //     })
-    // },
+    created: function(){
+        AXIOS.post('/owners/dude@gmail.com/dude/123Abc')
+        .then(response => {
+          this.owners.push(response.data)
+          console.log(response.data)
+        })
+        .catch(e => {
+          this.errorOwner = e.reponse.data
+          console.log("didnt work")
+        })
+    },
 
     methods: {
       loginCustomer: function (email, password){
@@ -272,10 +268,10 @@ export default {
                 this.successOwner = email + ' is logged in Successfully!'
             })
             .catch(e => {
-                var errorMsg = e.response.data.message
+                var errorMsg = e.response.data
                 // var errorMsg = "could not create owner"
                 console.log(errorMsg)
-                this.errorOwner = e.response.data.message
+                this.errorOwner = e.response.data
             })
       }
     
