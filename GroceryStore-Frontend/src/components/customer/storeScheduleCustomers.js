@@ -1,4 +1,7 @@
 import axios from 'axios'
+
+import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
+
 var config = require('../../../config')
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
@@ -11,21 +14,27 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })  
-  
 
 export default {
 name: 'storeschedule',
+components: { 
+  CustomerNavigationBar
+},
 data () {
+ 
     return {
-    storeSchedules: [],
-    newStoreSchedule: {
-        openingTime: '',
-        closingTime: '',
-        dayOpen: ''
-      },
-    errorSchedule: '',
-    response: []
+      curremail : this.$route.params.email,
+      storeSchedules: [],
+      
+      newStoreSchedule: {
+          openingTime: '',
+          closingTime: '',
+          dayOpen: ''
+        },
+      errorSchedule: '',
+      response: []
     }
+    
 },
 
 created: function () {

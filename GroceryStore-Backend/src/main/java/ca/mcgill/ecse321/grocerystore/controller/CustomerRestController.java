@@ -1,5 +1,8 @@
 package ca.mcgill.ecse321.grocerystore.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -73,6 +76,19 @@ public class CustomerRestController {
 		}
 	}
 	
+	@GetMapping(value = { "/customers/getAll", "/customers/login/getAll/"})
+	public ResponseEntity<?> getAllCustomers() throws IllegalArgumentException {
+		
+		try {
+			
+			return ResponseEntity.ok(convertToDto(CustomerService.getAllCustomers()));
+		}
+		
+		catch(IllegalArgumentException e){
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
 	
 	
 	private CustomerDto convertToDto(Customer customer) {
@@ -81,6 +97,17 @@ public class CustomerRestController {
 		}
 		CustomerDto customerDto = new CustomerDto(customer.getEmail(),customer.getUsername(),customer.getPassword(),customer.getAccountId(),customer.getPhoneNumber(),customer.getAddress());
 		return customerDto;
+	}
+	
+	private List<CustomerDto> convertToDto(List<Customer> customers) {
+		List<CustomerDto> customersDto = new ArrayList<CustomerDto>(customers.size());
+		
+		for(Customer customer : customers) {
+			
+			customersDto.add(new CustomerDto(customer.getUsername(),customer.getPassword(),customer.getEmail(),customer.getAccountId(),customer.getPhoneNumber(),customer.getAddress()));
+			}
+		
+		return customersDto;
 	}
 	
 	

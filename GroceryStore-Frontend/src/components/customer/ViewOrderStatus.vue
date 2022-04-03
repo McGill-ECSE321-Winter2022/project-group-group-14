@@ -18,9 +18,19 @@
 <script>
 import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
 export default{
-    name:'CustomerWelcomePage',
+    name:'CustomerPayment',
+    data()
+    {
+        return {
+
+            
+            curremail : this.$route.params.email,
+        }
+
+    },
     components:{
         CustomerNavigationBar
     }
+    
 }
 </script>

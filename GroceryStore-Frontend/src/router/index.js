@@ -50,31 +50,31 @@ export default new Router({
     //   name: 'CustomerNavigationBar',
     //   component: CustomerNavigationBar
     // },
-    // {
-    //   path:'/viewOrderStatus/:email', 
-    //   name: 'ViewOrderStatus',
-    //   component: ViewOrderStatus
-    // },
+    {
+      path:'/viewOrderStatus/:email', 
+      name: 'ViewOrderStatus',
+      component: ViewOrderStatus
+    },
     // {
     //   path:'/viewModifyCustomerGroceryOrder/:email', 
     //   name: 'ViewModifyCustomerGroceryOrder',
     //   component: ViewModifyCustomerGroceryOrder
     // },
-    // {
-    //   path:'/viewCustomerStoreSchedule/:email', 
-    //   name: 'ViewCustomerStoreSchedule',
-    //   component: ViewCustomerStoreSchedule
-    // },
+    {
+      path:'/viewCustomerStoreSchedule/:email', 
+      name: 'ViewCustomerStoreSchedule',
+      component: ViewCustomerStoreSchedule
+    },
     // {
     //   path:'/viewCart/:email', 
     //   name: 'ViewCart',
     //   component: ViewCart
     // },
-    // {
-    //   path:'/updateCustomerAccount/:email', 
-    //   name: 'UpdateCustomerAccount',
-    //   component: UpdateCustomerAccount
-    // },
+    {
+      path:'/updateCustomerAccount/:email', 
+      name: 'UpdateCustomerAccount',
+      component: UpdateCustomerAccount
+    },
     // {
     //   path:'/thankYou/:email', 
     //   name: 'ThankYou',

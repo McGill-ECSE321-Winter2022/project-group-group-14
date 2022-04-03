@@ -214,17 +214,21 @@ export default {
         }
     },
 
-    // created: function(){
-    //     AXIOS.post('/owners/dude@gmail.com/dude/123Abc')
-    //     .then(response => {
-    //       this.owners.push(response.data)
-    //       console.log(response.data)
-    //     })
-    //     .catch(e => {
-    //       this.errorOwner = e.reponse.data
-    //       console.log("didnt work")
-    //     })
-    // },
+    created: function(){
+        AXIOS.post('/owners/dude@gmail.com/dude/123Abc')
+        .then(response => {
+          this.owners.push(response.data)
+          console.log(response.data)
+        })
+        .catch(e => {
+          this.errorOwner = e.reponse.data
+          console.log("didnt work")
+        })
+        AXIOS.get('/customers/getAll')
+        .then(response=> {
+          console.log(response.data)
+        })
+    },
 
     methods: {
       loginCustomer: function (email, password){
