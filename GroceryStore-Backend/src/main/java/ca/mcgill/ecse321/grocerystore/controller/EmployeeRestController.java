@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.grocerystore.dto.EmployeeDto;
@@ -21,9 +22,27 @@ public class EmployeeRestController {
 	private EmployeeService EmployeeService;
 	
 	@PostMapping(value = { "/employees/{email}/{username}/{password}", "/employees/{email}/{username}/{password}/" })
-	public EmployeeDto createEmployee(@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password) throws IllegalArgumentException {
-		Employee employee = EmployeeService.createEmployee(email,username,password);
-		return convertToDto(employee);
+	public ResponseEntity<?> createEmployee(@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password) throws IllegalArgumentException {
+		
+		try {
+			Employee employee = EmployeeService.createEmployee(email,username,password);
+			return ResponseEntity.ok(convertToDto(employee));
+		}
+		catch(IllegalArgumentException e){
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	@PutMapping(value = { "/employees/update/{oldEmail}/{email}/{username}/{password}", "/employees/update/{oldEmail}/{email}/{username}/{password}/" })
+	public ResponseEntity<?> updateEmployee(@PathVariable("oldEmail") String oldEmail,@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("phoneNumber") String phoneNumber, @PathVariable("address") String address) throws IllegalArgumentException {
+		
+		try {
+			Employee employee = EmployeeService.updateEmployee(oldEmail,email,username,password);
+			return ResponseEntity.ok(convertToDto(employee));
+		}
+		catch(IllegalArgumentException e){
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@GetMapping(value = { "/employees/{email}", "/employees/{email}/" })
@@ -32,8 +51,13 @@ public class EmployeeRestController {
 	}
 	
 	@DeleteMapping(value = { "/employees/delete/{email}", "/employees/delete/{email}/" })
-	public void deleteEmployee(@PathVariable("email") String email) throws IllegalArgumentException {
-		EmployeeService.deleteEmployee(EmployeeService.getEmployeeByEmail(email));
+	public ResponseEntity<?> deleteEmployee(@PathVariable("email") String email) throws IllegalArgumentException {
+		try {
+			return ResponseEntity.ok(EmployeeService.deleteEmployee(EmployeeService.getEmployeeByEmail(email)));
+		}
+		catch(IllegalArgumentException e){
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@GetMapping(value = { "/employees/login/{email}/{password}", "/employees/login/{email}/{password}/"})

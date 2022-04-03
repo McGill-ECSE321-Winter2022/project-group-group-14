@@ -154,11 +154,13 @@ export default {
                 this.customers.push(response.data)
                 this.errorCustomer = newEmail + ' is created successfully!'
                 this.newCustomerAccount = ''
+                console.log(response.data)
             })
             .catch(e => {
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
                 this.errorCustomer = errorMsg
+                
             })
         }
     }

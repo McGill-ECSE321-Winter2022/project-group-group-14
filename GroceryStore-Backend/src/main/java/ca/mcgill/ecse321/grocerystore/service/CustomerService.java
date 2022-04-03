@@ -160,6 +160,25 @@ public class CustomerService {
     	return customerRepository.findByAddress(address);
     }
     
+    @Transactional 
+    public Customer updateCustomer(String oldUsername, String newEmail, String newUsername, String newPassword, String newPhoneNumber, String newAddress) {
+    	
+    	Customer customerToUpdate = customerRepository.findByUsername(oldUsername);
+    	if (customerToUpdate == null) throw new IllegalArgumentException("No such customer exists");
+        customerToUpdate.setEmail(newEmail);
+        customerToUpdate.setUsername(newUsername);
+        customerToUpdate.setPassword(newPassword);
+        customerToUpdate.setPhoneNumber(newPhoneNumber);
+        customerToUpdate.setAddress(newAddress);
+        
+        ServiceHelpers.checkAccountInfoValidity(customerToUpdate);
+        
+        //save new changes to the repository
+        customerRepository.save(customerToUpdate);
+        
+        return customerToUpdate;
+    }
+    
     /** @author Samuel Valentine */
     @Transactional
     public Customer updateCustomerInfo(Customer customer)
@@ -168,7 +187,7 @@ public class CustomerService {
     	ServiceHelpers.checkAccountInfoValidity(customer);
         
         //update existing customer info with the new ones
-        Customer customerToUpdate = customerRepository.findByUsername(customer.getUsername());
+        Customer customerToUpdate = customerRepository.findByEmail(customer.getEmail());
         if (customerToUpdate == null) throw new IllegalArgumentException("No such customer exists");
         customerToUpdate.setEmail(customer.getEmail());
         customerToUpdate.setUsername(customer.getUsername());
