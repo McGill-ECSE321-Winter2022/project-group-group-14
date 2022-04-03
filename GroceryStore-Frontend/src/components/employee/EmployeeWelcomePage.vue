@@ -4,9 +4,20 @@
      <div id="popup1" class="overlay" v-if="successMsg">
           <div class="popup">
             <h5>{{ successMsg }}</h5>
-            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+            <router-link to="/showEmployeeInventoryItems">
+                <button class="largeButton">
+                    View grocery items
+                </button>
+            </router-link>
+
           </div>
      </div>
+    <div id="popup2" class="overlay" v-if="errorOrder">
+        <div class="popup">
+            <h5>{{ errorOrder }}</h5>
+            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+        </div>
+    </div>
 
 
         <b-navbar fixed="top">

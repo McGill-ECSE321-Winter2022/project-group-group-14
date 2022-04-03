@@ -40,11 +40,13 @@ export default{
             AXIOS.post('/orders/inStore', {}, {})
             .then(response => {
                 this.orders.push(response.data) //add dto to the list of orders
-                this.successMsg = 'Order is created successfully. Please navigate to the items list : '
-                 console.log(this.successMsg)
+                this.successMsg = 'Order has been successfully created! Please navigate to the list of inventory items : '
+                this.errorOrder = ''
+                console.log(this.successMsg)
                 this.newGroceryOrder = ''
             })
             .catch(e => {
+                this.successMsg = ''
                 var errorMsg = e.response.data.message
                 console.log(errorMsg)
                 this.errorOrder = errorMsg
