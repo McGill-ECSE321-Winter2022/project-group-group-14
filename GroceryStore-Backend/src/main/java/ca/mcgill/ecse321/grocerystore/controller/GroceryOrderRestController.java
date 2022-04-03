@@ -169,7 +169,7 @@ public class GroceryOrderRestController {
 	}
 	
 
-	@GetMapping(value =  { "/orders/{email}", "/orders/{email}/" })
+	@GetMapping(value =  { "/orders/customer/{email}", "/orders/customer/{email}/" })
 	public ResponseEntity<?>  getOrdersByCustomer(@PathVariable("email") String email) throws IllegalArgumentException {
 		try{
 			Customer customer = customerService.getCustomerByEmail(email);
