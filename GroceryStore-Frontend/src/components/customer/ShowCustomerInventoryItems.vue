@@ -25,7 +25,7 @@
     </div>
     <CustomerNavigationBar></CustomerNavigationBar>
 
-      <div id="popup1" class="overlay" v-if="successMsg">
+      <div id="popup2" class="overlay" v-if="successMsg">
         <div class="popup">
             <h5>{{ successMsg }}</h5>
             <button class="mediumButton" onClick="window.location.reload();">Close</button>
@@ -131,6 +131,7 @@ export default {
           quantity:''
         }, 
         errorInventory: '',
+        successMsg: '',
         response: []
         }
     },
