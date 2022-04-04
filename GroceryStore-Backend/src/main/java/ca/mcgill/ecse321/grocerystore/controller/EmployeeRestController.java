@@ -1,5 +1,8 @@
 package ca.mcgill.ecse321.grocerystore.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.grocerystore.dto.CustomerDto;
 import ca.mcgill.ecse321.grocerystore.dto.EmployeeDto;
+import ca.mcgill.ecse321.grocerystore.model.Customer;
 import ca.mcgill.ecse321.grocerystore.model.Employee;
 import ca.mcgill.ecse321.grocerystore.service.EmployeeService;
 
@@ -72,13 +77,34 @@ public class EmployeeRestController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
+	@GetMapping(value = { "/employees/login/getAll", "/employees/login/getAll/"})
+	public ResponseEntity<?> getAllEmployees() throws IllegalArgumentException {
+		
+		try {
+			
+			return ResponseEntity.ok(convertToDto(EmployeeService.getAllEmployees()));
+		}
+		
+		catch(IllegalArgumentException e){
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 	private EmployeeDto convertToDto(Employee employee) {
 		if (employee == null) {
 			throw new IllegalArgumentException("There is no such Employee!");
 		}
 		EmployeeDto employeeDto = new EmployeeDto(employee.getEmail(),employee.getUsername(),employee.getPassword(),employee.getAccountId());
 		return employeeDto;
+	}
+	private List<EmployeeDto> convertToDto(List<Employee> employees) {
+		List<EmployeeDto> employeesDto = new ArrayList<EmployeeDto>(employees.size());
+		
+		for(Employee employee : employees) {
+			
+			employeesDto.add(new EmployeeDto(employee.getUsername(),employee.getPassword(),employee.getEmail(),employee.getAccountId()));
+			}
+		
+		return employeesDto;
 	}
 
 }

@@ -13,6 +13,7 @@ import ModifyInventoryItems from '@/components/owner/ModifyInventoryItems'
 import ModifyEmployees from '@/components/owner/ModifyEmployees'
 import ModifyStoreSchedule from '@/components/owner/ModifyStoreSchedule'
 import Report from '@/components/owner/Report'
+import ShowUsers from '@/components/owner/ShowUsers'
 //employee imports
 import EmployeeSchedulesFromEmployee from '@/components/employee/EmployeeSchedulesFromEmployee'
 import DeleteEmployeeAccount from '@/components/employee/DeleteEmployeeAccount'
@@ -235,6 +236,11 @@ export default new Router({
       path: '/viewIncompleteOrders',
       name: 'ViewIncompleteOrders',
       component: ViewIncompleteOrders
+    },
+    {
+      path: '/showUsers',
+      name: 'ShowUsers',
+      component: ShowUsers
     }
   ]
 })

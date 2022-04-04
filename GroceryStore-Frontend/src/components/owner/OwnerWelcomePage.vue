@@ -18,6 +18,7 @@
               <b-dropdown-item href="#/modifyEmployees">Modify Employees</b-dropdown-item>
               <b-dropdown-item href="#/modifyCustomers">Modify Customers</b-dropdown-item>
               <b-dropdown-item href="#/deleteOwnerAccount">Delete Account</b-dropdown-item>
+              <b-dropdown-item href="#/showUsers">View All Accounts</b-dropdown-item>
             </b-nav-item-dropdown>
             <b-nav-item href="#/report">Report</b-nav-item>
           </b-navbar-nav>
