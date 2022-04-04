@@ -137,6 +137,20 @@ public class GroceryOrderRestController {
 	
 	//-------------------------------------------------------GET METHODS------------------------------------------------------------
 	
+	@GetMapping(value = { "/orders/orderItems/{orderId}", "/orders/orderItems/{orderId}/" })
+	public ResponseEntity<?> getOrderItems(@PathVariable("orderId") String orderId) throws IllegalArgumentException {
+		try {
+			GroceryOrder order = orderService.getOrderById(Integer.parseInt(orderId));
+			
+			return ResponseEntity.ok(convertToDtos(orderService.getOrderItems(order)));
+			
+		}catch(IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
+	}
+	
+	
 	/**
 	 * @return all orders in system
 	 */
@@ -159,9 +173,9 @@ public class GroceryOrderRestController {
 	 * @returns orders by order id
 	 */
 	@GetMapping(value = {"/orders/{orderId}","/orders/{orderId}/ "})
-	public ResponseEntity<?>  getOrderById(@PathVariable("id") String id) throws IllegalArgumentException{
+	public ResponseEntity<?>  getOrderById(@PathVariable("orderId") String orderId) throws IllegalArgumentException{
 		try {
-			GroceryOrder order = orderService.getOrderById(Integer.parseInt(id));
+			GroceryOrder order = orderService.getOrderById(Integer.parseInt(orderId));
 			return ResponseEntity.ok(convertToDto(order));
 		}catch(IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -169,7 +183,7 @@ public class GroceryOrderRestController {
 	}
 	
 
-	@GetMapping(value =  { "/orders/{email}", "/orders/{email}/" })
+	@GetMapping(value =  { "/orders/customer/{email}", "/orders/customer/{email}/" })
 	public ResponseEntity<?>  getOrdersByCustomer(@PathVariable("email") String email) throws IllegalArgumentException {
 		try{
 			Customer customer = customerService.getCustomerByEmail(email);
@@ -376,6 +390,8 @@ public class GroceryOrderRestController {
 		}
 		return itemDtos	;
 	}
+	
+
 	
 //	private List<OrderItemDto> convertToDto(List<OrderItem> orderItems) {
 //		List<OrderItemDto> orderItemsDto = new ArrayList<OrderItemDto>(orderItems.size());

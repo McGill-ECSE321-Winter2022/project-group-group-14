@@ -5,19 +5,22 @@
                 <div class="popup">
                  <h5>{{ successMsg }}</h5>
                  <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail }}">
-                    <button class="largeButton">
-                        View grocery items
-                    </button>
-                 </router-link>
+
+                <button class="largeButton">
+                    View grocery items
+                </button>
+            </router-link>
+
+
 
             </div>
          </div>
         <div id="popup2" class="overlay" v-if="errorOrder">
-        <div class="popup">
-            <h5>{{ errorOrder }}</h5>
-            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+            <div class="popup">
+                <h5>{{ errorOrder }}</h5>
+                <button class="mediumButton" onClick="window.location.reload();">Close</button>
+            </div>
         </div>
-    </div>
 
 
         
@@ -132,7 +135,8 @@ export default{
 
             groceryOrders: [],
             newGroceryOrder: {
-                orderId:'',
+                // orderId: this.$route.params.orderId,
+                orderId : '',
                 totalCost:'',
                 orderType:'',
                 orderStatus:'',
@@ -174,7 +178,7 @@ export default{
                 this.groceryOrders.push(response.data) //add dto to the list of orders
                 this.successMsg = 'Order has been successfully created! Please navigate to the list of inventory items : '
                 this.errorOrder = ''
-                console.log(this.groceryOrders)
+                console.log(response.data)
                 this.newGroceryOrder = ''
             })
             .catch(e => {
