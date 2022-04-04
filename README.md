@@ -71,7 +71,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | --- | --- | --- |
 | name | #hours | Work description |
 | Yakir Bender | 25 | StoreSchedule-related pages (create/modify/delete), Backend updates to related pages |
-| Clarissa Baciu | |  |
+| Clarissa Baciu | 30 | Updating controller methods to take strings as inputs, all front end functionality related to grocery orders |
 | Samuel Valentine | 30 | Minutes organiser and scribe, all account-related pages (create/update/delete/login), architecture model, fixing backend |
 | Youssof Mohamed | 30 | InventoryItem-related pages, and Backend updates |
 | Minkyu Park | 25 | EmployeeSchedule front end, and back end but further modification needed |
