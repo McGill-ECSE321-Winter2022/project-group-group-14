@@ -19,7 +19,6 @@
             <b-nav-item-dropdown text="Modify Accounts">
               <b-dropdown-item href="#/modifyEmployees">Modify Employees</b-dropdown-item>
               <b-dropdown-item href="#/modifyCustomers">Modify Customers</b-dropdown-item>
-              <b-dropdown-item href="#/deleteOwnerAccount">Delete Account</b-dropdown-item>
             </b-nav-item-dropdown>
             <b-nav-item href="#/report">Report</b-nav-item>
           </b-navbar-nav>

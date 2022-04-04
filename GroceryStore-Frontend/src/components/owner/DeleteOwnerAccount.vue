@@ -40,20 +40,6 @@
         <h2 class="heading">Delete An Account</h2>
 
         <br>
-
-        <h6 class="subheading">To delete an account, first enter your password</h6>
-        <div class="form-floating mb-3">
-          <input
-            type="text"
-            v-model="Owner.password"
-            class="form-control"
-            id="floatingInput"
-            placeholder="Owner Password"
-            required
-          />
-        </div>
-
-        <br>
         <br>
 
         <h6 class="subheading">Select the account to delete by its email</h6>

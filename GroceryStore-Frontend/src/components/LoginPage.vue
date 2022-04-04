@@ -134,17 +134,17 @@
 
               <br>
 
-              <!-- <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginEmployee(account.email,account.password)">
+              <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginEmployee(account.email,account.password)">
                 
                 Employee Log In
 
-              </button> -->
+              </button>
 
-              <router-link :to="{ name: 'employeeWelcomePage', params: { email: account.email }}">
+              <!-- <router-link :to="{ name: 'employeeWelcomePage', params: { email: account.email }}">
                 <button v-bind:disabled="!account.email || !account.password" class="mediumButton">
                   Employee Log In
                 </button>
-              </router-link>
+              </router-link> -->
 
               <br>
 
@@ -171,6 +171,11 @@
                   Create an account
                 </button>
               </router-link>
+
+              <br>
+              <br>
+              <p>Still having trouble?</p>
+              <a href="https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-User---Guide">See the guide on our GitHub Wiki!</a>
 
       </div>
     </div>

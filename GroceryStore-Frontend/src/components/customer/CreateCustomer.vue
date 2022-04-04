@@ -1,9 +1,17 @@
 <template>
   <div >
-     <div id="popup1" class="overlay" v-if="errorCustomer">
+     <div id="popup1" class="overlay" v-if="successCustomer">
+          <div class="popup">
+            <h5>{{ successCustomer }}</h5>
+            <router-link to="/">
+            <button class="mediumButton">Close</button>
+            </router-link>
+          </div>
+        </div>
+
+         <div id="popup1" class="overlay" v-if="errorCustomer">
           <div class="popup">
             <h5>{{ errorCustomer }}</h5>
-            <!-- <button class="mediumButton" >Close</button> -->
             <button class="mediumButton" onClick="window.location.reload();">Close</button>
           </div>
         </div>
@@ -85,11 +93,9 @@
 
         <div>
 
-            <router-link to="/">
               <button class="largeButton" type="CreateButton" @click="createCustomerAccount(newCustomerAccount.email,newCustomerAccount.username,newCustomerAccount.password,newCustomerAccount.phoneNumber,newCustomerAccount.address)">
                 Create Account
               </button>
-            </router-link>
             
             <br> 
 
@@ -133,6 +139,7 @@ export default {
                 phoneNumber: ''
             },
             errorCustomer: '',
+            successCustomer: '',
             reponse: []
         }
     },
@@ -152,12 +159,12 @@ export default {
             AXIOS.post('/customers/'.concat(newEmail).concat('/').concat(newUsername).concat('/').concat(newPassword).concat('/').concat(newPhoneNumber).concat('/').concat(newAddress),{},{})
             .then(response => {
                 this.customers.push(response.data)
-                this.errorCustomer = newEmail + ' is created successfully!'
+                this.successCustomer = newEmail + ' is created successfully!'
                 this.newCustomerAccount = ''
                 console.log(response.data)
             })
             .catch(e => {
-                var errorMsg = e.response.data.message
+                var errorMsg = e.response.data
                 console.log(errorMsg)
                 this.errorCustomer = errorMsg
                 
