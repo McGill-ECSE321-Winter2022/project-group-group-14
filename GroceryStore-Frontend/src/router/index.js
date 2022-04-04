@@ -181,7 +181,7 @@ export default new Router({
       component: ModifyGroceryOrderStatus
     },
     {
-      path: '/showEmployeeInventoryItems',
+      path: '/showEmployeeInventoryItems/:orderId',
       name: 'ShowEmployeeInventoryItems',
       component: ShowEmployeeInventoryItems
     },

@@ -4,7 +4,8 @@
      <div id="popup1" class="overlay" v-if="successMsg">
           <div class="popup">
             <h5>{{ successMsg }}</h5>
-            <router-link to="/showEmployeeInventoryItems">
+            <h5> Please remember your order id : {{order.orderId}}</h5>
+            <router-link :to="{ name: 'ShowEmployeeInventoryItems', params: { orderId: order.orderId }}">
                 <button class="largeButton">
                     View grocery items
                 </button>
@@ -41,6 +42,10 @@
                     Log a purchase
                 </button>
 
+                <div v-if="order.orderId">
+                    order id: {{order.orderId}}
+                </div>
+
 <!-- 
                     <router-link to="/showEmployeeInventoryItems">
                         <button class="largeButton">
@@ -66,7 +71,67 @@
     </div>
 </template>
 
-<script src="./groceryOrder.js"> 
+<script> 
+    import axios from 'axios'
+var config = require('../../../config')
+
+var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
+var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
+
+// var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
+// var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
+
+var AXIOS = axios.create({
+  baseURL: backendUrl,
+  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+})  
+  
+
+
+export default{
+    name:'order',
+    data()
+    {
+        return {
+            email:this.$route.params.email,
+            orders: [],
+            customers:[],
+            order: {
+                orderId:'',
+                totalCost:'',
+                orderType:'',
+                orderStatus:'',
+                orderItems: [],
+                customer:''
+            }, 
+            errorOrder: '',
+            successMsg:'',
+            response: []
+        }
+    },
+    methods: {
+        createInstoreOrder : function(){
+            AXIOS.post('/orders/inStore', {}, {})
+            .then(response => {
+                console.log(response.data)
+                this.order = response.data
+                this.orders.push(response.data) //add dto to the list of orders
+                this.successMsg = 'Order has been successfully created! Please navigate to the list of inventory items : '
+                this.errorOrder = ''
+              
+            })
+            .catch(e => {
+                this.successMsg = ''
+                var errorMsg = e.response.data.message
+                console.log(errorMsg)
+                this.errorOrder = errorMsg
+            })
+
+        }
+        
+    }
+}
+    
 </script>
 
 <style scoped>
