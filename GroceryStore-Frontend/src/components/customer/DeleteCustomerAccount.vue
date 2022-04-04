@@ -1,5 +1,21 @@
 <template>
   <div>
+    <div id="popup1" class="overlay" v-if="successDelete">
+          <div class="popup">
+            <h5>{{ successDelete }}</h5>
+            <router-link to="/">
+            <button class="mediumButton">Close</button>
+            </router-link>
+          </div>
+        </div>
+
+        <div id="popup1" class="overlay" v-if="errorDelete">
+          <div class="popup">
+            <h5>{{ errorDelete }}</h5>
+            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+          </div>
+        </div>
+
   <b-navbar fixed="top" toggleable="lg">
       <router-link :to="{name: 'customerWelcomePage',params: {email:curremail}}">
         <b-navbar-brand>STORIKO</b-navbar-brand>
@@ -37,11 +53,11 @@
             required
           />
         </div> -->
-           <router-link to="/">
-              <button class="largeButton" type="CreateButton" @click="deleteCustomerAccount()">
+           <!-- <router-link to="/"> -->
+              <button class="largeButton" type="CreateButton" @click="deleteCustomerAccount(curremail)">
                 Delete Your Account
               </button>
-           </router-link>
+           <!-- </router-link> -->
            
 
         </div>
@@ -64,16 +80,18 @@ export default{
     data()
     {
         return {
-            curremail : this.$route.params.email
+            curremail : this.$route.params.email,
+            successDelete:'',
+            errorDelete:''
 
         }
 
     },
     methods: {
-        deleteCustomerAccount: function (){
-            AXIOS.delete('/customers/delete/'.concat(curremail))
+        deleteCustomerAccount: function (email){
+            AXIOS.delete('/customers/delete/'.concat(email))
             .then(response => {
-                this.errorDelete = email + ' has been deleted successfully!'
+                this.successDelete = email + ' has been deleted successfully!'
                 this.AccountToDelete = '',
                 this.Owner = ''
             })
@@ -92,10 +110,32 @@ export default{
 
 
 <style scoped>
-
-
-ul {
-  list-style-type: none;
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  opacity: 100%;
+  z-index: 100;
 }
 
+.popup {
+  margin: auto;
+  margin-top: 40vh;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  transition: all 5s ease-in-out;
+}
+.verticalandhorizontal-center {
+    padding: 2% 6% 2% 6%;
+    background-color: white;
+    border-radius: 4%;
+    margin-top: 1%;
+    box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
+  }
 </style>
