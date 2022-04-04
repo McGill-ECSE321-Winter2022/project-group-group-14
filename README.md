@@ -59,3 +59,21 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Samuel Valentine | 20 | Minutes organiser and scribe, customer, owner, and employee service, dto, controller, and test methods, postman |
 | Youssof Mohamed | 20 | Collective debugging sessions, InventoryItem/OrderItem service, dto, controller, and test methods, postman |
 | Minkyu Park | 20 | employee schedule service, dto, controller, and testmethods, postman |
+
+# Deliverable 3
+## Links
+* [Wiki Home Page](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki)
+* [Meeting Minutes D3](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Meeting-Minutes-(Deliverable-2))
+* [Updated Domain Model](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Domain-Model-Updated)   
+* [RESTful Service Endpoints](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Restful-Service-Endpoints)
+
+
+## Effort Table (D3)
+| Team Member | Time Spent (h) | Responsibilities | 
+| --- | --- | --- |
+| name | #hours | Work description |
+| Yakir Bender |  |  |
+| Clarissa Baciu | |  |
+| Samuel Valentine |  | Minutes organiser and scribe,  |
+| Youssof Mohamed |  |  |
+| Minkyu Park | | |
