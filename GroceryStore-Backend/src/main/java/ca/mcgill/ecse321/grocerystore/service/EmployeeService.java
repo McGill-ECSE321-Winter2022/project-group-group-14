@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.grocerystore.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,6 +56,12 @@ public class EmployeeService {
     {
         return employeeRepository.findByUsername(username);
     }
+    
+    /** @author Samuel Valentine	 */
+	@Transactional
+	public List<Employee> getAllEmployees() {
+		return ServiceHelpers.toList(employeeRepository.findAll());
+	}
     
     @Transactional 
     public Employee updateEmployee(String oldUsername, String newEmail, String newUsername, String newPassword) {

@@ -76,7 +76,7 @@ public class CustomerRestController {
 		}
 	}
 	
-	@GetMapping(value = { "/customers/getAll", "/customers/login/getAll/"})
+	@GetMapping(value = { "/customers/login/getAll", "/customers/login/getAll/"})
 	public ResponseEntity<?> getAllCustomers() throws IllegalArgumentException {
 		
 		try {
