@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,40 +27,56 @@ public class EmployeeScheduleRestController {
 	@Autowired
 	private EmployeeScheduleService service;
 	
-	@PostMapping(value = {"/employeeSchedules/{shift}/{day}", "/employeeSchedules/{shift}/{day}"})
-	public EmployeeScheduleDto createEmployeeSchedule(@PathVariable("day") String day, @PathVariable("shift") String shift)
+	@PostMapping(value = {"/employeeSchedules/create/{day}", "/employeeSchedules/create/{day}/"})
+	public ResponseEntity<?> createEmployeeSchedule(@PathVariable("day") String day, @RequestParam("shift") String shift)
 	throws IllegalArgumentException {
+		try {
 		
-		if (service.getEmployeeScheduleByDay(Day.valueOf(day)) != null) {
-			
+			if (service.getEmployeeScheduleByDay(Day.valueOf(day)) != null) {
+				
+			}
+			EmployeeSchedule employeeSchedule = service.createEmployeeSchedule(Shift.valueOf(shift), Day.valueOf(day));
+			return ResponseEntity.ok(convertToDto(employeeSchedule));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-		EmployeeSchedule employeeSchedule = service.createEmployeeSchedule(Shift.valueOf(shift), Day.valueOf(day));
-		return convertToDto(employeeSchedule);
 	}
 	
 
 	
 	@GetMapping(value = { "/employeeSchedules/{day}", "employeeSchedules/{day}/" })
-	public EmployeeScheduleDto getEmployeeSchedule(@PathVariable("day") String day) throws IllegalArgumentException {
-		return convertToDto(service.getEmployeeScheduleByDay(Day.valueOf(day)));
+	public ResponseEntity<?> getEmployeeSchedule(@PathVariable("day") String day) throws IllegalArgumentException {
+		try {
+			return ResponseEntity.ok(convertToDto(service.getEmployeeScheduleByDay(Day.valueOf(day))));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 	@GetMapping(value = { "/employeeSchedules", "/employeeSchedules/" })
-	public List<EmployeeScheduleDto> getAllEmployeeSchedules() {
-		List<EmployeeScheduleDto> employeeScheduleDtos = new ArrayList<>();
-		for (EmployeeSchedule employeeSchedule : service.getAllEmployeeSchedules()) {
-			employeeScheduleDtos.add(convertToDto(employeeSchedule));
+	public  ResponseEntity<?>  getAllEmployeeSchedules() {
+		try {
+			List<EmployeeScheduleDto> employeeScheduleDtos = new ArrayList<>();
+			for (EmployeeSchedule employeeSchedule : service.getAllEmployeeSchedules()) {
+				employeeScheduleDtos.add(convertToDto(employeeSchedule));
+			}
+			return ResponseEntity.ok(employeeScheduleDtos);
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-		return employeeScheduleDtos;
 	}
 	
-	@PutMapping(value = { "/employeeSchedules/{day}", "/employeeSchedules/{day}/" })
-	public EmployeeScheduleDto updateEmployeeSchedule(@PathVariable("day") String day, @RequestParam ("shift") String shift) throws IllegalArgumentException  {
+	@PutMapping(value = { "/employeeSchedules/update/{day}", "/employeeSchedules/update/{day}/" })
+	public ResponseEntity<?> updateEmployeeSchedule(@PathVariable("day") String day, @RequestParam ("shift") String shift) throws IllegalArgumentException  {
+		try {
 		EmployeeSchedule newSchedule = service.getEmployeeScheduleByDay(Day.valueOf(day));
 		newSchedule.setShift(Shift.valueOf(shift));
 		
 		EmployeeSchedule employeeSchedule  = service.updateEmmployeeScheduleInfo(newSchedule);
-		return convertToDto(employeeSchedule);
+		return ResponseEntity.ok(convertToDto(employeeSchedule));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
 //	@PutMapping(value = { "/employeeSchedules/{shift}", "/employeeSchedules/{shift}/" })
@@ -74,10 +91,14 @@ public class EmployeeScheduleRestController {
 //	
 	
 	
-	@DeleteMapping({ "/employeeSchedules/{day}", "/employeeSchedules/{day}/" })
-	public EmployeeScheduleDto deleteEmployeeScheduleByDay(@PathVariable("day") String day) {
+	@DeleteMapping({ "/employeeSchedules/delete/{day}", "/employeeSchedules/delete/{day}/" })
+	public ResponseEntity<?> deleteEmployeeScheduleByDay(@PathVariable("day") String day) {
+		try {
 		EmployeeSchedule employeeSchedule = service.deleteEmployeeSchedule(service.getEmployeeScheduleByDay(Day.valueOf(day)));
-		return convertToDto(employeeSchedule);
+		return ResponseEntity.ok(convertToDto(employeeSchedule));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 		}
 	
 //	@DeleteMapping({ "/employeeSchedules/{shift}", "/employeeSchedules/{shift}/" })
@@ -87,11 +108,13 @@ public class EmployeeScheduleRestController {
 //		}
 //	
 	private EmployeeScheduleDto convertToDto(EmployeeSchedule employeeSchedule) {
+	
 		if (employeeSchedule == null) {
 			throw new IllegalArgumentException("The provided Schedule does not exist.");
 		}
 		EmployeeScheduleDto employeeScheduleDto = new EmployeeScheduleDto(employeeSchedule.getShift(), employeeSchedule.getDay());
 		return employeeScheduleDto;
+		
 	}
 	
 }
