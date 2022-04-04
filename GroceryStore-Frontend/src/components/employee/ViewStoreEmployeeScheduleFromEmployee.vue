@@ -7,7 +7,6 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
-            <b-nav-item href="#/deleteEmployeeAccount">Delete Account</b-nav-item>
             <b-nav-item href="#/createCustomerFromEmployee">Create Customer</b-nav-item>
             <b-nav-item href="#/updateCustomerFromEmployee">Update Customer</b-nav-item>
             <b-nav-item href="#/viewStoreEmployeeScheduleEmployee">Schedule</b-nav-item>

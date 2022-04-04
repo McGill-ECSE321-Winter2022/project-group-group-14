@@ -15,7 +15,6 @@ import ModifyStoreSchedule from '@/components/owner/ModifyStoreSchedule'
 import Report from '@/components/owner/Report'
 //employee imports
 import EmployeeSchedulesFromEmployee from '@/components/employee/EmployeeSchedulesFromEmployee'
-import DeleteEmployeeAccount from '@/components/employee/DeleteEmployeeAccount'
 import CreateCustomerFromEmployee from '@/components/employee/CreateCustomerFromEmployee'
 import UpdateCustomerFromEmployee from '@/components/employee/UpdateCustomerFromEmployee'
 import ViewStoreEmployeeScheduleFromEmployee from '@/components/employee/ViewStoreEmployeeScheduleFromEmployee'
@@ -170,11 +169,6 @@ export default new Router({
       path: '/customerPayment',
       name: 'CustomerPayment',
       component: CustomerPayment
-    },
-    {
-      path: '/deleteEmployeeAccount',
-      name: 'Delete Employee Account',
-      component: DeleteEmployeeAccount
     },
     {
       path: '/createCustomerFromEmployee',
