@@ -7,6 +7,13 @@
             <button class="mediumButton" onClick="window.location.reload();">Close</button>
           </div>
         </div>
+        <div id="popup1" class="overlay" v-if="errorUpdateCustomer">
+          <div class="popup">
+            <h5>{{ errorUpdateCustomer }}</h5>
+            <!-- <button class="mediumButton" >Close</button> -->
+            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+          </div>
+        </div>
   <b-navbar fixed="top" toggleable="lg">
       <router-link to="/ownerWelcomePage">
         <b-navbar-brand>STORIKO</b-navbar-brand>
@@ -37,21 +44,22 @@
     </b-navbar>
   <div class="verticalandhorizontal-center">
 
-        <h2 class="heading">Create / Update Customer Account</h2>
+        <h2 class="heading">Create Customer Account</h2>
+        <!-- <h2 class="heading">Create / Update Customer Account</h2> -->
 
         <br>
 
-        <h6 class="subheading">Account to change (Leave this empty to create an account)</h6>
+        <!-- <h6 class="subheading">Account to change (Leave this empty to create an account)</h6>
         <div class="form-floating mb-3">
           <input
             type="text"
-            v-model="oldCustomerAccount.usernameToChange"
+            v-model="oldCustomerAccount.Username"
             class="form-control"
             id="floatingInput"
             placeholder="Old Username"
           />
         </div>
-        
+         -->
         <br>
 
         <h6 class="subheading">Emails must be unique within the system</h6>
@@ -124,9 +132,9 @@
             
             <br> 
 
-              <button class="largeButton" type="CreateButton">
+              <!-- <button class="largeButton" type="CreateButton" @click="updateCustomerAccount(oldCustomerAccount.username,newCustomerAccount.email,newCustomerAccount.username,newCustomerAccount.password,newCustomerAccount.phoneNumber,newCustomerAccount.address)">
                 Update Account
-              </button>
+              </button> -->
 
        
 
@@ -152,7 +160,7 @@ export default {
         return {
             customers: [],
             oldCustomerAccount:{
-              usernameToChange: ''
+              username: ''
             },
             newCustomerAccount: {
                 email: '',
@@ -162,6 +170,7 @@ export default {
                 phoneNumber: ''
             },
             errorCustomer: '',
+            errorUpdateCustomer: '',
             reponse: []
         }
     },
@@ -189,7 +198,20 @@ export default {
                 console.log(errorMsg)
                 this.errorCustomer = errorMsg
             })
-        }
+        },
+        // updateCustomerAccount: function (oldUsername, newEmail, newUsername, newPassword, newPhoneNumber, newAddress){
+        //     AXIOS.put('/customers/update'.concat('/').concat(oldUsername).concat('/').concat(newEmail).concat('/').concat(newUsername).concat('/').concat(newPassword).concat('/').concat(newPhoneNumber).concat('/').concat(newAddress),{},{})
+        //     .then(response => {
+        //         this.customers.push(response.data)
+        //         this.errorUpdateCustomer = newEmail + ' is updated successfully!'
+        //         this.newCustomerAccount = ''
+        //     })
+        //     .catch(e => {
+        //         var errorMsg = e.response.data
+        //         console.log(errorMsg)
+        //         this.errorUpdateCustomer = errorMsg
+        //     })
+        // }
     }
 }
 </script>

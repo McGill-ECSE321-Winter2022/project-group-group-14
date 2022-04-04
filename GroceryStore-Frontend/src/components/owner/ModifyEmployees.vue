@@ -39,11 +39,12 @@
     </b-navbar>
   <div class="verticalandhorizontal-center">
 
-        <h2 class="heading">Create / Update Employee Account</h2>
+        <h2 class="heading">Create Employee Account</h2>
+        <!-- <h2 class="heading">Create / Update Employee Account</h2> -->
 
         <br>
 
-        <h6 class="subheading">Account to change (Leave this empty to create an account)</h6>
+        <!-- <h6 class="subheading">Account to change (Leave this empty to create an account)</h6>
         <div class="form-floating mb-3">
           <input
             type="text"
@@ -52,7 +53,7 @@
             id="floatingInput"
             placeholder="Old Username"
           />
-        </div>
+        </div> -->
         
         <br>
 
@@ -96,10 +97,10 @@
               <button class="largeButton" type="CreateButton" @click="createEmployeeAccount(newEmployeeAccount.email,newEmployeeAccount.username,newEmployeeAccount.password)">
                 Create Account
               </button>
-              <br>
+              <!-- <br>
               <button class="largeButton" type="CreateButton">
                 Update Account
-              </button>
+              </button> -->
 
         </div>
 
