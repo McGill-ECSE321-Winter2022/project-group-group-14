@@ -70,7 +70,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Team Member | Time Spent (h) | Responsibilities | 
 | --- | --- | --- |
 | name | #hours | Work description |
-| Yakir Bender |  |  |
+| Yakir Bender | 25 | StoreSchedule-related pages (create/modify/delete), Backend updates to related pages |
 | Clarissa Baciu | |  |
 | Samuel Valentine | 30 | Minutes organiser and scribe, all account-related pages (create/update/delete/login), architecture model, fixing backend |
 | Youssof Mohamed | 30 | InventoryItem-related pages, and Backend updates |
