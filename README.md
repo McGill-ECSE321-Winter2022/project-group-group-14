@@ -74,4 +74,4 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Clarissa Baciu | |  |
 | Samuel Valentine | 30 | Minutes organiser and scribe, all account-related pages (create/update/delete/login), architecture model, fixing backend |
 | Youssof Mohamed | 30 | InventoryItem-related pages, and Backend updates |
-| Minkyu Park | | |
+| Minkyu Park | 25 | EmployeeSchedule front end, and back end but further modification needed |
