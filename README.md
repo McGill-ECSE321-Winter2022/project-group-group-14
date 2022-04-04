@@ -63,7 +63,8 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 # Deliverable 3
 ## Links
 * [Wiki Home Page](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki)
-* [Meeting Minutes D3](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Meeting-Minutes-(Deliverable-3))
+* [Meeting Minutes D3](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Meeting-Minutes--(Deliverable-3))
+* [Architecture Model](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Architecture-Model)
 
 ## Effort Table (D3)
 | Team Member | Time Spent (h) | Responsibilities | 
