@@ -72,6 +72,6 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | name | #hours | Work description |
 | Yakir Bender |  |  |
 | Clarissa Baciu | |  |
-| Samuel Valentine |  | Minutes organiser and scribe,  |
+| Samuel Valentine | 30 | Minutes organiser and scribe, all account-related pages (create/update/delete/login), architecture model, fixing backend |
 | Youssof Mohamed |  |  |
 | Minkyu Park | | |
