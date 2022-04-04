@@ -50,7 +50,7 @@ methods: {
             this.newInventoryItem = ''
           })
           .catch(e => {
-            var errorMsg = e.response.data.message
+            var errorMsg = e.response.data
             console.log(errorMsg)
             this.errorInventory = errorMsg
           })
@@ -64,7 +64,7 @@ methods: {
             this.newInventoryItem = ''
           })
           .catch(e => {
-            var errorMsg = e.response.data.message
+            var errorMsg = e.response.data
             console.log(errorMsg)
             this.errorInventory = errorMsg
           })
@@ -78,7 +78,7 @@ methods: {
             this.newInventoryItem = ''
           })
           .catch(e => {
-            var errorMsg = e.response.data.message
+            var errorMsg = e.response.data
             console.log(errorMsg)
             this.errorInventory = errorMsg
           })

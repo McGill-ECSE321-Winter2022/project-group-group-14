@@ -97,6 +97,7 @@ public class InventoryItemService {
     public InventoryItem deleteInventoryItem(String name)
     {
         InventoryItem inventoryItem = inventoryItemRepository.findByName(name);
+        if(inventoryItem==null) throw new IllegalArgumentException("No such inventory item exists");
         List<OrderItem> orderItems = orderItemRepository.findByName(inventoryItem.getName());
         if(orderItems!=null) {
     		for(OrderItem orderItem : orderItems) {

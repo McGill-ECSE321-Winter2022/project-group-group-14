@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,55 +30,93 @@ public class InventoryItemRestController {
 	
 	/**@author Youssof Mohamed*/
 	@PostMapping(value = { "/inventoryItems/create/{name}", "/inventoryItems/create/{name}/" })
-	public InventoryItemDto createInventoryItem(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock) throws IllegalArgumentException {
-		InventoryItem inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock);
-		return convertToDto(inventoryItem);
+	public ResponseEntity<?> createInventoryItem(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock) {
+		try {
+			InventoryItem inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock);
+			return ResponseEntity.ok(convertToDto(inventoryItem));
+		  } catch (IllegalArgumentException ex) {
+		    return ResponseEntity.badRequest().body(ex.getMessage());
+		  }
+		
 	}
+//	/**@author Youssof Mohamed*/
+//	@PostMapping(value = { "/inventoryItems/create/{name}", "/inventoryItems/create/{name}/" })
+//	public InventoryItemDto createInventoryItem(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock) throws IllegalArgumentException {
+//		InventoryItem inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock);
+//		return convertToDto(inventoryItem);
+//	}
 	
 	//-------------------------------------------------------UPDATE MAPPINGS------------------------------------------------------------
 	
 	/**@author Youssof Mohamed*/
 	@PutMapping(value = { "/inventoryItems/update/{name}", "/inventoryItems/update/{name}/" })
-	public InventoryItemDto upadateInventoryItem(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock) throws IllegalArgumentException {
+	public ResponseEntity<?> upadateInventoryItem(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock) throws IllegalArgumentException {
+		try {
 		InventoryItem inventoryItem = inventoryItemService.updateInventoryItemInfo(name,price,currentStock);
-		return convertToDto(inventoryItem);
+		return ResponseEntity.ok(convertToDto(inventoryItem));
+	  } catch (IllegalArgumentException ex) {
+	    return ResponseEntity.badRequest().body(ex.getMessage());
+	  }
 	}
 	
 	/**@author Youssof Mohamed*/
 	@PutMapping(value = { "/inventoryItems/toggle/{name}", "/inventoryItems/toggle/{name}/" })
-	public InventoryItemDto toggleInventoryItemAvailability(@PathVariable("name") String name) throws IllegalArgumentException {
+	public ResponseEntity<?> toggleInventoryItemAvailability(@PathVariable("name") String name) throws IllegalArgumentException {
+		
+	try{
 		InventoryItem inventoryItem = inventoryItemService.toggleInventoryItemAvailability(name);
-		return convertToDto(inventoryItem);
+		return ResponseEntity.ok(convertToDto(inventoryItem));
+	  } catch (IllegalArgumentException ex) {
+	    return ResponseEntity.badRequest().body(ex.getMessage());
+	  }
 	}
 	
 	//-------------------------------------------------------GET MAPPINGS------------------------------------------------------------
 	
 	/**@author Youssof Mohamed*/
 	@GetMapping(value = { "/inventoryItems/getByName/{name}", "/inventoryItems/getByName/{name}/" })
-	public InventoryItemDto getInventoryItemByName(@PathVariable("name") String name) throws IllegalArgumentException {
-		return convertToDto(inventoryItemService.getInventoryItemByName(name));
+	public ResponseEntity<?> getInventoryItemByName(@PathVariable("name") String name) throws IllegalArgumentException {
+	try{	
+		return ResponseEntity.ok(convertToDto(inventoryItemService.getInventoryItemByName(name)));
+	} catch (IllegalArgumentException ex) {
+	    return ResponseEntity.badRequest().body(ex.getMessage());
+	  }
 	}
 	
 	/**@author Youssof Mohamed*/
 	@GetMapping(value = { "/inventoryItems/getById", "/inventoryItems/getById/" })
-	public InventoryItemDto getInventoryItemById(@RequestParam int id) throws IllegalArgumentException {
-		return convertToDto(inventoryItemService.getInventoryItemById(id));
+	public ResponseEntity<?> getInventoryItemById(@RequestParam int id) throws IllegalArgumentException {
+	try{
+		return ResponseEntity.ok(convertToDto(inventoryItemService.getInventoryItemById(id)));
+	} catch (IllegalArgumentException ex) {
+	    return ResponseEntity.badRequest().body(ex.getMessage());
+	  }
 	}
 	
 	/**@author Youssof Mohamed*/
 	@GetMapping(value = { "/inventoryItems/get", "/inventoryItems/get/" })
-	public List<InventoryItemDto> getInventoryItems() throws IllegalArgumentException {
-		return convertToDto(inventoryItemService.getAllInventoryItems());
+	public ResponseEntity<?> getInventoryItems() throws IllegalArgumentException {
+		
+		try {
+			return ResponseEntity.ok(convertToDto(inventoryItemService.getAllInventoryItems()));
+		  } catch (IllegalArgumentException ex) {
+		    return ResponseEntity.badRequest().body(ex.getMessage());
+		  }
 	}
 	
 	//-------------------------------------------------------DELETE MAPPINGS------------------------------------------------------------
 	
+
 	/**@author Youssof Mohamed*/
 	@DeleteMapping(value = { "/inventoryItems/delete/{name}", "/inventoryItems/delete/{name}/" })
-	public void deleteInventoryItem(@PathVariable("name") String name) throws IllegalArgumentException {
-		inventoryItemService.deleteInventoryItem(name);
+	public ResponseEntity<?> deleteInventoryItem(@PathVariable("name") String name) throws IllegalArgumentException {
+		try {
+			return ResponseEntity.ok(convertToDto(inventoryItemService.deleteInventoryItem(name)));
+		  } catch (IllegalArgumentException ex) {
+		    return ResponseEntity.badRequest().body(ex.getMessage());
+		  }
+		
 	}
-	
 	//-------------------------------------------------------CONVERSIONS------------------------------------------------------------
 	
 	/**@author Youssof Mohamed*/
@@ -102,3 +141,4 @@ public class InventoryItemRestController {
 	}
 
 }
+

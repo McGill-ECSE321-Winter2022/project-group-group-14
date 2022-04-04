@@ -22,19 +22,26 @@ public class OwnerService {
 	public Owner createOwner(String aEmail, String aUsername, String aPassword) {
 		
 		List<Owner> owners = (List<Owner>) ownerRepository.findAll();
-		
-		if(owners.size()==0) {
+		if(owners!=null) {
+			if(owners.size()==0) {
+				checkAllInputParameters(aEmail, aUsername, aPassword);
+				
+				Owner owner = new Owner(aEmail, aUsername, aPassword);
+				ownerRepository.save(owner);
+				return owner;
+			} else {
+//				ownerRepository.save(owners.get(0));
+				return owners.get(0);
+			}
+			
+		} else {
 			checkAllInputParameters(aEmail, aUsername, aPassword);
 			
 			Owner owner = new Owner(aEmail, aUsername, aPassword);
 			ownerRepository.save(owner);
 			return owner;
-		} else {
-//			ownerRepository.save(owners.get(0));
-			return owners.get(0);
+		
 		}
-		
-		
 	}
 
 	/** @author Samuel Valentine	 */
