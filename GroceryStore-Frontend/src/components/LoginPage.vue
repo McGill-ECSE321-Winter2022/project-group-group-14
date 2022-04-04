@@ -172,6 +172,11 @@
                 </button>
               </router-link>
 
+              <br>
+              <br>
+              <p>Still having trouble?</p>
+              <a href="https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-User---Guide">See the guide on our GitHub Wiki!</a>
+
       </div>
     </div>
 </div>  
