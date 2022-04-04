@@ -224,6 +224,8 @@ ul {
 /*------------------------ Button Styles -------------------- */
 
 
+
+
 .button_delete{
   font-size: 12px;
   margin-top: 10px;
@@ -258,7 +260,11 @@ ul {
   border-radius: 12px;
   transition: 0.5s;
 }
-
+.disabled {
+  color: rgb(132, 132, 132);
+  background-color: rgb(226, 226, 226);  
+  box-shadow: 0px 0px 0px 0px #c7c7c7;
+}
 .mediumButton:hover, .largeButton:hover, .button:hover{
   box-shadow: 0px 0px 8px 2px #c7c7c7;
   border-color: #f7a851;
@@ -267,6 +273,11 @@ ul {
   transition: 0.3s;
 }
 
+.disabled:hover {
+  color: rgb(132, 132, 132);
+  background-color: rgb(226, 226, 226);  
+  box-shadow: 0px 0px 0px 0px #c7c7c7;
+}
 
 .dropdown-list {
   width: 3em;

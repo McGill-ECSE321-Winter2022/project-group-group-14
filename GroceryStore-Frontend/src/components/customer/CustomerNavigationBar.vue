@@ -1,7 +1,7 @@
 <template>
 <div>
   <b-navbar fixed="top" toggleable="lg">
-      <router-link to="/customerWelcomePage">
+      <router-link :to="{name: 'customerWelcomePage',params: {email:email}}">
         <b-navbar-brand>STORIKO</b-navbar-brand>
       </router-link>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

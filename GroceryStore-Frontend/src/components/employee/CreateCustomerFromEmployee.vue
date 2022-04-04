@@ -14,7 +14,6 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
-            <b-nav-item href="#/deleteEmployeeAccount">Delete Account</b-nav-item>
             <b-nav-item href="#/createCustomerFromEmployee">Create Customer</b-nav-item>
             <b-nav-item href="#/updateCustomerFromEmployee">Update Customer</b-nav-item>
             <b-nav-item href="#/viewStoreEmployeeScheduleEmployee">Schedule</b-nav-item>
@@ -30,9 +29,7 @@
         <h2 class="heading">Create Customer Account</h2>
 
         <br>
-        <br>
-
-        <h6 class="subheading">Emails must be unique within the system</h6>
+       <h6 class="subheading">Emails must be unique within the system</h6>
         <div class="form-floating mb-3">
           <input
             type="text"
@@ -95,23 +92,11 @@
         <br>
         <br>
 
-        <div>
-
-            
               <button class="largeButton" type="CreateButton" @click="createCustomerAccount(newCustomerAccount.email,newCustomerAccount.username,newCustomerAccount.password,newCustomerAccount.phoneNumber,newCustomerAccount.address)">
                 Create Account
               </button>
             
-            
-            <br> 
-
-            
-
-        </div>
-
     </div>
-    <br />
-    <br />
   </div>
 </template>
 
@@ -163,7 +148,7 @@ export default {
                 this.newCustomerAccount = ''
             })
             .catch(e => {
-                var errorMsg = e.response.data.message
+                var errorMsg = e.response.data
                 console.log(errorMsg)
                 this.errorCustomer = errorMsg
             })

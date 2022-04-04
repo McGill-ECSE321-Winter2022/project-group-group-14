@@ -15,7 +15,6 @@ import ModifyStoreSchedule from '@/components/owner/ModifyStoreSchedule'
 import Report from '@/components/owner/Report'
 //employee imports
 import EmployeeSchedulesFromEmployee from '@/components/employee/EmployeeSchedulesFromEmployee'
-import DeleteEmployeeAccount from '@/components/employee/DeleteEmployeeAccount'
 import CreateCustomerFromEmployee from '@/components/employee/CreateCustomerFromEmployee'
 import UpdateCustomerFromEmployee from '@/components/employee/UpdateCustomerFromEmployee'
 import ViewStoreEmployeeScheduleFromEmployee from '@/components/employee/ViewStoreEmployeeScheduleFromEmployee'
@@ -40,11 +39,27 @@ Vue.use(Router)
 
 export default new Router({
 
-  // const routes=[
-  //   {path:'/customerWelcomePage/id', component:CustomerWelcomePage}
-  // ],
-
   routes: [
+    {
+      path:'/viewOrderStatus/:email', 
+      name: 'ViewOrderStatus',
+      component: ViewOrderStatus
+    },
+    {
+      path:'/viewCustomerStoreSchedule/:email', 
+      name: 'ViewCustomerStoreSchedule',
+      component: ViewCustomerStoreSchedule
+    },
+    {
+      path:'/updateCustomerAccount/:email', 
+      name: 'UpdateCustomerAccount',
+      component: UpdateCustomerAccount
+    },
+    {
+      path:'/DeleteCustomerAccount/:email', 
+      name: 'DeleteCustomerAccount',
+      component: DeleteCustomerAccount
+    },
     {
       path:'/customerWelcomePage/:email', 
       name: 'customerWelcomePage',
@@ -154,11 +169,6 @@ export default new Router({
       path: '/customerPayment',
       name: 'CustomerPayment',
       component: CustomerPayment
-    },
-    {
-      path: '/deleteEmployeeAccount',
-      name: 'Delete Employee Account',
-      component: DeleteEmployeeAccount
     },
     {
       path: '/createCustomerFromEmployee',

@@ -98,6 +98,7 @@ public class StoreScheduleService {
     /** Deletes StoreSchedule from the database. **/
 	@Transactional
 	public StoreSchedule deleteStoreSchedule(StoreSchedule storeSchedule) {
+		if (storeSchedule == null) throw new IllegalArgumentException("This Store Schedule does not exist.");
 		storeScheduleRepo.delete(storeSchedule);
 		return storeSchedule;
 	}

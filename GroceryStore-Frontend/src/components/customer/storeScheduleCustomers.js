@@ -1,4 +1,7 @@
 import axios from 'axios'
+
+import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
+
 var config = require('../../../config')
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
@@ -11,21 +14,27 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })  
-  
 
 export default {
 name: 'storeschedule',
+components: { 
+  CustomerNavigationBar
+},
 data () {
+ 
     return {
-    storeSchedules: [],
-    newStoreSchedule: {
-        openingTime: '',
-        closingTime: '',
-        dayOpen: ''
-      },
-    errorSchedule: '',
-    response: []
+      curremail : this.$route.params.email,
+      storeSchedules: [],
+      
+      newStoreSchedule: {
+          openingTime: '',
+          closingTime: '',
+          dayOpen: ''
+        },
+      errorSchedule: '',
+      response: []
     }
+    
 },
 
 created: function () {
@@ -47,7 +56,7 @@ methods: {
           .then(response => {
           // JSON responses are automatically parsed.
             this.storeSchedules.push(response.data)
-            this.errorSchedule = day + ' is created successfully!'
+            this.errorSchedule = ''
             this.newStoreSchedule = ''
           })
           .catch(e => {
@@ -57,11 +66,11 @@ methods: {
           })
       },
       updateStoreSchedule: function (openTime,closeTime,day) {
-        AXIOS.put('/storeSchedules/update/'.concat(day), {}, {params: {openingTime: openTime, closingTime: closeTime}})
+        AXIOS.put('/storeSchedules/update/'.concat(day), {}, {params: {params: {openingTime: openTime, closingTime: closeTime}}})
           .then(response => {
           // JSON responses are automatically parsed.
             this.storeSchedules.push(response.data)
-            this.errorSchedule = day + ' is updated successfully!'
+            this.errorSchedule = ''
             this.newStoreSchedule = ''
           })
           .catch(e => {
@@ -74,7 +83,8 @@ methods: {
         AXIOS.delete('/storeSchedules/delete/'.concat(day), {}, {})
           .then(response => {
           // JSON responses are automatically parsed.
-            this.errorSchedule = day + ' is deleted successfully!'
+            // this.storeSchedules
+            this.errorSchedule = ''
             this.newStoreSchedule = ''
           })
           .catch(e => {

@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +21,12 @@ import ca.mcgill.ecse321.grocerystore.model.StoreSchedule;
 import ca.mcgill.ecse321.grocerystore.model.StoreSchedule.Day;
 import ca.mcgill.ecse321.grocerystore.service.StoreScheduleService;
 
+/**
+ * 
+ * @author Yakir Bender
+ *
+ */
+
 @CrossOrigin(origins = "*")
 @RestController
 public class StoreScheduleRestController {
@@ -29,77 +35,67 @@ public class StoreScheduleRestController {
 	private StoreScheduleService service;
 
 	@PostMapping(value = { "/storeSchedules/create/{day}", "/storeSchedules/create/{day}/" })
-	public StoreScheduleDto createStoreSchedule(@PathVariable("day") String day,
+	public ResponseEntity<?> createStoreSchedule(@PathVariable("day") String day,
 	@RequestParam String openingTime, @RequestParam String closingTime)
 	throws IllegalArgumentException {
-		
-		if (service.getStoreScheduleByDayOpen(Day.valueOf(day)) != null) {
-			return null;
+		try {
+			
+			LocalTime newOpen = convertToLocalTime(openingTime);
+			LocalTime newClose = convertToLocalTime(closingTime);
+			
+			StoreSchedule storeSchedule = service.createStoreSchedule(Time.valueOf(newOpen), Time.valueOf(newClose), Day.valueOf(day));
+			return ResponseEntity.ok(convertToDto(storeSchedule));	
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-		
-		LocalTime newOpen = convertToLocalTime(openingTime);
-		LocalTime newClose = convertToLocalTime(closingTime);
-		
-		StoreSchedule storeSchedule = service.createStoreSchedule(Time.valueOf(newOpen), Time.valueOf(newClose), Day.valueOf(day));
-		return convertToDto(storeSchedule);
+
 	}
 
 	@GetMapping(value = { "/storeSchedules/{day}", "/storeSchedules/{day}/" })
-	public StoreScheduleDto getStoreSchedule(@PathVariable("day") String day) throws IllegalArgumentException {
-		return convertToDto(service.getStoreScheduleByDayOpen(Day.valueOf(day)));
+	public ResponseEntity<?> getStoreSchedule(@PathVariable("day") String day) throws IllegalArgumentException {
+		try {
+			return ResponseEntity.ok(convertToDto(service.getStoreScheduleByDayOpen(Day.valueOf(day))));
+			} catch (IllegalArgumentException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
 	}
 	
 	@GetMapping(value = { "/storeSchedules/get", "/storeSchedules/get/" })
-	public List<StoreScheduleDto> getAllStoreSchedules() {
-		List<StoreScheduleDto> storeScheduleDtos = new ArrayList<>();
-		for (StoreSchedule storeSchedule : service.getAllStoreSchedules()) {
-			storeScheduleDtos.add(convertToDto(storeSchedule));
+	public ResponseEntity<?> getAllStoreSchedules() {
+		try {
+			List<StoreScheduleDto> storeScheduleDtos = new ArrayList<>();
+			for (StoreSchedule storeSchedule : service.getAllStoreSchedules()) {
+				storeScheduleDtos.add(convertToDto(storeSchedule));
+			}
+			return ResponseEntity.ok(storeScheduleDtos);	
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-		return storeScheduleDtos;
 	}
 	
 	@PutMapping(value = { "/storeSchedules/update/{day}", "/storeSchedules/update/{day}/" })
-	public StoreScheduleDto updateStoreSchedule(@PathVariable("day") String day,
+	public ResponseEntity<?> updateStoreSchedule(@PathVariable("day") String day,
 			@RequestParam String openingTime, @RequestParam String closingTime) throws IllegalArgumentException  {
-		LocalTime newOpen = convertToLocalTime(openingTime);
-		LocalTime newClose = convertToLocalTime(closingTime);
-		
-		StoreSchedule storeSchedule  = service.updateStoreScheduleInfo(Day.valueOf(day), Time.valueOf(newOpen), Time.valueOf(newClose));
-		return convertToDto(storeSchedule);
+		try {
+			LocalTime newOpen = convertToLocalTime(openingTime);
+			LocalTime newClose = convertToLocalTime(closingTime);
+			
+			StoreSchedule storeSchedule  = service.updateStoreScheduleInfo(Day.valueOf(day), Time.valueOf(newOpen), Time.valueOf(newClose));
+			return ResponseEntity.ok(convertToDto(storeSchedule));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 	
-	
-	/**
-	@PutMapping(value = { "/storeSchedules/update/openingTime/{day}", "/storeSchedules/update/openingTime/{day}/" })
-	public StoreScheduleDto updateStoreScheduleOpeningTime(@PathVariable("day") String day,
-			@RequestParam String openingTime) throws IllegalArgumentException  {
-		LocalTime newOpen = convertToLocalTime(openingTime);
-		
-		StoreSchedule newSchedule = service.getStoreScheduleByDayOpen(Day.valueOf(day));
-		newSchedule.setOpeningTime(Time.valueOf(newOpen));
-		
-		StoreSchedule storeSchedule  = service.updateStoreScheduleInfo(newSchedule);
-		return convertToDto(storeSchedule);
-	}
-	
-	@PutMapping(value = { "/storeSchedules/update/closingTime/{day}", "/storeSchedules/update/closingTime/{day}/" })
-	public StoreScheduleDto updateStoreScheduleClosingTime(@PathVariable("day") String day,
-			@RequestParam String closingTime) throws IllegalArgumentException  {
-		LocalTime newClose = convertToLocalTime(closingTime);
-		
-		StoreSchedule newSchedule = service.getStoreScheduleByDayOpen(Day.valueOf(day));
-		newSchedule.setClosingTime(Time.valueOf(newClose));
-		
-		StoreSchedule storeSchedule  = service.updateStoreScheduleInfo(newSchedule);
-		return convertToDto(storeSchedule);
-	}
-	**/
-	
-	
-	@DeleteMapping({ "/storeSchedules/{day}", "/storeSchedules/{day}/" })
-	public StoreScheduleDto deleteStoreSchedule(@PathVariable("day") String day) {
-		StoreSchedule storeSchedule = service.deleteStoreSchedule(service.getStoreScheduleByDayOpen(Day.valueOf(day)));
-		return convertToDto(storeSchedule);
+	@DeleteMapping({ "/storeSchedules/delete/{day}", "/storeSchedules/delete/{day}/" })
+	public ResponseEntity<?> deleteStoreSchedule(@PathVariable("day") String day) {
+		try {
+			StoreSchedule storeSchedule = service.deleteStoreSchedule(service.getStoreScheduleByDayOpen(Day.valueOf(day)));
+			return ResponseEntity.ok(convertToDto(storeSchedule));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+
 		}
 	
 	private StoreScheduleDto convertToDto(StoreSchedule storeSchedule) {
@@ -112,7 +108,7 @@ public class StoreScheduleRestController {
 	
 	private LocalTime convertToLocalTime(String time) {
 		if (time == null) {
-			throw new IllegalArgumentException("The provided Time cannot be null.");
+			throw new IllegalArgumentException("The provided time cannot be null.");
 		}
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");

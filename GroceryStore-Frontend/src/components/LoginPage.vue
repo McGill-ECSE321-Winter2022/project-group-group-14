@@ -134,31 +134,31 @@
 
               <br>
 
-              <!-- <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginEmployee(account.email,account.password)">
+              <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginEmployee(account.email,account.password)">
                 
                 Employee Log In
 
-              </button> -->
+              </button>
 
-              <router-link :to="{ name: 'employeeWelcomePage', params: { email: account.email }}">
+              <!-- <router-link :to="{ name: 'employeeWelcomePage', params: { email: account.email }}">
                 <button v-bind:disabled="!account.email || !account.password" class="mediumButton">
                   Employee Log In
                 </button>
-              </router-link>
+              </router-link> -->
 
               <br>
 
-              <!-- <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginCustomer(account.email,account.password)">
+              <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginOwner(account.email,account.password)">
                 
                 Owner Log In
 
-              </button> -->
+              </button>
 
-              <router-link :to="{ name: 'ownerWelcomePage', params: { email: account.email }}">
+              <!-- <router-link :to="{ name: 'ownerWelcomePage', params: { email: account.email }}">
                 <button v-bind:disabled="!account.email || !account.password" class="mediumButton">
                   Owner Log In
                 </button>
-              </router-link>
+              </router-link> -->
 
               <br>
               <br>
@@ -172,9 +172,10 @@
                 </button>
               </router-link>
 
-              <button  type="CreateOwnerButton" class="button" @click="createOwner()">
-                Create owner
-              </button>
+              <br>
+              <br>
+              <p>Still having trouble?</p>
+              <a href="https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-User---Guide">See the guide on our GitHub Wiki!</a>
 
       </div>
     </div>
@@ -215,12 +216,18 @@ export default {
     },
 
     created: function(){
-        AXIOS.post('/owners/youssof@gmail.com/youssof/123Abc')
+        AXIOS.post('/owners/dude@gmail.com/dude/123Abc')
         .then(response => {
           this.owners.push(response.data)
+          console.log(response.data)
         })
         .catch(e => {
-            this.errorOwner = e
+          this.errorOwner = e.reponse.data
+          console.log("didnt work")
+        })
+        AXIOS.get('/customers/getAll')
+        .then(response=> {
+          console.log(response.data)
         })
     },
 
@@ -264,18 +271,18 @@ export default {
             })
         },
 
-      // createOwner: function (){
-      //   AXIOS.post('/owners/youssof@gmail.com/youssof/123Abc')
-      //   .then(response => {
-      //           this.successOwner = email + ' is logged in Successfully!'
-      //       })
-      //       .catch(e => {
-      //           // var errorMsg = e.response.data
-      //           var errorMsg = "could not create owner"
-      //           console.log(errorMsg)
-      //           this.errorOwner = e.response.data
-      //       })
-      // }
+      createOwner: function (){
+        AXIOS.post('/owners/dude@gmail.com/dude/123Abc')
+        .then(response => {
+                this.successOwner = email + ' is logged in Successfully!'
+            })
+            .catch(e => {
+                var errorMsg = e.response.data
+                // var errorMsg = "could not create owner"
+                console.log(errorMsg)
+                this.errorOwner = e.response.data
+            })
+      }
     
     }
 }

@@ -285,30 +285,16 @@ public class TestCustomerService
         Customer after = null;
         try
         {
-            before = service.createCustomer("frank@gmail.com", "frank", "456Def", "5148888888", "444 1st avenue");
-            
-            Customer dummy = new Customer();
-            dummy.setAccountId(1);
-            dummy.setEmail("dave@gmail.com");
-            dummy.setUsername("dave2");
-            dummy.setPassword("123Abc");
-            dummy.setPhoneNumber("5149999999");
-            dummy.setAddress("555 1st avenue");
-            after = service.updateCustomerInfo(dummy);
-        } catch (IllegalArgumentException e)
-        {
+
+            after = service.updateCustomer("dave2","dave@gmail.com","dave","123Abc","5149999999","555 1st avenue");
+        }
+        catch (IllegalArgumentException e){
             fail();
         }
         assertNotNull(after);
-
-        assertEquals("frank@gmail.com", before.getEmail());
-        assertEquals("frank", before.getUsername());
-        assertEquals("456Def", before.getPassword());
-        assertEquals("5148888888", before.getPhoneNumber());
-        assertEquals("444 1st avenue", before.getAddress());
         
         assertEquals("dave@gmail.com", after.getEmail());
-        assertEquals("dave2", after.getUsername());
+        assertEquals("dave", after.getUsername());
         assertEquals("123Abc", after.getPassword());
         assertEquals("5149999999", after.getPhoneNumber());
         assertEquals("555 1st avenue", after.getAddress());
