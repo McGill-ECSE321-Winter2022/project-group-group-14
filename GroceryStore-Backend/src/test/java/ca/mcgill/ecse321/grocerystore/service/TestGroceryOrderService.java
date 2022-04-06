@@ -57,6 +57,7 @@ public class TestGroceryOrderService {
 	private static final int testTotalCost = 4;
 	private static final Customer testCustomer = new Customer();
 	private static final Customer testCustomer2 = new Customer();
+	private static final Customer inTownCustomer = new Customer();
     private static final OrderItem testOrderItem1 = new OrderItem();
     private static final OrderItem testOrderItem2 = new OrderItem();
     private static final OrderItem testOrderItem3 = new OrderItem();
@@ -83,6 +84,15 @@ public class TestGroceryOrderService {
 		testCustomer2.setPassword("xxxxx");
 		testCustomer2.setUsername("customer2");
 		testCustomer2.setPhoneNumber("5141234567");
+		
+		inTownCustomer.setAccountId(testId+3);
+		inTownCustomer.setAddress("39 west Storiko"); 		//in town
+		inTownCustomer.setEmail("custome3@mail.com");
+		inTownCustomer.setPassword("xxxxx");
+		inTownCustomer.setUsername("customer3");
+		inTownCustomer.setPhoneNumber("5141234567");
+		
+		
 		
 		//initialize inventory item
 		testInventoryItem.setAvailability(true);
@@ -113,8 +123,7 @@ public class TestGroceryOrderService {
 	@BeforeEach
 	public void setMockOutput() {
 		
-	    lenient().when(orderDao.findByOrderId(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
-	        if(invocation.getArgument(0).equals(testId)) {
+	    lenient().when(orderDao.findByOrderId(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {    
 	            GroceryOrder order = new GroceryOrder();
 	            order.setOrderId(testId);
 	            order.setOrderStatus(testOrderStatus);
@@ -123,9 +132,6 @@ public class TestGroceryOrderService {
 	            order.setCustomer(testCustomer);
 	            order.setOrderItems(testOrderItemsList);
 	            return order;
-	        } else {
-	            return null;
-	        }  
 	    });
 	    
 	    lenient().when(customerDao.findByEmail(any(String.class))).thenAnswer( (InvocationOnMock invocation) -> {
@@ -144,6 +150,7 @@ public class TestGroceryOrderService {
 		            return null;
 		        }
 	    });
+	    
 	   
 	    lenient().when(orderDao.findGroceryOrdersByCustomer(any(Customer.class))).thenAnswer((InvocationOnMock invocation) -> {
 	        if (invocation.getArgument(0).equals(testCustomer))	
@@ -158,11 +165,12 @@ public class TestGroceryOrderService {
 	            order.setOrderItems(testOrderItemsList);
 	            orderList.add(order);
 	            return orderList;
-	        } else
+	        } else //if any other customer return null
 	        {
-	            return null;
+	            return new ArrayList<>();
 	        }
         });
+
 	    
 	    lenient().when(orderDao.findByOrderType(any(OrderType.class))).thenAnswer((InvocationOnMock invocation) -> {
 	        if (invocation.getArgument(0).equals(testOrderType))	
@@ -230,33 +238,143 @@ public class TestGroceryOrderService {
 	
 	
 	// can create order where customer is not in town and total cost must be increased
-//	@Test
-//	public void testCreateOrder() {
-//		GroceryOrder order = null;
-//	    try{
-//	    	order = orderService.createDeliveryOrder(testCustomer);
-//		    assertNotNull(order);
-//		    assertEquals(order.getOrderStatus(),OrderStatus.Received);
-//		    assertEquals(order.getCustomer().getAccountId(),testCustomer.getAccountId());
-//		    assertTrue(order.getOrderItems().isEmpty());
-//		    order = orderService.addOrderItems(order, testOrderItemsList);
-//		    assertNotNull(order);
-//		    order = orderService.placeOrder(order);
-//		    
-//
-////	        assertEquals(order.getOrderItems().get(0).getItemId(),testOrderItem1.getItemId());
-////	        assertEquals(order.getOrderItems().get(1).getItemId(),testOrderItem2.getItemId());
-////
-////		    
-////	    	
-//	    	
-//	    }catch (IllegalArgumentException e) {
-//	    	System.out.println(e.getMessage());
-//	    	fail();
-//	    }
-//	    
-//
-//	}
+	@Test
+	public void testCreateDeliveryOrder() {
+		GroceryOrder order = null;
+
+		GroceryOrder order3 = null;
+	    try{
+	    	order = orderService.createDeliveryOrder(testCustomer2);
+		    assertNotNull(order);
+		    assertEquals(order.getOrderStatus(),OrderStatus.Received);
+		    assertEquals(order.getCustomer().getAccountId(),testCustomer2.getAccountId());
+		    assertTrue(order.getOrderItems().isEmpty());
+		    assertTrue(order.getOrderType().equals(OrderType.Delivery));
+		    assertEquals(order.getTotalCost(),10); //since customer is out of town, delivery fee should be 10
+		    	    
+		    order3 = orderService.createDeliveryOrder(inTownCustomer);
+		    assertTrue(order3.getOrderType().equals(OrderType.Delivery));
+		    assertEquals(order3.getTotalCost(),0); //since customer is in town, delivery fee should not appear
+		    
+	    	
+	    }catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	fail();
+	    }
+	}
+	
+	@Test
+	public void testCreatePickupOrder(){
+		GroceryOrder order2 = null;
+	    try{
+	        order2 = orderService.createPickupOrder(testCustomer2);
+	        assertTrue(order2.getOrderType().equals(OrderType.PickUp));
+	        assertTrue(order2.getTotalCost() == 0); 	//pick up order should not have a delivery fee
+	    }catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	fail();
+	    }
+	}
+
+	@Test
+	public void testCreateSecondOrder() {
+		GroceryOrder order = null;
+		GroceryOrder order2 = null;
+	    try{
+	    	order = orderService.createDeliveryOrder(testCustomer);
+		    order2 = orderService.createDeliveryOrder(testCustomer);
+	    	
+	    }catch (IllegalArgumentException e) {
+	    	assertEquals(e.getMessage(),"Please complete your order before creating a new one." );
+	    }
+	   
+	}
+	
+	@Test
+	public void testAddToDeliveryOrderWithFee() {
+		GroceryOrder order = null;
+	    try{
+	    	order = orderService.createDeliveryOrder(testCustomer2);
+	    	assertEquals(order.getTotalCost(),10); 
+	    	order.setOrderId(testId);
+	    	order = orderService.addOrderItems(order, testOrderItemsList);
+	    	assertEquals(order.getOrderItems(),testOrderItemsList); 
+	    	assertEquals(order.getTotalCost(),14); 
+	    	assertEquals(order.getTotalCost(),14); 
+	    	assertEquals(OrderStatus.Received,order.getOrderStatus());
+	    	order = orderService.placeOrder(order);
+	    	assertEquals(OrderStatus.Processing,order.getOrderStatus());
+	    }catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	fail();
+	    }
+	}
+	
+	@Test
+	public void testAddToDeliveryOrderWithoutFee() {
+		GroceryOrder order3 = null;
+	    try{
+	    	order3 = orderService.createDeliveryOrder(inTownCustomer);
+	    	order3.setOrderId(testId);
+	    	assertEquals(order3.getTotalCost(),0); 
+	    	order3.setOrderId(testId);
+	    	order3 = orderService.addOrderItems(order3, testOrderItemsList);
+	    	assertEquals(order3.getOrderItems(),testOrderItemsList); 
+	    	assertEquals(order3.getTotalCost(),4); 
+	    	assertEquals(OrderStatus.Received,order3.getOrderStatus());
+	    	order3 = orderService.placeOrder(order3);
+	    	assertEquals(OrderStatus.Processing,order3.getOrderStatus());
+	    }catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	fail();
+	    }
+	}
+	
+	@Test
+	public void testAddToPickUpOrder() {
+		GroceryOrder order3 = null;
+	    try{
+	    	order3 = orderService.createPickupOrder(inTownCustomer);
+	    	order3.setOrderId(testId);
+	    	assertEquals(order3.getTotalCost(),0); 
+	    	order3.setOrderId(testId);
+	    	order3 = orderService.addOrderItems(order3, testOrderItemsList);
+	    	assertEquals(order3.getOrderItems(),testOrderItemsList); 
+	    	assertEquals(order3.getTotalCost(),4); 
+	    	assertEquals(OrderStatus.Received,order3.getOrderStatus());
+	    	order3 = orderService.placeOrder(order3);
+	    	assertEquals(OrderStatus.Processing,order3.getOrderStatus());
+	    }catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	fail();
+	    }
+	}
+	
+	@Test
+	public void testToggleOrderType(){
+		GroceryOrder order = null;
+	    try{
+	    	order = orderService.createDeliveryOrder(testCustomer2);
+	    	assertEquals(order.getTotalCost(),10); 
+	    	order.setOrderId(testId);
+	    	order = orderService.addOrderItems(order, testOrderItemsList);
+	    	assertEquals(order.getTotalCost(),14); 
+	    	assertEquals(OrderType.Delivery,order.getOrderType());
+	    	orderService.toggleOrderType(order);
+	    	assertEquals(OrderType.PickUp,order.getOrderType());
+	    	assertEquals(order.getTotalCost(),4);  //10$ fee should have been removed 
+	    	orderService.toggleOrderType(order);
+	    	assertEquals(OrderType.Delivery,order.getOrderType());
+	    	assertEquals(order.getTotalCost(),14);  //10$ fee should have been added back 
+	    	order = orderService.placeOrder(order);
+
+	    }catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	fail();
+	    }
+		
+	}
+	
 	
 	@Test
 	public void testCreateNullCustomerOrder() {
@@ -264,30 +382,41 @@ public class TestGroceryOrderService {
 	    try{
 	    	order = orderService.createDeliveryOrder(null);
 	    	order = orderService.addOrderItems(order, testOrderItemsList);
+	    	assertEquals(order.getOrderItems(),testOrderItemsList); 
+	    	assertEquals(OrderStatus.Received,order.getOrderStatus());
 	    	order = orderService.placeOrder(order);
+	    	assertEquals(OrderStatus.Completed,order.getOrderStatus());
+	    	
 	    }catch (IllegalArgumentException e) {
 	    	  assertEquals(e.getMessage(),"Please submit a valid user object." );
 	    }
 	  
 	}
+	
 
-//	@Test
-//	public void testCreateInStoreOrder() {
-//		GroceryOrder order = null;
-//	    try{
-//	    	order = orderService.createInStoreOrder();
-//	    	order = orderService.addOrderItems(order, testOrderItemsList);
-//	    	assertInStoreOrder(order);
-//	    	order = orderService.placeOrder(order);
-//	    	assertEquals(OrderStatus.Completed,order.getOrderStatus());
-//	    }catch (IllegalArgumentException e) {
-//	    	System.out.println(e.getMessage());
-//	    	fail();
-//	    }
-//	    
-//	}
+	@Test
+	public void testCreateAndAddToInStoreOrder() {
+		GroceryOrder order = null;
+	    try{
+	    	order = orderService.createInStoreOrder();
+	    	order.setOrderId(testId);
+	    	order = orderService.addOrderItems(order, testOrderItemsList);
+	    	assertEquals(OrderStatus.Received,order.getOrderStatus());
+	    	assertEquals(4,order.getTotalCost());
+	    	assertInStoreOrder(order);
+	    	order = orderService.placeOrder(order);
+	    	assertEquals(OrderStatus.Completed,order.getOrderStatus());
+	    }catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	fail();
+	    }
+	    
+	}
 
 //-------------------------------------------------------GET METHODS------------------------------------------------------------
+
+	
+	
 	@Test
 	public void testGetOrderByID()
 	{
@@ -295,13 +424,11 @@ public class TestGroceryOrderService {
 	    try
 	    {
 	        order = orderService.getOrderById(testId);
-
 	    } catch (IllegalArgumentException e)
 	    {
 	        fail();
 	    }
 	    assertOrder(order, true);
-
 	}
 	
 	@Test
@@ -312,6 +439,29 @@ public class TestGroceryOrderService {
 			assertEquals(e.getMessage(),"Please submit a valid order ID." );
 		}	
 	}
+	
+	@Test
+	public void testGetOrderItems()
+	{	
+		GroceryOrder order = null;
+	    List<OrderItem> items = null;
+	    try
+	    {	
+	    	order = orderService.createDeliveryOrder(testCustomer2);
+	    	assertEquals(order.getTotalCost(),10); 
+	    	order.setOrderId(testId);
+	    	order = orderService.addOrderItems(order, testOrderItemsList); 
+	    	items = orderService.getOrderItems(order);
+	    	assertEquals(items, testOrderItemsList);
+	    	
+
+	    } catch (IllegalArgumentException e)
+	    {
+	        fail();
+	    }
+	}
+	
+	
 	
 	@Test
 	public void testGetOrdersByCustomer()
@@ -417,6 +567,30 @@ public class TestGroceryOrderService {
 //	
 
 //-------------------------------------------------------UPDATE & DELETE METHODS------------------------------------------------------------
+//
+	
+	@Test
+	public void testDeleteItemFromOrder() {
+		GroceryOrder order = null;
+	    try{
+	    	order = orderService.createDeliveryOrder(testCustomer2);
+	    	assertEquals(order.getTotalCost(),10); 
+	    	order.setOrderId(testId);
+	    	order = orderService.addOrderItems(order, testOrderItemsList);
+	    	assertEquals(order.getTotalCost(),14); 
+	    	order = orderService.deleteItemFromOrder(order, testOrderItemsList.get(0).getName());
+	    	
+	    	assertEquals(order.getTotalCost(), 12);
+
+	    }catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	fail();
+	    }
+	}
+	
+	
+	
+	
 //	@Test
 //	public void updateOrder() {
 //		GroceryOrder orderBefore = null;
@@ -442,7 +616,7 @@ public class TestGroceryOrderService {
 //	}
 //	
 
-
+//SINCE WE ARE USING A MOCK DATABASE  IT IS IMPOSSIBLE TO THE DELETE METHODS. 
 	
 //    @Test
 //    public void testDelete()
@@ -467,23 +641,23 @@ public class TestGroceryOrderService {
 //    }
 //    
 //    @Test
-//    public void testDeleteAll()
+//    public void testDeleteAllCompletedOrders()
 //    {
 //    	GroceryOrder order = null;
 //	    try{
 //	    	order = orderService.createDeliveryOrder(testCustomer);
+//	    	order.setOrderId(testId);
 //	    	order = orderService.addOrderItems(order, testOrderItemsList);
 //	    	order = orderService.placeOrder(order);
-//	    	order.setOrderId(testId);
 //	    	order.setOrderStatus(OrderStatus.Completed); // this method deletes all completed orders
 //	    	orderService.deleteAllCompletedOrders();
 //	    }catch (IllegalArgumentException e) {
-//	    	assertEquals(e.getMessage().toString(), "List of orders for order status completed is null." ); //since they have been deleted
+//	    	fail();
 //	    }
 //    }
-    
+//    
 //    @Test
-//    public void testDeleteAllNoCompletedOrders()
+//    public void testNoCompletedOrders()
 //    {
 //	    lenient().when(orderDao.findByOrderStatus(OrderStatus.Completed)).thenAnswer((InvocationOnMock invocation) -> {
 //	    	return null;
@@ -504,140 +678,127 @@ public class TestGroceryOrderService {
 //-------------------------------------------------EXTRA METHODS-------------------------------------------------------
     
     
-//	@Test
-//	public void testViewTotalSales() {	 //total sales only for completed orders    
-//	    lenient().when(orderDao.findByOrderStatus(any(OrderStatus.class))).thenAnswer((InvocationOnMock invocation) -> {
-//	        if (invocation.getArgument(0).equals(OrderStatus.Completed))	
-//	        {
-//	            ArrayList<GroceryOrder> orderList = new ArrayList<>();
-//	            GroceryOrder order = new GroceryOrder();
-//	            order.setOrderId(testId);
-//	            order.setOrderStatus(OrderStatus.Completed);
-//	            order.setOrderType(testOrderType);
-//	            order.setTotalCost(testTotalCost);
-//	            order.setCustomer(testCustomer);
-//	            order.setOrderItems(testOrderItemsList);
-//	            orderList.add(order);
-//	            return orderList;
-//	        } else
-//	        {
-//	            return null;
-//	        }
-//        });
-//	    
-//		GroceryOrder order1 = null;
-//		int totalSales = 0;
-//	    try{
-//	    	order1 = orderService.createDeliveryOrder(testCustomer);
-//	    	order1 = orderService.addOrderItems(order1, testOrderItemsList);
-//	    	order1.setOrderStatus(OrderStatus.Completed);
-//	    	order1.setOrderId(1);
-//
-//	    	totalSales = orderService.viewTotalSales();
-//	    	
-//	    }catch (IllegalArgumentException e) {
-//	    	System.out.println(e.getMessage());
-//	    	fail();
-//	    }
-//	    assertEquals(totalSales+10, order1.getTotalCost()); // +10 fee since it is out of town delivery
-//	}
-//	
+	@Test
+	public void testViewTotalSales() {	 //view total sales
+
+		int totalSales = 0;
+		try {
+			assertEquals(totalSales,0);
+			lenient().when(orderDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+				GroceryOrder orderDel = null;
+				GroceryOrder orderInStore = null;
+				ArrayList<GroceryOrder> orders = new ArrayList<>();
+				orderDel = orderService.createDeliveryOrder(testCustomer2);
+				orderDel.setOrderId(testId);
+				orderDel = orderService.addOrderItems(orderDel, testOrderItemsList);
+				orderDel = orderService.placeOrder(orderDel);
+				orderInStore = orderService.createInStoreOrder();
+				orderInStore = orderService.addOrderItems(orderInStore, testOrderItemsList);
+		        orders.add(orderDel);
+		        orders.add(orderInStore);
+				return orders;
+			    });
+			
+			totalSales = orderService.viewTotalSales();
+			assertEquals(totalSales,18); //should add up to 18		
+		}catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	fail();
+	    }
+
+	}
+
     
-//	@Test
-//	public void testUpdateOrderStatus() {	 //total sales only for completed orders     
-//		GroceryOrder order = null;
-//	    try{
-//	    	order = orderService.createDeliveryOrder(testCustomer);
-//	    	assertEquals(order.getOrderStatus(), OrderStatus.Received); //order should be set to received initially
-//	    	order = orderService.addOrderItems(order, testOrderItemsList);	//try delivery
-//	    	order = orderService.placeOrder(order); //finished adding items to order, should now be in the processing status
-//	    	assertEquals(order.getOrderStatus(), OrderStatus.Processing);
-//	    	
-////	    	order = orderService.updateOrderStatus(order);			//employee updates order status should now be delivered
-////	    	assertEquals(order.getOrderStatus(), OrderStatus.BeingDelivered); 
-////	    	order = orderService.updateOrderStatus(order);
-////	    	assertEquals(order.getOrderStatus(), OrderStatus.Completed);
-////	    	
-////	    	order.setOrderType(OrderType.PickUp); 						//try pick up 
-////	    	order.setOrderStatus(OrderStatus.Received);
-////	    	order = orderService.placeOrder(order); 				//place order again
-////	    	assertEquals(order.getOrderStatus(), OrderStatus.Processing);
-////	    	order = orderService.updateOrderStatus(order);
-////	    	assertEquals(order.getOrderStatus(), OrderStatus.ReadyForPickUp);
-////	    	order = orderService.updateOrderStatus(order);
-////	    	assertEquals(order.getOrderStatus(), OrderStatus.Completed);
-////	
-//	
-//	    }catch (IllegalArgumentException e) {
-//	    	System.out.println(e.getMessage());
-//	    	fail();
-//	    }
-//	}
-//	
-//	@Test
-//	public void testViewOrderStatus() {	 
-//		GroceryOrder order = null;
-//	    try{
-//	    	order = orderService.createDeliveryOrder(testCustomer);
-//	    	order = orderService.addOrderItems(order, testOrderItemsList);
-//	    	order = orderService.placeOrder(order);
-//	    	order.setOrderStatus(OrderStatus.BeingDelivered);
-//	    	OrderStatus status = orderService.viewOrderStatus(order);
-//	    	assertEquals(status, OrderStatus.BeingDelivered);
-//
-//	    }catch (IllegalArgumentException e) {
-//	    	System.out.println(e.getMessage());
-//	    	fail();
-//	    }
-//	}
+	@Test
+	public void testUpdateOrderStatusDelivery() {	 //total sales only for completed orders     
+		GroceryOrder orderDel = null;
+	    try{
+	    	orderDel = orderService.createDeliveryOrder(testCustomer2);
+			orderDel.setOrderId(testId);
+			orderDel = orderService.addOrderItems(orderDel, testOrderItemsList);
+			orderDel = orderService.placeOrder(orderDel);
+			
+			orderService.updateOrderStatus(orderDel);
+			assertEquals(orderDel.getOrderStatus(), OrderStatus.BeingDelivered);
+			orderService.updateOrderStatus(orderDel);
+			assertEquals(orderDel.getOrderStatus(), OrderStatus.Completed);
+	    
 	
-//	@Test
-//	public void testOrderStatusIsNull() {	 
-//		GroceryOrder order = null;
-//	    try{
-//	    	order = orderService.createDeliveryOrder(testCustomer);
-//	    	order = orderService.addOrderItems(order, testOrderItemsList);
-//	    	order = orderService.placeOrder(order);
-//	    	order.setOrderStatus(null);
-//	    	OrderStatus status = orderService.viewOrderStatus(order);
-//	    }catch (IllegalArgumentException e) {
-//	    	assertEquals(e.getMessage(),"Order has no status.");
-//	    }
-//	}
+	    }catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	fail();
+	    }
+	}
+	
+	@Test
+	public void testUpdateOrderStatusPickup() {	 //total sales only for completed orders     
+		GroceryOrder orderDel = null;
+	    try{
+	    	orderDel = orderService.createPickupOrder(testCustomer2);
+			orderDel.setOrderId(testId);
+			orderDel = orderService.addOrderItems(orderDel, testOrderItemsList);
+			orderDel = orderService.placeOrder(orderDel);
+			
+			orderService.updateOrderStatus(orderDel);
+			assertEquals(orderDel.getOrderStatus(), OrderStatus.ReadyForPickUp);
+			orderService.updateOrderStatus(orderDel);
+			assertEquals(orderDel.getOrderStatus(), OrderStatus.Completed);
+	    }catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	fail();
+	    }
+	}
+	
+	@Test
+	public void testUpdateOrderStatusNotPlaced() {	 //total sales only for completed orders     
+		GroceryOrder orderDel = null;
+	    try{
+	    	orderDel = orderService.createPickupOrder(testCustomer2);
+			orderDel.setOrderId(testId);
+			orderDel = orderService.addOrderItems(orderDel, testOrderItemsList);
+			orderService.updateOrderStatus(orderDel);
+	    }catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	assertEquals(e.getMessage(), "Customer is still adding items to order. Cannot start preparation.");
+	    }
+	}
+	
+	
+	@Test
+	public void testViewOrderStatus() {	 
+		GroceryOrder orderDel = null;
+	    try{
+	    	orderDel = orderService.createDeliveryOrder(testCustomer2);
+			orderDel.setOrderId(testId);
+			orderDel = orderService.addOrderItems(orderDel, testOrderItemsList);
+			orderDel = orderService.placeOrder(orderDel);
+			orderService.updateOrderStatus(orderDel); 
+
+	    	OrderStatus status = orderService.viewOrderStatus(orderDel);
+	    	assertEquals(status, OrderStatus.BeingDelivered);
+	    }catch (IllegalArgumentException e) {
+	    	System.out.println(e.getMessage());
+	    	fail();
+	    }
+	}
+	
+	@Test
+	public void testOrderStatusIsNull() {	 
+		GroceryOrder orderDel = null;
+	    try{
+	    	orderDel = orderService.createDeliveryOrder(testCustomer2);
+			orderDel.setOrderId(testId);
+			orderDel = orderService.addOrderItems(orderDel, testOrderItemsList);
+			orderDel = orderService.placeOrder(orderDel);
+	    	orderDel.setOrderStatus(null);
+	    	OrderStatus status = orderService.viewOrderStatus(orderDel);
+	    }catch (IllegalArgumentException e) {
+	    	assertEquals(e.getMessage(),"Order has no status.");
+	    }
+	}
 //	
 	//will have to add extra enumeration to class
 	
-//	@Test
-//	public void testPayForOrder() {	 
-//		GroceryOrder order = null;
-//	    try{
-//	    	order = orderService.createDeliveryOrder(testCustomer);
-//	    	order = orderService.addOrderItems(order, testOrderItemsList);
-//	    	order = orderService.placeOrder(order);
-//	    	assertEquals(order.getOrderStatus(), OrderStatus.Received); //when we create order, status = received 
-//	    	order = orderService.payForOrder("12345678123456781234123123123", order); //example credit card info -- will be hashed later
-//	    	assertEquals(order.getOrderStatus(), OrderStatus.Processing); //payment for order should change it from received to processing
-//	    }catch (IllegalArgumentException e) {
-//	    	System.out.println(e.getMessage());
-//	    	fail();
-//	    }
-//	}
-	
-//	@Test
-//	public void testInvalidPayment() {	 
-//		GroceryOrder order = null;
-//	    try{
-//	    	order = orderService.createDeliveryOrder(testCustomer);
-//	    	order = orderService.addOrderItems(order, testOrderItemsList);
-//	    	order = orderService.placeOrder(order);
-//	    	
-//	    	assertEquals(order.getOrderStatus(), OrderStatus.Received); //when we create order, status = received    	
-//	    	order = orderService.payForOrder("ABCD", order); //example credit card info -- will be hashed later
-//	    	assertEquals(order.getOrderStatus(), OrderStatus.Processing); //payment for order should change it from received to processing
-//	    }catch (IllegalArgumentException e) {
-//	    	assertEquals(e.getMessage(),"Payment information is invalid.");
-//	    }
-//	}
 
      
 //    
