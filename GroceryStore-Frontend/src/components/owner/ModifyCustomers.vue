@@ -48,7 +48,6 @@
         <h2 class="heading">Create Customer Account</h2>
         <!-- <h2 class="heading">Create / Update Customer Account</h2> -->
 
-        <br>
 
         <!-- <h6 class="subheading">Account to change (Leave this empty to create an account)</h6>
         <div class="form-floating mb-3">
@@ -124,8 +123,6 @@
         </div>
 
         <br>
-        <br>
-
 
               <button class="largeButton" type="CreateButton" @click="createCustomerAccount(newCustomerAccount.email,newCustomerAccount.username,newCustomerAccount.password,newCustomerAccount.phoneNumber,newCustomerAccount.address)">
                 Create Account

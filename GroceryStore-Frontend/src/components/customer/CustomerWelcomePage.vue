@@ -22,7 +22,15 @@
             </div>
         </div>
 
-
+<b-navbar fixed="top">
+      
+        <b-navbar-brand>STORIKO</b-navbar-brand>
+    
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item href="#/">Log Out</b-nav-item>
+          </b-navbar-nav>
+    
+    </b-navbar>
         
         <div class="background-img">
             <img src="../../assets/orange3.jpg">
@@ -30,11 +38,9 @@
         <div class="verticalandhorizontal-center">
 
             <h2 class="heading">Welcome {{this.curremail}} (Customer)! </h2>
-            <br>
 
                 <h4> Place an order : </h4>
 
-                <br>
                  <!-- <button class="largeButton" v-if="curremail" @click="createPerson(curremail)">
                     createPerson
                 </button> -->
@@ -51,7 +57,6 @@
                 <br>
 
                 <h4> Already placed an order? </h4>  
-                <br> 
                 
                 <router-link :to="{ name: 'ViewOrderStatus', params: { email: curremail }}">
                     <button class="largeButton">
@@ -63,7 +68,6 @@
                 <br>
 
                 <h4> Something else: </h4>  
-                <br> 
 
                 <router-link :to="{ name: 'UpdateCustomerAccount', params: { email: curremail }}">
                     <button class="largeButton">
@@ -81,18 +85,10 @@
     </div>
 </template>
 
-<style>
-.largeButton {
-    width: 250px;
-}
-.verticalandhorizontal-center {
-    padding: 2% 6% 2% 6%;
-    background-color: white;
-    border-radius: 4%;
-    margin-top: 1%;
-    box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
-  }
-</style>
+
+
+
+
 
 
 <script>
@@ -211,6 +207,9 @@ export default{
 </script>
 
 <style scoped>
+.largeButton {
+    width: 250px;
+}
 .overlay {
   position: fixed;
   top: 0;
@@ -234,7 +233,7 @@ export default{
 }
 
 .verticalandhorizontal-center {
-    padding: 2% 6% 2% 6%;
+    padding: 0% 6% 2% 6%;
     background-color: white;
     border-radius: 4%;
     margin-top: 1%;
