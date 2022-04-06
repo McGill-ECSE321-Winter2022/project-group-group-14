@@ -82,6 +82,20 @@ methods: {
             console.log(errorMsg)
             this.errorInventory = errorMsg
           })
+      },
+      getInventoryItemsByName: function (itemName) {
+        AXIOS.get('/inventoryItems/getByName/'.concat(itemName), {}, {})
+          .then(response => {
+          // JSON responses are automatically parsed.
+            
+            this.errorInventory = '',
+            this.newInventoryItem = response.data
+          })
+          .catch(e => {
+            var errorMsg = e.response.data
+            console.log(errorMsg)
+            this.errorInventory = errorMsg
+          })
       }
 
 
