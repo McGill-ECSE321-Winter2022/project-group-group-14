@@ -117,4 +117,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private Bundle getTimeFromLabel(String text) {
+        Bundle rtn = new Bundle();
+        String comps[] = text.toString().split(":");
+        int hour = 12;
+        int minute = 0;
+
+        if (comps.length == 2) {
+            hour = Integer.parseInt(comps[0]);
+            minute = Integer.parseInt(comps[1]);
+        }
+
+        rtn.putInt("hour", hour);
+        rtn.putInt("minute", minute);
+
+        return rtn;
+    }
+
+    public void showTimePickerDialog(View v) {
+        TextView tf = (TextView) v;
+        Bundle args = getTimeFromLabel(tf.getText().toString());
+        args.putInt("id", v.getId());
+
+        TimePickerFragment newFragment = new TimePickerFragment();
+        newFragment.setArguments(args);
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+
+    public void setTime(int id, int h, int m) {
+        TextView tv = (TextView) findViewById(id);
+        tv.setText(String.format("%02d:%02d", h, m));
+    }
+
 }
