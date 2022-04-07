@@ -90,12 +90,17 @@
             required
           />
         </div>
+
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="newInventoryItem.availability">
+          <label class="form-check-label" for="exampleCheck1">Available Online</label>
+        </div>
         <div>
-              <button class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="CreateButton" @click="createInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock}">
+              <button class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="CreateButton" @click="createInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock, newInventoryItem.availability)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock}">
                 Create Inventory Item
               </button>
               <br>
-              <button class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="UpdateButton" @click="updateInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock}">
+              <button class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="UpdateButton" @click="updateInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock, newInventoryItem.availability)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock}">
                 Update Inventory Item
               </button>
               <button class="largeButton" v-bind:disabled="!newInventoryItem.name" type="DeleteButton" @click="deleteInventoryItem(newInventoryItem.name)" :class="{'disabled' : !newInventoryItem.name}">
@@ -112,7 +117,9 @@
 </script>
 <style scoped>
 
-
+.form-group {
+  margin-bottom: 30px;
+}
 
 .no-margin {
   margin-bottom: 0;

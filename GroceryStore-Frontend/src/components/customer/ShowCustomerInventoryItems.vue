@@ -31,7 +31,6 @@
             <button class="mediumButton" onClick="window.location.reload();">Close</button>
         </div>
     </div>
-    <CustomerNavigationBar></CustomerNavigationBar>
 
 
 
@@ -125,10 +124,11 @@ export default {
         inventoryItems: [],
         newInventoryItem: {
 
-          name: '',
+          itemName: '',
           price: '',
           currentStock: '',
-          quantity:''
+          quantity:'',
+          availability: ''
         }, 
         errorInventory: '',
         successMsg: '',
@@ -137,7 +137,7 @@ export default {
     },
     created: function () {
     // Initializing persons from backend
-        AXIOS.get('/inventoryItems/get')
+        AXIOS.get('/inventoryItems/getByAvailability', {}, {})
         .then(response => {
             // JSON responses are automatically parsed.
             this.inventoryItems = response.data

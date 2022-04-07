@@ -32,7 +32,9 @@
 
         <h2 class="heading">Update Your Account</h2>
 
-        <h6 class="subheading">Please enter the original username of the account to change</h6>
+        <br>
+
+        <!-- <h6 class="subheading">Please enter the original username of the account to change</h6>
         <div class="form-floating mb-3">
           <input
             type="text"
@@ -42,11 +44,10 @@
             placeholder="Old username"
             required
           />
-        </div>
+        </div> -->
 
-        <br>
 
-        <h6 class="subheading">Emails must be unique within the system</h6>
+        <!-- <h6 class="subheading">Emails must be unique within the system</h6>
         <div class="form-floating mb-3">
           <input
             type="text"
@@ -56,7 +57,7 @@
             placeholder="Email"
             required
           />
-        </div>
+        </div> -->
 
         <h6 class="subheading">Usernames must be unique within the system</h6>
         <div class="form-floating mb-3">
@@ -106,10 +107,9 @@
           />
         </div>
 
-        <br>
-        <br>
+        
 
-              <button class="largeButton" type="CreateButton" @click="updateCustomerAccount(oldCustomerAccount.username,newCustomerAccount.email,newCustomerAccount.username,newCustomerAccount.password,newCustomerAccount.phoneNumber,newCustomerAccount.address)">
+              <button class="largeButton" type="CreateButton" @click="updateCustomerAccount(oldUsername,curremail,newCustomerAccount.username,newCustomerAccount.password,newCustomerAccount.phoneNumber,newCustomerAccount.address)">
                 Update Account
               </button>
 
@@ -139,9 +139,7 @@ export default{
             curremail : this.$route.params.email,
 
             customers: [],
-            oldCustomerAccount: {
-                username: ''
-            },
+            oldUsername: '',
             newCustomerAccount: {
                 email: '',
                 username: '',
@@ -153,6 +151,14 @@ export default{
             reponse: []
         }
 
+    },
+    created: function() {
+        AXIOS.get('/customers/'.concat(this.curremail),{},{})
+        .then(response => {
+          
+            this.oldUsername = response.data.username
+            console.log(this.oldUsername)
+        })
     },
     methods: {
         updateCustomerAccount: function (oldUsername, newEmail, newUsername, newPassword, newPhoneNumber, newAddress){
@@ -175,6 +181,15 @@ export default{
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+/* h6{
+  font-size: 15px;
+}
+
+h2{
+  font-size: 23px;
+} */
+
 .overlay {
   position: fixed;
   top: 0;

@@ -95,7 +95,7 @@ public class InventoryItem
 	  return this.available;
   }
   
-  public void setAvailability(Boolean bool) {
+  public void setAvailability(boolean bool) {
 	  this.available = bool;
   }
   

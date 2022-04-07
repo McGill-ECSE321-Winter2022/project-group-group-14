@@ -68,9 +68,12 @@ public class EmployeeService {
     	
     	Employee employeeToUpdate = employeeRepository.findByUsername(oldUsername);
     	if (employeeToUpdate == null) throw new IllegalArgumentException("No such employee exists");
+    	checkAllInputParameters(newEmail,newUsername,newPassword);
         employeeToUpdate.setEmail(newEmail);
         employeeToUpdate.setUsername(newUsername);
         employeeToUpdate.setPassword(newPassword);
+//        if(employeeRepository.findByUsername(newUsername) == null) throw new IllegalArgumentException("An Employee already exists with the same name");
+        
         
         ServiceHelpers.checkAccountInfoValidity(employeeToUpdate);
         
@@ -144,7 +147,7 @@ public class EmployeeService {
 	/** @author Samuel Valentine	 */
 	public boolean checkForEmailUniqueness(String email) {
 		for (Account a :  ServiceHelpers.toList(employeeRepository.findAll())) {
-			if (email == a.getEmail()) {
+			if (email.equals(a.getEmail())) {
 				return false;
 			}
 		}
@@ -155,7 +158,7 @@ public class EmployeeService {
 	/** @author Samuel Valentine	 */
 	public boolean checkForUsernameUniqueness(String username) {
 		for (Account a :  ServiceHelpers.toList(employeeRepository.findAll())) {
-			if (username == a.getUsername()) {
+			if (username.equals(a.getUsername())) {
 				return false;
 			}
 		}

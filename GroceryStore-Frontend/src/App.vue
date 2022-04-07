@@ -189,6 +189,7 @@ ul {
   border-radius: 10px;
   transition: 0.3s;
   background-color: white;
+  max-height: 300px;
 }
 
 .grid-item:hover {
@@ -259,6 +260,7 @@ ul {
 
 .largeButton {
   font-size: 18px;
+  max-height: 100px;
 }
 
 .mediumButton {
@@ -303,7 +305,7 @@ ul {
 .btn-success.disabled {
   color: rgb(132, 132, 132);
   background-color: rgb(226, 226, 226);  
-  border-color: #111;
+  border-color: rgb(207, 206, 206);
 }
 
 

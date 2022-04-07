@@ -117,7 +117,7 @@ public class OwnerService {
 	/** @author Samuel Valentine	 */
 	public boolean checkForEmailUniqueness(String email) {
 		for (Account a :  ServiceHelpers.toList(ownerRepository.findAll())) {
-			if (email == a.getEmail()) {
+			if (email.equals(a.getEmail())) {
 				return false;
 			}
 		}
@@ -128,7 +128,7 @@ public class OwnerService {
 	/** @author Samuel Valentine	 */
 	public boolean checkForUsernameUniqueness(String username) {
 		for (Account a :  ServiceHelpers.toList(ownerRepository.findAll())) {
-			if (username == a.getUsername()) {
+			if (username.equals(a.getUsername())) {
 				return false;
 			}
 		}
