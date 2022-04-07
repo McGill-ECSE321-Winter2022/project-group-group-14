@@ -139,6 +139,10 @@ public class GroceryOrderService {
      for (OrderItem oi : orderItems) {			//go through items and calculate total order cost
      	totalItemPrice = totalItemPrice + oi.getPrice();
      }
+     for(OrderItem orderItem: order.getOrderItems()) {
+    	 orderItems.add(orderItem);
+     }
+     
      order.setTotalCost(order.getTotalCost()+totalItemPrice);	//add to the current order price			
      order = orderDao.save(order);			//save order before setting associations
      order.setOrderItems(orderItems);

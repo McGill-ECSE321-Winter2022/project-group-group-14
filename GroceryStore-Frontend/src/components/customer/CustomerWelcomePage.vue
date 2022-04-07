@@ -46,18 +46,18 @@
                 </button> -->
                
         
-                <button class="largeButton" v-if="curremail && !groceryOrders" @click="createDeliveryOrder(curremail)">
+                <button class="largeButton" v-if="curremail && !groceryOrders.length" @click="createDeliveryOrder(curremail)">
                     Delivery
                 </button>
 
                 <br>
 
-                <button class="largeButton"  v-if="curremail && !groceryOrders" @click="createPickupOrder(curremail)">
+                <button class="largeButton"  v-if="curremail && !groceryOrders.length" @click="createPickupOrder(curremail)">
                     Pick up
                 </button>
 
                 <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail, orderId: newGroceryOrder.orderId }}">
-                <button class="largeButton"  v-if="curremail && groceryOrders">
+                <button class="largeButton"  v-if="curremail && groceryOrders.length">
                     Complete Current Order
                 </button>
                 </router-link>
@@ -157,16 +157,22 @@ export default{
         CustomerNavigationBar
     },
     created: function() {
+        console.log(this.groceryOrders)
         AXIOS.get('/customers/'.concat(this.curremail),{},{})
         .then(response => {
-            console.log(response.data),
+            console.log(response.data)
             this.username = response.data.username
-        }),
+        })
+        ,
         AXIOS.get('/orders/customer/received/'.concat(this.curremail),{},{})
         .then(response => {
-            console.log(response.data),
+            console.log(response.data)
             this.groceryOrders = response.data
             this.newGroceryOrder.orderId = response.data.orderId
+        })
+        .catch(e => {
+            var errorMsg = e.response.data
+            console.log(errorMsg)
         })
     },
 

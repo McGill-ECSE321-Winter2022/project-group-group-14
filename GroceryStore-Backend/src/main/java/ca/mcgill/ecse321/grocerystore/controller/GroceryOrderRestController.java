@@ -17,9 +17,11 @@ import ca.mcgill.ecse321.grocerystore.model.Customer;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder.OrderStatus;
 import ca.mcgill.ecse321.grocerystore.model.GroceryOrder.OrderType;
+import ca.mcgill.ecse321.grocerystore.model.InventoryItem;
 import ca.mcgill.ecse321.grocerystore.model.OrderItem;
 import ca.mcgill.ecse321.grocerystore.service.CustomerService;
 import ca.mcgill.ecse321.grocerystore.service.GroceryOrderService;
+import ca.mcgill.ecse321.grocerystore.service.InventoryItemService;
 import ca.mcgill.ecse321.grocerystore.service.OrderItemService;
 
 import java.util.List;
@@ -42,6 +44,8 @@ public class GroceryOrderRestController {
 	private CustomerService customerService;
 	@Autowired
 	private OrderItemService orderItemService;
+	@Autowired
+	private InventoryItemService inventoryItemService;
 
  //-------------------------------------------------------CREATE MAPPINGS------------------------------------------------------------
 	
@@ -90,8 +94,12 @@ public class GroceryOrderRestController {
 		try {
 			GroceryOrder order = orderService.getOrderById(Integer.parseInt(orderId));
 			List<OrderItem> orderItems = new ArrayList<OrderItem>();
+			InventoryItem inventoryItem = inventoryItemService.getInventoryItemByName(itemName);
+			if(inventoryItem == null) throw new IllegalArgumentException("No Item with that name exists.");
+			if(inventoryItem.getCurrentStock()<quantity) throw new IllegalArgumentException("No Enough Items in stock.");
 			for (int i = 0 ; i<quantity ;i++ ) {	//loop over everything to create order items
 				OrderItem orderItem = orderItemService.createOrderItem(itemName);
+				
 				orderItems.add(orderItem);
 			}
 			
@@ -194,6 +202,7 @@ public class GroceryOrderRestController {
 			GroceryOrder order = orderService.getReceivedOrdersByCustomer(customer);
 			return ResponseEntity.ok(convertToDto(order));
 		}catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
@@ -392,7 +401,7 @@ public class GroceryOrderRestController {
 
 	
 	private GroceryOrderDto convertToDto(GroceryOrder o) {
-		if (o == null) throw new IllegalArgumentException("There is no such OrderItem!");
+		if (o == null) throw new IllegalArgumentException("There is no such Order!");
 		if (o.getOrderType().equals(OrderType.InStore)) { //if the order is in store, it is not associated to a customer
 			
 			List<OrderItemDto> itemDtos = convertToDtos(o.getOrderItems());

@@ -222,7 +222,7 @@ export default new Router({
       component: ViewOrderStatus
     },
     {
-      path: '/viewCart/:email',
+      path: '/viewCart/:email/:orderId',
       name: 'ViewCart',
       component: ViewCart
     },

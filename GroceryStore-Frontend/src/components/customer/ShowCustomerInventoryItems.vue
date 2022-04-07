@@ -39,15 +39,7 @@
       <div class="grid-item" v-for="inventoryItem in inventoryItems" :key=inventoryItem.name>
       <ul class="item">
 
-                <li class="info" v-if="curremail">
-                  email : {{curremail}}
 
-                </li>
-
-                <li class="info" v-if="groceryOrders[0].orderId">
-                  id : {{groceryOrders[0].orderId}}
-
-                </li>
                 <li class="info item-name">
                   {{ inventoryItem.name }}
                 </li>
@@ -60,7 +52,7 @@
                 <li class="info">
                   Available Online: {{ inventoryItem.availability }}
                 </li>
-
+                <br>
                 <h6 class="subheading">Quantity must be less or equal to stock</h6>
                 <div class="form-floating mb-3">
                   <input
