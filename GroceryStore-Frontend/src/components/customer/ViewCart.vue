@@ -22,6 +22,8 @@
                 get grocery order
             </button>
              <h4 class="heading">Cart for {{email}}</h4>
+            
+
              <!-- <h5 v-if="groceryOrders[0].orderId">
                   id : {{groceryOrders[0].orderId}}
             </h5> -->
@@ -34,12 +36,11 @@
 
 
             <br>
-                <!-- <div v-for= "orderItem in groceryOrders[0].orderItems" :key=orderItem.name>
+                <div v-for="orderItem in orderItems" :key=orderItem.name>
                     <ul style="list-style-type:square">
-                        <li> {{ orderItem.name}} :  {{ orderItem.price}} </li>
-                        <li> an item in the list </li>
+                        <li> {{ orderItem.name}} :  ${{ orderItem.price}}.00 </li>
                     </ul>  
-                </div> -->
+                </div>
             <div>
                <!-- <h4 class="heading">Total Cost : {{groceryOrders[0].totalCost}}</h4>   -->
             </div>
@@ -113,12 +114,14 @@ export default{
     data () {
         return {
             email : this.$route.params.email,
+            orderId: this.$route.params.orderId,
             // newOrderItem :{
             //     name : '',
             //     price: '',
             //     itemId:'',
             // },
-            groceryOrders :[],
+            orderItems:[],
+            groceryOrders :'',
             newGroceryOrder : {
                 orderId:'',
                 totalCost:'',
@@ -131,6 +134,18 @@ export default{
             successMsg:'',
             response: []
         }
+    },
+    created: function() {
+          AXIOS.get('/orders/orderItems/'.concat(this.orderId),{},{})
+          .then(response => {
+              // JSON responses are automatically parsed.
+              this.orderItems=response.data
+              console.log(response.data)
+          })
+          .catch(e => {
+              this.errorInventory = e.response.data
+              console.log(e.response.data)
+          })
     },
     methods: {
         getOrderItems: function (orderId) {

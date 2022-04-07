@@ -156,8 +156,13 @@ export default new Router({
       name: 'ViewCustomerStoreSchedule',
       component: ViewCustomerStoreSchedule
     },
+    // {
+    //   path: '/showCustomerInventoryItems/:email',
+    //   name: 'ShowCustomerInventoryItems',
+    //   component: ShowCustomerInventoryItems
+    // }, 
     {
-      path: '/showCustomerInventoryItems/:email',
+      path: '/showCustomerInventoryItems/:email/:orderId',
       name: 'ShowCustomerInventoryItems',
       component: ShowCustomerInventoryItems
     },
@@ -217,7 +222,7 @@ export default new Router({
       component: ViewOrderStatus
     },
     {
-      path: '/viewCart/:email',
+      path: '/viewCart/:email/:orderId',
       name: 'ViewCart',
       component: ViewCart
     },

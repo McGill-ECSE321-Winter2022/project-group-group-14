@@ -35,22 +35,11 @@
 
 
   <div class="grid-container">
-      <button class="largeButton" v-if="curremail" @click="getOrder(curremail)">
-          GetGroceryOrder
-      </button>
     
       <div class="grid-item" v-for="inventoryItem in inventoryItems" :key=inventoryItem.name>
       <ul class="item">
 
-                <li class="info" v-if="curremail">
-                  email : {{curremail}}
 
-                </li>
-
-                <li class="info" v-if="groceryOrders[0].orderId">
-                  id : {{groceryOrders[0].orderId}}
-
-                </li>
                 <li class="info item-name">
                   {{ inventoryItem.name }}
                 </li>
@@ -60,7 +49,10 @@
                 <li class="info">
                   Stock: {{ inventoryItem.currentStock }}
                 </li>
-
+                <li class="info">
+                  Available Online: {{ inventoryItem.availability }}
+                </li>
+                <br>
                 <h6 class="subheading">Quantity must be less or equal to stock</h6>
                 <div class="form-floating mb-3">
                   <input
@@ -111,6 +103,7 @@ export default {
     data () {
         return {
         curremail : this.$route.params.email,
+        orderId: this.$route.params.orderId,
         groceryOrders: [],
         newGroceryOrder: {
             // orderId:this.$route.params.orderId,
@@ -137,14 +130,25 @@ export default {
     },
     created: function () {
     // Initializing persons from backend
-        AXIOS.get('/inventoryItems/getByAvailability', {}, {})
+        AXIOS.get('/inventoryItems/get', {}, {})
         .then(response => {
             // JSON responses are automatically parsed.
             this.inventoryItems = response.data
         })
         .catch(e => {
             this.errorInventory = e
-        })
+        }),
+        
+          AXIOS.get('/orders/'.concat(this.orderId),{},{})
+          .then(response => {
+              // JSON responses are automatically parsed.
+              this.groceryOrders.push(response.data)
+              console.log(response.data)
+          })
+          .catch(e => {
+              this.errorInventory = e.response.data
+              console.log(e.response.data)
+          })
        
     },
     methods: {
@@ -177,6 +181,20 @@ export default {
           })
 
 
+        },
+        getOrderById: function (id){
+          AXIOS.get('/orders/'.concat(id),{},{})
+          .then(response => {
+              // JSON responses are automatically parsed.
+              this.groceryOrders.push(response.data)
+              console.log(response.data)
+          })
+          .catch(e => {
+              this.errorInventory = e.response.data
+              console.log(e.response.data)
+          })
+
+
         }
 
     },
@@ -189,6 +207,10 @@ export default {
 </script>
 
 <style scoped>
+
+.grid-item {
+  max-height: 450px;
+}
 
 .overlay {
   position: fixed;

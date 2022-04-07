@@ -4,7 +4,7 @@
             <div id="popup1" class="overlay" v-if="successMsg">
                 <div class="popup">
                  <h5>{{ successMsg }}</h5>
-                 <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail }}">
+                 <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail, orderId: newGroceryOrder.orderId.toString() }}">
 
                 <button class="largeButton">
                     View grocery items
@@ -46,15 +46,22 @@
                 </button> -->
                
         
-                <button class="largeButton" v-if="curremail" @click="createDeliveryOrder(curremail)">
+                <button class="largeButton" v-if="curremail && !groceryOrders.length" @click="createDeliveryOrder(curremail)">
                     Delivery
                 </button>
 
                 <br>
 
-                <button class="largeButton"  v-if="curremail" @click="createPickupOrder(curremail)">
+                <button class="largeButton"  v-if="curremail && !groceryOrders.length" @click="createPickupOrder(curremail)">
                     Pick up
                 </button>
+
+                <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail, orderId: newGroceryOrder.orderId }}">
+                <button class="largeButton"  v-if="curremail && groceryOrders.length">
+                    Complete Current Order
+                </button>
+                </router-link>
+
                 <br>
                 <br>
 
@@ -150,10 +157,22 @@ export default{
         CustomerNavigationBar
     },
     created: function() {
+        console.log(this.groceryOrders)
         AXIOS.get('/customers/'.concat(this.curremail),{},{})
         .then(response => {
-            console.log(response.data),
+            console.log(response.data)
             this.username = response.data.username
+        })
+        ,
+        AXIOS.get('/orders/customer/received/'.concat(this.curremail),{},{})
+        .then(response => {
+            console.log(response.data)
+            this.groceryOrders = response.data
+            this.newGroceryOrder.orderId = response.data.orderId
+        })
+        .catch(e => {
+            var errorMsg = e.response.data
+            console.log(errorMsg)
         })
     },
 
@@ -165,9 +184,9 @@ export default{
             .then(response => {
                 this.groceryOrders.push(response.data) //add dto to the list of orders
                 this.successMsg = 'Order has been successfully created! Please navigate to the list of inventory items : '
+                this.newGroceryOrder.orderId = response.data.orderId
                 console.log(this.groceryOrders)
                 this.errorOrder = ''
-                this.newGroceryOrder = ''
             })
             .catch(e => {
                 this.successMsg = ''
