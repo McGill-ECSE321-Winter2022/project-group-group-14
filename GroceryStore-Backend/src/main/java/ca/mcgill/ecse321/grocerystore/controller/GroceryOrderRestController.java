@@ -186,6 +186,22 @@ public class GroceryOrderRestController {
 		}
 	}
 	
+	@GetMapping(value =  { "/orders/customer/received/{email}", "/orders/customer/received/{email}/" })
+	public ResponseEntity<?>  getReceivedOrdersByCustomer(@PathVariable("email") String email) throws IllegalArgumentException {
+		try{
+			Customer customer = customerService.getCustomerByEmail(email);
+		
+			GroceryOrder order = orderService.getReceivedOrdersByCustomer(customer);
+			return ResponseEntity.ok(convertToDto(order));
+		}catch(IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	
+	
+	
+	
 	/**
 	 * @param orderType
 	 * @return orders by order type

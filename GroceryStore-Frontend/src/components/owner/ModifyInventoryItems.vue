@@ -63,7 +63,7 @@
           />
         </div>
 
-        <button class="button" :class="{'disabled' : !newInventoryItem.name}" v-bind:disabled="!newInventoryItem.name" @click="getInventoryItemsByName(newInventoryItem.name)">auto-fill</button>
+        <button class="button" v-if="newInventoryItem.name" @click="getInventoryItemsByName(newInventoryItem.name)">auto-fill</button>
 
         <h6 class="subheading">Price must be a positive integer</h6>
         <div class="form-floating mb-3">

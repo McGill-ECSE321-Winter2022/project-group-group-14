@@ -132,7 +132,8 @@ public class GroceryOrderService {
 	 if (orderItems == null || orderItems.size() == 0) throw new IllegalArgumentException("Please submit a valid list of orderItems");
 	 if (!(order.getOrderStatus().equals(OrderStatus.Received)))throw new IllegalArgumentException("Can only add items to a received order."); 
 	 checkOrderValidity(order.getCustomer(), order.getOrderType());
-	  
+	 if (!inventoryItemDao.findByName(orderItems.get(0).getName()).getAvailability()) throw new IllegalArgumentException("Item is only available in store.");
+
      //setting the total price of the order
 	 int totalItemPrice = 0; 
      for (OrderItem oi : orderItems) {			//go through items and calculate total order cost
@@ -188,6 +189,22 @@ public class GroceryOrderService {
     	List<GroceryOrder> orderList = orderDao.findGroceryOrdersByCustomer(customer);	
     	if (orderList == null) throw new IllegalArgumentException("List of orders for customer " + customer.getUsername() +" is null.");  
         return orderList;
+    }
+    
+    
+    
+    @Transactional
+    public GroceryOrder getReceivedOrdersByCustomer(Customer customer){ 
+    	if (customer == null || !customerDao.existsById(customer.getAccountId())) throw new IllegalArgumentException("Please submit a proper customer.");  
+    	GroceryOrder receivedOrder = null;
+    	List<GroceryOrder> orderList = orderDao.findGroceryOrdersByCustomer(customer);	
+    	for (GroceryOrder o : orderList) {
+    		if (o.getOrderStatus().equals(OrderStatus.Received)) {
+    			receivedOrder = o;
+    		}
+    		
+    	}
+        return receivedOrder;
     }
     
     

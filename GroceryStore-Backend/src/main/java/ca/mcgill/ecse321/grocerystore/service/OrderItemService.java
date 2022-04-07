@@ -32,7 +32,7 @@ public class OrderItemService {
     	InventoryItem inventoryItem = inventoryItemRepository.findByName(name);
     	if(inventoryItem==null) throw new IllegalArgumentException("No item exists in inventory named '" + name + "'");
     	if(inventoryItem.getCurrentStock()==0) throw new IllegalArgumentException(name + " item is out of stock");
-    	if(!inventoryItem.getAvailability()) throw new IllegalArgumentException(name + " item is not available for order");
+//    	if(!inventoryItem.getAvailability()) throw new IllegalArgumentException(name + " item is not available for order");
     	
     	//set order item attributes
     	inventoryItem.setCurrentStock(inventoryItem.getCurrentStock()-1);

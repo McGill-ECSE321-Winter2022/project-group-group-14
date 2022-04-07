@@ -43,14 +43,14 @@ created: function () {
 
 methods: {
     createInventoryItem: function (itemName,itemPrice,itemStock,itemAvailability) {
-      if(itemAvailability!='true'){
-        itemAvailability='false'
-      }
+      // if(itemAvailability!='true'){
+      //   itemAvailability='false'
+      // }
         AXIOS.post('/inventoryItems/create/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock, availability: itemAvailability}})
           .then(response => {
           // JSON responses are automatically parsed.
             this.inventoryItems.push(response.data)
-            console.log(response.data.availability)
+            console.log(itemAvailability)
             this.errorInventory = itemName + ' is created successfully!'
             this.newInventoryItem = ''
           })
@@ -61,15 +61,15 @@ methods: {
           })
       },
       updateInventoryItem: function (itemName,itemPrice,itemStock,itemAvailability) {
-        if(itemAvailability!='true'){
-          itemAvailability='false'
-        }
+        // if(itemAvailability!='true'){
+        //   itemAvailability='false'
+        // }
         AXIOS.put('/inventoryItems/update/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock, availability: itemAvailability}})
           .then(response => {
           // JSON responses are automatically parsed.
             this.inventoryItems.push(response.data),
             this.errorInventory = itemName + ' is updated successfully!'
-            console.log(response.data.availability)
+            console.log(itemAvailability)
             this.newInventoryItem = ''
           })
           .catch(e => {
