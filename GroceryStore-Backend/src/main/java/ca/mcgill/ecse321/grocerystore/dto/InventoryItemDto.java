@@ -6,7 +6,7 @@ public class InventoryItemDto {
 	private int price;
 	private int currentStock;
 	private int itemId;
-	private Boolean available;
+	private boolean available;
 	
 	public InventoryItemDto() {
 		

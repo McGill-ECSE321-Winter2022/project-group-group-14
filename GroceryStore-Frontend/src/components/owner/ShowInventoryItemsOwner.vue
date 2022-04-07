@@ -86,10 +86,14 @@
                     <li class="info">
                       Stock: {{ inventoryItem.currentStock }}
                     </li>
+                    <li class="info">
+                      Available Online: {{ inventoryItem.availability }}
+                    </li>
+
                     <li class="info add-item">
                       <button class="button" @click="deleteInventoryItem(inventoryItem.name)" onClick="window.location.reload();">Remove Item</button>
                     </li>
-                    <router-link class="info edit" :to="{ name: 'ModifyInventoryItems', params: { nameToEdit: inventoryItem.name, priceToEdit: inventoryItem.price, currentStockToEdit: inventoryItem.currentStock }}">
+                    <router-link class="info edit" :to="{ name: 'ModifyInventoryItems', params: { nameToEdit: inventoryItem.name, priceToEdit: inventoryItem.price, currentStockToEdit: inventoryItem.currentStock, availabilityToEdit: inventoryItem.availability }}">
                       <a>Edit Item</a>
                     </router-link>
                     

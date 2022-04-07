@@ -37,13 +37,15 @@
         </div>
         <div class="verticalandhorizontal-center">
 
-            <h2 class="heading">Welcome {{this.curremail}} (Customer)! </h2>
+            <h2 class="heading" v-if="this.username">Welcome {{this.username}} (Customer)! </h2>
 
                 <h4> Place an order : </h4>
 
                  <!-- <button class="largeButton" v-if="curremail" @click="createPerson(curremail)">
                     createPerson
                 </button> -->
+               
+        
                 <button class="largeButton" v-if="curremail" @click="createDeliveryOrder(curremail)">
                     Delivery
                 </button>
@@ -117,7 +119,7 @@ export default{
 
             
             curremail : this.$route.params.email,
-
+            username : '', 
             // customers : [],
             // newCustomer : {
             //     email:this.$route.params.email,
@@ -147,7 +149,13 @@ export default{
     components:{
         CustomerNavigationBar
     },
-
+    created: function() {
+        AXIOS.get('/customers/'.concat(this.curremail),{},{})
+        .then(response => {
+            console.log(response.data),
+            this.username = response.data.username
+        })
+    },
 
 
 

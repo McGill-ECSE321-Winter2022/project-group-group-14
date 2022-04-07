@@ -39,7 +39,7 @@ public class EmployeeRestController {
 	}
 	
 	@PutMapping(value = { "/employees/update/{oldEmail}/{email}/{username}/{password}", "/employees/update/{oldEmail}/{email}/{username}/{password}/" })
-	public ResponseEntity<?> updateEmployee(@PathVariable("oldEmail") String oldEmail,@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("phoneNumber") String phoneNumber, @PathVariable("address") String address) throws IllegalArgumentException {
+	public ResponseEntity<?> updateEmployee(@PathVariable("oldEmail") String oldEmail,@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password) throws IllegalArgumentException {
 		
 		try {
 			Employee employee = EmployeeService.updateEmployee(oldEmail,email,username,password);

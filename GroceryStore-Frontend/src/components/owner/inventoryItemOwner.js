@@ -22,7 +22,8 @@ data () {
     newInventoryItem: {
       name: '',
       price: '',
-      currentStock: ''
+      currentStock: '',
+      availability: ''
     }, 
     errorInventory: '',
     response: []
