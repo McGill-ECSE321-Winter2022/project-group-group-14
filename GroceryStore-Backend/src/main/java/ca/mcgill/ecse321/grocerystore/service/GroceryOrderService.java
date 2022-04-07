@@ -181,6 +181,22 @@ public class GroceryOrderService {
     }
     
     
+    
+    @Transactional
+    public GroceryOrder getReceivedOrdersByCustomer(Customer customer){ 
+    	if (customer == null || !customerDao.existsById(customer.getAccountId())) throw new IllegalArgumentException("Please submit a proper customer.");  
+    	GroceryOrder receivedOrder = null;
+    	List<GroceryOrder> orderList = orderDao.findGroceryOrdersByCustomer(customer);	
+    	for (GroceryOrder o : orderList) {
+    		if (o.getOrderStatus().equals(OrderStatus.Received)) {
+    			receivedOrder = o;
+    		}
+    		
+    	}
+        return receivedOrder;
+    }
+    
+    
     /**									
      * @param orderType
      * @return returns a list of orders for a particular orderType
