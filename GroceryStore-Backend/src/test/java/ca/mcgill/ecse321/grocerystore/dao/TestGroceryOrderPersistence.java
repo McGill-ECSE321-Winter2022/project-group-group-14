@@ -154,6 +154,20 @@ public class TestGroceryOrderPersistence {
 		assertEquals(orderList.get(1).getOrderId(),order2.getOrderId());
 	}
 	
+	/** @author: Clarissa Baciu */
+	@Test
+	public void testPersistAndLoadByCustomerWithNoOrders() {
+		Customer customer = new Customer();
+
+		customer = customerRepository.save(customer);
+
+
+		List<GroceryOrder> orderList = groceryOrderRepository.findGroceryOrdersByCustomer(customer);	//loading from database
+		assertTrue(orderList.isEmpty());
+
+	}
+	
+	
 	
 
 

@@ -30,42 +30,41 @@
       </b-collapse>
     </b-navbar>
     
-    <div v-if="customers">
-        <h1>Customers</h1>
-
-        <div class="grid-container">
-        <div class="grid-item" v-for="customer in customers" :key=customer.name>
-            <ul class="item">
-                    <li class="info item-name">
-                        {{ customer.username }}
-                    </li>
-                    <li class="info">
-                        Email: {{ customer.email }}
-                    </li>
-                    <li class="info">
-                        Password: {{ customer.password }}
-                    </li>
-                    <li class="info">
-                        Address: {{ customer.address }}
-                    </li>
-                    <li class="info">
-                        Phone Number: {{ customer.phoneNumber }}
-                    </li>
-                    <!-- <li class="info add-item">
-                        <button class="button" @click="deleteInventoryItem(inventoryItem.name)" onClick="window.location.reload();">Remove Item</button>
-                    </li>
-                    <router-link class="info edit" :to="{ name: 'ModifyInventoryItems', params: { nameToEdit: inventoryItem.name, priceToEdit: inventoryItem.price, currentStockToEdit: inventoryItem.currentStock }}">
-                        <a>Edit Item</a>
-                    </router-link> -->
-                    
-            </ul>
-        </div>
-        </div>
+    
+    <h1>Customers</h1>
+    <h2 class="empty" v-if="!customers.length">No Customer Accounts Yet!</h2>
+    <div class="grid-container" v-if="customers.length">
+    <div class="grid-item" v-for="customer in customers" :key=customer.name>
+        <ul class="item">
+                <li class="info item-name">
+                    {{ customer.username }}
+                </li>
+                <li class="info">
+                    Email: {{ customer.email }}
+                </li>
+                <li class="info">
+                    Password: {{ customer.password }}
+                </li>
+                <li class="info">
+                    Address: {{ customer.address }}
+                </li>
+                <li class="info">
+                    Phone Number: {{ customer.phoneNumber }}
+                </li>
+                <!-- <li class="info add-item">
+                    <button class="button" @click="deleteInventoryItem(inventoryItem.name)" onClick="window.location.reload();">Remove Item</button>
+                </li>
+                <router-link class="info edit" :to="{ name: 'ModifyInventoryItems', params: { nameToEdit: inventoryItem.name, priceToEdit: inventoryItem.price, currentStockToEdit: inventoryItem.currentStock }}">
+                    <a>Edit Item</a>
+                </router-link> -->
+                
+        </ul>
     </div>
-     <div v-if="employees">
+    </div>
+     
         <h1>Employees</h1>
-
-        <div class="grid-container">
+        <h2 class="empty" v-if="!employees.length">No Employee Accounts Yet!</h2>
+        <div class="grid-container" v-if="employees.length">
         <div class="grid-item" v-for="employee in employees" :key=employee.name>
             <ul class="item">
                     <li class="info item-name">
@@ -88,7 +87,7 @@
             </ul>
         </div>
         </div>
-    </div>
+    
   </div>
 </template>
 
@@ -159,6 +158,11 @@ created: function () {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.empty {
+    margin-top: 7%;
+    color:rgb(177, 177, 177);
+}
 
 .item-name {
     text-align: center;

@@ -21,7 +21,8 @@ data () {
     newInventoryItem: {
       name: this.$route.params.nameToEdit,
       price: this.$route.params.priceToEdit,
-      currentStock: this.$route.params.currentStockToEdit
+      currentStock: this.$route.params.currentStockToEdit,
+      availability: this.$route.params.availabilityToEdit
     }, 
     errorInventory: '',
     response: []
@@ -41,11 +42,15 @@ created: function () {
 },
 
 methods: {
-    createInventoryItem: function (itemName,itemPrice,itemStock) {
-        AXIOS.post('/inventoryItems/create/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock}})
+    createInventoryItem: function (itemName,itemPrice,itemStock,itemAvailability) {
+      if(itemAvailability!='true'){
+        itemAvailability='false'
+      }
+        AXIOS.post('/inventoryItems/create/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock, availability: itemAvailability}})
           .then(response => {
           // JSON responses are automatically parsed.
             this.inventoryItems.push(response.data)
+            console.log(response.data.availability)
             this.errorInventory = itemName + ' is created successfully!'
             this.newInventoryItem = ''
           })
@@ -55,17 +60,21 @@ methods: {
             this.errorInventory = errorMsg
           })
       },
-      updateInventoryItem: function (itemName,itemPrice,itemStock) {
-        AXIOS.put('/inventoryItems/update/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock}})
+      updateInventoryItem: function (itemName,itemPrice,itemStock,itemAvailability) {
+        if(itemAvailability!='true'){
+          itemAvailability='false'
+        }
+        AXIOS.put('/inventoryItems/update/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock, availability: itemAvailability}})
           .then(response => {
           // JSON responses are automatically parsed.
-            this.inventoryItems.push(response.data)
+            this.inventoryItems.push(response.data),
             this.errorInventory = itemName + ' is updated successfully!'
+            console.log(response.data.availability)
             this.newInventoryItem = ''
           })
           .catch(e => {
             var errorMsg = e.response.data
-            console.log(errorMsg)
+            console.log(itemAvailability)
             this.errorInventory = errorMsg
           })
       },
@@ -76,6 +85,20 @@ methods: {
             // this.inventoryItems
             this.errorInventory = itemName + ' is deleted successfully!'
             this.newInventoryItem = ''
+          })
+          .catch(e => {
+            var errorMsg = e.response.data
+            console.log(errorMsg)
+            this.errorInventory = errorMsg
+          })
+      },
+      getInventoryItemsByName: function (itemName) {
+        AXIOS.get('/inventoryItems/getByName/'.concat(itemName), {}, {})
+          .then(response => {
+          // JSON responses are automatically parsed.
+            
+            this.errorInventory = '',
+            this.newInventoryItem = response.data
           })
           .catch(e => {
             var errorMsg = e.response.data

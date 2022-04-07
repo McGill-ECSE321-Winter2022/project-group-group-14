@@ -8,7 +8,13 @@
             <button class="mediumButton" onClick="window.location.reload();">Close</button>
           </div>
         </div>
-
+        <div id="popup1" class="overlay" v-if="errorUpdateEmployee">
+          <div class="popup">
+            <h5>{{ errorUpdateEmployee}}</h5>
+            <!-- <button class="mediumButton" >Close</button> -->
+            <button class="mediumButton" onClick="window.location.reload();">Close</button>
+          </div>
+        </div>
   <b-navbar fixed="top" toggleable="lg">
       <router-link to="/ownerWelcomePage">
         <b-navbar-brand>STORIKO</b-navbar-brand>
@@ -45,7 +51,7 @@
 
         <br>
 
-        <!-- <h6 class="subheading">Account to change (Leave this empty to create an account)</h6>
+        <h6 class="subheading">Account to change (Leave this empty to create an account)</h6>
         <div class="form-floating mb-3">
           <input
             type="text"
@@ -54,7 +60,7 @@
             id="floatingInput"
             placeholder="Old Username"
           />
-        </div> -->
+        </div>
         
         <br>
 
@@ -98,6 +104,9 @@
               <button class="largeButton" type="CreateButton" @click="createEmployeeAccount(newEmployeeAccount.email,newEmployeeAccount.username,newEmployeeAccount.password)">
                 Create Account
               </button>
+              <button class="largeButton" type="UpdateButton" @click="updateEmployeeAccount(oldEmployeeAccount.usernameToChange,newEmployeeAccount.email,newEmployeeAccount.username,newEmployeeAccount.password)">
+                Update Account
+              </button>  
               <!-- <br>
               <button class="largeButton" type="CreateButton">
                 Update Account
@@ -134,6 +143,7 @@ export default {
                 password: ''
             },
             errorEmployee: '',
+            errorUpdateEmployee: '',
             reponse: []
         }
     },
@@ -160,6 +170,19 @@ export default {
                 var errorMsg = e.response.data
                 console.log(errorMsg)
                 this.errorEmployee = errorMsg
+            })
+        },
+        updateEmployeeAccount: function (oldUsername, newEmail, newUsername, newPassword){
+            AXIOS.put('/employees/update'.concat('/').concat(oldUsername).concat('/').concat(newEmail).concat('/').concat(newUsername).concat('/').concat(newPassword),{},{})
+            .then(response => {
+                this.employees.push(response.data)
+                this.errorUpdateEmployee = newEmail + ' is updated successfully!'
+                this.newEmployeeAccount = ''
+            })
+            .catch(e => {
+                var errorMsg = e.response.data
+                console.log(errorMsg)
+                this.errorUpdateEmployee = errorMsg
             })
         }
     }

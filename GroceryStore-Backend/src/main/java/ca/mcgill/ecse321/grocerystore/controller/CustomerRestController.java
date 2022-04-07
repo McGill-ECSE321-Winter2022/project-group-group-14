@@ -95,7 +95,7 @@ public class CustomerRestController {
 		if (customer == null) {
 			throw new IllegalArgumentException("There is no such Customer!");
 		}
-		CustomerDto customerDto = new CustomerDto(customer.getEmail(),customer.getUsername(),customer.getPassword(),customer.getAccountId(),customer.getPhoneNumber(),customer.getAddress());
+		CustomerDto customerDto = new CustomerDto(customer.getUsername(),customer.getPassword(),customer.getEmail(),customer.getAccountId(),customer.getPhoneNumber(),customer.getAddress());
 		return customerDto;
 	}
 	

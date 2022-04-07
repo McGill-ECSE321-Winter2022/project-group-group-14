@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,19 +44,10 @@ public class GroceryOrderRestController {
 	private OrderItemService orderItemService;
 
  //-------------------------------------------------------CREATE MAPPINGS------------------------------------------------------------
-//	public CustomerDto createTempCustomer(String email) {
-//		Customer customer = customerService.createCustomer(email,"username1","abC123","5145543332","38greenlane");
-//		return convertToCDto(customer);
-//		
-//	}//temporary fct
-//	
-	
 	
 	@PostMapping(value = { "/orders/delivery/{email}", "/orders/delivery/{email}/" })
 	public ResponseEntity<?> createDeliveryOrder(@PathVariable  String email) throws IllegalArgumentException  {
 		try {
-			//should be deleted afterwards
-//			createTempCustomer(email);
 			Customer customer = customerService.getCustomerByEmail(email);
 			GroceryOrder order = orderService.createDeliveryOrder(customer);
 					
@@ -71,9 +61,6 @@ public class GroceryOrderRestController {
 	@PostMapping(value = { "/orders/pickup/{email}", "/orders/pickup/{email}/" })
 	public ResponseEntity<?>  createPickupOrder(@PathVariable  String email) throws IllegalArgumentException  {
 		try {
-			//should be deleted afterwards
-//			createTempCustomer(email);
-			
 			Customer customer = customerService.getCustomerByEmail(email);
 			GroceryOrder order = orderService.createPickupOrder(customer);
 			return ResponseEntity.ok(new GroceryOrderDto(order.getOrderId(),order.getTotalCost(), order.getOrderType().toString(),order.getOrderStatus().toString(), convertToCDto(customer)));
@@ -251,23 +238,51 @@ public class GroceryOrderRestController {
 		}
 	}
 	
-	
-	 //-------------------------------------------------------UPDATE METHOD------------------------------------------------------------
-	
 	/**
-	 * @param orderDto
-	 * @return modified orderDto;
+	 * 
+	 * @return a list of all orders that need preparation
 	 */
-	@PutMapping(value = { "/orders", "/orders/" })
-	public ResponseEntity<?>  modifyOrder(@RequestParam(name = "Order") GroceryOrderDto orderDto) throws IllegalArgumentException  {
+	@GetMapping(value = { "/orders/toUpdate/", "/orders/toUpdate" })
+	public ResponseEntity<?>  getOrdersToUpdate() throws IllegalArgumentException {
 		try {
-			GroceryOrder order  = orderService.modifyOrder(orderService.getOrderById(orderDto.getOrderId()));
-			return ResponseEntity.ok(convertToDto(order));
+			List<GroceryOrder> processingOrders = orderService.getOrdersByOrderStatus(OrderStatus.Processing);
+			List<GroceryOrder> deliveryOrders = orderService.getOrdersByOrderStatus(OrderStatus.BeingDelivered);
+			List<GroceryOrder> pickUpOrders = orderService.getOrdersByOrderStatus(OrderStatus.ReadyForPickUp);
+			List<GroceryOrderDto> orderDtos = new ArrayList<GroceryOrderDto>(); 
+			for (GroceryOrder o: processingOrders) {
+				orderDtos.add(convertToDto(o));
+			}
+			for (GroceryOrder o: deliveryOrders) {
+				orderDtos.add(convertToDto(o));
+			}
+			for (GroceryOrder o: pickUpOrders) {
+				orderDtos.add(convertToDto(o));
+			}
+			
+			return ResponseEntity.ok(orderDtos);
 		}catch(IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 	
+	
+	
+	 //-------------------------------------------------------UPDATE METHOD------------------------------------------------------------
+	
+//	/**
+//	 * @param orderDto
+//	 * @return modified orderDto;
+//	 */
+//	@PutMapping(value = { "/orders", "/orders/" })
+//	public ResponseEntity<?>  modifyOrder(@RequestParam(name = "Order") GroceryOrderDto orderDto) throws IllegalArgumentException  {
+//		try {
+//			GroceryOrder order  = orderService.modifyOrder(orderService.getOrderById(orderDto.getOrderId()));
+//			return ResponseEntity.ok(convertToDto(order));
+//		}catch(IllegalArgumentException e) {
+//			return ResponseEntity.badRequest().body(e.getMessage());
+//		}
+//	}
+//	
 //-------------------------------------------------------DELETE METHODS------------------------------------------------------------
 	
 	/**
@@ -295,18 +310,21 @@ public class GroceryOrderRestController {
 	}
 	
 
+
+	
+	//delete one item at a time
 	@DeleteMapping({"/orders/deleteItem/{orderId}/{itemName}", "orders/delete/all/{orderId}/{itemName}/"})
-	public ResponseEntity<?>  deleteItemFromOrder(@PathVariable("orderId") String orderId,@RequestParam String itemName, @RequestParam int quantity) throws IllegalArgumentException  {
+	public ResponseEntity<?>  deleteItemFromOrder(@PathVariable("orderId") String orderId, @PathVariable("itemName") String itemName) throws IllegalArgumentException  {
 		try {
 			GroceryOrder order = orderService.getOrderById(Integer.parseInt(orderId));
-			List<OrderItem> orderItems = orderItemService.getOrderItemsByName(itemName);
-			GroceryOrder updatedOrder = orderService.deleteItemFromOrder(order, orderItems, quantity);
+			GroceryOrder updatedOrder = orderService.deleteItemFromOrder(order,itemName);
 			return ResponseEntity.ok(convertToDto(updatedOrder));
 		}catch(IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}		
 	}
 	
+
 	 
 //-------------------------------------------------------EXTRA METHODS------------------------------------------------------------
 	
@@ -339,6 +357,22 @@ public class GroceryOrderRestController {
 	}
 	
 	/**
+	 * 
+	 * @param orderId
+	 * @return grocery order whose order type has been toggled
+	 */
+	@GetMapping(value = {"/orders/toggleType/{orderId}/","/orders/toggleType/{orderId}"})
+	public ResponseEntity<?>  toggleOrderType(@PathVariable("orderId") String orderId) {
+		try {
+			GroceryOrder order = orderService.toggleOrderType(orderService.getOrderById(Integer.parseInt(orderId)));
+			return ResponseEntity.ok(convertToDto(order));
+		}catch(IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	
+	/**
 	 * @param orderId
 	 */
 	@GetMapping(value = {"/orders/status/view/{orderId}/","/orders/status/view/{orderId}"})
@@ -352,15 +386,7 @@ public class GroceryOrderRestController {
 		
 	}
 	
-//	/**
-//	 * @param orderId
-//	 */
-//	@GetMapping(value = {"/orders/payment/{orderId}","/orders/payment/{orderId}/"})
-//	public GroceryOrderDto payForOrder(@PathVariable("orderId") String orderId, @RequestParam(name = "Payment Information") String paymentInformation) {
-//		GroceryOrder order = orderService.payForOrder(paymentInformation,orderService.getOrderById(Integer.parseInt(orderId)));	// should add hashing for deliverable 3
-//		return convertToDto(order);
-//	}
-//	
+
 //-------------------------------------------------------CONVERSIONS------------------------------------------------------------
 	
 

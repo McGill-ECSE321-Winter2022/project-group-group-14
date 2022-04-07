@@ -189,6 +189,7 @@ ul {
   border-radius: 10px;
   transition: 0.3s;
   background-color: white;
+  max-height: 300px;
 }
 
 .grid-item:hover {
@@ -224,7 +225,23 @@ ul {
 /*------------------------ Button Styles -------------------- */
 
 
+.btn-success {
+  background-color:#f7a851;
+  color:#111;
+  transition: 0.5s;
+  border-color: #f7a851;
+  border-left: 1px solid white;
+  box-shadow: none;
+}
 
+.btn-success:hover, .btn-success:focus, .btn-success.focus {
+  background-color:#ff8a0c;
+  color:#111;
+  transition: 0.5s;  
+  border-color: #f7a851;
+  border-left: 1px solid white;
+  box-shadow: none;
+}
 
 .button_delete{
   font-size: 12px;
@@ -243,6 +260,7 @@ ul {
 
 .largeButton {
   font-size: 18px;
+  max-height: 100px;
 }
 
 .mediumButton {
@@ -260,11 +278,6 @@ ul {
   border-radius: 12px;
   transition: 0.5s;
 }
-.disabled {
-  color: rgb(132, 132, 132);
-  background-color: rgb(226, 226, 226);  
-  box-shadow: 0px 0px 0px 0px #c7c7c7;
-}
 .mediumButton:hover, .largeButton:hover, .button:hover{
   box-shadow: 0px 0px 8px 2px #c7c7c7;
   border-color: #f7a851;
@@ -273,16 +286,53 @@ ul {
   transition: 0.3s;
 }
 
+.disabled {
+  color: rgb(132, 132, 132);
+  background-color: white;  
+  box-shadow: 0px 0px 3px 1px #c7c7c7;
+}
 .disabled:hover {
   color: rgb(132, 132, 132);
-  background-color: rgb(226, 226, 226);  
-  box-shadow: 0px 0px 0px 0px #c7c7c7;
+  background-color: white;  
+  box-shadow: 0px 0px 3px 1px #c7c7c7;
 }
 
 .dropdown-list {
   width: 3em;
   border-radius: 10px;
 }
+
+.btn-success.disabled {
+  color: rgb(132, 132, 132);
+  background-color: rgb(226, 226, 226);  
+  border-color: rgb(207, 206, 206);
+}
+
+
+/*------------------------ popup styles -------------------- */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  opacity: 100%;
+  z-index: 100;
+}
+
+.popup {
+  margin: auto;
+  margin-top: 40vh;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  transition: all 5s ease-in-out;
+}
+
 
 /*------------------------ Responsive changes -------------------- */
 

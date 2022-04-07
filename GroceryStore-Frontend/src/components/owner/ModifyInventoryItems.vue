@@ -4,7 +4,14 @@
           <div class="popup">
             <h5>{{ errorInventory }}</h5>
             <!-- <button class="mediumButton" >Close</button> -->
+            <router-link to="/showInventoryItemsOwner">
+              <button class="mediumButton">
+                Show All Items
+              </button>
+            </router-link>
             <button class="mediumButton" onClick="window.location.reload();">Close</button>
+            
+            
           </div>
         </div>
     <b-navbar fixed="top" toggleable="lg">
@@ -49,12 +56,14 @@
           <input
             type="text"
             v-model="newInventoryItem.name"
-            class="form-control"
+            class="form-control no-margin"
             id="floatingInput"
             placeholder="Inventory Item's Name"
             required
           />
         </div>
+
+        <button class="button" :class="{'disabled' : !newInventoryItem.name}" v-bind:disabled="!newInventoryItem.name" @click="getInventoryItemsByName(newInventoryItem.name)">auto-fill</button>
 
         <h6 class="subheading">Price must be a positive integer</h6>
         <div class="form-floating mb-3">
@@ -81,12 +90,17 @@
             required
           />
         </div>
+
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="newInventoryItem.availability">
+          <label class="form-check-label" for="exampleCheck1">Available Online</label>
+        </div>
         <div>
-              <button class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="CreateButton" @click="createInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock}">
+              <button class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="CreateButton" @click="createInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock, newInventoryItem.availability)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock}">
                 Create Inventory Item
               </button>
               <br>
-              <button class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="UpdateButton" @click="updateInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock}">
+              <button class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="UpdateButton" @click="updateInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock, newInventoryItem.availability)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock}">
                 Update Inventory Item
               </button>
               <button class="largeButton" v-bind:disabled="!newInventoryItem.name" type="DeleteButton" @click="deleteInventoryItem(newInventoryItem.name)" :class="{'disabled' : !newInventoryItem.name}">
@@ -103,30 +117,13 @@
 </script>
 <style scoped>
 
-
-
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  opacity: 100%;
-  z-index: 100;
+.form-group {
+  margin-bottom: 30px;
 }
 
-.popup {
-  margin: auto;
-  margin-top: 40vh;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  transition: all 5s ease-in-out;
+.no-margin {
+  margin-bottom: 0;
 }
-
 
 
 .verticalandhorizontal-center {
@@ -152,13 +149,11 @@
     }
 
     .button {
-        font-size: 17px;
-        width: fit-content;
-        margin: 30px;
+      margin-bottom: 30px;
     }
 
     .mediumButton {
-      margin: 0;
+      margin: 2%;
     }
 
     label {
