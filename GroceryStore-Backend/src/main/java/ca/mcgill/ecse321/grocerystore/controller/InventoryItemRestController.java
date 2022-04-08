@@ -30,9 +30,9 @@ public class InventoryItemRestController {
 	
 	/**@author Youssof Mohamed*/
 	@PostMapping(value = { "/inventoryItems/create/{name}", "/inventoryItems/create/{name}/" })
-	public ResponseEntity<?> createInventoryItem(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock, @RequestParam String availability) {
+	public ResponseEntity<?> createInventoryItem(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock, @RequestParam String image, @RequestParam String availability) {
 		try {
-			InventoryItem inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock,availability);
+			InventoryItem inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock,image,availability);
 			return ResponseEntity.ok(convertToDto(inventoryItem));
 		  } catch (IllegalArgumentException ex) {
 		    return ResponseEntity.badRequest().body(ex.getMessage());
@@ -50,9 +50,9 @@ public class InventoryItemRestController {
 	
 	/**@author Youssof Mohamed*/
 	@PutMapping(value = { "/inventoryItems/update/{name}", "/inventoryItems/update/{name}/" })
-	public ResponseEntity<?> upadateInventoryItem(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock, @RequestParam String availability) throws IllegalArgumentException {
+	public ResponseEntity<?> upadateInventoryItem(@PathVariable("name") String name, @RequestParam int price, @RequestParam int currentStock, @RequestParam String image, @RequestParam String availability) throws IllegalArgumentException {
 		try {
-		InventoryItem inventoryItem = inventoryItemService.updateInventoryItemInfo(name,price,currentStock,availability);
+		InventoryItem inventoryItem = inventoryItemService.updateInventoryItemInfo(name,price,currentStock,image,availability);
 		return ResponseEntity.ok(convertToDto(inventoryItem));
 	  } catch (IllegalArgumentException ex) {
 	    return ResponseEntity.badRequest().body(ex.getMessage());
@@ -135,7 +135,7 @@ public class InventoryItemRestController {
 		if (inventoryItem == null) {
 			throw new IllegalArgumentException("There is no such InventoryItem!");
 		}
-		InventoryItemDto inventoryItemDto = new InventoryItemDto(inventoryItem.getName(),inventoryItem.getPrice(),inventoryItem.getCurrentStock(),inventoryItem.getItemId(),inventoryItem.getAvailability());
+		InventoryItemDto inventoryItemDto = new InventoryItemDto(inventoryItem.getName(),inventoryItem.getPrice(),inventoryItem.getCurrentStock(),inventoryItem.getItemId(),inventoryItem.getImage(),inventoryItem.getAvailability());
 		return inventoryItemDto;
 	}
 	
@@ -145,7 +145,7 @@ public class InventoryItemRestController {
 		
 		for(InventoryItem inventoryItem : inventoryItems) {
 			
-			inventoryItemsDto.add(new InventoryItemDto(inventoryItem.getName(),inventoryItem.getPrice(),inventoryItem.getCurrentStock(),inventoryItem.getItemId(),inventoryItem.getAvailability()));
+			inventoryItemsDto.add(new InventoryItemDto(inventoryItem.getName(),inventoryItem.getPrice(),inventoryItem.getCurrentStock(),inventoryItem.getItemId(),inventoryItem.getImage(),inventoryItem.getAvailability()));
 			}
 		
 		return inventoryItemsDto;

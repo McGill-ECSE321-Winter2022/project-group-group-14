@@ -74,11 +74,12 @@
       <div class="grid-container" v-if="inventoryItems.length">
         <div class="grid-item" v-for="inventoryItem in inventoryItems" :key=inventoryItem.name>
           <ul class="item">
-                    <li class="info">
-
-                    </li>
+                    
                     <li class="info item-name">
                       {{ inventoryItem.name }}
+                    </li>
+                    <li class="info">
+                      <img class="item-image" :src="inventoryItem.image" alt="">
                     </li>
                     <li class="info">
                       ${{ inventoryItem.price }}.00
@@ -86,14 +87,17 @@
                     <li class="info">
                       Stock: {{ inventoryItem.currentStock }}
                     </li>
-                    <li class="info">
-                      Available Online: {{ inventoryItem.availability }}
+                    <li v-if="inventoryItem.availability" class="info">
+                      Available
+                    </li>
+                    <li v-if="!inventoryItem.availability" class="info">
+                      Not Available
                     </li>
 
                     <li class="info add-item">
                       <button class="button" @click="deleteInventoryItem(inventoryItem.name)" onClick="window.location.reload();">Remove Item</button>
                     </li>
-                    <router-link class="info edit" :to="{ name: 'ModifyInventoryItems', params: { nameToEdit: inventoryItem.name, priceToEdit: inventoryItem.price, currentStockToEdit: inventoryItem.currentStock, availabilityToEdit: inventoryItem.availability }}">
+                    <router-link class="info edit" :to="{ name: 'ModifyInventoryItems', params: { nameToEdit: inventoryItem.name, priceToEdit: inventoryItem.price, currentStockToEdit: inventoryItem.currentStock, imageToEdit: inventoryItem.image, availabilityToEdit: inventoryItem.availability }}">
                       <a>Edit Item</a>
                     </router-link>
                     

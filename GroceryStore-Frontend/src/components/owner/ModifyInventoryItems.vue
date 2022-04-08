@@ -1,19 +1,33 @@
 <template>
   <div class="inventory">
-    <div id="popup1" class="overlay" v-if="errorInventory">
-          <div class="popup">
-            <h5>{{ errorInventory }}</h5>
-            <!-- <button class="mediumButton" >Close</button> -->
-            <router-link to="/showInventoryItemsOwner">
-              <button class="mediumButton">
-                Show All Items
-              </button>
-            </router-link>
-            <button class="mediumButton" onClick="window.location.reload();">Close</button>
-            
-            
-          </div>
-        </div>
+    <div class="overlay" v-if="errorInventory">
+      <div class="popup">
+        <h5>{{ errorInventory }}</h5>
+        <!-- <button class="mediumButton" >Close</button> -->
+        <router-link to="/showInventoryItemsOwner">
+          <button class="mediumButton">
+            Show All Items
+          </button>
+        </router-link>
+        <button class="mediumButton" @click="clearError()">Close</button>
+        
+        
+      </div>
+    </div>
+    <div class="overlay" v-if="successInventory">
+      <div class="popup">
+        <h5>{{ successInventory }}</h5>
+        <!-- <button class="mediumButton" >Close</button> -->
+        <router-link to="/showInventoryItemsOwner">
+          <button class="mediumButton">
+            Show All Items
+          </button>
+        </router-link>
+        <button class="mediumButton" onClick="window.location.reload();">Close</button>
+        
+        
+      </div>
+    </div>
     <b-navbar fixed="top" toggleable="lg">
       <router-link to="/ownerWelcomePage">
         <b-navbar-brand>STORIKO</b-navbar-brand>
@@ -51,7 +65,7 @@
 
         <br>
 
-        <h6 class="subheading">Names must be unique within the system</h6>
+        <h6 class="subheading">Item Name</h6>
         <div class="form-floating mb-3">
           <input
             type="text"
@@ -65,7 +79,7 @@
 
         <button class="button" v-if="newInventoryItem.name" @click="getInventoryItemsByName(newInventoryItem.name)">auto-fill</button>
 
-        <h6 class="subheading">Price must be a positive integer</h6>
+        <h6 class="subheading">Item Price</h6>
         <div class="form-floating mb-3">
           <input
             type="number"
@@ -78,7 +92,7 @@
           />
         </div>
 
-        <h6 class="subheading">Stock number must be a positive integer</h6>
+        <h6 class="subheading">Item Stock Number</h6>
         <div class="form-floating mb-3">
           <input
             type="number"
@@ -91,16 +105,36 @@
           />
         </div>
 
-        <div class="form-group form-check">
+        <h6 class="subheading">Item Image</h6>
+        <div class="form-floating mb-3">
+          <input
+            style="margin-bottom: 0"
+            type="text"
+            min="1"
+            v-model="newInventoryItem.image"
+            class="form-control"
+            id="floatingPassword"
+            placeholder="Inventory Item Image URL"
+            required
+          />
+        </div>
+        
+        <button class="button" @click="defaultImage()">default image URL</button>
+
+        
+
+        <div style="margin-bottom: 10px" class="form-group form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="newInventoryItem.availability">
           <label class="form-check-label" for="exampleCheck1">Available Online</label>
         </div>
+
+        <button style="margin-bottom: 0" class="button" v-if="newInventoryItem.price || newInventoryItem.name || newInventoryItem.currentStock || newInventoryItem.image" @click="clear()">Clear All</button>
         <div>
-              <button class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="CreateButton" @click="createInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock, newInventoryItem.availability)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock}">
+              <button style="margin-top: 40px" class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="CreateButton" @click="createInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock, newInventoryItem.image, newInventoryItem.availability)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock}">
                 Create Inventory Item
               </button>
               <br>
-              <button class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="UpdateButton" @click="updateInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock, newInventoryItem.availability)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock}">
+              <button class="largeButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock" type="UpdateButton" @click="updateInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock, newInventoryItem.image , newInventoryItem.availability)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock}">
                 Update Inventory Item
               </button>
               <button class="largeButton" v-bind:disabled="!newInventoryItem.name" type="DeleteButton" @click="deleteInventoryItem(newInventoryItem.name)" :class="{'disabled' : !newInventoryItem.name}">
