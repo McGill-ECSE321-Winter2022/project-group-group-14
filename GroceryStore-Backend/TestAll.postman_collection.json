@@ -163,7 +163,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/create/Ketchup/?price=2&currentStock=5&availability=true",
+					"raw": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/create/Ketchup/?price=2&currentStock=5&availability=true&image=URL",
 					"protocol": "https",
 					"host": [
 						"grocerystore-backend-123abc",
@@ -188,6 +188,10 @@
 						{
 							"key": "availability",
 							"value": "true"
+						},
+						{
+							"key": "image",
+							"value": "URL"
 						}
 					]
 				}
