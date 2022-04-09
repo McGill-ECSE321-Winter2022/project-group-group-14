@@ -134,7 +134,9 @@
 .search {
   width: 100%;
   position: fixed;
-  margin-top: 90px;
+  padding-top: 82px;
+  background-color:white;
+  box-shadow: 0px 0px 9px 1px rgba(122, 122, 122, 0.4);
 }
 
 .empty {

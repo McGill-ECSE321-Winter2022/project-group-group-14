@@ -44,29 +44,38 @@
                   {{ inventoryItem.name }}
                 </li>
                 <li class="info">
+                  <img class="item-image" :src="inventoryItem.image" alt="">
+                </li>
+                <li class="info">
                   ${{ inventoryItem.price }}.00
                 </li>
                 <li class="info">
                   Stock: {{ inventoryItem.currentStock }}
                 </li>
-                <li class="info">
-                  Available Online: {{ inventoryItem.availability }}
+                <li v-if="inventoryItem.availability" class="info">
+                  Available
+                </li>
+                <li v-if="!inventoryItem.availability" class="info">
+                  Not Available
                 </li>
                 <br>
-                <h6 class="subheading">Quantity must be less or equal to stock</h6>
-                <div class="form-floating mb-3">
+                <!-- <h6 class="subheading">Quantity must be less or equal to stock</h6> -->
+                <!-- <div class="form-floating mb-3"> -->
+                  <label >Quantity</label>
                   <input
                     type="number"
-                    min="0"
+                    min="1"
+                    :max="inventoryItem.currentStock"
                     v-model="inventoryItem.quantity"
                     class="form-control"
-                    id="floatingInput"
-                    placeholder="Quantity"
+                    id="quantity"
+                    placeholder="qty"
                     required
                   />
-                </div>
+                  
+                <!-- </div> -->
                 <li class="info">
-                  <button class="mediumButton add-item" @click="addOrderItems(groceryOrders[0].orderId,inventoryItem.name,inventoryItem.quantity)">Add to Cart</button>
+                  <button class="mediumButton add-item" v-bind:disabled="!inventoryItem.quantity" @click="addOrderItems(groceryOrders[0].orderId,inventoryItem.name,inventoryItem.quantity)">Add to Cart</button>
                 </li> 
                 
          </ul>
@@ -207,6 +216,21 @@ export default {
 </script>
 
 <style scoped>
+
+label {
+  margin-right: 20px;
+  font-size: 18px;
+}
+
+#quantity {
+  width: 80px;
+  border-radius: 25px;
+}
+
+.form-control {
+  display: inline;
+  height: 30px;
+}
 
 .grid-item {
   max-height: 450px;

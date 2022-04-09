@@ -196,7 +196,7 @@ ul {
   border-radius: 10px;
   transition: 0.3s;
   background-color: white;
-  height: fit-content;
+  min-height: fit-content;
   min-width: 250px;
 }
 
