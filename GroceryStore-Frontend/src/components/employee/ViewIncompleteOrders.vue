@@ -21,7 +21,7 @@
         <th>Cost</th>
         <th>Type</th>
         <th>Status</th>
-        <th>Delete</th>
+        <th>Update</th>
       </tr>
       
       <tr v-for="groceryOrder in groceryOrders" :key=groceryOrder.orderId>
@@ -31,7 +31,13 @@
           <td>{{ groceryOrder.orderType}}</td>
           <td> {{ groceryOrder.orderStatus}}</td>
         <td>
-          <button class="mediumButton" @click="deleteOrder(groceryOrder.orderId);reloadPage();">Delete</button>
+
+           <button class="mediumButton" @click="updateOrderStatus(groceryOrder.orderId)" onClick="window.location.reload();">
+                    Update Status
+           </button>
+
+       
+
         </td>
         </tr>
       </table>
@@ -90,23 +96,25 @@ export default{
           this.errorOrder = errorMsg
       })
     },
-    methods: {
-    deleteAllCompletedOrders: function (){
-      AXIOS.delete('/orders/delete/all/completed',{},{})
-      .then(response => {
-        // this.groceryOrders.push(response.data)
-        // this.deletedGroceryOrder = response.data;
-        console.log(response.data)
-        successMsg = " All completed orders have been removed!"
+    methods:{
+      updateOrderStatus: function(orderId){
+        AXIOS.get('/orders/status/update/'.concat(orderId),{},{})
+        .then(response => {
+            // JSON responses are automatically parsed.
+            this.newGroceryOrder = response.data
+
+        }).catch(e => {
+          // this.successMsg = ''
+          // var errorMsg = e.response.data
+          // console.log(errorMsg)
+          // this.errorOrder = errorMsg
       })
-      .catch(e => {
-      })
-    },
-    reloadPage: function(){
-      window.location.reload();
+
+      }
+
     }
 
-  }
+  
 }
 </script>
 

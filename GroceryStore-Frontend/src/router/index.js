@@ -200,7 +200,7 @@ export default new Router({
       component: ViewStoreEmployeeScheduleFromEmployee
     },
     {
-      path: '/modifyGroceryOrderStatus',
+      path: '/modifyGroceryOrderStatus/:orderId',
       name: 'Modify Grocery Order Status',
       component: ModifyGroceryOrderStatus
     },
