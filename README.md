@@ -3,6 +3,19 @@ The goal of this project is to create a software system that could be used by cu
 For the workers, the system provides scheduling and inventory features. For customers, the system offers ordering for delivery or pickup. 
 This software will be made available via website, desktop application, and android application, in order to maximize ease of accessibility.
 
+# Quick Links
+
+
+Learn to use our website with the [Website User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-User---Guide). 
+
+View our [Domain Model](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Domain-Model-Updated) and our [Design Decisions](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Specifications).  
+
+For the build setup, visit the [Frontend Build Setup](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/blob/main/GroceryStore-Frontend/README.md).
+
+View more documentation relating to our project at our [Wiki Home Page](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki).
+
+
+
 # Our Team
 
 ### Clarissa Baciu
@@ -65,13 +78,17 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 * [Wiki Home Page](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki)
 * [Meeting Minutes D3](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Meeting-Minutes--(Deliverable-3))
 * [Architecture Model](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Architecture-Model)
+* [Website User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-User---Guide)
+* [Frontend Build Setup](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/blob/main/GroceryStore-Frontend/README.md)
+* [UI-Mockups](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/UI-Mockups)
+* [Website Page Map](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-Page-Map)
 
 ## Effort Table (D3)
 | Team Member | Time Spent (h) | Responsibilities | 
 | --- | --- | --- |
 | name | #hours | Work description |
 | Yakir Bender | 25 | StoreSchedule-related pages (create/modify/delete), Backend updates to related pages |
-| Clarissa Baciu | 30 | Updating controller methods to take strings as inputs, all front end functionality related to grocery orders |
+| Clarissa Baciu | 35 | Updating controller methods to take strings as inputs, all front end functionality related to grocery orders |
 | Samuel Valentine | 30 | Minutes organiser and scribe, all account-related pages (create/update/delete/login), architecture model, fixing backend |
 | Youssof Mohamed | 30 | InventoryItem-related pages, and Backend updates |
 | Minkyu Park | 25 | EmployeeSchedule front end, and back end but further modification needed |
