@@ -3,11 +3,7 @@
   <div id="popup1" class="overlay" v-if="successMsg">
     <div class="popup">
       <h5>{{ successMsg }}</h5>
-      <router-link :to="{ name: 'EmployeeWelcomePage'}">
-          <button class="largeButton">
-              Home
-          </button>
-      </router-link>
+       <button class="mediumButton" onClick="window.location.reload();">Close</button>
 
     </div>
     </div>
@@ -66,12 +62,13 @@
 
       <div class="grid-item" v-for="inventoryItem in inventoryItems" :key=inventoryItem.name>
       <ul class="item">
-                <li class="info">
 
-                </li>
 
                 <li class="info item-name">
                   {{ inventoryItem.name }}
+                </li>
+                <li class="info">
+                  <img class="item-image" :src="inventoryItem.image" alt="">
                 </li>
                 <li class="info">
                   ${{ inventoryItem.price }}.00
@@ -79,11 +76,33 @@
                 <li class="info">
                   Stock: {{ inventoryItem.currentStock }}
                 </li>
+                <li v-if="inventoryItem.availability" class="info">
+                  Available
+                </li>
+                <li v-if="!inventoryItem.availability" class="info">
+                  Not Available
+                </li>
+                <br>
+                <!-- <h6 class="subheading">Quantity must be less or equal to stock</h6> -->
+                <!-- <div class="form-floating mb-3"> -->
+                  <label >Quantity</label>
+                  <input
+                    type="number"
+                    min="1"
+                    :max="inventoryItem.currentStock"
+                    v-model="inventoryItem.quantity"
+                    class="form-control"
+                    id="quantity"
+                    placeholder="qty"
+                    required
+                  />
+                  
+                <!-- </div> -->
                 <li class="info">
-                  <button class="mediumButton add-item" @click="addOrderItems(groceryOrders[0].orderId,inventoryItem.name,inventoryItem.quantity)">Add to Cart</button>
+                  <button class="mediumButton add-item" v-bind:disabled="!inventoryItem.quantity" @click="addOrderItems(groceryOrders[0].orderId,inventoryItem.name,inventoryItem.quantity)">Add to Cart</button>
                 </li> 
                 
-      </ul>
+         </ul>
       
       </div>
     </div>
@@ -111,6 +130,7 @@ name: 'inventoryitem',
 data () {
     return {
     orderId : this.$route.params.orderId,
+    groceryOrders : [], 
     inventoryItems: [],
     newInventoryItem: {
       name: '',
@@ -132,21 +152,30 @@ created: function () {
     })
     .catch(e => {
         this.errorInventory = e
-    })
+    }),
+        
+      AXIOS.get('/orders/'.concat(this.orderId),{},{})
+      .then(response => {
+          // JSON responses are automatically parsed.
+          this.groceryOrders.push(response.data)
+          console.log(response.data)
+      })
+      .catch(e => {
+          this.errorInventory = e.response.data
+          console.log(e.response.data)
+      })
     
 },
 
   methods: {
     placeOrder: function (orderId){
-      AXIOS.get('/orders/place/'.concat(orderId),{},{})
+      AXIOS.post('/orders/place/'.concat(orderId),{},{})
       .then(response => {
         this.groceryOrders.push(response.data)
         console.log(response.data)
         successMsg = " Order has been successfully placed!"
       })
       .catch(e => {
-        this.errorInventory = e.response.data
-        console.log(e.response.data)
       })
     },
      addOrderItems: function (orderId,itemName,quantity) {
@@ -160,9 +189,8 @@ created: function () {
                 this.successMsg = 'Successfully added!'
             })
             .catch(e => {
-                var errorMsg = e.response.data
-                console.log(errorMsg)
-                this.errorInventory = errorMsg
+                this.errorInventory = e.response.data
+                console.log(errorInventory)
             })
         }
   }
@@ -174,6 +202,26 @@ created: function () {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+
+label {
+  margin-right: 20px;
+  font-size: 18px;
+}
+
+#quantity {
+  width: 80px;
+  border-radius: 25px;
+}
+
+.form-control {
+  display: inline;
+  height: 30px;
+}
+
+.grid-item {
+  max-height: 450px;
+}
 
 .overlay {
   position: fixed;
