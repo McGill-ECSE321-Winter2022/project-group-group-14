@@ -40,10 +40,13 @@
   <div class="grid-container">
       <div class="grid-item">
 
-      <h4> Please enter your order id </h4>
+
+
+        <h4> Your order id is {{this.orderId}} </h4>
+
         <!-- <div class="form-floating mb-3"> -->
-          <input v-model="orderId" placeholder="id">
-          <p>Your order id is : {{ orderId }}</p>
+          <!-- <input v-model="orderId" placeholder="id"> -->
+          <!-- <p>Your order id is : {{ this.orderId }}</p> -->
           <button class="largeButton" v-if="orderId" @click="placeOrder(orderId)">
               Place Order
           </button>
