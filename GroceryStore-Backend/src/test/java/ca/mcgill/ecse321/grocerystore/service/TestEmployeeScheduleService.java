@@ -20,12 +20,14 @@ import org.mockito.stubbing.Answer;
 
 import ca.mcgill.ecse321.grocerystore.dao.EmployeeScheduleRepository;
 import ca.mcgill.ecse321.grocerystore.dao.GroceryStoreRepository;
+import ca.mcgill.ecse321.grocerystore.model.Employee;
 import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule;
 import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule.Day;
 import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule.Shift;
 
 @ExtendWith(MockitoExtension.class)
 public class TestEmployeeScheduleService {
+	
 	
 	@Mock
 	private GroceryStoreRepository groceryStoreDao;
@@ -37,6 +39,7 @@ public class TestEmployeeScheduleService {
 
 	private final Day DAY = Day.Monday;
 	private final Shift SHIFT = Shift.Morning;
+	private final String EMPLOYEE = null;
 	
 
 	@BeforeEach
@@ -62,9 +65,10 @@ public class TestEmployeeScheduleService {
 	public void testCreateEmployeeSchedule() {
 		Day day = DAY;
 		Shift shift = SHIFT;
+		String employee = "employee";
 		EmployeeSchedule employeeSchedule = null;
 		try {
-			employeeSchedule = employeeScheduleService.createEmployeeSchedule(shift, day);
+			employeeSchedule = employeeScheduleService.createEmployeeSchedule(shift, day, employee);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
@@ -83,11 +87,12 @@ public class TestEmployeeScheduleService {
 	public void testDayNull() {
 		Day day = null;
 		Shift shift = SHIFT;
+		String employee = "employee";
 		EmployeeSchedule employeeSchedule = null;
 		
 		String error = null;
 		try {
-			employeeSchedule = employeeScheduleService.createEmployeeSchedule(shift, day);
+			employeeSchedule = employeeScheduleService.createEmployeeSchedule(shift, day, employee);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -101,11 +106,12 @@ public class TestEmployeeScheduleService {
 	public void testShiftNull() {
 		Day day = DAY;
 		Shift shift = null;
+		String employee = "employee";
 		EmployeeSchedule employeeSchedule = null;
 		
 		String error = null;
 		try {
-			employeeSchedule = employeeScheduleService.createEmployeeSchedule(shift, day);
+			employeeSchedule = employeeScheduleService.createEmployeeSchedule(shift, day, employee);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -120,7 +126,7 @@ public class TestEmployeeScheduleService {
     @Test
     public void testDelete()
     {
-    	EmployeeSchedule employeeSchedule = employeeScheduleService.createEmployeeSchedule(SHIFT, DAY);
+    	EmployeeSchedule employeeSchedule = employeeScheduleService.createEmployeeSchedule(SHIFT, DAY, EMPLOYEE);
         EmployeeSchedule deleted = null;
         try
         {

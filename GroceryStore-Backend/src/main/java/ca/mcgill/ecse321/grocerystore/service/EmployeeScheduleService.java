@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ca.mcgill.ecse321.grocerystore.dao.EmployeeRepository;
 import ca.mcgill.ecse321.grocerystore.dao.EmployeeScheduleRepository;
+import ca.mcgill.ecse321.grocerystore.model.Employee;
 import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule;
 import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule.Shift;
 import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule.Day;
@@ -17,17 +19,19 @@ public class EmployeeScheduleService {
 
 	@Autowired
 	EmployeeScheduleRepository employeeScheduleRepo;
-
+	
+	@Autowired
+	EmployeeRepository employeeRepo;
 	
 	/**
 	* @author Harry Park
 	**/
 	/** Creates and saves a EmployeeSchedule to the repository. **/
 	@Transactional
-	public EmployeeSchedule createEmployeeSchedule(Shift shift, Day day) {
+	public EmployeeSchedule createEmployeeSchedule(Shift shift, Day day, String employeeUsername) {
 		ServiceHelpers.checkShiftValidity(shift);
 		checkDayValidity(day);
-		EmployeeSchedule employeeSchedule = new EmployeeSchedule(shift, day);
+		EmployeeSchedule employeeSchedule = new EmployeeSchedule(shift, day, employeeRepo.findByUsername(employeeUsername));
 
 		employeeScheduleRepo.save(employeeSchedule);
 		
@@ -69,6 +73,15 @@ public class EmployeeScheduleService {
 	public EmployeeSchedule getEmployeeScheduleByDay(Day day) {
 		return employeeScheduleRepo.findByDay(day);
 	}
+	
+	/**
+	* @author Harry Park
+	**/
+	/** Uses the day attribute to get an EmployeeSchedule from the repository. **/
+	@Transactional
+	public EmployeeSchedule getEmployeeScheduleByEmployee(Employee employee) {
+		return employeeScheduleRepo.findByEmployee(employee);
+	}
 
 
 	/**
@@ -89,6 +102,7 @@ public class EmployeeScheduleService {
         if (newEmployeeSchedule == null) throw new IllegalArgumentException("This Store Schedule does not exist.");
         newEmployeeSchedule.setShift(employeeSchedule.getShift());
         newEmployeeSchedule.setDay(employeeSchedule.getDay());
+        newEmployeeSchedule.setEmployee(employeeSchedule.getEmployee());
         
         //save new changes to the repository
         employeeScheduleRepo.save(newEmployeeSchedule);

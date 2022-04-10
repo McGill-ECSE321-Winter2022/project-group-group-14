@@ -4,6 +4,7 @@ package ca.mcgill.ecse321.grocerystore.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -18,24 +19,27 @@ public class EmployeeSchedule
   //Attributes
   private Shift shift;
   private Day day;
+  private Employee employee;
+
+  
 
 
   private int id;
 
   //constructors
-  public EmployeeSchedule(Shift aShift,Day aDay)
+  public EmployeeSchedule(Shift aShift, Day aDay, Employee aEmployee)
   {
-   
 	this.day = aDay;
-    shift = aShift;
+    this.shift = aShift;
+    this.employee = aEmployee;
   }
 
   
   public EmployeeSchedule()
   {
     this.shift = null;
-    this.day = null;
-    
+    this.day = null;  
+    this.employee = null;
   }
 
   //------------------------
@@ -71,6 +75,15 @@ public class EmployeeSchedule
     this.day = aDay;
   }
   
+  @ManyToOne
+  public Employee getEmployee()
+  {
+	  return this.employee;
+  }
+  public void setEmployee(Employee aEmployee)
+  {
+	  this.employee = aEmployee;
+  }
 
  
 

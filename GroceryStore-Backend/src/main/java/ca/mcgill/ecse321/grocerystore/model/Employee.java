@@ -36,16 +36,16 @@ public class Employee extends Account
   }
   
   
-  
-  @OneToMany(cascade={CascadeType.ALL})
-  public List<EmployeeSchedule> getEmployeeSchedules()
-  {
-    return this.employeeSchedules;
-  }
-  
-  public void setEmployeeSchedules(List<EmployeeSchedule> employeeSchedules) {
-      this.employeeSchedules = employeeSchedules;
-  }
+//  
+//  @OneToMany(cascade={CascadeType.ALL})
+//  public List<EmployeeSchedule> getEmployeeSchedules()
+//  {
+//    return this.employeeSchedules;
+//  }
+//  
+//  public void setEmployeeSchedules(List<EmployeeSchedule> employeeSchedules) {
+//      this.employeeSchedules = employeeSchedules;
+//  }
 
  
 
