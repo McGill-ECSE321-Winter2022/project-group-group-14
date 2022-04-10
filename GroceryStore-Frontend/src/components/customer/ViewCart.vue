@@ -60,11 +60,11 @@
                 <br>
 
 
-                    <!-- <router-link to="/thankYou"> -->
+                    <router-link to="/thankYou">
                     <button class="largeButton" v-if="groceryOrders[0].orderId" @click="placeOrder(groceryOrders[0].orderId)">
                         Place Order
                     </button>
-                    <!-- </router-link> -->
+                    </router-link>
                 <br>
                 <br>
 

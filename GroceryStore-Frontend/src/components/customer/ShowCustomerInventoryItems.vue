@@ -177,20 +177,20 @@ export default {
                 this.errorInventory = errorMsg
             })
         },
-        getOrder: function (email){
-          AXIOS.get('/orders/customer/'.concat(email),{},{})
-          .then(response => {
-              // JSON responses are automatically parsed.
-              this.groceryOrders = response.data
-              console.log(response.data)
-          })
-          .catch(e => {
-              this.errorInventory = e.response.data
-              console.log(e.response.data)
-          })
+        // getOrder: function (email){
+        //   AXIOS.get('/orders/customer/'.concat(email),{},{})
+        //   .then(response => {
+        //       // JSON responses are automatically parsed.
+        //       this.groceryOrders = response.data
+        //       console.log(response.data)
+        //   })
+        //   .catch(e => {
+        //       this.errorInventory = e.response.data
+        //       console.log(e.response.data)
+        //   })
 
 
-        },
+        // },
         getOrderById: function (id){
           AXIOS.get('/orders/'.concat(id),{},{})
           .then(response => {

@@ -41,19 +41,23 @@
 <script>
 import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
 export default{
-    name:'CustomerPayment',
+    name:'ViewStatus',
+    components:{
+        CustomerNavigationBar
+    },
     data()
     {
         return {
-
-            
             curremail : this.$route.params.email,
+            orderId: '',
+            groceryOrders :[],
+            error: '',
+            successMsg:'',
+            response: []
         }
 
     },
-    components:{
-        CustomerNavigationBar
-    }
+
     
 }
 </script>
