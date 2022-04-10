@@ -22,15 +22,16 @@
             </div>
         </div>
 
-<b-navbar fixed="top">
-      
+    <CustomerNavigationBar></CustomerNavigationBar>
+
+    <!-- <b-navbar fixed="top"> 
         <b-navbar-brand>STORIKO</b-navbar-brand>
     
           <b-navbar-nav class="ml-auto">
             <b-nav-item href="#/">Log Out</b-nav-item>
           </b-navbar-nav>
     
-    </b-navbar>
+    </b-navbar> -->
         
         <div class="background-img">
             <img src="../../assets/orange3.jpg">
@@ -120,6 +121,9 @@ var AXIOS = axios.create({
 
 export default{
     name:'CustomerWelcomePage',
+    components:{
+        CustomerNavigationBar
+    },
     data()
     {
         return {
