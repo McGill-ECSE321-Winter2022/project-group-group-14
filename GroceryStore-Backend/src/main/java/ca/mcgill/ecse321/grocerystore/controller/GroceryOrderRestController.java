@@ -209,6 +209,19 @@ public class GroceryOrderRestController {
 		}
 	}
 	
+	@GetMapping(value =  { "/orders/customer/lastest/{email}", "/orders/customer/lastest/{email}/" })
+	public ResponseEntity<?>  getLastestOrdersByCustomer(@PathVariable("email") String email) throws IllegalArgumentException {
+		try{
+			Customer customer = customerService.getCustomerByEmail(email);
+			GroceryOrder order = orderService.getLatestOrderByCustomer(customer);
+			return ResponseEntity.ok(convertToDto(order));
+		}catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+	
+	
 	
 	
 	
