@@ -224,6 +224,16 @@ public class GroceryOrderService {
         return orderList;
     }
     
+    @Transactional
+    public GroceryOrder getLatestOrderByCustomer(Customer customer){ 
+    	if (customer == null || !customerDao.existsById(customer.getAccountId())) throw new IllegalArgumentException("Please submit a proper customer.");  
+    	List<GroceryOrder> orderList = orderDao.findGroceryOrdersByCustomer(customer);	
+    	if (orderList.size() == 0) throw new IllegalArgumentException("There are no orders associated to this customer account."); 
+        return orderList.get(orderList.size()-1);
+    }
+
+    
+    
     /**
      * @param orderStatus
      * @return returns a list of orders for a particular orderStatus
