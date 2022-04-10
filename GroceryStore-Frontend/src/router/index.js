@@ -235,7 +235,7 @@ export default new Router({
       component: ViewCart
     },
     {
-      path: '/thankYou/:email',
+      path: '/thankYou/:email/:orderId',
       name: 'ThankYou',
       component: ThankYou
     },

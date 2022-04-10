@@ -17,6 +17,16 @@
             <div v-if ="curremail">
                 Email : {{curremail}}
             </div>
+
+            <div v-if ="orderId">
+                order Id : {{orderId}}
+            </div>
+
+            <div v-if ="groceryOrders[0]">
+                order Status : {{groceryOrders[0].orderStatus}}
+            </div>
+
+
             <br>
             <br>
             <br>
@@ -61,6 +71,7 @@ export default{
     {
         return {
             curremail : this.$route.params.email,
+            orderId: this.$route.params.orderId,
             groceryOrders :[],
             error: '',
             successMsg:'',
@@ -68,16 +79,26 @@ export default{
         }
     },
     created: function() {
-          AXIOS.get('/orders/customer/latest/'.concat(this.curremail),{},{})
-          .then(response => {
-              // JSON responses are automatically parsed.
-              this.orderItems.push(response.data)
-              console.log(response.data)
-          })
-          .catch(e => {
-            //   this.errorInventory = e.response.data
-            //   console.log(e.response.data)
-          })
+        //   AXIOS.get('/orders/customer/latest/'.concat(this.curremail),{},{})
+        //   .then(response => {
+        //       // JSON responses are automatically parsed.
+        //       this.orderItems.push(response.data)
+        //       console.log(response.data)
+        //   })
+        //   .catch(e => {
+        //     //   this.errorInventory = e.response.data
+        //     //   console.log(e.response.data)
+        //   }),
+            AXIOS.get('/orders/'.concat(this.orderId),{},{})
+            .then(response => {
+                // JSON responses are automatically parsed.
+                this.groceryOrders.push(response.data)
+                console.log(response.data)
+            })
+            .catch(e => {
+                // this.errorInventory = e.response.data
+                // console.log(e.response.data)
+            })
     }
 }
 </script>

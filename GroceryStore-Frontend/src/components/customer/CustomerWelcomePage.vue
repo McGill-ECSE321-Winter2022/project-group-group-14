@@ -16,10 +16,10 @@
         <div id="popup2" class="overlay" v-if="errorOrder">
             <div class="popup">
                 <h5>{{ errorOrder }}</h5>
-                <router-link :to="{ name: 'ViewCart', params: { email: curremail, orderId: newGroceryOrder.orderId.toString() }}">
+                <router-link :to="{ name: 'ViewCart', params: { email: curremail, orderId: newGroceryOrder.orderId}}">
                     <button class="mediumButton">View cart</button>
                 </router-link>
-                <router-link :to="{ name: 'ThankYou', params: { email: curremail }}">
+                <router-link :to="{ name: 'ThankYou', params: { email: curremail, orderId: newGroceryOrder.orderId}}">
                     <button class="mediumButton">View status</button>
                 </router-link>
                 <br>
@@ -166,7 +166,6 @@ export default{
         CustomerNavigationBar
     },
     created: function() {
-        console.log(this.groceryOrders)
         AXIOS.get('/customers/'.concat(this.curremail),{},{})
         .then(response => {
             console.log(response.data)
@@ -190,8 +189,8 @@ export default{
             this.newGroceryOrder.orderId = response.data.orderId
           })
           .catch(e => {
-              var errorMsg = e.response.data
-            console.log(errorMsg)
+            //   var errorMsg = e.response.data
+            // console.log(errorMsg)
           })
 
     },

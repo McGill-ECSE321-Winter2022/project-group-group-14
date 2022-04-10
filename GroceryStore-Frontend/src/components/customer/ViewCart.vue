@@ -48,7 +48,7 @@
                         </button>
                     </router-link> -->
 
-                     <router-link :to="{ name: 'ThankYou', params: { email: curremail }}">
+                     <router-link :to="{ name: 'ThankYou', params:{ email: curremail, orderId: groceryOrders[0].orderId}}">
                         <button class="largeButton" v-if="groceryOrders[0].orderId" @click="placeOrder(groceryOrders[0].orderId)">
                         Place Order
                     </button>
