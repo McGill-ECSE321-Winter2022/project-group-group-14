@@ -59,7 +59,7 @@
 
                      <router-link to="/viewIncompleteOrders">
                         <button class="largeButton">
-                            Complete an order
+                            Prepare an order
                         </button>
                     </router-link>
                     <br>

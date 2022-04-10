@@ -11,32 +11,26 @@
                 </button>
             </router-link>
 
+
+
             </div>
          </div>
         <div id="popup2" class="overlay" v-if="errorOrder">
             <div class="popup">
                 <h5>{{ errorOrder }}</h5>
-                <router-link :to="{ name: 'ViewCart', params: { email: curremail, orderId: newGroceryOrder.orderId}}">
-                    <button class="mediumButton">View cart</button>
-                </router-link>
-                <router-link :to="{ name: 'ThankYou', params: { email: curremail, orderId: newGroceryOrder.orderId}}">
-                    <button class="mediumButton">View status</button>
-                </router-link>
-                <br>
                 <button class="mediumButton" onClick="window.location.reload();">Close</button>
             </div>
         </div>
 
-    <CustomerNavigationBar></CustomerNavigationBar>
-
-    <!-- <b-navbar fixed="top"> 
+<b-navbar fixed="top">
+      
         <b-navbar-brand>STORIKO</b-navbar-brand>
     
           <b-navbar-nav class="ml-auto">
             <b-nav-item href="#/">Log Out</b-nav-item>
           </b-navbar-nav>
     
-    </b-navbar> -->
+    </b-navbar>
         
         <div class="background-img">
             <img src="../../assets/orange3.jpg">
@@ -44,38 +38,43 @@
         <div class="verticalandhorizontal-center">
 
             <h2 class="heading" v-if="this.username">Welcome {{this.username}} (Customer)! </h2>
+                
 
+              
                 <h4> Place an order : </h4>
 
-                 <!-- <button class="largeButton" v-if="curremail" @click="createPerson(curremail)">
+                <!-- <button class="largeButton" v-if="curremail" @click="createPerson(curremail)">
                     createPerson
                 </button> -->
-               
-        
-                <button class="largeButton" v-if="curremail && !groceryOrders[0]" @click="createDeliveryOrder(curremail)">
+            
+            
+                <button class="largeButton" v-if="curremail && !groceryOrders" @click="createDeliveryOrder(curremail)" onClick="window.location.reload();">
                     Delivery
                 </button>
-
                 <br>
-
-                <button class="largeButton"  v-if="curremail && !groceryOrders[0]" @click="createPickupOrder(curremail)">
+                <button class="largeButton"  v-if="curremail && !groceryOrders" @click="createPickupOrder(curremail)" onClick="window.location.reload();">
                     Pick up
                 </button>
-
                 <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail, orderId: newGroceryOrder.orderId }}">
-                <button class="largeButton"  v-if="curremail && groceryOrders[0]">
+                <button class="largeButton"  v-if="curremail && groceryOrders ">
                     Complete Current Order
                 </button>
                 </router-link>
-
+          
                 <br>
                 <br>
 
                 <h4> Already placed an order? </h4>  
                 
-                <router-link :to="{ name: 'ThankYou', params: { email: curremail }}">
+                <router-link :to="{ name: 'ThankYou', params: { email: curremail,orderId: newGroceryOrder.orderId }}">
                     <button class="largeButton">
                         View your order's status
+                    </button>
+                </router-link>
+                <br>
+                 <router-link :to="{ name: 'ViewCart', params: { email: curremail,orderId: newGroceryOrder.orderId }}">
+                    <button class="largeButton">
+                        View Cart
                     </button>
                 </router-link>
 
@@ -126,9 +125,6 @@ var AXIOS = axios.create({
 
 export default{
     name:'CustomerWelcomePage',
-    components:{
-        CustomerNavigationBar
-    },
     data()
     {
         return {
@@ -147,7 +143,7 @@ export default{
             // curremail : this.$route.params.email,
 
 
-            groceryOrders: [],
+            groceryOrders: '',
             newGroceryOrder: {
                 // orderId: this.$route.params.orderId,
                 orderId : '',
@@ -166,33 +162,23 @@ export default{
         CustomerNavigationBar
     },
     created: function() {
+        console.log(this.groceryOrders)
         AXIOS.get('/customers/'.concat(this.curremail),{},{})
         .then(response => {
             console.log(response.data)
             this.username = response.data.username
-        }),
-        // AXIOS.get('/orders/customer/received/'.concat(this.curremail),{},{})
-        // .then(response => {
-        //     console.log(response.data)
-        //     this.groceryOrders.push(response.data)
-        //     this.newGroceryOrder.orderId = response.data.orderId
-        // })
-        // .catch(e => {
-        //     var errorMsg = e.response.data
-        //     console.log(errorMsg)
-        // }),
+        })
+        ,
         AXIOS.get('/orders/customer/latest/'.concat(this.curremail),{},{})
-          .then(response => {
-              // JSON responses are automatically parsed.
+        .then(response => {
             console.log(response.data)
-            this.groceryOrders.push(response.data)
+            this.groceryOrders = response.data
             this.newGroceryOrder.orderId = response.data.orderId
-          })
-          .catch(e => {
-            //   var errorMsg = e.response.data
-            // console.log(errorMsg)
-          })
-
+        })
+        .catch(e => {
+            var errorMsg = e.response.data
+            console.log(errorMsg)
+        })
     },
 
 
@@ -202,7 +188,7 @@ export default{
             AXIOS.post('/orders/delivery/'.concat(email), {}, {})
             .then(response => {
                 this.groceryOrders.push(response.data) //add dto to the list of orders
-                this.successMsg = 'Order has been successfully created! Please navigate to the list of inventory items : '
+                this.successMsg = 'Order has been successfully created! Please navigate to complete order. '
                 this.newGroceryOrder.orderId = response.data.orderId
                 console.log(this.groceryOrders)
                 this.errorOrder = ''
@@ -218,7 +204,7 @@ export default{
             AXIOS.post('/orders/pickup/'.concat(email), {}, {})
             .then(response => {
                 this.groceryOrders.push(response.data) //add dto to the list of orders
-                this.successMsg = 'Order has been successfully created! Please navigate to the list of inventory items : '
+                this.successMsg = 'Order has been successfully created! Please navigate to complete order.'
                 this.errorOrder = ''
                 console.log(response.data)
                 this.newGroceryOrder = ''
@@ -229,7 +215,7 @@ export default{
                 console.log(errorMsg)
                 this.errorOrder = errorMsg
             })
-        }
+        },
         // createPerson: function (email) { //create a customer that exists in system when the page loads
         // AXIOS.post('/customers/'.concat(email).concat('/').concat('username1').concat('/').concat('password1').concat('/').concat('5145503713').concat('/').concat('38addresspotato').concat('/'),{},{})
         // .then(response => {

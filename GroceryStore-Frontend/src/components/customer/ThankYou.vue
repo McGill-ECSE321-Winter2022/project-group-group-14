@@ -7,13 +7,10 @@
             <h2 class="heading">Thank You for your order</h2>
             <br>
             <br>
-            <!-- <div class="background-img">
-                 <img src=status>
-            </div> -->
-
-            <div v-if ="groceryOrders[0]">
-                Order Status : {{groceryOrders[0].orderStatus}}
+            <div >
+                <img src="../../assets/status_d1.jpg" style = "width : 500px; heaight : 500px;">
             </div>
+
             <div v-if ="curremail">
                 Email : {{curremail}}
             </div>
@@ -23,8 +20,15 @@
             </div>
 
             <div v-if ="groceryOrders[0]">
-                order Status : {{groceryOrders[0].orderStatus}}
+                Order Status : {{groceryOrders[0].orderStatus}}
+             </div>
+
+            <div v-if ="groceryOrders[0]">
+                 <div v-if ="groceryOrders[0].orderStatus === 'Received' ">
+                 We are processing!!!
+                </div>
             </div>
+            
 
 
             <br>
@@ -55,10 +59,7 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })  
-var AXIOS = axios.create({
-  baseURL: backendUrl,
-  headers: { 'Access-Control-Allow-Origin': frontendUrl }
-})  
+
 
 
 
@@ -72,6 +73,7 @@ export default{
         return {
             curremail : this.$route.params.email,
             orderId: this.$route.params.orderId,
+            ReceivedString : "Received",
             groceryOrders :[],
             error: '',
             successMsg:'',
