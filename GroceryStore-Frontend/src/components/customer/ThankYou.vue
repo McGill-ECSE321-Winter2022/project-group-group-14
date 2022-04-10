@@ -8,7 +8,7 @@
             <br>
             <br>
             <!-- <div class="background-img">
-                 <img src="../assets/d2_1.jpg">
+                 <img src=status>
             </div> -->
             <br>
             <br>
@@ -28,6 +28,9 @@ export default{
     name:'CustomerWelcomePage',
     components:{
         CustomerNavigationBar
+    },
+    data(){
+         status: '../assets/d2_1.jpg'
     }
 }
 </script>
