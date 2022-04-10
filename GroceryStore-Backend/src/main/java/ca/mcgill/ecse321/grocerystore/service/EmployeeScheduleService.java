@@ -31,7 +31,7 @@ public class EmployeeScheduleService {
 	public EmployeeSchedule createEmployeeSchedule(Shift shift, Day day, String employeeUsername) {
 		//ServiceHelpers.checkShiftValidity(shift);
 		//checkDayValidity(day);
-		if(	employeeRepo.findByUsername(employeeUsername) == null) throw new IllegalArgumentException("no employee with this username"); 
+		if(employeeRepo.findByUsername(employeeUsername) == null) throw new IllegalArgumentException("no employee with this username"); 
 		
 		for(EmployeeSchedule employeeSchedule: employeeScheduleRepo.findAll()) {
 			if(employeeSchedule.getShift().equals(shift)&&employeeSchedule.getDay().equals(day)&&employeeSchedule.getEmployee().getUsername().equals(employeeUsername)){
