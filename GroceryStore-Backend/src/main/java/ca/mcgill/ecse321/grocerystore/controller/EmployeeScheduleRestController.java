@@ -36,7 +36,7 @@ public class EmployeeScheduleRestController {
 	
 	
 	@PostMapping(value = {"/employeeSchedules/create/{day}", "/employeeSchedules/create/{day}/"})
-	public ResponseEntity<?> createEmployeeSchedule(@PathVariable("day") String day, @RequestParam("shift") String shift, @RequestParam("employee username") String employeeUsername)
+	public ResponseEntity<?> createEmployeeSchedule(@PathVariable("day") String day, @RequestParam("shift") String shift, @RequestParam("employeeUsername") String employeeUsername)
 	throws IllegalArgumentException {
 		try {
 		
@@ -74,19 +74,16 @@ public class EmployeeScheduleRestController {
 		}
 	}
 	
-	@PutMapping(value = { "/employeeSchedules/update/{day}", "/employeeSchedules/update/{day}/" })
-	public ResponseEntity<?> updateEmployeeSchedule(@PathVariable("day") String day, @RequestParam ("shift") String shift, @RequestParam ("employee username") String employeeUsername) throws IllegalArgumentException  {
-		try {
-		EmployeeSchedule newSchedule = service.getEmployeeScheduleByDay(Day.valueOf(day));
-		newSchedule.setShift(Shift.valueOf(shift));
-		newSchedule.setEmployee(employeeService.getEmployeeByUsername(employeeUsername));
-		
-		EmployeeSchedule employeeSchedule  = service.updateEmmployeeScheduleInfo(newSchedule);
-		return ResponseEntity.ok(convertToDto(employeeSchedule));
-		} catch (IllegalArgumentException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
+//	@PutMapping(value = { "/employeeSchedules/update/{day}", "/employeeSchedules/update/{day}/" })
+//	public ResponseEntity<?> updateEmployeeSchedule(@PathVariable("day") String day, @RequestParam ("shift") String shift, @RequestParam ("employeeUsername") String employeeUsername) throws IllegalArgumentException  {
+//		try {
+//		
+//		EmployeeSchedule employeeSchedule  = service.updateEmmployeeScheduleInfo(day, shift, employeeUsername);
+//		return ResponseEntity.ok(convertToDto(employeeSchedule));
+//		} catch (IllegalArgumentException e) {
+//			return ResponseEntity.badRequest().body(e.getMessage());
+//		}
+//	}
 	
 //	@PutMapping(value = { "/employeeSchedules/{shift}", "/employeeSchedules/{shift}/" })
 //	public EmployeeScheduleDto updateEmployeeSchedule(@PathVariable("day") String day,

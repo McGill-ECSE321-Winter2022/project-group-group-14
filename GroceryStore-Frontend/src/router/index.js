@@ -14,6 +14,8 @@ import ModifyEmployees from '@/components/owner/ModifyEmployees'
 import ModifyStoreSchedule from '@/components/owner/ModifyStoreSchedule'
 import Report from '@/components/owner/Report'
 import ShowUsers from '@/components/owner/ShowUsers'
+import ModifyEmployeeSchedule from '@/components/owner/ModifyEmployeeSchedule'
+
 //employee imports
 import EmployeeSchedulesFromEmployee from '@/components/employee/EmployeeSchedulesFromEmployee'
 import CreateCustomerFromEmployee from '@/components/employee/CreateCustomerFromEmployee'
@@ -36,11 +38,17 @@ import ViewOrderStatus from '@/components/customer/ViewOrderStatus'
 import ViewCart from '@/components/customer/ViewCart'
 import ThankYou from '@/components/customer/ThankYou'
 
+
 Vue.use(Router)
 
 export default new Router({
 
   routes: [
+    {
+      path: '/modifyEmployeeSchedule',
+      name: 'ModifyEmployeeSchedule',
+      component: ModifyEmployeeSchedule
+    },
     {
       path:'/viewOrderStatus/:email', 
       name: 'ViewOrderStatus',

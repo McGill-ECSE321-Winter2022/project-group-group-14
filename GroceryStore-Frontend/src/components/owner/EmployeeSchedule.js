@@ -18,9 +18,11 @@ name: 'employeeschedule',
 data () {
     return {
     employeeSchedules: [],
+    employees: [],
     newEmployeeSchedule: {
         shift: '',
-        day: ''
+        day: '',
+        employee: ''
       },
     errorEmployee: '',
     response: []
@@ -29,24 +31,32 @@ data () {
 
 created: function () {
     // Initializing schedules from backend
-        AXIOS.get('/employeeSchedules/get')
+        AXIOS.get('/employeeSchedules/')
         .then(response => {
             // JSON responses are automatically parsed.
             this.employeeSchedules = response.data
         })
         .catch(e => {
             this.errorEmployee = e
+        }),
+        AXIOS.get('/employees/login/getAll')
+        .then(response => {
+            // JSON responses are automatically parsed.
+            this.employees = response.data
+            console.log(response.data)
         })
-        
-    },
+        .catch(e => {
+            this.errorEmployee = e
+        })
+},
 
 methods: {
-    createEmployeeSchedule: function (shift, day) {
-        AXIOS.post('/employeeSchedules/'.concat(day), {}, {params: {shift: newshift}})
+    createEmployeeSchedule: function (shift, day, employeeUsername) {
+        AXIOS.post('/employeeSchedules/create/'.concat(day), {}, {params: {shift: shift, employeeUsername: employeeUsername}})
           .then(response => {
           // JSON responses are automatically parsed.
             this.employeeSchedules.push(response.data)
-            this.errorEmployee = ''
+            this.errorEmployee = 'Employee schedule added!'
             this.newEmployeeSchedule = ''
           })
           .catch(e => {
@@ -55,26 +65,12 @@ methods: {
             this.errorEmployee = errorMsg
           })
       },
-      updateEmployeeSchedule: function (shift,day) {
-        AXIOS.put('/employeeSchedules/update/'.concat(day), {}, {params: {params: {shift: newshift}}})
-          .then(response => {
-          // JSON responses are automatically parsed.
-            this.employeeSchedules.push(response.data)
-            this.errorEmployee = ''
-            this.newEmployeeSchedule = ''
-          })
-          .catch(e => {
-            var errorMsg = e.response.data
-            console.log(errorMsg)
-            this.errorSchedule = errorMsg
-          })
-      },
       deleteEmployeeSchedule: function (day) {
         AXIOS.delete('/employeeSchedules/delete/'.concat(day), {}, {})
           .then(response => {
           // JSON responses are automatically parsed.
             // this.storeSchedules
-            this.errorEmployee = ''
+            this.errorEmployee = 'Employee schedule deleted!'
             this.newEmployeeSchedule = ''
           })
           .catch(e => {
