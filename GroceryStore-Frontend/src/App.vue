@@ -172,12 +172,19 @@ ul {
   margin-bottom: 20px;
 }
 
+.item-image {
+  width: 200px;
+  height: 140px;
+  margin-bottom: 20px;
+}
+
 .add-item {
   margin-top: 30px;
 }
 
 .item{
-  padding: 50px 0px 50px 0px;
+  font-size: 14px;
+  padding: 20px 0px 50px 0px;
   margin: 0;
 }
 
@@ -189,7 +196,8 @@ ul {
   border-radius: 10px;
   transition: 0.3s;
   background-color: white;
-  max-height: 300px;
+  min-height: fit-content;
+  min-width: 250px;
 }
 
 .grid-item:hover {

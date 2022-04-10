@@ -22,7 +22,8 @@ data () {
       name: this.$route.params.nameToEdit,
       price: this.$route.params.priceToEdit,
       currentStock: this.$route.params.currentStockToEdit,
-      availability: this.$route.params.availabilityToEdit
+      availability: this.$route.params.availabilityToEdit,
+      image: this.$route.params.imageToEdit
     }, 
     errorInventory: '',
     response: []
@@ -42,16 +43,16 @@ created: function () {
 },
 
 methods: {
-    createInventoryItem: function (itemName,itemPrice,itemStock,itemAvailability) {
+    createInventoryItem: function (itemName,itemPrice,itemStock,itemImage,itemAvailability) {
       // if(itemAvailability!='true'){
       //   itemAvailability='false'
       // }
-        AXIOS.post('/inventoryItems/create/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock, availability: itemAvailability}})
+        AXIOS.post('/inventoryItems/create/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock, image: itemImage, availability: itemAvailability}})
           .then(response => {
           // JSON responses are automatically parsed.
             this.inventoryItems.push(response.data)
             console.log(itemAvailability)
-            this.errorInventory = itemName + ' is created successfully!'
+            this.successInventory = itemName + ' is created successfully!'
             this.newInventoryItem = ''
           })
           .catch(e => {
@@ -60,15 +61,15 @@ methods: {
             this.errorInventory = errorMsg
           })
       },
-      updateInventoryItem: function (itemName,itemPrice,itemStock,itemAvailability) {
+      updateInventoryItem: function (itemName,itemPrice,itemStock,itemImage,itemAvailability) {
         // if(itemAvailability!='true'){
         //   itemAvailability='false'
         // }
-        AXIOS.put('/inventoryItems/update/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock, availability: itemAvailability}})
+        AXIOS.put('/inventoryItems/update/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock, image: itemImage, availability: itemAvailability}})
           .then(response => {
           // JSON responses are automatically parsed.
             this.inventoryItems.push(response.data),
-            this.errorInventory = itemName + ' is updated successfully!'
+            this.successInventory = itemName + ' is updated successfully!'
             console.log(itemAvailability)
             this.newInventoryItem = ''
           })
@@ -83,7 +84,7 @@ methods: {
           .then(response => {
           // JSON responses are automatically parsed.
             // this.inventoryItems
-            this.errorInventory = itemName + ' is deleted successfully!'
+            this.successInventory = itemName + ' is deleted successfully!'
             this.newInventoryItem = ''
           })
           .catch(e => {
@@ -97,7 +98,7 @@ methods: {
           .then(response => {
           // JSON responses are automatically parsed.
             
-            this.errorInventory = '',
+            this.successInventory = '',
             this.newInventoryItem = response.data
           })
           .catch(e => {
@@ -105,6 +106,19 @@ methods: {
             console.log(errorMsg)
             this.errorInventory = errorMsg
           })
+      },
+      defaultImage: function () {
+        this.newInventoryItem.image = "https://transpower.ca/wp-content/themes/consultix/images/no-image-found-360x250.png"
+      },
+      clearError: function () {
+        this.errorInventory=''
+      },
+      clear: function () {
+        this.newInventoryItem.name=''
+        this.newInventoryItem.price=''
+        this.newInventoryItem.currentStock=''
+        this.newInventoryItem.availability=''
+        this.newInventoryItem.image=''
       }
 
 

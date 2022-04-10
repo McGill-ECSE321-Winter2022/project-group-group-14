@@ -46,18 +46,18 @@
                 </button> -->
                
         
-                <button class="largeButton" v-if="curremail && !groceryOrders.length" @click="createDeliveryOrder(curremail)">
+                <button class="largeButton" v-if="curremail && !groceryOrders" @click="createDeliveryOrder(curremail)">
                     Delivery
                 </button>
 
                 <br>
 
-                <button class="largeButton"  v-if="curremail && !groceryOrders.length" @click="createPickupOrder(curremail)">
+                <button class="largeButton"  v-if="curremail && !groceryOrders" @click="createPickupOrder(curremail)">
                     Pick up
                 </button>
 
                 <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail, orderId: newGroceryOrder.orderId }}">
-                <button class="largeButton"  v-if="curremail && groceryOrders.length">
+                <button class="largeButton"  v-if="curremail && groceryOrders">
                     Complete Current Order
                 </button>
                 </router-link>
@@ -138,7 +138,7 @@ export default{
             // curremail : this.$route.params.email,
 
 
-            groceryOrders: [],
+            groceryOrders: '',
             newGroceryOrder: {
                 // orderId: this.$route.params.orderId,
                 orderId : '',

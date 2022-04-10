@@ -28,7 +28,7 @@ public class InventoryItemService {
     
     /** @author Youssof Mohamed */
     @Transactional
-    public InventoryItem createInventoryItem(String name, int price, int currentStock, String availability)
+    public InventoryItem createInventoryItem(String name, int price, int currentStock, String image, String availability)
     {
     	
     	InventoryItem inventoryItem = inventoryItemRepository.findByName(name);
@@ -41,6 +41,7 @@ public class InventoryItemService {
         inventoryItem.setName(name);
         inventoryItem.setPrice(price);
         inventoryItem.setCurrentStock(currentStock);
+        inventoryItem.setImage(image);
         System.out.println(availability);
         if(availability.equals("true")) {
         	inventoryItem.setAvailability(true);
@@ -93,7 +94,7 @@ public class InventoryItemService {
 
     /** @author Youssof Mohamed */
     @Transactional
-    public InventoryItem updateInventoryItemInfo(String name, int price, int currentStock, String availability)
+    public InventoryItem updateInventoryItemInfo(String name, int price, int currentStock, String image, String availability)
     {
     	//check inventory item has valid info
         checkItemInfoValidity(name,price,currentStock);
@@ -107,6 +108,7 @@ public class InventoryItemService {
         if(availability.equals("true")) {
         	inventoryItemToUpdate.setAvailability(true);
         } else inventoryItemToUpdate.setAvailability(false);
+        inventoryItemToUpdate.setImage(image);
         
         //save new changes to the repository
         inventoryItemRepository.save(inventoryItemToUpdate);
