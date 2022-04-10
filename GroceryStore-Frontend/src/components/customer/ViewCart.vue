@@ -16,7 +16,8 @@
     <CustomerNavigationBar></CustomerNavigationBar>
 
 
-        <div class="verticalandhorizontal-center">
+        <div class="verticalandhorizontal-center" style= "height : 90%">
+            <br>
             <h2 class="heading">Cart for {{email}}</h2>
 
             
@@ -26,7 +27,7 @@
             </button> -->
 
 
-            <br>
+          
                 <div v-for="orderItem in orderItems" :key=orderItem.name>
                     <ul style="list-style-type:square">
                         <li> {{ orderItem.name}} :  ${{ orderItem.price}}.00 </li>
@@ -35,8 +36,6 @@
             <div>
                <h4 class="heading">Total Cost : ${{groceryOrders[0].totalCost}}.00</h4>  
             </div>
-            <br>
-            <br>
 
 
                 <!-- <div v-if="groceryOrders[0].type === 'delivery'"> 
@@ -49,28 +48,25 @@
                         </button>
                     </router-link> -->
 
-                <br>
-
-                <br>
-
                     <router-link to="/thankYou">
                         <button class="largeButton" v-if="groceryOrders[0].orderId" @click="placeOrder(groceryOrders[0].orderId)">
                         Place Order
                     </button>
                     </router-link>
-                <br>
-                <br>
-                     <button class="button" v-if="groceryOrders[0].orderId" @click="toggleType(groceryOrders[0].orderId)">
-                        Change Order Type
-                    </button>
+                    <br>
+                    <br>
 
-                  <h5> Made a mistake? Delete your order and start again.</h5>
+                  <h5> Made a mistake? Modify or delete you order.</h5>
+                   <button class="button" v-if="groceryOrders[0].orderId" @click="toggleType(groceryOrders[0].orderId)">
+                    Change Order Type
+                </button>
 
                   <router-link :to="{ name: 'customerWelcomePage', params: { email: email , orderId: orderId }}"> 
                     <button class="button_delete" v-if="groceryOrders[0].orderId" @click="deleteOrder(groceryOrders[0].orderId)">
                         Delete Order
                     </button>
                 </router-link>
+               
 
         </div>
     </div>
@@ -245,6 +241,7 @@ export default{
     border-radius: 4%;
     margin-top: 1%;
     box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
+    overflow : scroll;
   }
 .heading {
     margin-top: 20px;

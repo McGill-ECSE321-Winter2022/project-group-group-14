@@ -7,7 +7,9 @@
             <h2 class="heading">Thank You for your order</h2>
             <br>
             <br>
-             feature order status here
+            <!-- <div class="background-img">
+                 <img src="../assets/d2_1.jpg">
+            </div> -->
             <br>
             <br>
             <br>
