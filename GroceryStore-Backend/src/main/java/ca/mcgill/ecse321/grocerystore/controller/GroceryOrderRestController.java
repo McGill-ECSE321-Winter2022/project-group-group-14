@@ -34,6 +34,8 @@ import java.util.ArrayList;
  *
  */
 
+
+//@CrossOrigin(origins = "http://127.0.0.1:8087")
 @CrossOrigin(origins = "*")
 @RestController
 public class GroceryOrderRestController {
@@ -355,7 +357,7 @@ public class GroceryOrderRestController {
 	 * order status 
 	 * received -> processing -> beingDelivered/ReadyForPickUp -> completed 
 	 */
-	@GetMapping(value = {"/orders/status/update/{orderId}/","/orders/status/update/{orderId}"})
+	@PostMapping(value = {"/orders/status/update/{orderId}/","/orders/status/update/{orderId}"})
 	public ResponseEntity<?>  updateOrderStatus(@PathVariable("orderId") String orderId) {
 		try {
 			GroceryOrder order = orderService.updateOrderStatus(orderService.getOrderById(Integer.parseInt(orderId)));
@@ -370,7 +372,7 @@ public class GroceryOrderRestController {
 	 * @param orderId
 	 * @return grocery order whose order type has been toggled
 	 */
-	@GetMapping(value = {"/orders/toggleType/{orderId}/","/orders/toggleType/{orderId}"})
+	@PostMapping(value = {"/orders/toggleType/{orderId}/","/orders/toggleType/{orderId}"})
 	public ResponseEntity<?>  toggleOrderType(@PathVariable("orderId") String orderId) {
 		try {
 			GroceryOrder order = orderService.toggleOrderType(orderService.getOrderById(Integer.parseInt(orderId)));
