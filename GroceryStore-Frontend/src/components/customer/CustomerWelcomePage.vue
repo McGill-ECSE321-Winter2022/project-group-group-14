@@ -11,13 +11,18 @@
                 </button>
             </router-link>
 
-
-
             </div>
          </div>
         <div id="popup2" class="overlay" v-if="errorOrder">
             <div class="popup">
                 <h5>{{ errorOrder }}</h5>
+                <router-link :to="{ name: 'ViewCart', params: { email: curremail, orderId: newGroceryOrder.orderId.toString() }}">
+                    <button class="mediumButton">View cart</button>
+                </router-link>
+                <router-link :to="{ name: 'ThankYou', params: { email: curremail }}">
+                    <button class="mediumButton">View status</button>
+                </router-link>
+                <br>
                 <button class="mediumButton" onClick="window.location.reload();">Close</button>
             </div>
         </div>
@@ -47,18 +52,18 @@
                 </button> -->
                
         
-                <button class="largeButton" v-if="curremail && !groceryOrders" @click="createDeliveryOrder(curremail)">
+                <button class="largeButton" v-if="curremail && !groceryOrders[0]" @click="createDeliveryOrder(curremail)">
                     Delivery
                 </button>
 
                 <br>
 
-                <button class="largeButton"  v-if="curremail && !groceryOrders" @click="createPickupOrder(curremail)">
+                <button class="largeButton"  v-if="curremail && !groceryOrders[0]" @click="createPickupOrder(curremail)">
                     Pick up
                 </button>
 
                 <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail, orderId: newGroceryOrder.orderId }}">
-                <button class="largeButton"  v-if="curremail && groceryOrders">
+                <button class="largeButton"  v-if="curremail && groceryOrders[0]">
                     Complete Current Order
                 </button>
                 </router-link>
@@ -68,7 +73,7 @@
 
                 <h4> Already placed an order? </h4>  
                 
-                <router-link :to="{ name: 'ViewOrderStatus', params: { email: curremail }}">
+                <router-link :to="{ name: 'ThankYou', params: { email: curremail }}">
                     <button class="largeButton">
                         View your order's status
                     </button>
@@ -142,7 +147,7 @@ export default{
             // curremail : this.$route.params.email,
 
 
-            groceryOrders: '',
+            groceryOrders: [],
             newGroceryOrder: {
                 // orderId: this.$route.params.orderId,
                 orderId : '',
@@ -166,18 +171,29 @@ export default{
         .then(response => {
             console.log(response.data)
             this.username = response.data.username
-        })
-        ,
-        AXIOS.get('/orders/customer/received/'.concat(this.curremail),{},{})
-        .then(response => {
+        }),
+        // AXIOS.get('/orders/customer/received/'.concat(this.curremail),{},{})
+        // .then(response => {
+        //     console.log(response.data)
+        //     this.groceryOrders.push(response.data)
+        //     this.newGroceryOrder.orderId = response.data.orderId
+        // })
+        // .catch(e => {
+        //     var errorMsg = e.response.data
+        //     console.log(errorMsg)
+        // }),
+        AXIOS.get('/orders/customer/latest/'.concat(this.curremail),{},{})
+          .then(response => {
+              // JSON responses are automatically parsed.
             console.log(response.data)
-            this.groceryOrders = response.data
+            this.groceryOrders.push(response.data)
             this.newGroceryOrder.orderId = response.data.orderId
-        })
-        .catch(e => {
-            var errorMsg = e.response.data
+          })
+          .catch(e => {
+              var errorMsg = e.response.data
             console.log(errorMsg)
-        })
+          })
+
     },
 
 
@@ -214,7 +230,7 @@ export default{
                 console.log(errorMsg)
                 this.errorOrder = errorMsg
             })
-        },
+        }
         // createPerson: function (email) { //create a customer that exists in system when the page loads
         // AXIOS.post('/customers/'.concat(email).concat('/').concat('username1').concat('/').concat('password1').concat('/').concat('5145503713').concat('/').concat('38addresspotato').concat('/'),{},{})
         // .then(response => {
