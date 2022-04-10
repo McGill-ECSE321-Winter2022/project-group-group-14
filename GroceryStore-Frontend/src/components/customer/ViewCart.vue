@@ -16,17 +16,9 @@
     <CustomerNavigationBar></CustomerNavigationBar>
 
 
-        <div class="verticalandhorizontal-center">
+        <div class="verticalandhorizontal-center" style= "height : 90%">
+            <br>
             <h2 class="heading">Cart for {{email}}</h2>
-             <button class="largeButton" v-if="email" @click="getOrder(email)">
-                get grocery order
-            </button>
-             <h4 class="heading">Cart for {{email}}</h4>
-            
-
-             <!-- <h5 v-if="groceryOrders[0].orderId">
-                  id : {{groceryOrders[0].orderId}}
-            </h5> -->
 
             
 <!-- 
@@ -35,17 +27,16 @@
             </button> -->
 
 
-            <br>
+          
                 <div v-for="orderItem in orderItems" :key=orderItem.name>
                     <ul style="list-style-type:square">
                         <li> {{ orderItem.name}} :  ${{ orderItem.price}}.00 </li>
                     </ul>  
                 </div>
             <div>
-               <!-- <h4 class="heading">Total Cost : {{groceryOrders[0].totalCost}}</h4>   -->
+               <h4 class="heading">Total Cost : ${{groceryOrders[0].totalCost}}.00</h4>  
             </div>
-            <br>
-            <br>
+
 
                 <!-- <div v-if="groceryOrders[0].type === 'delivery'"> 
                    <h4> Possibly display address here </h4>
@@ -57,27 +48,26 @@
                         </button>
                     </router-link> -->
 
-                <br>
-
-                <br>
-
-                    <router-link to="/thankYou">
-                        <button class="largeButton" >
-                            Place Order
-                        </button>
-                        <!-- <button class="largeButton" v-if="groceryOrders[0].orderId" @click="placeOrder(groceryOrders[0].orderId)">
-                            Place Order
-                        </button> -->
+                     <router-link :to="{ name: 'ThankYou', params:{ email: curremail, orderId: groceryOrders[0].orderId}}">
+                        <button class="largeButton" v-if="groceryOrders[0].orderId" @click="placeOrder(groceryOrders[0].orderId)">
+                        Place Order
+                    </button>
                     </router-link>
-                <br>
-                <br>
-                <h5> Made a mistake? Delete your order and start again.</h5>
-                    <button class="button_delete">
+                    <br>
+                    <br>
+
+                  <h5> Made a mistake? Modify or delete you order.</h5>
+                   <button class="button" v-if="groceryOrders[0].orderId" @click="toggleType(groceryOrders[0].orderId)">
+                    Change Order Type
+                </button>
+
+                  <router-link :to="{ name: 'customerWelcomePage', params: { email: email , orderId: orderId }}"> 
+                    <button class="button_delete" v-if="groceryOrders[0].orderId" @click="deleteOrder(groceryOrders[0].orderId)">
                         Delete Order
                     </button>
-                    <!-- <button class="button_delete" v-if="groceryOrders[0].orderId" @click="deleteOrder(groceryOrders[0].orderId)">
-                        Delete Order
-                    </button> -->
+                </router-link>
+               
+
         </div>
     </div>
 </template>
@@ -94,18 +84,14 @@
 import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
 import axios from 'axios'
 var config = require('../../../config')
-
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
-
 // var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
 // var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
-
 var AXIOS = axios.create({
   baseURL: backendUrl,
-//   headers: { 'Access-Control-Allow-Origin': frontendUrl }
+  headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })  
-
 export default{
     name:'groceryorder',
     components:{
@@ -121,7 +107,7 @@ export default{
             //     itemId:'',
             // },
             orderItems:[],
-            groceryOrders :'',
+            groceryOrders :[],
             newGroceryOrder : {
                 orderId:'',
                 totalCost:'',
@@ -145,52 +131,32 @@ export default{
           .catch(e => {
               this.errorInventory = e.response.data
               console.log(e.response.data)
-          })
-    },
-    methods: {
-        getOrderItems: function (orderId) {
-            AXIOS.post('/orders/orderItems/'.concat(orderId), {}, {})
-            .then(response => {
-            // JSON responses are automatically parsed.
-                this.groceryOrders[0].orderItems.push(response.data)//push or switch to equals?
-                console.log(response.data)
-                this.error = ''
-            })
-            .catch(e => {
-                var errorMsg = e.response.data
-                console.log(errorMsg)
-                this.error = errorMsg
-            })
-        },
-        getOrder: function (email){
-          AXIOS.get('/orders/customer/'.concat(email),{},{})
+          }),
+          AXIOS.get('/orders/'.concat(this.orderId),{},{})
           .then(response => {
               // JSON responses are automatically parsed.
-              this.groceryOrders = response.data
-
+              this.groceryOrders.push(response.data)
               console.log(response.data)
           })
           .catch(e => {
-              this.error = e.response.data
+              this.errorInventory = e.response.data
               console.log(e.response.data)
           })
-
-
-        },
+    },
+    methods: {
         placeOrder: function (orderId){
-          AXIOS.get('/orders/place/'.concat(orderId),{},{})
+        AXIOS.post('/orders/place/'.concat(orderId),{},{})
           .then(response => {
               this.groceryOrders.push(response.data)
               console.log(response.data)
               successMsg = " Order has been successfully placed!"
           })
           .catch(e => {
-              this.error = e.response.data
               console.log(e.response.data)
           })
         },
          deleteOrder: function (orderId){
-          AXIOS.get('/orders/delete/'.concat(orderId),{},{})
+          AXIOS.delete('/orders/delete/'.concat(orderId),{},{})
           .then(response => {
               this.groceryOrders.push(response.data)
               console.log(response.data)
@@ -200,15 +166,50 @@ export default{
               this.error = e.response.data
               console.log(e.response.data)
           })
+        },
+        toggleType: function (orderId){
+          AXIOS.post('/orders/toggleType/'.concat(orderId),{},{})
+          .then(response => {
+              this.groceryOrders.push(response.data)
+              console.log(response.data)
+              successMsg = " Your order type has been modified!"
+          })
+          .catch(e => {
+            //   this.error = e.response.data
+            //   console.log(e.response)
+          })
         }
+        // ,
+        // getOrderItems: function (orderId) {
+        //     AXIOS.post('/orders/orderItems/'.concat(orderId), {}, {})
+        //     .then(response => {
+        //     // JSON responses are automatically parsed.
+        //         this.groceryOrders[0].orderItems.push(response.data)//push or switch to equals?
+        //         console.log(response.data)
+        //         this.error = ''
+        //     })
+        //     .catch(e => {
+        //         var errorMsg = e.response.data
+        //         console.log(errorMsg)
+        //         this.error = errorMsg
+        //     })
+        // },
+        // getOrder: function (email){
+        //   AXIOS.get('/orders/customer/'.concat(email),{},{})
+        //   .then(response => {
+        //       // JSON responses are automatically parsed.
+        //       this.groceryOrders = response.data
+        //       console.log(response.data)
+        //   })
+        //   .catch(e => {
+        //       this.error = e.response.data
+        //       console.log(e.response.data)
+        //   })
+        // }
         
-
-
     }
-
 }
 </script>
-
 
 <style scoped>
 
@@ -240,6 +241,7 @@ export default{
     border-radius: 4%;
     margin-top: 1%;
     box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
+    overflow : scroll;
   }
 .heading {
     margin-top: 20px;

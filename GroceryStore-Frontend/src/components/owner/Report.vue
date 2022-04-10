@@ -33,18 +33,37 @@
     <div class="verticalandhorizontal-center">
       <h2 class="heading">Report</h2>
       <br>
-      <h3 class="heading">Total Sales :$ {{totalSales}}.00 </h3>
+      <h3 class="heading">Total Sales : $ {{totalSales}}.00 </h3>
 
 
+      <h4> Orders </h4>
+      <table>
+      <tr>
+        <th>Id</th>
+        <th>Cost</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Delete</th>
+      </tr>
+      
+      <tr v-for="groceryOrder in groceryOrders" :key=groceryOrder.orderId>
 
-      <div v-for= "groceryOrder in groceryOrders" :key=groceryOrder.orderId>
-        <ul style="list-style-type:square">
-          <li> Order Id : {{ groceryOrder.orderId}}, Order Cost : {{ groceryOrder.totalCost}}, Order Type : {{ groceryOrder.orderType}}, Order Status : {{ groceryOrder.orderStatus}}</li>
+          <td>{{ groceryOrder.orderId}}</td>
+          <td>{{ groceryOrder.totalCost}}</td>
+          <td>{{ groceryOrder.orderType}}</td>
+          <td> {{ groceryOrder.orderStatus}}</td>
+        <td>
+          <button class="mediumButton" @click="deleteOrder(groceryOrder.orderId);reloadPage();">Delete</button>
+        </td>
+        </tr>
+      </table>
 
-        </ul>
+      <br>
 
+
+      <button class="largeButton" @click="deleteAllCompletedOrders();reloadPage();">Delete All Completed</button>
          
-       </div>
+      
     </div>
 
 
@@ -82,6 +101,14 @@ export default{
             orderItems: [],
             customer:''
         }, 
+         deletedGroceryOrder: {
+            orderId:'',
+            totalCost:'',
+            orderType:'',
+            orderStatus:'',
+            orderItems: [],
+            customer:''       
+         },
         errorOrder: '',
         successMsg:'',
         response: []
@@ -110,8 +137,35 @@ export default{
           console.log(errorMsg)
           this.errorOrder = errorMsg
       })
-
+    },
+    methods: {
+    deleteOrder: function (orderId){
+      AXIOS.delete('/orders/delete/'.concat(orderId),{},{})
+      .then(response => {
+        // this.groceryOrders.push(response.data)
+        this.deletedGroceryOrder = response.data;
+        console.log(response.data)
+        successMsg = " Order has been successfully deleted!"
+      })
+      .catch(e => {
+      })
+    },
+    deleteAllCompletedOrders: function (){
+      AXIOS.delete('/orders/delete/all/completed',{},{})
+      .then(response => {
+        // this.groceryOrders.push(response.data)
+        // this.deletedGroceryOrder = response.data;
+        console.log(response.data)
+        successMsg = " All completed orders have been removed!"
+      })
+      .catch(e => {
+      })
+    },
+    reloadPage: function(){
+      window.location.reload();
     }
+
+  }
 }
 </script>
 
@@ -139,6 +193,26 @@ export default{
 
 .page a {
   font-size: 11px;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  
+  /* table-layout : fixed; */
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  width : 100px;
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: #ffdab9;
+  text-align: center;
 }
 
 

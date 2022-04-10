@@ -38,38 +38,43 @@
         <div class="verticalandhorizontal-center">
 
             <h2 class="heading" v-if="this.username">Welcome {{this.username}} (Customer)! </h2>
+                
 
+              
                 <h4> Place an order : </h4>
 
-                 <!-- <button class="largeButton" v-if="curremail" @click="createPerson(curremail)">
+                <!-- <button class="largeButton" v-if="curremail" @click="createPerson(curremail)">
                     createPerson
                 </button> -->
-               
-        
-                <button class="largeButton" v-if="curremail && !groceryOrders" @click="createDeliveryOrder(curremail)">
+            
+            
+                <button class="largeButton" v-if="curremail && !groceryOrders" @click="createDeliveryOrder(curremail)" onClick="window.location.reload();">
                     Delivery
                 </button>
-
                 <br>
-
-                <button class="largeButton"  v-if="curremail && !groceryOrders" @click="createPickupOrder(curremail)">
+                <button class="largeButton"  v-if="curremail && !groceryOrders" @click="createPickupOrder(curremail)" onClick="window.location.reload();">
                     Pick up
                 </button>
-
                 <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail, orderId: newGroceryOrder.orderId }}">
-                <button class="largeButton"  v-if="curremail && groceryOrders">
+                <button class="largeButton"  v-if="curremail && groceryOrders ">
                     Complete Current Order
                 </button>
                 </router-link>
-
+          
                 <br>
                 <br>
 
                 <h4> Already placed an order? </h4>  
                 
-                <router-link :to="{ name: 'ViewOrderStatus', params: { email: curremail }}">
+                <router-link :to="{ name: 'ThankYou', params: { email: curremail,orderId: newGroceryOrder.orderId }}">
                     <button class="largeButton">
                         View your order's status
+                    </button>
+                </router-link>
+                <br>
+                 <router-link :to="{ name: 'ViewCart', params: { email: curremail,orderId: newGroceryOrder.orderId }}">
+                    <button class="largeButton">
+                        View Cart
                     </button>
                 </router-link>
 
@@ -164,7 +169,7 @@ export default{
             this.username = response.data.username
         })
         ,
-        AXIOS.get('/orders/customer/received/'.concat(this.curremail),{},{})
+        AXIOS.get('/orders/customer/latest/'.concat(this.curremail),{},{})
         .then(response => {
             console.log(response.data)
             this.groceryOrders = response.data
@@ -183,7 +188,7 @@ export default{
             AXIOS.post('/orders/delivery/'.concat(email), {}, {})
             .then(response => {
                 this.groceryOrders.push(response.data) //add dto to the list of orders
-                this.successMsg = 'Order has been successfully created! Please navigate to the list of inventory items : '
+                this.successMsg = 'Order has been successfully created! Please navigate to complete order. '
                 this.newGroceryOrder.orderId = response.data.orderId
                 console.log(this.groceryOrders)
                 this.errorOrder = ''
@@ -199,7 +204,7 @@ export default{
             AXIOS.post('/orders/pickup/'.concat(email), {}, {})
             .then(response => {
                 this.groceryOrders.push(response.data) //add dto to the list of orders
-                this.successMsg = 'Order has been successfully created! Please navigate to the list of inventory items : '
+                this.successMsg = 'Order has been successfully created! Please navigate to complete order.'
                 this.errorOrder = ''
                 console.log(response.data)
                 this.newGroceryOrder = ''

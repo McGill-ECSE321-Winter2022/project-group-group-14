@@ -200,7 +200,7 @@ export default new Router({
       component: ViewStoreEmployeeScheduleFromEmployee
     },
     {
-      path: '/modifyGroceryOrderStatus',
+      path: '/modifyGroceryOrderStatus/:orderId',
       name: 'Modify Grocery Order Status',
       component: ModifyGroceryOrderStatus
     },
@@ -225,7 +225,7 @@ export default new Router({
       component: OwnerWelcomePage
     },
     {
-      path: '/viewOrderStatus',
+      path: '/viewOrderStatus/:email',
       name: 'ViewOrderStatus',
       component: ViewOrderStatus
     },
@@ -235,7 +235,7 @@ export default new Router({
       component: ViewCart
     },
     {
-      path: '/thankYou',
+      path: '/thankYou/:email/:orderId',
       name: 'ThankYou',
       component: ThankYou
     },

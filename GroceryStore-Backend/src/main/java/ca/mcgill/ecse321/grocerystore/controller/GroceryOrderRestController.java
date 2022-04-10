@@ -207,6 +207,17 @@ public class GroceryOrderRestController {
 		}
 	}
 	
+	@GetMapping(value =  { "/orders/customer/latest/{email}", "/orders/customer/latest/{email}/" })
+	public ResponseEntity<?>  getLatestOrderByCustomer(@PathVariable("email") String email) throws IllegalArgumentException {
+		try{
+			Customer customer = customerService.getCustomerByEmail(email);
+			GroceryOrder order = orderService.getLatestOrderByCustomer(customer);
+			return ResponseEntity.ok(convertToDto(order));
+		}catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 	
 	
 	
@@ -355,7 +366,7 @@ public class GroceryOrderRestController {
 	 * order status 
 	 * received -> processing -> beingDelivered/ReadyForPickUp -> completed 
 	 */
-	@GetMapping(value = {"/orders/status/update/{orderId}/","/orders/status/update/{orderId}"})
+	@PostMapping(value = {"/orders/status/update/{orderId}/","/orders/status/update/{orderId}"})
 	public ResponseEntity<?>  updateOrderStatus(@PathVariable("orderId") String orderId) {
 		try {
 			GroceryOrder order = orderService.updateOrderStatus(orderService.getOrderById(Integer.parseInt(orderId)));
@@ -370,7 +381,7 @@ public class GroceryOrderRestController {
 	 * @param orderId
 	 * @return grocery order whose order type has been toggled
 	 */
-	@GetMapping(value = {"/orders/toggleType/{orderId}/","/orders/toggleType/{orderId}"})
+	@PostMapping(value = {"/orders/toggleType/{orderId}/","/orders/toggleType/{orderId}"})
 	public ResponseEntity<?>  toggleOrderType(@PathVariable("orderId") String orderId) {
 		try {
 			GroceryOrder order = orderService.toggleOrderType(orderService.getOrderById(Integer.parseInt(orderId)));

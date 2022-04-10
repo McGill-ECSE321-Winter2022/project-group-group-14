@@ -3,11 +3,7 @@
   <div id="popup1" class="overlay" v-if="successMsg">
     <div class="popup">
       <h5>{{ successMsg }}</h5>
-      <router-link :to="{ name: 'EmployeeWelcomePage'}">
-          <button class="largeButton">
-              Home
-          </button>
-      </router-link>
+       <button class="mediumButton" onClick="window.location.reload();">Close</button>
 
     </div>
     </div>
@@ -28,7 +24,6 @@
           <b-navbar-nav class="ml-auto">
             <b-nav-item href="#/showEmployeeInventoryItems">Show Inventory Items</b-nav-item>
             <b-nav-item href="#/viewModifyEmployeeGroceryOrders">View Grocery Orders</b-nav-item>
-            <b-nav-item href="#/employeePayment">Payment</b-nav-item>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto">
             <b-nav-item href="#/">Log Out</b-nav-item>
@@ -37,13 +32,63 @@
     </b-navbar>
 
 
-  <div class="grid-container">
-      <div class="grid-item">
-
-      <h4> Please enter your order id </h4>
+  <div class="grid-container" style = "text-align: center;">
+      <div class="grid-item2">
+      <h4> Items </h4>
+      <table>
+      <tr>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Quantity</th>
+        <th>Add</th>
+      </tr>
+      
+      <tr v-for="inventoryItem in inventoryItems" :key=inventoryItem.name>
+        
+          <td><img class="item-image" :src="inventoryItem.image" alt="" style ="width : 100%; height : 100%;"></td>
+          <td>{{ inventoryItem.name }}</td>
+          <td>{{ inventoryItem.price }}</td>
+          <td>{{ inventoryItem.currentStock }}</td>
+          <td>
+            <div class="form-floating mb-3">
+            <label >Quantity</label>
+            <input
+              type="number"
+              min="1"
+              :max="inventoryItem.currentStock"
+              v-model="inventoryItem.quantity"
+              class="form-control"
+              id="quantity"
+              placeholder="qty"
+              required
+            />
+            
+          </div>
+        </td>
+        <td>
+          <button class="mediumButton add-item" v-bind:disabled="!inventoryItem.quantity" @click="addOrderItems(groceryOrders[0].orderId,inventoryItem.name,inventoryItem.quantity)">Add to Cart</button>
+        </td>
+        </tr>
+      </table>
+      </div>
+       <div class="grid-item1">
+        <h4> Order Id : {{this.orderId}} </h4>
+        <div v-if = "orderItems">
+          <div v-for="orderItem in orderItems" :key=orderItem.name>
+            <ul style="list-style-type:square">
+            <li> {{ orderItem.name}} :  ${{ orderItem.price}}.00 </li>
+            </ul>  
+          </div>
+        </div>
+        <br>
+        Total Cost : {{groceryOrders[0].totalCost}}
+        <br>
+        <br>
         <!-- <div class="form-floating mb-3"> -->
-          <input v-model="orderId" placeholder="id">
-          <p>Your order id is : {{ orderId }}</p>
+          <!-- <input v-model="orderId" placeholder="id"> -->
+          <!-- <p>Your order id is : {{ this.orderId }}</p> -->
           <button class="largeButton" v-if="orderId" @click="placeOrder(orderId)">
               Place Order
           </button>
@@ -61,30 +106,17 @@
         </div>
         
 
-      <div class="grid-item" v-for="inventoryItem in inventoryItems" :key=inventoryItem.name>
-      <ul class="item">
-                <li class="info">
-
-                </li>
-
-                <li class="info item-name">
-                  {{ inventoryItem.name }}
-                </li>
-                <li class="info">
-                  ${{ inventoryItem.price }}.00
-                </li>
-                <li class="info">
-                  Stock: {{ inventoryItem.currentStock }}
-                </li>
-                <li class="info">
-                  <button class="mediumButton add-item" @click="addOrderItems(groceryOrders[0].orderId,inventoryItem.name,inventoryItem.quantity)">Add to Cart</button>
-                </li> 
-                
-      </ul>
       
-      </div>
+<!-- ------------------------------------------- -->
+
+
+
+          
+
+      
     </div>
-  </div>
+    </div>
+
 </template>
 
 <script>
@@ -108,7 +140,9 @@ name: 'inventoryitem',
 data () {
     return {
     orderId : this.$route.params.orderId,
+    groceryOrders : [], 
     inventoryItems: [],
+    orderItems:[],
     newInventoryItem: {
       name: '',
       price: '',
@@ -129,21 +163,40 @@ created: function () {
     })
     .catch(e => {
         this.errorInventory = e
-    })
+    }),
+        
+      AXIOS.get('/orders/'.concat(this.orderId),{},{})
+      .then(response => {
+          // JSON responses are automatically parsed.
+          this.groceryOrders.push(response.data)
+          console.log(response.data)
+      })
+      .catch(e => {
+          this.errorInventory = e.response.data
+          console.log(e.response.data)
+      }),
+      AXIOS.get('/orders/orderItems/'.concat(this.orderId),{},{})
+      .then(response => {
+          // JSON responses are automatically parsed.
+          this.orderItems=response.data
+          console.log(response.data)
+      })
+      .catch(e => {
+          // this.errorInventory = e.response.data
+          // console.log(e.response.data)
+      })
     
 },
 
   methods: {
     placeOrder: function (orderId){
-      AXIOS.get('/orders/place/'.concat(orderId),{},{})
+      AXIOS.post('/orders/place/'.concat(orderId),{},{})
       .then(response => {
         this.groceryOrders.push(response.data)
         console.log(response.data)
         successMsg = " Order has been successfully placed!"
       })
       .catch(e => {
-        this.errorInventory = e.response.data
-        console.log(e.response.data)
       })
     },
      addOrderItems: function (orderId,itemName,quantity) {
@@ -157,9 +210,8 @@ created: function () {
                 this.successMsg = 'Successfully added!'
             })
             .catch(e => {
-                var errorMsg = e.response.data
-                console.log(errorMsg)
-                this.errorInventory = errorMsg
+                this.errorInventory = e.response.data
+                console.log(errorInventory)
             })
         }
   }
@@ -171,6 +223,86 @@ created: function () {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+
+
+
+/* div.itemSelection {
+  background-color: #f7a851;
+  width: 110px;
+  height: 110px;
+  overflow: scroll;
+} */
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  
+  /* table-layout : fixed; */
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  width : 50px;
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: #ffdab9;
+  text-align: center;
+}
+
+label {
+  margin-right: 20px;
+  font-size: 18px;
+}
+
+#quantity {
+  width: 80px;
+  border-radius: 25px;
+}
+
+.form-control {
+  display: inline;
+  height: 30px;
+}
+
+.grid-item1{
+  overflow:scroll;
+  padding-top: 7%;
+  box-shadow: 0 0 15px 5px rgb(0,0,0,0.2);
+  margin: 10px;
+  padding-left: 7%;
+  padding-right: 7%;
+  border-radius: 10px;
+  transition: 0.3s;
+  background-color: white;
+  min-height: fit-content;
+  min-width: 250px;
+  max-height:600px;
+  max-width : 500px;
+  width : 50%;
+  height: 100%
+}
+.grid-item2 {
+  overflow:scroll;
+  box-shadow: 0 0 15px 5px rgb(0,0,0,0.2);
+  margin: 10px;
+  padding-top: 7%;
+  padding-left: 7%;
+  padding-right: 7%;
+  border-radius: 10px;
+  transition: 0.3s;
+  background-color: white;
+  min-height: fit-content;
+  min-width: 250px;
+  height:100%;
+  width : 120%;
+
+}
 
 .overlay {
   position: fixed;
