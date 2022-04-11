@@ -207,21 +207,21 @@ public class TestOrderItemService {
 		assertNull(orderItem);
 		assertEquals(error, NON_EXISTING_ORDER_ITEM2 + " item is out of stock");
 	}
-	@Test
-	public void testCreateOrderItemUnavailable() {
-		
-		String error = null;
-		OrderItem orderItem = null;
-		try {
-			orderItem = orderItemService.createOrderItem(UNAVAILABLE_ORDER_ITEM);
-		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
-			error = e.getMessage();
-		}
-		
-		assertNull(orderItem);
-		assertEquals(error, UNAVAILABLE_ORDER_ITEM + " item is not available for order");
-	}
+//	@Test
+//	public void testCreateOrderItemUnavailable() {
+//		
+//		String error = null;
+//		OrderItem orderItem = null;
+//		try {
+//			orderItem = orderItemService.createOrderItem(UNAVAILABLE_ORDER_ITEM);
+//		} catch (IllegalArgumentException e) {
+//			// Check that no error occurred
+//			error = e.getMessage();
+//		}
+//		
+//		assertNull(orderItem);
+//		assertEquals(error, UNAVAILABLE_ORDER_ITEM + " item is not available for order");
+//	}
 	
 	//-------------------CancelOrderItem()---------------------------
 

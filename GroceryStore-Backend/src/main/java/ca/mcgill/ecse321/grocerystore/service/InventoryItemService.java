@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.grocerystore.service;
 import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.checkItemInfoValidity;
 import static ca.mcgill.ecse321.grocerystore.service.ServiceHelpers.toList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -27,7 +28,7 @@ public class InventoryItemService {
     
     /** @author Youssof Mohamed */
     @Transactional
-    public InventoryItem createInventoryItem(String name, int price, int currentStock)
+    public InventoryItem createInventoryItem(String name, int price, int currentStock, String image, String availability)
     {
     	
     	InventoryItem inventoryItem = inventoryItemRepository.findByName(name);
@@ -40,6 +41,12 @@ public class InventoryItemService {
         inventoryItem.setName(name);
         inventoryItem.setPrice(price);
         inventoryItem.setCurrentStock(currentStock);
+        inventoryItem.setImage(image);
+        System.out.println(availability);
+        if(availability.equals("true")) {
+        	inventoryItem.setAvailability(true);
+        } else inventoryItem.setAvailability(false);
+        
         
         //save changes to repository
         inventoryItemRepository.save(inventoryItem);
@@ -70,11 +77,24 @@ public class InventoryItemService {
     {
         return inventoryItemRepository.findByName(name);
     }
+    
+    /** @author Youssof Mohamed */
+    @Transactional
+    public List<InventoryItem> getInventoryItemsByAvailability()
+    {
+    	List<InventoryItem> items = new ArrayList<InventoryItem>();
+    	for(InventoryItem item: inventoryItemRepository.findAll()) {
+    		if(item.getAvailability()) {
+    			items.add(item);
+    		}
+    	}
+        return items;
+    }
    
 
     /** @author Youssof Mohamed */
     @Transactional
-    public InventoryItem updateInventoryItemInfo(String name, int price, int currentStock)
+    public InventoryItem updateInventoryItemInfo(String name, int price, int currentStock, String image, String availability)
     {
     	//check inventory item has valid info
         checkItemInfoValidity(name,price,currentStock);
@@ -84,6 +104,11 @@ public class InventoryItemService {
         if (inventoryItemToUpdate == null) throw new IllegalArgumentException("No such inventory item exists");
         inventoryItemToUpdate.setPrice(price);
         inventoryItemToUpdate.setCurrentStock(currentStock);
+        System.out.println(availability);
+        if(availability.equals("true")) {
+        	inventoryItemToUpdate.setAvailability(true);
+        } else inventoryItemToUpdate.setAvailability(false);
+        inventoryItemToUpdate.setImage(image);
         
         //save new changes to the repository
         inventoryItemRepository.save(inventoryItemToUpdate);

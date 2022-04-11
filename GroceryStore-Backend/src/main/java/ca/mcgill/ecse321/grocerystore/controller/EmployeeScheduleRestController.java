@@ -19,6 +19,9 @@ import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule;
 import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule.Shift;
 import ca.mcgill.ecse321.grocerystore.model.EmployeeSchedule.Day;
 import ca.mcgill.ecse321.grocerystore.service.EmployeeScheduleService;
+import ca.mcgill.ecse321.grocerystore.service.EmployeeService;
+import ca.mcgill.ecse321.grocerystore.model.Employee;
+
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -27,15 +30,20 @@ public class EmployeeScheduleRestController {
 	@Autowired
 	private EmployeeScheduleService service;
 	
+	@Autowired
+	private EmployeeService employeeService;
+	
+	
+	
 	@PostMapping(value = {"/employeeSchedules/create/{day}", "/employeeSchedules/create/{day}/"})
-	public ResponseEntity<?> createEmployeeSchedule(@PathVariable("day") String day, @RequestParam("shift") String shift)
+	public ResponseEntity<?> createEmployeeSchedule(@PathVariable("day") String day, @RequestParam("shift") String shift, @RequestParam("employeeUsername") String employeeUsername)
 	throws IllegalArgumentException {
 		try {
 		
 			if (service.getEmployeeScheduleByDay(Day.valueOf(day)) != null) {
 				
 			}
-			EmployeeSchedule employeeSchedule = service.createEmployeeSchedule(Shift.valueOf(shift), Day.valueOf(day));
+			EmployeeSchedule employeeSchedule = service.createEmployeeSchedule(Shift.valueOf(shift), Day.valueOf(day), employeeUsername);
 			return ResponseEntity.ok(convertToDto(employeeSchedule));
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -66,18 +74,16 @@ public class EmployeeScheduleRestController {
 		}
 	}
 	
-	@PutMapping(value = { "/employeeSchedules/update/{day}", "/employeeSchedules/update/{day}/" })
-	public ResponseEntity<?> updateEmployeeSchedule(@PathVariable("day") String day, @RequestParam ("shift") String shift) throws IllegalArgumentException  {
-		try {
-		EmployeeSchedule newSchedule = service.getEmployeeScheduleByDay(Day.valueOf(day));
-		newSchedule.setShift(Shift.valueOf(shift));
-		
-		EmployeeSchedule employeeSchedule  = service.updateEmmployeeScheduleInfo(newSchedule);
-		return ResponseEntity.ok(convertToDto(employeeSchedule));
-		} catch (IllegalArgumentException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
+//	@PutMapping(value = { "/employeeSchedules/update/{day}", "/employeeSchedules/update/{day}/" })
+//	public ResponseEntity<?> updateEmployeeSchedule(@PathVariable("day") String day, @RequestParam ("shift") String shift, @RequestParam ("employeeUsername") String employeeUsername) throws IllegalArgumentException  {
+//		try {
+//		
+//		EmployeeSchedule employeeSchedule  = service.updateEmmployeeScheduleInfo(day, shift, employeeUsername);
+//		return ResponseEntity.ok(convertToDto(employeeSchedule));
+//		} catch (IllegalArgumentException e) {
+//			return ResponseEntity.badRequest().body(e.getMessage());
+//		}
+//	}
 	
 //	@PutMapping(value = { "/employeeSchedules/{shift}", "/employeeSchedules/{shift}/" })
 //	public EmployeeScheduleDto updateEmployeeSchedule(@PathVariable("day") String day,
@@ -112,7 +118,7 @@ public class EmployeeScheduleRestController {
 		if (employeeSchedule == null) {
 			throw new IllegalArgumentException("The provided Schedule does not exist.");
 		}
-		EmployeeScheduleDto employeeScheduleDto = new EmployeeScheduleDto(employeeSchedule.getShift(), employeeSchedule.getDay());
+		EmployeeScheduleDto employeeScheduleDto = new EmployeeScheduleDto(employeeSchedule.getShift(), employeeSchedule.getDay(), employeeSchedule.getEmployee());
 		return employeeScheduleDto;
 		
 	}

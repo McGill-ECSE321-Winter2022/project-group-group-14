@@ -18,6 +18,7 @@ public class InventoryItem
   private int currentStock;
   private int itemId;
   private boolean available;
+  private String image = "https://transpower.ca/wp-content/themes/consultix/images/no-image-found-360x250.png";
   
  
  
@@ -95,10 +96,17 @@ public class InventoryItem
 	  return this.available;
   }
   
-  public void setAvailability(Boolean bool) {
+  public void setAvailability(boolean bool) {
 	  this.available = bool;
   }
   
+  public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
   
 
   public String toString()
@@ -109,4 +117,6 @@ public class InventoryItem
             "price" + ":" + getPrice()+ "," +
             "currentStock" + ":" + getCurrentStock()+ "]" + System.getProperties().getProperty("line.separator");
   }
+
+
 }

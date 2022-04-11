@@ -14,6 +14,8 @@ import ModifyEmployees from '@/components/owner/ModifyEmployees'
 import ModifyStoreSchedule from '@/components/owner/ModifyStoreSchedule'
 import Report from '@/components/owner/Report'
 import ShowUsers from '@/components/owner/ShowUsers'
+import ModifyEmployeeSchedule from '@/components/owner/ModifyEmployeeSchedule'
+
 //employee imports
 import EmployeeSchedulesFromEmployee from '@/components/employee/EmployeeSchedulesFromEmployee'
 import CreateCustomerFromEmployee from '@/components/employee/CreateCustomerFromEmployee'
@@ -36,11 +38,17 @@ import ViewOrderStatus from '@/components/customer/ViewOrderStatus'
 import ViewCart from '@/components/customer/ViewCart'
 import ThankYou from '@/components/customer/ThankYou'
 
+
 Vue.use(Router)
 
 export default new Router({
 
   routes: [
+    {
+      path: '/modifyEmployeeSchedule',
+      name: 'ModifyEmployeeSchedule',
+      component: ModifyEmployeeSchedule
+    },
     {
       path:'/viewOrderStatus/:email', 
       name: 'ViewOrderStatus',
@@ -156,8 +164,13 @@ export default new Router({
       name: 'ViewCustomerStoreSchedule',
       component: ViewCustomerStoreSchedule
     },
+    // {
+    //   path: '/showCustomerInventoryItems/:email',
+    //   name: 'ShowCustomerInventoryItems',
+    //   component: ShowCustomerInventoryItems
+    // }, 
     {
-      path: '/showCustomerInventoryItems/:email',
+      path: '/showCustomerInventoryItems/:email/:orderId',
       name: 'ShowCustomerInventoryItems',
       component: ShowCustomerInventoryItems
     },
@@ -187,7 +200,7 @@ export default new Router({
       component: ViewStoreEmployeeScheduleFromEmployee
     },
     {
-      path: '/modifyGroceryOrderStatus',
+      path: '/modifyGroceryOrderStatus/:orderId',
       name: 'Modify Grocery Order Status',
       component: ModifyGroceryOrderStatus
     },
@@ -212,17 +225,17 @@ export default new Router({
       component: OwnerWelcomePage
     },
     {
-      path: '/viewOrderStatus',
+      path: '/viewOrderStatus/:email',
       name: 'ViewOrderStatus',
       component: ViewOrderStatus
     },
     {
-      path: '/viewCart/:email',
+      path: '/viewCart/:email/:orderId',
       name: 'ViewCart',
       component: ViewCart
     },
     {
-      path: '/thankYou',
+      path: '/thankYou/:email/:orderId',
       name: 'ThankYou',
       component: ThankYou
     },

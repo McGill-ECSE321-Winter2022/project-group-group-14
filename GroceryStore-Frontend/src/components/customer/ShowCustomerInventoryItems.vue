@@ -31,29 +31,20 @@
             <button class="mediumButton" onClick="window.location.reload();">Close</button>
         </div>
     </div>
-    <CustomerNavigationBar></CustomerNavigationBar>
 
 
 
   <div class="grid-container">
-      <button class="largeButton" v-if="curremail" @click="getOrder(curremail)">
-          GetGroceryOrder
-      </button>
     
       <div class="grid-item" v-for="inventoryItem in inventoryItems" :key=inventoryItem.name>
       <ul class="item">
 
-                <li class="info" v-if="curremail">
-                  email : {{curremail}}
 
-                </li>
-
-                <li class="info" v-if="groceryOrders[0].orderId">
-                  id : {{groceryOrders[0].orderId}}
-
-                </li>
                 <li class="info item-name">
                   {{ inventoryItem.name }}
+                </li>
+                <li class="info">
+                  <img class="item-image" :src="inventoryItem.image" alt="">
                 </li>
                 <li class="info">
                   ${{ inventoryItem.price }}.00
@@ -61,21 +52,30 @@
                 <li class="info">
                   Stock: {{ inventoryItem.currentStock }}
                 </li>
-
-                <h6 class="subheading">Quantity must be less or equal to stock</h6>
-                <div class="form-floating mb-3">
+                <li v-if="inventoryItem.availability" class="info">
+                  Available
+                </li>
+                <li v-if="!inventoryItem.availability" class="info">
+                  Not Available
+                </li>
+                <br>
+                <!-- <h6 class="subheading">Quantity must be less or equal to stock</h6> -->
+                <!-- <div class="form-floating mb-3"> -->
+                  <label >Quantity</label>
                   <input
                     type="number"
-                    min="0"
+                    min="1"
+                    :max="inventoryItem.currentStock"
                     v-model="inventoryItem.quantity"
                     class="form-control"
-                    id="floatingInput"
-                    placeholder="Quantity"
+                    id="quantity"
+                    placeholder="qty"
                     required
                   />
-                </div>
+                  
+                <!-- </div> -->
                 <li class="info">
-                  <button class="mediumButton add-item" @click="addOrderItems(groceryOrders[0].orderId,inventoryItem.name,inventoryItem.quantity)">Add to Cart</button>
+                  <button class="mediumButton add-item" v-bind:disabled="!inventoryItem.quantity" @click="addOrderItems(groceryOrders[0].orderId,inventoryItem.name,inventoryItem.quantity)">Add to Cart</button>
                 </li> 
                 
          </ul>
@@ -112,6 +112,7 @@ export default {
     data () {
         return {
         curremail : this.$route.params.email,
+        orderId: this.$route.params.orderId,
         groceryOrders: [],
         newGroceryOrder: {
             // orderId:this.$route.params.orderId,
@@ -125,10 +126,11 @@ export default {
         inventoryItems: [],
         newInventoryItem: {
 
-          name: '',
+          itemName: '',
           price: '',
           currentStock: '',
-          quantity:''
+          quantity:'',
+          availability: ''
         }, 
         errorInventory: '',
         successMsg: '',
@@ -137,14 +139,25 @@ export default {
     },
     created: function () {
     // Initializing persons from backend
-        AXIOS.get('/inventoryItems/get')
+        AXIOS.get('/inventoryItems/get', {}, {})
         .then(response => {
             // JSON responses are automatically parsed.
             this.inventoryItems = response.data
         })
         .catch(e => {
             this.errorInventory = e
-        })
+        }),
+        
+          AXIOS.get('/orders/'.concat(this.orderId),{},{})
+          .then(response => {
+              // JSON responses are automatically parsed.
+              this.groceryOrders.push(response.data)
+              console.log(response.data)
+          })
+          .catch(e => {
+              this.errorInventory = e.response.data
+              console.log(e.response.data)
+          })
        
     },
     methods: {
@@ -177,6 +190,20 @@ export default {
           })
 
 
+        },
+        getOrderById: function (id){
+          AXIOS.get('/orders/'.concat(id),{},{})
+          .then(response => {
+              // JSON responses are automatically parsed.
+              this.groceryOrders.push(response.data)
+              console.log(response.data)
+          })
+          .catch(e => {
+              this.errorInventory = e.response.data
+              console.log(e.response.data)
+          })
+
+
         }
 
     },
@@ -189,6 +216,25 @@ export default {
 </script>
 
 <style scoped>
+
+label {
+  margin-right: 20px;
+  font-size: 18px;
+}
+
+#quantity {
+  width: 80px;
+  border-radius: 25px;
+}
+
+.form-control {
+  display: inline;
+  height: 30px;
+}
+
+.grid-item {
+  max-height: 450px;
+}
 
 .overlay {
   position: fixed;

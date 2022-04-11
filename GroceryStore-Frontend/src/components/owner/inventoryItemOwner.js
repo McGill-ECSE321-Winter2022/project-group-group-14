@@ -18,10 +18,12 @@ name: 'inventoryitem',
 data () {
     return {
     inventoryItems: [],
+    searchByName: '',
     newInventoryItem: {
       name: '',
       price: '',
-      currentStock: ''
+      currentStock: '',
+      availability: ''
     }, 
     errorInventory: '',
     response: []
@@ -41,6 +43,37 @@ created: function () {
 },
 
 methods: {
+  
+  getInventoryItems: function () {
+    AXIOS.get('/inventoryItems/get/', {}, {})
+      .then(response => {
+      // JSON responses are automatically parsed.
+        this.inventoryItems = response.data,
+        this.searchByName = '',
+        this.errorInventory = '',
+        this.newInventoryItem = ''
+      })
+      .catch(e => {
+        var errorMsg = e.response.data
+        console.log(errorMsg)
+        this.errorInventory = errorMsg
+      })
+  },
+    getInventoryItemsByName: function (itemName) {
+      AXIOS.get('/inventoryItems/getByName/'.concat(itemName), {}, {})
+        .then(response => {
+        // JSON responses are automatically parsed.
+          this.inventoryItems = [],
+          this.inventoryItems.push(response.data),
+          this.errorInventory = '',
+          this.newInventoryItem = ''
+        })
+        .catch(e => {
+          var errorMsg = e.response.data
+          console.log(errorMsg)
+          this.errorInventory = errorMsg
+        })
+    },
     createInventoryItem: function (itemName,itemPrice,itemStock) {
         AXIOS.post('/inventoryItems/create/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock}})
           .then(response => {
@@ -52,7 +85,7 @@ methods: {
           .catch(e => {
             var errorMsg = e.response.data
             console.log(errorMsg)
-            this.errorPerson = errorMsg
+            this.errorInventory = errorMsg
           })
       },
       updateInventoryItem: function (itemName,itemPrice,itemStock) {
@@ -80,8 +113,14 @@ methods: {
           .catch(e => {
             var errorMsg = e.response.data
             console.log(errorMsg)
-            this.errorPerson = errorMsg
+            this.errorInventory = errorMsg
           })
+      },
+      close: function () {
+       
+        this.errorInventory = ''
+            
+          
       }
 
 

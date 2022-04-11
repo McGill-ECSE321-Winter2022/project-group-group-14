@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b875808e-5883-47eb-948d-fb9194b80b01",
+		"_postman_id": "051fe722-c945-4f62-a68e-5180652bf963",
 		"name": "TestAll",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -163,7 +163,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/create/Ketchup/?price=2&currentStock=5",
+					"raw": "https://grocerystore-backend-123abc.herokuapp.com/inventoryItems/create/Ketchup/?price=2&currentStock=5&availability=true&image=URL",
 					"protocol": "https",
 					"host": [
 						"grocerystore-backend-123abc",
@@ -184,6 +184,14 @@
 						{
 							"key": "currentStock",
 							"value": "5"
+						},
+						{
+							"key": "availability",
+							"value": "true"
+						},
+						{
+							"key": "image",
+							"value": "URL"
 						}
 					]
 				}

@@ -6,7 +6,8 @@ public class InventoryItemDto {
 	private int price;
 	private int currentStock;
 	private int itemId;
-	private Boolean available;
+	private boolean available;
+	private String image;
 	
 	public InventoryItemDto() {
 		
@@ -20,12 +21,21 @@ public class InventoryItemDto {
 		this.available = true;
 	}
 	
-	public InventoryItemDto(String name, int price, int currentStock, int itemId, Boolean available) {
+	public InventoryItemDto(String name, int price, int currentStock, int itemId, String image, Boolean available) {
 		this.name = name;
 		this.price = price;
 		this.currentStock = currentStock;
 		this.itemId = itemId;
+		this.image = image;
 		this.available = available;
+	}
+	
+	public void setImage(String image) {
+		this.image=image;
+	}
+	
+	public String getImage() {
+		return image;
 	}
 	
 	public String getName() {

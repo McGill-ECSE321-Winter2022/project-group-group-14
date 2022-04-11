@@ -26,7 +26,7 @@ public class TestEmployeeSchedulePersistence {
 	@Test
 	public void testPersistAndLoadEmployeeSchedule(){
 		
-		EmployeeSchedule employeeSchedule = new EmployeeSchedule(null, null);
+		EmployeeSchedule employeeSchedule = new EmployeeSchedule(null, null, null);
 		
 		//set employee schedule variables for test
 		Shift ashift = Shift.Morning;

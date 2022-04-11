@@ -103,7 +103,7 @@
           </div>
 
           <br>
-          <br>
+          
 
           <!-- <form action="/action_page.php">
             <label for="cars">Account Type:</label>
@@ -119,7 +119,7 @@
           <br> -->
 
 
-              <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginCustomer(account.email,account.password)">
+              <button :class="{'disabled' : !account.email || !account.password}" v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginCustomer(account.email,account.password)">
                 
                 Customer Log In
 
@@ -134,7 +134,7 @@
 
               <br>
 
-              <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginEmployee(account.email,account.password)">
+              <button :class="{'disabled' : !account.email || !account.password}" v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginEmployee(account.email,account.password)">
                 
                 Employee Log In
 
@@ -148,7 +148,7 @@
 
               <br>
 
-              <button v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginOwner(account.email,account.password)">
+              <button :class="{'disabled' : !account.email || !account.password}" v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginOwner(account.email,account.password)">
                 
                 Owner Log In
 
@@ -161,8 +161,7 @@
               </router-link> -->
 
               <br>
-              <br>
-              <br>
+             
               <br>
 
               <p>Don't have an account?</p>
@@ -321,11 +320,5 @@ export default {
   width: 30%;
   transition: all 5s ease-in-out;
 }
-.verticalandhorizontal-center {
-    padding: 2% 6% 2% 6%;
-    background-color: white;
-    border-radius: 4%;
-    margin-top: 1%;
-    box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
-  }
+
 </style>

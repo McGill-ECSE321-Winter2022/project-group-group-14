@@ -143,7 +143,7 @@ public class TestInventoryItemService {
 		int currentStock = 12;
 		InventoryItem inventoryItem = null;
 		try {
-			inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock);
+			inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock,"true","URL");
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
@@ -162,7 +162,7 @@ public class TestInventoryItemService {
 		int currentStock = 12;
 		InventoryItem inventoryItem = null;
 		try {
-			inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock);
+			inventoryItem = inventoryItemService.createInventoryItem(name,price,currentStock,"true","URL");
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			error = e.getMessage();
@@ -180,7 +180,7 @@ public class TestInventoryItemService {
 		InventoryItem updatedInventoryItem = null;
 		
 		try {
-			updatedInventoryItem = inventoryItemService.updateInventoryItemInfo(name,price,currentStock);
+			updatedInventoryItem = inventoryItemService.updateInventoryItemInfo(name,price,currentStock,"true","URL");
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
@@ -200,7 +200,7 @@ public class TestInventoryItemService {
 		InventoryItem updatedInventoryItem = null;
 		
 		try {
-			updatedInventoryItem = inventoryItemService.updateInventoryItemInfo(name,price,currentStock);
+			updatedInventoryItem = inventoryItemService.updateInventoryItemInfo(name,price,currentStock,"true","URL");
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			error = e.getMessage();

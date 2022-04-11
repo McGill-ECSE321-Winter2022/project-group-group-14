@@ -3,14 +3,15 @@
 
      <div id="popup1" class="overlay" v-if="successMsg">
           <div class="popup">
-            <h5>{{ successMsg }}</h5>
-            <h5> Please remember your order id : {{order.orderId}}</h5>
-            <router-link :to="{ name: 'ShowEmployeeInventoryItems', params: { orderId: order.orderId }}">
+            <h5>{{ successMsg }} </h5>
+            <div v-if="orders[0]">
+            <!-- <h5> Please remember your order id: {{orders[0].orderId}}</h5> -->
+            <router-link :to="{ name: 'ShowEmployeeInventoryItems', params: { orderId: orders[0].orderId }}">
                 <button class="largeButton">
                     View grocery items
                 </button>
             </router-link>
-
+            </div>
           </div>
      </div>
     <div id="popup2" class="overlay" v-if="errorOrder">
@@ -36,14 +37,16 @@
             <img src="../../assets/orange8.jpg">
         </div>
         <div class="verticalandhorizontal-center">
-            <h2 class="heading">Welcome {{this.email}} (Employee)! </h2>
+            <!-- <h2 class="heading">Welcome {{this.email}} (Employee)! </h2> -->
+            <h2 class="heading">Welcome Employee! </h2>
                 
                 <button class="largeButton"  @click="createInstoreOrder()">
                     Log a purchase
                 </button>
 
-                <div v-if="order.orderId">
-                    order id: {{order.orderId}}
+
+                <div v-if="orders[0]">
+                    order id: {{orders[0].orderId}}
                 </div>
 
 <!-- 
@@ -56,7 +59,7 @@
 
                      <router-link to="/viewIncompleteOrders">
                         <button class="largeButton">
-                            Complete an order
+                            Prepare an order
                         </button>
                     </router-link>
                     <br>
@@ -72,7 +75,7 @@
 </template>
 
 <script> 
-    import axios from 'axios'
+import axios from 'axios'
 var config = require('../../../config')
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
@@ -93,17 +96,17 @@ export default{
     data()
     {
         return {
-            email:this.$route.params.email,
+            // email:this.$route.params.email,
             orders: [],
             customers:[],
-            order: {
-                orderId:'',
-                totalCost:'',
-                orderType:'',
-                orderStatus:'',
-                orderItems: [],
-                customer:''
-            }, 
+            // order: {
+            //     orderId:'',
+            //     totalCost:'',
+            //     orderType:'',
+            //     orderStatus:'',
+            //     orderItems: [],
+            //     customer:''
+            // }, 
             errorOrder: '',
             successMsg:'',
             response: []
@@ -114,9 +117,9 @@ export default{
             AXIOS.post('/orders/inStore', {}, {})
             .then(response => {
                 console.log(response.data)
-                this.order = response.data
+                // this.order = response.data
                 this.orders.push(response.data) //add dto to the list of orders
-                this.successMsg = 'Order has been successfully created! Please navigate to the list of inventory items : '
+                this.successMsg = 'Order has been successfully created!'
                 this.errorOrder = ''
               
             })

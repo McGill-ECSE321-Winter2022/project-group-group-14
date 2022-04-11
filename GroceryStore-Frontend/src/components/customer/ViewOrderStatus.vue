@@ -31,28 +31,61 @@
                 <br>
                 <h4> We are carefully preparing your order! </h4>
                 <br>
-                <h4> nice little illustration of the order status </h4>
-
-
+                <h4> Nice little illustration of the order status </h4>
+                <div v-if = "orderStatus"> Order Status : {{orderStatus}} </div>
+                <div >
+                  <img src="../../assets/status_d1.jpg" style = "width : 500px; heaight : 500px;">
+                </div>
         </div>
     </div>
 </template>
 
 <script>
-import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
+import axios from 'axios'
+
+var config = require('../../../config')
+
+var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
+var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
+
+// var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
+// var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
+
+var AXIOS = axios.create({
+  baseURL: backendUrl,
+  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+})  
+
+
+
+
+
 export default{
-    name:'CustomerPayment',
+    name:'ViewOrderStatus',
     data()
     {
         return {
-
-            
-            curremail : this.$route.params.email,
+            orderiD : this.$route.params.orderId,
+            orderStatus :'',
+            groceryOrders : [],
+            error: '',
+            successMsg:'',
+            response: []
         }
 
     },
-    components:{
-        CustomerNavigationBar
+      created: function() {
+          AXIOS.get('/orders/'.concat(this.orderId),{},{})
+          .then(response => {
+              // JSON responses are automatically parsed.
+              this.groceryOrders.push(response.data)
+              this.orderStatus = response.data.orderStatus
+              console.log(response.data)
+          })
+          .catch(e => {
+              // this.errorInventory = e.response.data
+              // console.log(e.response.data)
+          })
     }
     
 }

@@ -48,20 +48,18 @@
         <h2 class="heading">Create Customer Account</h2>
         <!-- <h2 class="heading">Create / Update Customer Account</h2> -->
 
-        <br>
 
-        <!-- <h6 class="subheading">Account to change (Leave this empty to create an account)</h6>
+        <h6 class="subheading">Account to change (Leave this empty to create an account)</h6>
         <div class="form-floating mb-3">
           <input
             type="text"
-            v-model="oldCustomerAccount.Username"
+            v-model="oldCustomerAccount.username"
             class="form-control"
             id="floatingInput"
             placeholder="Old Username"
           />
         </div>
-         -->
-        <br>
+        
 
         <h6 class="subheading">Emails must be unique within the system</h6>
         <div class="form-floating mb-3">
@@ -123,15 +121,13 @@
           />
         </div>
 
-        <br>
-        <br>
-
 
               <button class="largeButton" type="CreateButton" @click="createCustomerAccount(newCustomerAccount.email,newCustomerAccount.username,newCustomerAccount.password,newCustomerAccount.phoneNumber,newCustomerAccount.address)">
                 Create Account
               </button>
-            
-            <br> 
+              <button class="largeButton" type="UpdateButton" @click="updateCustomerAccount(oldCustomerAccount.username,newCustomerAccount.email,newCustomerAccount.username,newCustomerAccount.password,newCustomerAccount.phoneNumber,newCustomerAccount.address)">
+                Update Account
+              </button>        
 
               <!-- <button class="largeButton" type="CreateButton" @click="updateCustomerAccount(oldCustomerAccount.username,newCustomerAccount.email,newCustomerAccount.username,newCustomerAccount.password,newCustomerAccount.phoneNumber,newCustomerAccount.address)">
                 Update Account
@@ -200,19 +196,19 @@ export default {
                 this.errorCustomer = errorMsg
             })
         },
-        // updateCustomerAccount: function (oldUsername, newEmail, newUsername, newPassword, newPhoneNumber, newAddress){
-        //     AXIOS.put('/customers/update'.concat('/').concat(oldUsername).concat('/').concat(newEmail).concat('/').concat(newUsername).concat('/').concat(newPassword).concat('/').concat(newPhoneNumber).concat('/').concat(newAddress),{},{})
-        //     .then(response => {
-        //         this.customers.push(response.data)
-        //         this.errorUpdateCustomer = newEmail + ' is updated successfully!'
-        //         this.newCustomerAccount = ''
-        //     })
-        //     .catch(e => {
-        //         var errorMsg = e.response.data
-        //         console.log(errorMsg)
-        //         this.errorUpdateCustomer = errorMsg
-        //     })
-        // }
+        updateCustomerAccount: function (oldUsername, newEmail, newUsername, newPassword, newPhoneNumber, newAddress){
+            AXIOS.put('/customers/update'.concat('/').concat(oldUsername).concat('/').concat(newEmail).concat('/').concat(newUsername).concat('/').concat(newPassword).concat('/').concat(newPhoneNumber).concat('/').concat(newAddress),{},{})
+            .then(response => {
+                this.customers.push(response.data)
+                this.errorUpdateCustomer = newEmail + ' is updated successfully!'
+                this.newCustomerAccount = ''
+            })
+            .catch(e => {
+                var errorMsg = e.response.data
+                console.log(errorMsg)
+                this.errorUpdateCustomer = errorMsg
+            })
+        }
     }
 }
 </script>
