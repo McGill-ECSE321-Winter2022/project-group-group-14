@@ -98,16 +98,15 @@ export default{
     },
     methods:{
       updateOrderStatus: function(orderId){
-        AXIOS.get('/orders/status/update/'.concat(orderId),{},{})
+        AXIOS.post('/orders/status/update/'.concat(orderId),{},{})
         .then(response => {
             // JSON responses are automatically parsed.
+            console.log(response.data)
             this.newGroceryOrder = response.data
-
         }).catch(e => {
-          // this.successMsg = ''
-          // var errorMsg = e.response.data
-          // console.log(errorMsg)
-          // this.errorOrder = errorMsg
+          var errorMsg = e.response.data
+          console.log(errorMsg)
+          this.errorOrder = errorMsg
       })
 
       }
