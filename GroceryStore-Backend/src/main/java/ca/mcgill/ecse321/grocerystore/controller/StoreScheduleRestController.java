@@ -64,9 +64,13 @@ public class StoreScheduleRestController {
 	public ResponseEntity<?> getAllStoreSchedules() {
 		try {
 			List<StoreScheduleDto> storeScheduleDtos = new ArrayList<>();
-			for (StoreSchedule storeSchedule : service.getAllStoreSchedules()) {
-				storeScheduleDtos.add(convertToDto(storeSchedule));
-			}
+			if (service.getStoreScheduleByDayOpen(Day.Sunday) != null) storeScheduleDtos.add(convertToDto(service.getStoreScheduleByDayOpen(Day.Sunday)));
+			if (service.getStoreScheduleByDayOpen(Day.Monday) != null) storeScheduleDtos.add(convertToDto(service.getStoreScheduleByDayOpen(Day.Monday)));
+			if (service.getStoreScheduleByDayOpen(Day.Tuesday) != null) storeScheduleDtos.add(convertToDto(service.getStoreScheduleByDayOpen(Day.Tuesday)));
+			if (service.getStoreScheduleByDayOpen(Day.Wednesday) != null) storeScheduleDtos.add(convertToDto(service.getStoreScheduleByDayOpen(Day.Wednesday)));
+			if (service.getStoreScheduleByDayOpen(Day.Thursday) != null) storeScheduleDtos.add(convertToDto(service.getStoreScheduleByDayOpen(Day.Thursday)));
+			if (service.getStoreScheduleByDayOpen(Day.Friday) != null) storeScheduleDtos.add(convertToDto(service.getStoreScheduleByDayOpen(Day.Friday)));
+			if (service.getStoreScheduleByDayOpen(Day.Saturday) != null) storeScheduleDtos.add(convertToDto(service.getStoreScheduleByDayOpen(Day.Saturday)));
 			return ResponseEntity.ok(storeScheduleDtos);	
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
