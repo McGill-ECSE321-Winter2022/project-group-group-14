@@ -34,10 +34,13 @@
                     </ul>  
                 </div> -->
 
-                <div v-for="index in summarize(orderItems)" :key=index>
-                    <ul>
-                        <li> {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 </li>
-                    </ul>  
+                <div v-for="index in (itemIndices)" :key=index >
+                   
+                            <button class="button" @click="deleteItem(orderId, itemNames[index])"> - </button> 
+                            {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 
+                            <button class="button"> + </button> 
+                            
+            
                 </div> 
 
                 
@@ -59,7 +62,7 @@
                         </button>
                     </router-link> -->
 
-                     <router-link :to="{ name: 'ThankYou', params:{ email: curremail, orderId: groceryOrders[0].orderId}}">
+                     <router-link :to="{ name: 'ThankYou', params:{ email: email, orderId: groceryOrders[0].orderId}}">
                         <button class="largeButton" v-if="groceryOrders[0].orderId" @click="placeOrder(groceryOrders[0].orderId)">
                         Place Order
                     </button>
@@ -138,7 +141,8 @@ export default{
             one : '1',
             error: '',
             successMsg:'',
-            response: []
+            response: [],
+            
         }
     },
     created: function() {
@@ -147,6 +151,33 @@ export default{
               // JSON responses are automatically parsed.
               this.orderItems=response.data
               console.log(response.data)
+               this.itemIndices = [];
+            this.itemNames = [];
+            this.itemCosts = [];
+            this.itemQuantity = [];
+            for (let index = 0; index < this.orderItems.length; ++index) {
+                if (this.itemNames.includes(this.orderItems[index].name)){
+                    const i = this.itemNames.indexOf(this.orderItems[index].name);
+                    var cost = parseInt(this.itemCosts[i]) + parseInt(this.orderItems[index].price);
+                    var quant = parseInt(this.itemQuantity[i]) + 1;
+                    this.itemQuantity[i] = quant.toString();
+                    this.itemCosts[i] = cost.toString();
+                }else{
+                    // var number = 1;
+                    this.itemQuantity.push(this.one);
+                    this.itemIndices.push(this.itemIndices.length);
+                    this.itemNames.push(this.orderItems[index].name);
+                    this.itemCosts.push(this.orderItems[index].price.toString()); 
+                    // console.log(type);
+                    // this.itemCosts.push(items[index].price.toString());
+                }
+
+            }
+
+            console.log(this.itemQuantity);
+            console.log(this.itemIndices);
+            console.log(this.itemNames);
+            console.log(this.itemCosts);
           })
           .catch(e => {
               this.errorInventory = e.response.data
@@ -162,6 +193,35 @@ export default{
               this.errorInventory = e.response.data
               console.log(e.response.data)
           })
+        //   console.log(this.orderItems);
+        //   this.itemIndices = [];
+        //     this.itemNames = [];
+        //     this.itemCosts = [];
+        //     this.itemQuantity = [];
+        //     for (let index = 0; index < this.orderItems.length; ++index) {
+        //         if (this.itemNames.includes(this.orderItems[index].name)){
+        //             const i = this.itemNames.indexOf(this.orderItems[index].name);
+        //             var cost = parseInt(this.itemCosts[i]) + parseInt(this.orderItems[index].price);
+        //             var quant = parseInt(this.itemQuantity[i]) + 1;
+        //             this.itemQuantity[i] = quant.toString();
+        //             this.itemCosts[i] = cost.toString();
+        //         }else{
+        //             // var number = 1;
+        //             this.itemQuantity.push(this.one);
+        //             this.itemIndices.push(this.itemIndices.length);
+        //             this.itemNames.push(this.orderItems[index].name);
+        //             this.itemCosts.push(this.orderItems[index].price.toString()); 
+        //             // console.log(type);
+        //             // this.itemCosts.push(items[index].price.toString());
+        //         }
+
+        //     }
+
+        //     console.log(this.itemQuantity);
+        //     console.log(this.itemIndices);
+        //     console.log(this.itemNames);
+        //     console.log(this.itemCosts);
+            // return this.itemIndices;
     },
     methods: {
         placeOrder: function (orderId){
@@ -197,6 +257,17 @@ export default{
           .catch(e => {
             //   this.error = e.response.data
             //   console.log(e.response)
+          })
+        },
+        deleteItem: function (orderID, itemName){
+            AXIOS.delete("/orders/deleteItem/".concat(orderID).concat("/").concat(itemName),{},{})
+            .then(response =>{
+                this.orderItems=response.data.orderItems
+                console.log(e.response.data)
+            })
+            .catch(e => {
+              this.error = e.response.data
+              console.log(e.response.data)
           })
         },
         summarize: function(items){

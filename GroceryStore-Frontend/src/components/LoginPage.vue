@@ -215,7 +215,7 @@ export default {
     },
 
     created: function(){
-        AXIOS.post('/owners/dude@gmail.com/dude/123Abc')
+        AXIOS.post('/owners/marwan.kanaan@mcgill.ca/Marwan/123Abc')
         .then(response => {
           this.owners.push(response.data)
           console.log(response.data)

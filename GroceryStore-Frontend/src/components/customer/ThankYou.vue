@@ -4,17 +4,17 @@
 
 
         <div class="verticalandhorizontal-center">
-            <h2 class="heading">Thank You for your order!</h2>
+            <h2 class="heading">Thank you for your order!</h2>
             <br>
 
 
             <!-- <div v-if ="curremail">
                 Email : {{curremail}}
-            </div>
+            </div> -->
 
             <div v-if ="orderId">
-                order Id : {{orderId}}
-            </div> -->
+                <h5>Order Number : {{orderId}}</h5>
+            </div>
 
 
             <!-- <span v-if= "this.imageUrl == '../../assets/status_d1.jpg' ">
@@ -26,19 +26,34 @@
                 <!-- <img :src="returnUrl()" style = "width : 500px; " > -->
             <div>
                 <br>
-                <!-- <img :src="require(`@/assets/${imageUrl}`)"  alt=""> -->
+                <img src="@/assets/status_d1.jpg" v-if="d1" style = "width : 500px; ">
+                <img src="@/assets/status_d2.png" v-if="d2" style = "width : 500px; ">
+                <img src="@/assets/status_d3.png" v-if="d3" style = "width : 500px; ">
+                <img src="@/assets/status_d4.png" v-if="d4" style = "width : 500px; ">
+                <img src="@/assets/status_p1.png" v-if="p1" style = "width : 500px; ">
+                <img src="@/assets/status_p2.png" v-if="p2" style = "width : 500px; ">
+                <img src="@/assets/status_p3.png" v-if="p3" style = "width : 500px; ">
+                <img src="@/assets/status_p4.png" v-if="p4" style = "width : 500px; ">
+
+
+                <!-- <img src="https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/blob/main/GroceryStore-Frontend/src/assets/status_d2.png"> -->
+                <!-- <img src="require(`@/assets/${imageUrl}`)"  alt=""> -->
+                <!-- <img :src='this.imageUrl'> -->
                 <!-- <img :src="require(`../../assets/${imageUrl}`)"  alt=""> -->
+                <!-- <img src={`../img/${img.code}.jpg`}></img> -->
 
                     <!-- require(`../assets/profile_screens/${filename}`) -->
                 <!-- <img :src="require(`@/assets/${imageUrl}`)" style = "width : 500px; " >  -->
-                IMAGE SHOULD BE HERE,  URL = :{{imageUrl}}
+                
+                <!-- IMAGE SHOULD BE HERE,  URL = :{{imageUrl}} -->
             </div>
 
             
             <br>
+            <br>
 
             <span v-if ="groceryOrders[0]">
-                {{returnStatus(groceryOrders[0])}}
+                <h4>{{returnStatus(groceryOrders[0])}}</h4>
             </span>
             <br>
 
@@ -48,8 +63,8 @@
             <br>
             <br>
             <br>
-            display store information here in case of issue :
-            "Please contact customer support at ... in case of issues."
+            <!-- display store information here in case of issue :
+            "Please contact customer support at ... in case of issues." -->
 
         </div>
     </div>
@@ -89,7 +104,15 @@ export default{
             groceryOrders :[],
             error: '',
             successMsg:'',
-            response: []
+            response: [],
+            d1:'',
+            d2:'',
+            d3:'',
+            d4:'',
+            p1:'',
+            p2:'',
+            p3:'',
+            p4:''
         }
     },
     created: function() {
@@ -118,31 +141,95 @@ export default{
         returnStatus: function(order){
             if (order.orderType == "Delivery"){ //order delivery pictures
                 if (order.orderStatus == "Received"){
+                    this.d1 = 'present'
+                    this.d2 = ''
+                    this.d3 = ''
+                    this.d4 = ''
+                    this.p1 = ''
+                    this.p2 = ''
+                    this.p3 = ''
+                    this.p4 = ''
                     this.imageUrl = "status_d1.jpg";
                     return "Your order has been created, please add items and place it. Our employees can then start preparing it.";
+                   
                 }else if (order.orderStatus == "Processing"){
+                    this.d1 = ''
+                    this.d2 = 'present'
+                    this.d3 = ''
+                    this.d4 = ''
+                    this.p1 = ''
+                    this.p2 = ''
+                    this.p3 = ''
+                    this.p4 = ''
                     this.imageUrl = "../../assets/status_d2.png";
                     return "Your order is being prepared.";
                 }else if (order.orderStatus == "BeingDelivered"){
+                    this.d1 = ''
+                    this.d2 = ''
+                    this.d3 = 'present'
+                    this.d4 = ''
+                    this.p1 = ''
+                    this.p2 = ''
+                    this.p3 = ''
+                    this.p4 = ''
                     this.imageUrl = "../../assets/status_d3.png";
                     return "Your order is being delivered";
                 }
                 else if (order.orderStatus == "Completed"){
-
+                    this.d1 = ''
+                    this.d2 = ''
+                    this.d3 = ''
+                    this.d4 = 'present'
+                    this.p1 = ''
+                    this.p2 = ''
+                    this.p3 = ''
+                    this.p4 = ''
                     this.imageUrl = "status_d4.png";
                     return "Your latest order has been completed";
                 }
             }else if(order.orderType == "PickUp") { //order is then pick up 
                 if (order.orderStatus == "Received"){
+                    this.d1 = ''
+                    this.d2 = ''
+                    this.d3 = ''
+                    this.d4 = ''
+                    this.p1 = 'present'
+                    this.p2 = ''
+                    this.p3 = ''
+                    this.p4 = ''
                     this.imageUrl = "../../assets/status_p1.png";
                     return "Your order has been created, please add items and place it. Our employees can then start preparing it.";
                 }else if (order.orderStatus == "Processing"){
+                    this.d1 = ''
+                    this.d2 = ''
+                    this.d3 = ''
+                    this.d4 = ''
+                    this.p1 = ''
+                    this.p2 = 'present'
+                    this.p3 = ''
+                    this.p4 = ''
                     this.imageUrl = "../../assets/status_p2.png";
                     return "Your order is being prepared.";
                 }else if (order.orderStatus == "ReadyForPickUp"){
+                    this.d1 = ''
+                    this.d2 = ''
+                    this.d3 = ''
+                    this.d4 = ''
+                    this.p1 = ''
+                    this.p2 = ''
+                    this.p3 = 'present'
+                    this.p4 = ''
                     this.imageUrl = "../../assets/status_p3.png";
                     return "Your order is ready for pick up.";
                 }else if (order.orderStatus == "Completed"){
+                    this.d1 = ''
+                    this.d2 = ''
+                    this.d3 = ''
+                    this.d4 = ''
+                    this.p1 = ''
+                    this.p2 = ''
+                    this.p3 = ''
+                    this.p4 = 'present'
                     this.imageUrl = "../../assets/status_p4.png";
                     return "Your latest order has been completed";
                 }

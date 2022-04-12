@@ -186,6 +186,8 @@ ul {
   font-size: 14px;
   padding: 20px 0px 50px 0px;
   margin: 0;
+  width: 250px;
+  
 }
 
 .grid-item {
@@ -198,6 +200,9 @@ ul {
   background-color: white;
   min-height: fit-content;
   min-width: 250px;
+  height: fit-content;
+  width: fit-content;
+  
 }
 
 .grid-item:hover {
@@ -210,9 +215,8 @@ ul {
   display: grid;
   row-gap: 70px;
   column-gap: 90px;
-  padding-left: 150px;
-  padding-right: 150px;
-  grid-template-columns: auto auto auto;
+  justify-content: center;
+  grid-template-columns: auto auto auto auto;
   padding-top: 150px;
   padding-bottom: 100px;
   min-height: 100vh;
@@ -344,14 +348,21 @@ ul {
 
 /*------------------------ Responsive changes -------------------- */
 
-@media (max-width: 1170px){
+@media (max-width: 1550px){
   .grid-container {
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
   }
 }
 
 
-@media (max-width: 875px){
+@media (max-width: 1300px){
+  .grid-container {
+    grid-template-columns: auto auto;
+  }
+
+}
+
+@media (max-width: 950px){
   .grid-container {
     grid-template-columns: auto;
   }

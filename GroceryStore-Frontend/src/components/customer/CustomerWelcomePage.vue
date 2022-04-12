@@ -4,7 +4,7 @@
             <div id="popup1" class="overlay" v-if="successMsg">
                 <div class="popup">
                  <h5>{{ successMsg }}</h5>
-                 <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail, orderId: newGroceryOrder.orderId.toString() }}">
+                 <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail, orderId: newGroceryOrder.orderId }}">
 
                 <button class="largeButton">
                     View grocery items
@@ -48,11 +48,11 @@
                 </button> -->
             
             
-                <button class="largeButton" v-if="curremail && !groceryOrders" @click="createDeliveryOrder(curremail)" onClick="window.location.reload();">
+                <button class="largeButton" v-if="curremail && !groceryOrders" @click="createDeliveryOrder(curremail)" >
                     Delivery
                 </button>
                 <br>
-                <button class="largeButton"  v-if="curremail && !groceryOrders" @click="createPickupOrder(curremail)" onClick="window.location.reload();">
+                <button class="largeButton"  v-if="curremail && !groceryOrders" @click="createPickupOrder(curremail)" >
                     Pick up
                 </button>
                 <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail, orderId: newGroceryOrder.orderId }}">
@@ -187,7 +187,7 @@ export default{
         createDeliveryOrder : function(email){
             AXIOS.post('/orders/delivery/'.concat(email), {}, {})
             .then(response => {
-                this.groceryOrders.push(response.data) //add dto to the list of orders
+                this.groceryOrders=response.data //add dto to the list of orders
                 this.successMsg = 'Order has been successfully created! Please navigate to complete order. '
                 this.newGroceryOrder.orderId = response.data.orderId
                 console.log(this.groceryOrders)
@@ -203,11 +203,11 @@ export default{
         createPickupOrder : function(email){
             AXIOS.post('/orders/pickup/'.concat(email), {}, {})
             .then(response => {
-                this.groceryOrders.push(response.data) //add dto to the list of orders
+                this.groceryOrders=response.data //add dto to the list of orders
                 this.successMsg = 'Order has been successfully created! Please navigate to complete order.'
+                this.newGroceryOrder.orderId = response.data.orderId
                 this.errorOrder = ''
                 console.log(response.data)
-                this.newGroceryOrder = ''
             })
             .catch(e => {
                 this.successMsg = ''
