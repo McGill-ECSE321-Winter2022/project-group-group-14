@@ -237,7 +237,7 @@ export default{
             // this.imageUrl = "http://127.0.0.1:8087/static/img/status_d1.8d0d7b9.jpg";
             console.log(this.imageUrl);
             // this.imageUrl = "../../assets/orange1.jpeg";
-            return "Could not read order status"; 
+            return "You have no active order."; 
         },
         returnUrl: function(){
             return this.imageUrl;

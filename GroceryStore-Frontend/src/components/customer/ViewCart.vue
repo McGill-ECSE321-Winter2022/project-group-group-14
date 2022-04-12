@@ -36,9 +36,9 @@
 
                 <div v-for="index in (itemIndices)" :key=index >
                    
-                            <button class="button" @click="deleteItem(orderId, itemNames[index])"> - </button> 
+                            <button class="button" @click="deleteItem(orderId, itemNames[index])" onClick="window.location.reload();"> - </button> 
                             {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 
-                            <button class="button"> + </button> 
+                            <button class="button" @click="addItem   (orderId, itemNames[index])" onClick="window.location.reload();"> + </button> 
                             
             
                 </div> 
@@ -146,11 +146,13 @@ export default{
         }
     },
     created: function() {
+          
           AXIOS.get('/orders/orderItems/'.concat(this.orderId),{},{})
           .then(response => {
               // JSON responses are automatically parsed.
               this.orderItems=response.data
               console.log(response.data)
+              
                this.itemIndices = [];
             this.itemNames = [];
             this.itemCosts = [];
@@ -263,12 +265,29 @@ export default{
             AXIOS.delete("/orders/deleteItem/".concat(orderID).concat("/").concat(itemName),{},{})
             .then(response =>{
                 this.orderItems=response.data.orderItems
-                console.log(e.response.data)
+                console.log(e.response.data.orderItems)
             })
             .catch(e => {
               this.error = e.response.data
               console.log(e.response.data)
           })
+        },
+        addItem: function (orderId,itemName) {
+            AXIOS.post('/orders/add/'.concat(orderId), {}, {params: {itemName: itemName, quantity: "1"}})
+            .then(response => {
+            // JSON responses are automatically parsed.
+                this.orderItems=response.data.orderITems
+                this.groceryOrders.push(response.data)
+                console.log(response.data)
+                this.error = ''
+                // this.newInventoryItem = ''
+                // this.successMsg = 'Successfully added!'
+            })
+            .catch(e => {
+                var errorMsg = e.response.data
+                console.log(errorMsg)
+                this.error= errorMsg
+            })
         },
         summarize: function(items){
             this.itemIndices = [];
