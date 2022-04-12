@@ -155,6 +155,7 @@ export default{
       .then(response => {
         // this.groceryOrders.push(response.data)
         // this.deletedGroceryOrder = response.data;
+        this.groceryOrders = []
         console.log(response.data)
         successMsg = " All completed orders have been removed!"
       })
