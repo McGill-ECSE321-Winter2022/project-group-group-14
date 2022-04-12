@@ -69,10 +69,10 @@
         <div>
 
            
-              <button class="largeButton" v-bind:disabled="!newEmployeeSchedule.day || !newEmployeeSchedule.shift  type="CreateButton" @click="createEmployeeSchedule(newEmployeeSchedule.day, newEmployeeSchedule.shift)">
+              <button class="largeButton" v-bind:disabled="!newEmployeeSchedule.day || !newEmployeeSchedule.shift"  type="CreateButton" @click="createEmployeeSchedule(newEmployeeSchedule.day, newEmployeeSchedule.shift)">
                 Create Employee Schedule
               </button>
-              <button class="largeButton" v-bind:disabled="!newEmployeeSchedule.day || !newEmployeeSchedule.shift  type="CreateButton" @click="updateEmployeeSchedule(newEmployeeSchedule.day, newEmployeeSchedule.shift)">
+              <button class="largeButton" v-bind:disabled="!newEmployeeSchedule.day || !newEmployeeSchedule.shift"  type="CreateButton" @click="updateEmployeeSchedule(newEmployeeSchedule.day, newEmployeeSchedule.shift)">
                 Update Employee Schedule
               </button>
               <button class="largeButton" type="DeleteButton" v-bind:disabled="!newEmployeeSchedule.day" @click="deleteEmployeeSchedule(newEmployeeSchedule.day)">

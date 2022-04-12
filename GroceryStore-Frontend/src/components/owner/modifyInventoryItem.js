@@ -26,6 +26,7 @@ data () {
       image: this.$route.params.imageToEdit
     }, 
     errorInventory: '',
+    successInventory: '',
     response: []
     }
 },
@@ -44,7 +45,11 @@ created: function () {
 
 methods: {
     createInventoryItem: function (itemName,itemPrice,itemStock,itemImage,itemAvailability) {
-      // if(itemAvailability!='true'){
+      
+      if(itemAvailability==null){
+        itemAvailability='false'
+      }
+      // if(itemAvailability.toString()!='true'){
       //   itemAvailability='false'
       // }
         AXIOS.post('/inventoryItems/create/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock, image: itemImage, availability: itemAvailability}})
