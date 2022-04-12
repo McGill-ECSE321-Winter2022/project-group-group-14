@@ -17,10 +17,20 @@
             </div> -->
 
 
-            <div v-if = "imageUrl" >
-                <img :src="returnUrl()" style = "width : 500px; " >
-                <!-- <img :src=imageUrl style = "width : 500px; "> -->
+            <!-- <span v-if= "this.imageUrl == '../../assets/status_d1.jpg' ">
+            </span> -->
+
+           
+
+
+                <!-- <img :src="returnUrl()" style = "width : 500px; " > -->
+            <div>
                 <br>
+                <!-- <img :src="require(`@/assets/${imageUrl}`)"  alt=""> -->
+                <!-- <img :src="require(`../../assets/${imageUrl}`)"  alt=""> -->
+
+                    <!-- require(`../assets/profile_screens/${filename}`) -->
+                <!-- <img :src="require(`@/assets/${imageUrl}`)" style = "width : 500px; " >  -->
                 IMAGE SHOULD BE HERE,  URL = :{{imageUrl}}
             </div>
 
@@ -108,33 +118,38 @@ export default{
         returnStatus: function(order){
             if (order.orderType == "Delivery"){ //order delivery pictures
                 if (order.orderStatus == "Received"){
-                    this.imageUrl = "../../assets/status_d1.jpg";
+                    this.imageUrl = "status_d1.jpg";
                     return "Your order has been created, please add items and place it. Our employees can then start preparing it.";
                 }else if (order.orderStatus == "Processing"){
-                    this.imageUrl = "../../assets/status_d2.jpg";
+                    this.imageUrl = "../../assets/status_d2.png";
                     return "Your order is being prepared.";
                 }else if (order.orderStatus == "BeingDelivered"){
-                    this.imageUrl = "../../assets/status_d3.jpg";
+                    this.imageUrl = "../../assets/status_d3.png";
                     return "Your order is being delivered";
-                }else if (order.orderStatus == "Completed"){
-                    this.imageUrl = "../../assets/status_d4.jpg";
+                }
+                else if (order.orderStatus == "Completed"){
+
+                    this.imageUrl = "status_d4.png";
                     return "Your latest order has been completed";
                 }
             }else if(order.orderType == "PickUp") { //order is then pick up 
                 if (order.orderStatus == "Received"){
-                    this.imageUrl = "../../assets/status_p1.jpg";
+                    this.imageUrl = "../../assets/status_p1.png";
                     return "Your order has been created, please add items and place it. Our employees can then start preparing it.";
                 }else if (order.orderStatus == "Processing"){
-                    this.imageUrl = "../../assets/status_p2.jpg";
+                    this.imageUrl = "../../assets/status_p2.png";
                     return "Your order is being prepared.";
                 }else if (order.orderStatus == "ReadyForPickUp"){
-                    this.imageUrl = "../../assets/status_p3.jpg";
+                    this.imageUrl = "../../assets/status_p3.png";
                     return "Your order is ready for pick up.";
                 }else if (order.orderStatus == "Completed"){
-                    this.imageUrl = "../../assets/status_p4.jpg";
+                    this.imageUrl = "../../assets/status_p4.png";
                     return "Your latest order has been completed";
                 }
             }
+            // this.imageUrl = "http://127.0.0.1:8087/static/img/status_d1.8d0d7b9.jpg";
+            console.log(this.imageUrl);
+            // this.imageUrl = "../../assets/orange1.jpeg";
             return "Could not read order status"; 
         },
         returnUrl: function(){

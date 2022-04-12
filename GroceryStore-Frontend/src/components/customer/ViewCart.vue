@@ -28,11 +28,22 @@
 
 
           
-                <div v-for="orderItem in orderItems" :key=orderItem.name>
+                <!-- <div v-for="orderItem in orderItems" :key=orderItem.name>
                     <ul style="list-style-type:square">
                         <li> {{ orderItem.name}} :  ${{ orderItem.price}}.00 </li>
                     </ul>  
-                </div>
+                </div> -->
+
+                <div v-for="index in summarize(orderItems)" :key=index>
+                    <ul>
+                        <li> {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 </li>
+                    </ul>  
+                </div> 
+
+                
+               
+                
+
             <div>
                <h4 class="heading">Total Cost : ${{groceryOrders[0].totalCost}}.00</h4>  
             </div>
@@ -56,6 +67,12 @@
                     <br>
                     <br>
 
+                   <small> Please note that an extra 10$ delivery fee is included for out of town deliveries.</small>
+
+                   <br>
+                   <br>
+                   
+
                   <h5> Made a mistake? Modify or delete you order.</h5>
                    <button class="button" v-if="groceryOrders[0].orderId" @click="toggleType(groceryOrders[0].orderId)">
                     Change Order Type
@@ -66,8 +83,6 @@
                         Delete Order
                     </button>
                 </router-link>
-               
-
         </div>
     </div>
 </template>
@@ -116,6 +131,11 @@ export default{
                 orderItems: [],
                 customer:''
             },
+            itemIndices:[],
+            itemNames:[], 
+            itemCosts:[],
+            itemQuantity:[],
+            one : '1',
             error: '',
             successMsg:'',
             response: []
@@ -178,7 +198,38 @@ export default{
             //   this.error = e.response.data
             //   console.log(e.response)
           })
+        },
+        summarize: function(items){
+            this.itemIndices = [];
+            this.itemNames = [];
+            this.itemCosts = [];
+            this.itemQuantity = [];
+            for (let index = 0; index < items.length; ++index) {
+                if (this.itemNames.includes(items[index].name)){
+                    const i = this.itemNames.indexOf(items[index].name);
+                    var cost = parseInt(this.itemCosts[i]) + parseInt(items[index].price);
+                    var quant = parseInt(this.itemQuantity[i]) + 1;
+                    this.itemQuantity[i] = quant.toString();
+                    this.itemCosts[i] = cost.toString();
+                }else{
+                    // var number = 1;
+                    this.itemQuantity.push(this.one);
+                    this.itemIndices.push(this.itemIndices.length);
+                    this.itemNames.push(items[index].name);
+                    this.itemCosts.push(items[index].price.toString()); 
+                    // console.log(type);
+                    // this.itemCosts.push(items[index].price.toString());
+                }
+
+            }
+            console.log(this.itemQuantity);
+            console.log(this.itemIndices);
+            console.log(this.itemNames);
+            console.log(this.itemCosts);
+            return this.itemIndices;
+
         }
+        
         // ,
         // getOrderItems: function (orderId) {
         //     AXIOS.post('/orders/orderItems/'.concat(orderId), {}, {})
