@@ -173,7 +173,7 @@ ul {
 }
 
 .item-image {
-  width: 200px;
+  /* width: 200px; */
   height: 140px;
   margin-bottom: 20px;
 }

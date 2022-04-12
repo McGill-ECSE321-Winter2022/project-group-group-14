@@ -129,6 +129,7 @@ export default{
             AXIOS.get('/orders/'.concat(this.orderId),{},{})
             .then(response => {
                 // JSON responses are automatically parsed.
+                
                 this.groceryOrders.push(response.data)
                 console.log(response.data)
             })
@@ -150,7 +151,7 @@ export default{
                     this.p3 = ''
                     this.p4 = ''
                     this.imageUrl = "status_d1.jpg";
-                    return "Your order has been created, please add items and place it. Our employees can then start preparing it.";
+                    return "Your order has been created. Our employees will start preparing it shortly.";
                    
                 }else if (order.orderStatus == "Processing"){
                     this.d1 = ''
@@ -198,7 +199,7 @@ export default{
                     this.p3 = ''
                     this.p4 = ''
                     this.imageUrl = "../../assets/status_p1.png";
-                    return "Your order has been created, please add items and place it. Our employees can then start preparing it.";
+                    return "Your order has been created. Our employees will start preparing it shortly.";
                 }else if (order.orderStatus == "Processing"){
                     this.d1 = ''
                     this.d2 = ''
