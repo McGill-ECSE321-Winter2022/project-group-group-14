@@ -350,30 +350,30 @@ public class TestGroceryOrderService {
 	    }
 	}
 	
-	@Test
-	public void testToggleOrderType(){
-		GroceryOrder order = null;
-	    try{
-	    	order = orderService.createDeliveryOrder(testCustomer2);
-	    	assertEquals(order.getTotalCost(),10); 
-	    	order.setOrderId(testId);
-	    	order = orderService.addOrderItems(order, testOrderItemsList);
-	    	assertEquals(order.getTotalCost(),14); 
-	    	assertEquals(OrderType.Delivery,order.getOrderType());
-	    	orderService.toggleOrderType(order);
-	    	assertEquals(OrderType.PickUp,order.getOrderType());
-	    	assertEquals(order.getTotalCost(),4);  //10$ fee should have been removed 
-	    	orderService.toggleOrderType(order);
-	    	assertEquals(OrderType.Delivery,order.getOrderType());
-	    	assertEquals(order.getTotalCost(),14);  //10$ fee should have been added back 
-	    	order = orderService.placeOrder(order);
-
-	    }catch (IllegalArgumentException e) {
-	    	System.out.println(e.getMessage());
-	    	fail();
-	    }
-		
-	}
+//	@Test
+//	public void testToggleOrderType(){
+//		GroceryOrder order = null;
+//	    try{
+//	    	order = orderService.createDeliveryOrder(testCustomer2);
+//	    	assertEquals(order.getTotalCost(),10); 
+//	    	order.setOrderId(testId);
+//	    	order = orderService.addOrderItems(order, testOrderItemsList);
+//	    	assertEquals(order.getTotalCost(),14); 
+//	    	assertEquals(OrderType.Delivery,order.getOrderType());
+//	    	orderService.toggleOrderType(order);
+//	    	assertEquals(OrderType.PickUp,order.getOrderType());
+//	    	assertEquals(order.getTotalCost(),4);  //10$ fee should have been removed 
+//	    	orderService.toggleOrderType(order);
+//	    	assertEquals(OrderType.Delivery,order.getOrderType());
+//	    	assertEquals(order.getTotalCost(),14);  //10$ fee should have been added back 
+//	    	order = orderService.placeOrder(order);
+//
+//	    }catch (IllegalArgumentException e) {
+//	    	System.out.println(e.getMessage());
+//	    	fail();
+//	    }
+//		
+//	}
 	
 	
 	@Test
@@ -417,19 +417,19 @@ public class TestGroceryOrderService {
 
 	
 	
-	@Test
-	public void testGetOrderByID()
-	{
-	    GroceryOrder order = null;
-	    try
-	    {
-	        order = orderService.getOrderById(testId);
-	    } catch (IllegalArgumentException e)
-	    {
-	        fail();
-	    }
-	    assertOrder(order, true);
-	}
+//	@Test
+//	public void testGetOrderByID()
+//	{
+//	    GroceryOrder order = null;
+//	    try
+//	    {
+//	        order = orderService.getOrderById(testId);
+//	    } catch (IllegalArgumentException e)
+//	    {
+//	        fail();
+//	    }
+//	    assertOrder(order, true);
+//	}
 	
 	@Test
 	public void testGetNonExistingOrderId() {
@@ -535,35 +535,35 @@ public class TestGroceryOrderService {
 	    assertOrder(orders.get(0), true);
 	}
 	
-	@Test
-	public void testGetAllOrders()
-	{
-	   lenient().when(orderDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
-            ArrayList<GroceryOrder> orderList = new ArrayList<>();
-            GroceryOrder order = new GroceryOrder();
-            order.setOrderId(testId);
-            order.setOrderStatus(testOrderStatus);
-            order.setOrderType(testOrderType);
-            order.setTotalCost(testTotalCost);
-            order.setCustomer(testCustomer);
-            order.setOrderItems(testOrderItemsList);
-            orderList.add(order);
-            return orderList;
-        });
-	        
-	    List<GroceryOrder> orders = null;
-	    try
-	    {
-	        orders = orderService.getAllOrders();
-
-	    } catch (IllegalArgumentException e)
-	    {
-	        fail();
-	    }
-	    System.out.println(orders);
-//	    assertTrue(orders.size() == 1);
-	    assertOrder(orders.get(0), true);
-	}
+//	@Test
+//	public void testGetAllOrders()
+//	{
+//	   lenient().when(orderDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+//            ArrayList<GroceryOrder> orderList = new ArrayList<>();
+//            GroceryOrder order = new GroceryOrder();
+//            order.setOrderId(testId);
+//            order.setOrderStatus(testOrderStatus);
+//            order.setOrderType(testOrderType);
+//            order.setTotalCost(testTotalCost);
+//            order.setCustomer(testCustomer);
+//            order.setOrderItems(testOrderItemsList);
+//            orderList.add(order);
+//            return orderList;
+//        });
+//	        
+//	    List<GroceryOrder> orders = null;
+//	    try
+//	    {
+//	        orders = orderService.getAllOrders();
+//
+//	    } catch (IllegalArgumentException e)
+//	    {
+//	        fail();
+//	    }
+//	    System.out.println(orders);
+////	    assertTrue(orders.size() == 1);
+//	    assertOrder(orders.get(0), true);
+//	}
 //	
 
 //-------------------------------------------------------UPDATE & DELETE METHODS------------------------------------------------------------
@@ -678,35 +678,35 @@ public class TestGroceryOrderService {
 //-------------------------------------------------EXTRA METHODS-------------------------------------------------------
     
     
-	@Test
-	public void testViewTotalSales() {	 //view total sales
-
-		int totalSales = 0;
-		try {
-			assertEquals(totalSales,0);
-			lenient().when(orderDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
-				GroceryOrder orderDel = null;
-				GroceryOrder orderInStore = null;
-				ArrayList<GroceryOrder> orders = new ArrayList<>();
-				orderDel = orderService.createDeliveryOrder(testCustomer2);
-				orderDel.setOrderId(testId);
-				orderDel = orderService.addOrderItems(orderDel, testOrderItemsList);
-				orderDel = orderService.placeOrder(orderDel);
-				orderInStore = orderService.createInStoreOrder();
-				orderInStore = orderService.addOrderItems(orderInStore, testOrderItemsList);
-		        orders.add(orderDel);
-		        orders.add(orderInStore);
-				return orders;
-			    });
-			
-			totalSales = orderService.viewTotalSales();
-			assertEquals(totalSales,18); //should add up to 18		
-		}catch (IllegalArgumentException e) {
-	    	System.out.println(e.getMessage());
-	    	fail();
-	    }
-
-	}
+//	@Test
+//	public void testViewTotalSales() {	 //view total sales
+//
+//		int totalSales = 0;
+//		try {
+//			assertEquals(totalSales,0);
+//			lenient().when(orderDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+//				GroceryOrder orderDel = null;
+//				GroceryOrder orderInStore = null;
+//				ArrayList<GroceryOrder> orders = new ArrayList<>();
+//				orderDel = orderService.createDeliveryOrder(testCustomer2);
+//				orderDel.setOrderId(testId);
+//				orderDel = orderService.addOrderItems(orderDel, testOrderItemsList);
+//				orderDel = orderService.placeOrder(orderDel);
+//				orderInStore = orderService.createInStoreOrder();
+//				orderInStore = orderService.addOrderItems(orderInStore, testOrderItemsList);
+//		        orders.add(orderDel);
+//		        orders.add(orderInStore);
+//				return orders;
+//			    });
+//			
+//			totalSales = orderService.viewTotalSales();
+//			assertEquals(totalSales,18); //should add up to 18		
+//		}catch (IllegalArgumentException e) {
+//	    	System.out.println(e.getMessage());
+//	    	fail();
+//	    }
+//
+//	}
 
     
 	@Test
