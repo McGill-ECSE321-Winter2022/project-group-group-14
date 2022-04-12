@@ -36,7 +36,7 @@
       <h3 class="heading">Total Sales : $ {{totalSales}}.00 </h3>
 
 
-      <h4> Orders </h4>
+      
       <table>
       <tr>
         <th>Id</th>

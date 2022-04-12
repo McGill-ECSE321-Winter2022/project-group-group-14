@@ -36,6 +36,7 @@
             <img src="../../assets/orange3.jpg">
         </div>
         <div class="verticalandhorizontal-center">
+            
 
             <h2 class="heading" v-if="this.username">Welcome {{this.username}} (Customer)! </h2>
                 

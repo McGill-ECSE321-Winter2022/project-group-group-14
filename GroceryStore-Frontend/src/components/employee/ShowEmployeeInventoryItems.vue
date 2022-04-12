@@ -317,7 +317,7 @@ label {
 }
 
 .grid-item1{
-  overflow:scroll;
+  overflow: scroll;
   padding-top: 7%;
   box-shadow: 0 0 15px 5px rgb(0,0,0,0.2);
   margin: 10px;
@@ -331,10 +331,11 @@ label {
   max-height:600px;
   max-width : 500px;
   width : 50%;
-  height: 100%
+  height: 100%;
+  height: 500px;
 }
 .grid-item2 {
-  overflow:scroll;
+  overflow: scroll;
   box-shadow: 0 0 15px 5px rgb(0,0,0,0.2);
   margin: 10px;
   padding-top: 7%;
@@ -347,6 +348,7 @@ label {
   min-width: 250px;
   height:100%;
   width : 120%;
+  height: 500px;
 
 }
 

@@ -16,9 +16,14 @@
     <CustomerNavigationBar></CustomerNavigationBar>
 
 
-        <div class="verticalandhorizontal-center" style= "height : 90%">
+        <div class="verticalandhorizontal-center" >
             <br>
             <h2 class="heading">Cart for {{email}}</h2>
+  
+                <small>{{groceryOrders[0].orderType}} order </small>
+                <br>
+                <br>
+            
 
             
 <!-- 
@@ -124,6 +129,7 @@ export default{
             //     price: '',
             //     itemId:'',
             // },
+            totalCost:'',
             orderItems:[],
             groceryOrders :[],
             newGroceryOrder : {
@@ -255,6 +261,7 @@ export default{
               this.groceryOrders.push(response.data)
               console.log(response.data)
               successMsg = " Your order type has been modified!"
+              window.location.reload();
           })
           .catch(e => {
             //   this.error = e.response.data

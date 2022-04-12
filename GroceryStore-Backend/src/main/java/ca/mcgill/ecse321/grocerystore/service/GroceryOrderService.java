@@ -141,7 +141,7 @@ public class GroceryOrderService {
 		if (!(order.getOrderStatus().equals(OrderStatus.Received)))
 			throw new IllegalArgumentException("Can only add items to a received order.");
 		checkOrderValidity(order.getCustomer(), order.getOrderType());
-		if (!order.getOrderType().equals(OrderType.InStore) && inventoryItemDao.findByName(orderItems.get(0).getName()).getAvailability()) throw new IllegalArgumentException("Item is only available in store.");
+		if (!order.getOrderType().equals(OrderType.InStore) && !inventoryItemDao.findByName(orderItems.get(0).getName()).getAvailability()) throw new IllegalArgumentException("Item is only available in store.");
 
 
 		// setting the total price of the order

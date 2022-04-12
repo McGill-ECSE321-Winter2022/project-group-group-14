@@ -14,7 +14,7 @@
       <h2 class="heading">Orders to Prepare</h2>
       <br>
 
-      <h4> Orders to Prepare</h4>
+ 
       <table>
       <tr>
         <th>Id</th>
