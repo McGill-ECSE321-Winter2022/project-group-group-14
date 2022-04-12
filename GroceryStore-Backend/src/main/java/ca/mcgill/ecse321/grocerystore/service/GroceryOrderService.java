@@ -344,6 +344,7 @@ public class GroceryOrderService {
 				currentStock += 1; // add back to stock
 				currentPrice = currentPrice - item.getPrice();
 				orderItemDao.delete(item); // delete item
+				groceryOrder.getOrderItems().remove(item);
 				break;
 			}
 		}
