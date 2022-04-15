@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical">
+
+
+    <TextView
+        android:id="@+id/employee_password"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:text=""
+        android:textSize="10dp"
+        />
+
+
+
+    <EditText
+        android:hint="@string/employee_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/stroke_box"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="center"
+        android:textSize="25dp"
+        />
+
+    <EditText
+        android:hint="@string/employee_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/stroke_box"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="center"
+        android:textSize="25dp"
+        />
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="addCustomer"
+        android:textSize="25dp"
+        android:gravity="center_horizontal"
+        android:text="@string/login_button" />
+<!--        tools:layout_editor_absoluteX="119dp"-->
+<!--        tools:layout_editor_absoluteY="134dp" />-->
+
+
+
+</LinearLayout>

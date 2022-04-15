@@ -102,10 +102,13 @@ public class MainActivity extends AppCompatActivity {
         final TextView tv = (TextView) findViewById(R.id.newcustomer_name);
         HttpUtils.post("customers/" + tv.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
 
+//            @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 refreshErrorMessage();
                 tv.setText("");
             }
+
+//            @Override
 
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {

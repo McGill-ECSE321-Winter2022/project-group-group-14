@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+
+    app:startDestination="@id/CreateCustomerFragment"
+    app:startDestination="@id/LoginFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
@@ -24,5 +26,21 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+
+        android:id="@+id/CreateCustomerFragment"
+        android:name="ca.mcgill.ecse321.grocerystore.CreateCustomerFragment"
+        android:label="@string/createcustomer_fragment_label"
+        tools:layout="@layout/fragment_createcustomer">
+    </fragment>
+
+    <fragment
+        android:id="@+id/LoginFragment"
+        android:name="ca.mcgill.ecse321.grocerystore.LoginFragment"
+        android:label="@string/login_fragment_label"
+        tools:layout="@layout/fragment_login">
+
+
     </fragment>
 </navigation>

@@ -132,11 +132,13 @@
 
         <button style="margin-bottom: 0" class="button" v-if="newInventoryItem.price || newInventoryItem.name || newInventoryItem.currentStock || newInventoryItem.image" @click="clear()">Clear All</button>
         <div>
+
               <button  class="mediumButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock || !newInventoryItem.image" type="CreateButton" @click="createInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock, newInventoryItem.image, newInventoryItem.availability)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock || !newInventoryItem.image}">
                 Create Inventory Item
               </button>
               <br>
               <button class="mediumButton" v-bind:disabled="!newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock || !newInventoryItem.image" type="UpdateButton" @click="updateInventoryItem(newInventoryItem.name,newInventoryItem.price,newInventoryItem.currentStock, newInventoryItem.image , newInventoryItem.availability)" :class="{'disabled' : !newInventoryItem.price || !newInventoryItem.name || !newInventoryItem.currentStock || !newInventoryItem.image}">
+
                 Update Inventory Item
               </button>
               <button class="mediumButton" v-bind:disabled="!newInventoryItem.name" type="DeleteButton" @click="deleteInventoryItem(newInventoryItem.name)" :class="{'disabled' : !newInventoryItem.name}">
