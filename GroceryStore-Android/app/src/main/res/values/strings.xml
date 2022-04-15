@@ -12,4 +12,5 @@
 
     <string name="newcustomer_hint">Insert Name Here</string>
     <string name="newcustomer_button">Add Customer</string>
+    <string name="update_button">Update</string>
 </resources>
