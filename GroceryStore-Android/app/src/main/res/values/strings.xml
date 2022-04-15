@@ -10,6 +10,12 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
-    <string name="newcustomer_hint">Insert Name Here</string>
-    <string name="newcustomer_button">Add Customer</string>
+    <string name="createcustomer_hint">Insert Name Here</string>
+    <string name="newcustomer_button">Does that work</string>
+    <string name="createcustomer_button">Create Customer</string>
+    <string name="username_hint">Enter Username</string>
+    <string name="password_hint">Enter Password</string>
+    <string name="email_hint">Enter Email</string>
+    <string name="address_hint">Enter Address</string>
+    <string name="phone_hint">Enter Phone</string>
 </resources>
