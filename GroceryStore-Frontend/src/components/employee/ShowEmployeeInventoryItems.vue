@@ -76,11 +76,19 @@
        <div class="grid-item1">
         <h4> Order Id : {{this.orderId}} </h4>
         <div v-if = "orderItems">
-          <div v-for="orderItem in orderItems" :key=orderItem.name>
+          <div v-for="index in (itemIndices)" :key=index >
+                   
+                            <!-- <button class="button" @click="deleteItem(orderId, itemNames[index])" onClick="window.location.reload();"> - </button>  -->
+                            {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 
+                            <!-- <button class="button" @click="addItem   (orderId, itemNames[index])" onClick="window.location.reload();"> + </button>  -->
+                            
+            
+                </div> 
+          <!-- <div v-for="orderItem in orderItems" :key=orderItem.name>
             <ul style="list-style-type:square">
             <li> {{ orderItem.name}} :  ${{ orderItem.price}}.00 </li>
             </ul>  
-          </div>
+          </div> -->
         </div>
         <br>
         Total Cost : {{groceryOrders[0].totalCost}}
@@ -89,9 +97,11 @@
         <!-- <div class="form-floating mb-3"> -->
           <!-- <input v-model="orderId" placeholder="id"> -->
           <!-- <p>Your order id is : {{ this.orderId }}</p> -->
-          <button class="largeButton" v-if="orderId" @click="placeOrder(orderId)">
-              Place Order
-          </button>
+          <router-link to="/employeeWelcomePage">
+            <button class="largeButton" v-if="orderId" @click="placeOrder(orderId)">
+                Place Order
+            </button>
+          </router-link>
 
 
             <!-- <input
@@ -150,6 +160,11 @@ data () {
     }, 
     errorInventory: '',
     successMsg:'',
+    itemIndices:[],
+    itemNames:[], 
+    itemCosts:[],
+    itemQuantity:[],
+    one : '1',
     response: []
     }
 },
@@ -158,7 +173,10 @@ created: function () {
     AXIOS.get('/inventoryItems/get')
     .then(response => {
         // JSON responses are automatically parsed.
+
         this.inventoryItems = response.data
+         
+         
         
     })
     .catch(e => {
@@ -180,6 +198,34 @@ created: function () {
           // JSON responses are automatically parsed.
           this.orderItems=response.data
           console.log(response.data)
+
+          this.itemIndices = [];
+            this.itemNames = [];
+            this.itemCosts = [];
+            this.itemQuantity = [];
+            for (let index = 0; index < this.orderItems.length; ++index) {
+                if (this.itemNames.includes(this.orderItems[index].name)){
+                    const i = this.itemNames.indexOf(this.orderItems[index].name);
+                    var cost = parseInt(this.itemCosts[i]) + parseInt(this.orderItems[index].price);
+                    var quant = parseInt(this.itemQuantity[i]) + 1;
+                    this.itemQuantity[i] = quant.toString();
+                    this.itemCosts[i] = cost.toString();
+                }else{
+                    // var number = 1;
+                    this.itemQuantity.push(this.one);
+                    this.itemIndices.push(this.itemIndices.length);
+                    this.itemNames.push(this.orderItems[index].name);
+                    this.itemCosts.push(this.orderItems[index].price.toString()); 
+                    // console.log(type);
+                    // this.itemCosts.push(items[index].price.toString());
+                }
+
+            }
+
+            console.log(this.itemQuantity);
+            console.log(this.itemIndices);
+            console.log(this.itemNames);
+            console.log(this.itemCosts);
       })
       .catch(e => {
           // this.errorInventory = e.response.data
@@ -271,7 +317,7 @@ label {
 }
 
 .grid-item1{
-  overflow:scroll;
+  overflow: scroll;
   padding-top: 7%;
   box-shadow: 0 0 15px 5px rgb(0,0,0,0.2);
   margin: 10px;
@@ -285,10 +331,11 @@ label {
   max-height:600px;
   max-width : 500px;
   width : 50%;
-  height: 100%
+  height: 100%;
+  height: 500px;
 }
 .grid-item2 {
-  overflow:scroll;
+  overflow: scroll;
   box-shadow: 0 0 15px 5px rgb(0,0,0,0.2);
   margin: 10px;
   padding-top: 7%;
@@ -301,6 +348,7 @@ label {
   min-width: 250px;
   height:100%;
   width : 120%;
+  height: 500px;
 
 }
 

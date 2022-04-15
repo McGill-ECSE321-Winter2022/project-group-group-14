@@ -215,7 +215,7 @@ export default {
     },
 
     created: function(){
-        AXIOS.post('/owners/dude@gmail.com/dude/123Abc')
+        AXIOS.post('/owners/marwan.kanaan@mcgill.ca/Marwan/123Abc')
         .then(response => {
           this.owners.push(response.data)
           console.log(response.data)
@@ -235,7 +235,7 @@ export default {
 
         AXIOS.get('/customers/login/'.concat(email).concat("/").concat(password))
         .then(response => {
-                this.successCustomer = email + ' is logged in Successfully!'
+                this.successCustomer = email + ' is logged in successfully!'
             })
             .catch(e => {
                 var errorMsg = e.response.data
@@ -248,7 +248,7 @@ export default {
 
         AXIOS.get('/employees/login/'.concat(email).concat("/").concat(password))
         .then(response => {
-                this.successEmployee = email + ' is logged in Successfully!'
+                this.successEmployee = email + ' is logged in successfully!'
             })
             .catch(e => {
                 var errorMsg = e.response.data
@@ -261,7 +261,7 @@ export default {
 
         AXIOS.get('/owners/login/'.concat(email).concat("/").concat(password))
         .then(response => {
-                this.successOwner = email + ' is logged in Successfully!'
+                this.successOwner = email + ' is logged in successfully!'
             })
             .catch(e => {
                 var errorMsg = e.response.data
@@ -273,7 +273,7 @@ export default {
       createOwner: function (){
         AXIOS.post('/owners/dude@gmail.com/dude/123Abc')
         .then(response => {
-                this.successOwner = email + ' is logged in Successfully!'
+                this.successOwner = email + ' is logged in successfully!'
             })
             .catch(e => {
                 var errorMsg = e.response.data

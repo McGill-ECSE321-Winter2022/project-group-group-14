@@ -36,7 +36,7 @@
       <h3 class="heading">Total Sales : $ {{totalSales}}.00 </h3>
 
 
-      <h4> Orders </h4>
+      
       <table>
       <tr>
         <th>Id</th>
@@ -146,6 +146,7 @@ export default{
         this.deletedGroceryOrder = response.data;
         console.log(response.data)
         successMsg = " Order has been successfully deleted!"
+        windows.location.reload()
       })
       .catch(e => {
       })
@@ -158,6 +159,7 @@ export default{
         this.groceryOrders = []
         console.log(response.data)
         successMsg = " All completed orders have been removed!"
+        windows.location.reload()
       })
       .catch(e => {
       })

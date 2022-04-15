@@ -10,7 +10,7 @@
             <b-nav-item href="#/createCustomerFromEmployee">Create Customer</b-nav-item>
             <b-nav-item href="#/updateCustomerFromEmployee">Update Customer</b-nav-item>
             <b-nav-item href="#/viewStoreEmployeeScheduleEmployee">Schedule</b-nav-item>
-            <b-nav-item href="#/modifyGroceryOrderStatus">Order Status</b-nav-item>
+            <!-- <b-nav-item href="#/modifyGroceryOrderStatus">Order Status</b-nav-item> -->
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto">
             <b-nav-item href="#/">Log Out</b-nav-item>

@@ -32,17 +32,48 @@
             
         </div>
         <div class="verticalandhorizontal-center">
-            <h1 class="heading">Welcome {{this.email}} (Owner)! </h1>
+            <h1 class="heading">Welcome {{this.username}} ! </h1>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
+var config = require('../../../config')
+
+var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
+var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
+
+// var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
+// var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
+
+var AXIOS = axios.create({
+  baseURL: backendUrl,
+  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+})  
 export default{
+  
     data()
     {
-        return {email:this.$route.params.email}
-    }
+        return {
+          email:this.$route.params.email,
+          username:''
+          }
+    },
+    created: function() {
+
+            AXIOS.get('/owners/'.concat(this.email),{},{})
+            .then(response => {
+                // JSON responses are automatically parsed.
+                this.username=response.data.username
+                console.log(response.data)
+            })
+            .catch(e => {
+                // this.errorInventory = e.response.data
+                // console.log(e.response.data)
+            })
+    },
 }
 </script>
 

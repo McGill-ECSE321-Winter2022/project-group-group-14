@@ -55,7 +55,7 @@ public class GroceryOrderRestController {
 			Customer customer = customerService.getCustomerByEmail(email);
 			GroceryOrder order = orderService.createDeliveryOrder(customer);
 					
-			return ResponseEntity.ok(new GroceryOrderDto(order.getOrderId(),order.getTotalCost(), order.getOrderType().toString(),order.getOrderStatus().toString(), convertToCDto(customer)));	
+			return ResponseEntity.ok(convertToDto(order)); 
 		}catch(IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -67,7 +67,8 @@ public class GroceryOrderRestController {
 		try {
 			Customer customer = customerService.getCustomerByEmail(email);
 			GroceryOrder order = orderService.createPickupOrder(customer);
-			return ResponseEntity.ok(new GroceryOrderDto(order.getOrderId(),order.getTotalCost(), order.getOrderType().toString(),order.getOrderStatus().toString(), convertToCDto(customer)));
+			
+			return ResponseEntity.ok(convertToDto(order)); 
 		}catch(IllegalArgumentException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -333,7 +334,7 @@ public class GroceryOrderRestController {
 
 	
 	//delete one item at a time
-	@DeleteMapping({"/orders/deleteItem/{orderId}/{itemName}", "orders/delete/all/{orderId}/{itemName}/"})
+	@DeleteMapping({"/orders/deleteItem/{orderId}/{itemName}", "orders/deleteItem/{orderId}/{itemName}/"})
 	public ResponseEntity<?>  deleteItemFromOrder(@PathVariable("orderId") String orderId, @PathVariable("itemName") String itemName) throws IllegalArgumentException  {
 		try {
 			GroceryOrder order = orderService.getOrderById(Integer.parseInt(orderId));
