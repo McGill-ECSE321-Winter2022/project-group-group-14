@@ -13,7 +13,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="createcustomer_hint">Insert Name Here</string>
-    <string name="newcustomer_button">Does that work</string>
     <string name="createcustomer_button">Create Customer</string>
     <string name="username_hint">Enter Username</string>
     <string name="password_hint">Enter Password</string>
@@ -22,13 +21,8 @@
     <string name="phone_hint">Enter Phone</string>
     <string name="newcustomer_hint">Insert Name Here</string>
     <string name="newcustomer_button">Add Customer</string>
-<<<<<<< HEAD
     <string name="update_button">Update</string>
-=======
-
-
     <string name="login_button">Login</string>
     <string name="employee_email">Employee Email</string>
     <string name="employee_password">Employee Password</string>
->>>>>>> main
 </resources>

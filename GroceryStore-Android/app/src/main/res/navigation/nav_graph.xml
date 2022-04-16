@@ -3,44 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-
-    app:startDestination="@id/CreateCustomerFragment"
     app:startDestination="@id/LoginFragment">
 
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="ca.mcgill.ecse321.grocerystore.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="ca.mcgill.ecse321.grocerystore.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
     <fragment
 
         android:id="@+id/CreateCustomerFragment"
         android:name="ca.mcgill.ecse321.grocerystore.CreateCustomerFragment"
         android:label="@string/createcustomer_fragment_label"
         tools:layout="@layout/fragment_createcustomer">
+        <action
+            android:id="@+id/action_CreateCustomerFragment_to_LoginFragment2"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_CreateCustomerFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/LoginFragment"
         android:name="ca.mcgill.ecse321.grocerystore.LoginFragment"
-        android:label="@string/login_fragment_label"
-        tools:layout="@layout/fragment_login">
-
-
+        android:label="Login" >
+        <action
+            android:id="@+id/action_LoginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/UpdateFragment"
+        android:name="ca.mcgill.ecse321.grocerystore.UpdateFragment"
+        android:label="Update Order Status" >
+        <action
+            android:id="@+id/action_UpdateFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+        <action
+            android:id="@+id/action_UpdateFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="ca.mcgill.ecse321.grocerystore.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_CreateCustomerFragment"
+            app:destination="@id/CreateCustomerFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_UpdateFragment"
+            app:destination="@id/UpdateFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
+    </fragment>
+
 </navigation>
