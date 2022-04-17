@@ -5,7 +5,28 @@
     android:orientation="vertical"
     android:gravity="center_vertical">
 
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="visible"
+        android:layout_marginBottom="10dp"
+        android:textSize="55dp"
+        android:textStyle="bold"
+        android:text="STORIKO"
+        android:textColor="@color/black"/>
 
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="visible"
+        android:layout_marginBottom="35dp"
+        android:textSize="20dp"
+        android:text="Employee Edition"
+        android:textColor="#555555"/>
 
 
 
@@ -13,12 +34,14 @@
     <EditText
         android:id="@+id/employee_email"
         android:hint="@string/employee_email"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/stroke_box"
         android:gravity="center_horizontal"
         android:padding="10dp"
         android:layout_marginBottom="30dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
         android:layout_gravity="center"
         android:textSize="25dp"
         />
@@ -27,11 +50,13 @@
         android:id="@+id/employee_password"
         android:inputType="textPassword"
         android:hint="@string/employee_password"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/stroke_box"
         android:gravity="center_horizontal"
         android:padding="10dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginBottom="30dp"
         android:layout_gravity="center"
         android:textSize="25dp"
@@ -56,7 +81,7 @@
         android:textSize="15dp"
         android:layout_gravity="center"
         android:text=""
-        android:textColor= "@color/strong_orange"/>
+        android:textColor= "#FF0000"/>
 
 
 </LinearLayout>

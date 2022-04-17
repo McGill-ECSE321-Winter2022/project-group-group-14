@@ -128,66 +128,10 @@ public class MainActivity extends AppCompatActivity {
 
                 refreshErrorMessage();
             }
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                try {
-//                    error += errorResponse.get("message").toString();
-//                } catch (JSONException e) {
-//                    error += e.getMessage();
-//                }
-//                refreshErrorMessage();
-//            }
+
         });
     }
 
-
-//    public static void login(View v){
-//        error="";
-//        final TextView email = (EditText) findViewById(R.id.employee_email);
-//        final TextView password = (EditText) findViewById(R.id.employee_password);
-//        HttpUtils.get("employees/login/" + email.getText() + '/' + password.getText(), new RequestParams(), new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                System.out.println(response.toString());
-//                refreshErrorMessage();
-//
-////                Intent intent = new Intent(MainActivity.this, MainFragment.class);
-////                startActivity(intent);
-//            }
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, String errormsg, Throwable throwable) {
-//
-//                error += errormsg;
-//
-//                refreshErrorMessage();
-//            }
-//        });
-//    }
-
-
-//    public void addCustomer(View v) {
-//        error = "";
-//        final TextView tv = (TextView) findViewById(R.id.newcustomer_name);
-//        HttpUtils.post("customers/" + tv.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
-//
-////            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                refreshErrorMessage();
-//                tv.setText("");
-//            }
-//
-////            @Override
-//
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                try {
-//                    error += errorResponse.get("message").toString();
-//                } catch (JSONException e) {
-//                    error += e.getMessage();
-//                }
-//                refreshErrorMessage();
-//            }
-//        });
-//    }
 
     public void updateOrder(View v) {
         error="";
@@ -208,6 +152,14 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(response.toString());
                 status1.setText("Order number "+ orderId.getText() + " was updated successfully!");
                 refreshErrorMessage();
+                idField.setText(orderId.getText());
+                try{
+                    typeField.setText(response.getString("orderType"));
+                    statusField.setText(""+response.getString("orderStatus"));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 orderId.setText("");
 
             }
@@ -243,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                orderId.setText("");
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, String errormsg, Throwable throwable) {
