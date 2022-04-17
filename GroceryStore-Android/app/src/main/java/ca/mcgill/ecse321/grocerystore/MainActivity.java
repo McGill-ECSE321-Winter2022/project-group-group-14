@@ -162,6 +162,31 @@ public class MainActivity extends AppCompatActivity {
 //        });
 //    }
 
+    public void updateOrder(View v) {
+        error="";
+        final TextView orderId = (EditText) findViewById(R.id.orderid_field);
+        final TextView status1 = (TextView) findViewById(R.id.status1);
+
+
+        HttpUtils.post("orders/status/update/" + orderId.getText()  , new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                System.out.println(response.toString());
+                status1.setText("Order number "+ orderId.getText() + " was updated successfully!");
+                refreshErrorMessage();
+                orderId.setText("");
+
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String errormsg, Throwable throwable) {
+
+                error += errormsg;
+
+                refreshErrorMessage();
+            }
+        });
+    }
+
     private Bundle getTimeFromLabel(String text) {
         Bundle rtn = new Bundle();
         String comps[] = text.toString().split(":");
