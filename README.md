@@ -118,5 +118,5 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Yakir Bender |  |  |
 | Clarissa Baciu | 100+ | Lead backend engineer, task distribution, front end development |
 | Samuel Valentine | 75 | Minutes organiser and scribe, development, documentation |
-| Youssof Mohamed | | |
+| Youssof Mohamed | 80 | backend development, code cleaning, frontend design |
 | Minkyu Park | | |
