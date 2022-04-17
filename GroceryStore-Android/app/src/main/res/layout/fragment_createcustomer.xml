@@ -18,11 +18,14 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:visibility="gone"
+            android:layout_marginBottom="15dp"
             android:text=""
             android:textColor="#FF0000"/>
 
+
+
         <EditText
-            android:id="@+id/field"
+            android:id="@+id/email_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -53,6 +56,7 @@
             android:gravity="center"
             android:background="@drawable/stroke_box"
             android:padding="7dp"
+            android:inputType="textPassword"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="17dp"
@@ -89,8 +93,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:onClick="createCustomer"
             android:text="@string/createcustomer_button"
+            android:onClick="createCustomer"
             tools:layout_editor_absoluteX="119dp"
             tools:layout_editor_absoluteY="134dp" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:visibility="visible"
+            android:layout_marginTop="15dp"
+            android:textSize="15dp"
+            android:text=""
+            android:textColor= "@color/strong_orange"/>
 </LinearLayout>
