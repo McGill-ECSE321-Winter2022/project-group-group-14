@@ -47,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        binding.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         // INSERT TO END OF THE METHOD AFTER AUTO-GENERATED CODE
         // initialize error message text view
@@ -138,6 +138,32 @@ public class MainActivity extends AppCompatActivity {
 //            }
         });
     }
+
+
+//    public static void login(View v){
+//        error="";
+//        final TextView email = (EditText) findViewById(R.id.employee_email);
+//        final TextView password = (EditText) findViewById(R.id.employee_password);
+//        HttpUtils.get("employees/login/" + email.getText() + '/' + password.getText(), new RequestParams(), new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                System.out.println(response.toString());
+//                refreshErrorMessage();
+//
+////                Intent intent = new Intent(MainActivity.this, MainFragment.class);
+////                startActivity(intent);
+//            }
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, String errormsg, Throwable throwable) {
+//
+//                error += errormsg;
+//
+//                refreshErrorMessage();
+//            }
+//        });
+//    }
+
+
 //    public void addCustomer(View v) {
 //        error = "";
 //        final TextView tv = (TextView) findViewById(R.id.newcustomer_name);
