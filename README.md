@@ -106,7 +106,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | --- | --- | --- |
 | name | #hours | Work description |
 | Yakir Bender |  |  |
-| Clarissa Baciu |  |  |
+| Clarissa Baciu |  12 | android development for employee update order page, code clean up, documentation  |
 | Samuel Valentine | 15 | Minutes organiser and scribe, login page and functionality in android application, documentation of how to use android application, Figuring out how Android Studio works |
 | Youssof Mohamed | | |
 | Minkyu Park | | |
@@ -116,7 +116,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | --- | --- | --- |
 | name | #hours | Work description |
 | Yakir Bender |  |  |
-| Clarissa Baciu | 12 | android development for employee update order page, code clean up, documentation |
+| Clarissa Baciu | 100+ | Lead Backend Engineer, task distribution, front end development |
 | Samuel Valentine | 75 | Minutes organiser and scribe, development, documentation |
 | Youssof Mohamed | | |
 | Minkyu Park | | |
