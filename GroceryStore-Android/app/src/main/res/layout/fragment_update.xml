@@ -14,51 +14,59 @@
 
 
 
+
         <TableLayout
             android:id="@+id/tableLayout1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-
             android:fadeScrollbars="false"
             android:isScrollContainer="true"
-
             android:gravity="center_vertical"
             android:padding="20dp"
             android:shrinkColumns="*"
+            android:stretchColumns="*" >
 
-            android:stretchColumns="*">
+            <TextView
+                android:id="@+id/status1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:textSize="20dp"
+                android:text=""
+                android:textColor= "@color/strong_orange"/>
+            <TextView
+                android:id="@+id/error"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:layout_marginBottom="15dp"
+                android:text=""
+                android:textColor="#FF0000"/>
 
             <TableRow
                 android:id="@+id/tableRow1"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-
+                android:layout_height="wrap_content"
                 android:background="#FFA500">
-
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_column="1"
-
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:layout_column="0"
                     android:gravity="center"
                     android:text="Id"
                     android:textColor="@color/white"
                     android:textSize="20dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:gravity="center"
-                    android:text="Cost"
-                    android:textColor="@color/white"
-                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_column="3"
+                    android:layout_column="1"
                     android:gravity="center"
                     android:text="Type"
                     android:textColor="@color/white"
@@ -67,89 +75,56 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_column="4"
+                    android:layout_column="2"
                     android:gravity="center"
                     android:text="Status"
                     android:textColor="@color/white"
                     android:textSize="20dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="5"
-                    android:gravity="center"
-                    android:text="Update"
-                    android:textColor="@color/white"
-                    android:textSize="20dp" />
+
             </TableRow>
 
             <TableRow
-                android:background="@drawable/border"
                 android:id="@+id/tableRow2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp">
 
                 <TextView
-                    android:id="@+id/id"
+                    android:id="@+id/id_field"
+                    android:background="@drawable/border"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_column="0"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text=""
+                    android:textSize="20dp" />
+
+
+                <TextView
+                    android:id="@+id/type_field"
+                    android:background="@drawable/border"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_column="1"
                     android:gravity="center"
-                    android:text="1"
-                    android:textSize="17dp" />
+                    android:text=""
+                    android:textSize="20dp" />
 
                 <TextView
-                    android:id="@+id/cost"
+                    android:id="@+id/status_field"
                     android:background="@drawable/border"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+
                     android:layout_column="2"
                     android:gravity="center"
-                    android:text="$50.00"
-                    android:textSize="17dp" />
+                    android:text=""
 
-                <TextView
-                    android:id="@+id/type"
-                    android:background="@drawable/border"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_column="3"
-                    android:gravity="center"
-                    android:text="Delivery"
-                    android:textSize="17dp" />
+                    android:textSize="20dp" />
 
-                <TextView
-                    android:id="@+id/status"
-                    android:background="@drawable/border"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:layout_column="4"
-                    android:gravity="center"
-                    android:text="ReadyForPickUp"
-
-                    android:textSize="17dp" />
-                <RelativeLayout
-
-                    android:background="@drawable/border"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_column="5"
-                    android:onClick="addPerson"
-                    android:text="@string/update_button"
-
-                    >
-                    <Button
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_column="5"
-                        android:onClick="addPerson"
-                        android:text="@string/update_button" />
-                </RelativeLayout>
             </TableRow>
 
             <EditText
@@ -162,10 +137,20 @@
                 android:padding="7dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="25dp"
                 android:hint="@string/orderId_hint"/>
 
+            <Button
+                android:id="@+id/button_viewOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:text="@string/view_button"
+                android:onClick="viewOrder"
+                tools:layout_editor_absoluteX="119dp"
+                tools:layout_editor_absoluteY="134dp" />
             <Button
                 android:id="@+id/button_updateOrder"
                 android:layout_width="wrap_content"
@@ -175,25 +160,6 @@
                 android:onClick="updateOrder"
                 tools:layout_editor_absoluteX="119dp"
                 tools:layout_editor_absoluteY="134dp" />
-            <TextView
-                android:id="@+id/status1"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:visibility="visible"
-                android:layout_marginTop="15dp"
-                android:textSize="15dp"
-                android:text=""
-                android:textColor= "@color/strong_orange"/>
-            <TextView
-                android:id="@+id/error"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:visibility="gone"
-                android:layout_marginBottom="15dp"
-                android:text=""
-                android:textColor="#FF0000"/>
-            
-
 
         </TableLayout>
 
