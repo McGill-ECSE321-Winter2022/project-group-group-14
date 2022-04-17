@@ -1,11 +1,6 @@
 <template>
   <div>
-      <div id="popup1" class="overlay" v-if="errorInventory">
-        <div class="popup">
-            <h5>{{ errorInventory }}</h5>
-            <button class="mediumButton" onClick="window.location.reload();">Close</button>
-        </div>
-    </div>
+
     <CustomerNavigationBar></CustomerNavigationBar>
 
       <div id="popup2" class="overlay" v-if="successMsg">
@@ -63,18 +58,14 @@
 
 <script >
 import axios from 'axios'
-var config = require('../../../config')
 import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
 
-// var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-// var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
-  // headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })  
   
 
@@ -91,7 +82,6 @@ export default {
         orderId: this.$route.params.orderId,
         groceryOrders: [],
         newGroceryOrder: {
-            // orderId:this.$route.params.orderId,
             orderId:'',
             totalCost:'',
             orderType:'',
@@ -108,8 +98,6 @@ export default {
           quantity:'',
           availability: ''
         }, 
-        errorInventory: '',
-        successMsg: '',
         response: []
         }
     },
@@ -117,22 +105,20 @@ export default {
     // Initializing persons from backend
         AXIOS.get('/inventoryItems/get', {}, {})
         .then(response => {
-            // JSON responses are automatically parsed.
             this.inventoryItems = response.data
         })
         .catch(e => {
-            this.errorInventory = e
+          var errorMsg = e.response.data
+          alert(errorMsg)
         }),
         
           AXIOS.get('/orders/'.concat(this.orderId),{},{})
           .then(response => {
-              // JSON responses are automatically parsed.
               this.groceryOrders.push(response.data)
-              console.log(response.data)
           })
           .catch(e => {
-              this.errorInventory = e.response.data
-              console.log(e.response.data)
+            var errorMsg = e.response.data
+            alert(errorMsg)
           })
        
     },
@@ -140,29 +126,22 @@ export default {
         addOrderItems: function (orderId,itemName,quantity) {
             AXIOS.post('/orders/add/'.concat(orderId), {}, {params: {itemName: itemName, quantity: quantity}})
             .then(response => {
-            // JSON responses are automatically parsed.
                 this.groceryOrders.push(response.data)
-                console.log(response.data)
-                this.errorInventory = ''
                 this.newInventoryItem = ''
-                this.successMsg = 'Successfully added!'
             })
             .catch(e => {
                 var errorMsg = e.response.data
-                console.log(errorMsg)
-                this.errorInventory = errorMsg
+                alert(errorMsg)
             })
         },
         getOrder: function (email){
           AXIOS.get('/orders/customer/'.concat(email),{},{})
           .then(response => {
-              // JSON responses are automatically parsed.
               this.groceryOrders = response.data
-              console.log(response.data)
           })
           .catch(e => {
-              this.errorInventory = e.response.data
-              console.log(e.response.data)
+              var errorMsg = e.response.data
+              alert(errorMsg)
           })
 
 
@@ -170,17 +149,16 @@ export default {
         getOrderById: function (id){
           AXIOS.get('/orders/'.concat(id),{},{})
           .then(response => {
-              // JSON responses are automatically parsed.
               this.groceryOrders.push(response.data)
-              console.log(response.data)
           })
           .catch(e => {
-              this.errorInventory = e.response.data
-              console.log(e.response.data)
+              var errorMsg = e.response.data
+              alert(errorMsg)
           })
 
 
         }
+
 
     },  
 }
@@ -209,27 +187,7 @@ label {
   max-height: 450px;
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  opacity: 100%;
-  z-index: 100;
-}
 
-.popup {
-  margin: auto;
-  margin-top: 40vh;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  transition: all 5s ease-in-out;
-}
 
 .verticalandhorizontal-center {
     padding: 2% 6% 2% 6%;

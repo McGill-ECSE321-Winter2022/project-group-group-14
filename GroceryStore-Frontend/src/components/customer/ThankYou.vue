@@ -4,6 +4,7 @@
         <div class="verticalandhorizontal-center">
             <h2 class="heading">Thank you for your order!</h2>
             <br>
+
             <div v-if ="orderId">
                 <h5>Order Number : {{orderId}}</h5>
             </div>
@@ -17,6 +18,7 @@
                 <img src="@/assets/status_p2.png" v-if="p2" style = "width : 500px; ">
                 <img src="@/assets/status_p3.png" v-if="p3" style = "width : 500px; ">
                 <img src="@/assets/status_p4.png" v-if="p4" style = "width : 500px; ">
+
             </div> 
             <br>
             <br>
@@ -27,8 +29,7 @@
             <br>
             <br>
             <br>
-            <!-- display store information here in case of issue :
-            "Please contact customer support at ... in case of issues." -->
+
         </div>
     </div>
 </template>
@@ -39,13 +40,10 @@
 import axios from 'axios'
 import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
 
-var config = require('../../../config')
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
 
-// var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-// var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
@@ -64,8 +62,6 @@ export default{
             orderId: this.$route.params.orderId,
             imageUrl : "",
             groceryOrders :[],
-            error: '',
-            successMsg:'',
             response: [],
             d1:'',
             d2:'',
@@ -78,16 +74,6 @@ export default{
         }
     },
     created: function() {
-        //   AXIOS.get('/orders/customer/latest/'.concat(this.curremail),{},{})
-        //   .then(response => {
-        //       // JSON responses are automatically parsed.
-        //       this.orderItems.push(response.data)
-        //       console.log(response.data)
-        //   })
-        //   .catch(e => {
-        //     //   this.errorInventory = e.response.data
-        //     //   console.log(e.response.data)
-        //   }),
             AXIOS.get('/orders/'.concat(this.orderId),{},{})
             .then(response => {
                 // JSON responses are automatically parsed.
@@ -96,8 +82,6 @@ export default{
                 console.log(response.data)
             })
             .catch(e => {
-                // this.errorInventory = e.response.data
-                // console.log(e.response.data)
             })
     },
     methods:{
@@ -197,9 +181,6 @@ export default{
                     return "Your latest order has been completed";
                 }
             }
-            // this.imageUrl = "http://127.0.0.1:8087/static/img/status_d1.8d0d7b9.jpg";
-            console.log(this.imageUrl);
-            // this.imageUrl = "../../assets/orange1.jpeg";
             return "You have no active order."; 
         },
         returnUrl: function(){

@@ -1,49 +1,7 @@
 <template>
   <div class="modEmp">
 
-      <div id="popup1" class="overlay" v-if="errorEmployee">
-          <div class="popup">
-            <h5>{{ errorEmployee}}</h5>
-            <!-- <button class="mediumButton" >Close</button> -->
-            <button class="mediumButton" onClick="window.location.reload();">Close</button>
-          </div>
-        </div>
-        <div id="popup1" class="overlay" v-if="errorUpdateEmployee">
-          <div class="popup">
-            <h5>{{ errorUpdateEmployee}}</h5>
-            <!-- <button class="mediumButton" >Close</button> -->
-            <button class="mediumButton" onClick="window.location.reload();">Close</button>
-          </div>
-        </div>
-  <b-navbar fixed="top" toggleable="lg">
-      <router-link to="/ownerWelcomePage">
-        <b-navbar-brand>STORIKO</b-navbar-brand>
-      </router-link>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item-dropdown text="InventoryItems">
-              <b-dropdown-item href="#/showInventoryItemsOwner">Show Inventory Items</b-dropdown-item>
-              <b-dropdown-item href="#/modifyItems">Modify Inventory Items</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item-dropdown text="Schedules">
-              <b-dropdown-item href="#/modifyStoreSchedule">Modify Store Schedule</b-dropdown-item>
-              <b-dropdown-item href="#/viewStoreScheduleOwner">View Store Schedule</b-dropdown-item>
-              <b-dropdown-item href="#/employeeSchedules">Employee Schedules</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item-dropdown text="Modify Accounts">
-              <b-dropdown-item href="#/modifyEmployees">Modify Employees</b-dropdown-item>
-              <b-dropdown-item href="#/modifyCustomers">Modify Customers</b-dropdown-item>
-              <b-dropdown-item href="#/deleteOwnerAccount">Delete Account</b-dropdown-item>
-              <b-dropdown-item href="#/showUsers">View All Accounts</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item href="#/report">Report</b-nav-item>
-          </b-navbar-nav>
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item href="#/">Log Out</b-nav-item>
-          </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+  <owner-navigation-bar></owner-navigation-bar>
   <div class="verticalandhorizontal-center">
 
         <h2 class="heading">Create Employee Account</h2>
@@ -107,10 +65,7 @@
               <button class="largeButton" type="UpdateButton" @click="updateEmployeeAccount(oldEmployeeAccount.usernameToChange,newEmployeeAccount.email,newEmployeeAccount.username,newEmployeeAccount.password)">
                 Update Account
               </button>  
-              <!-- <br>
-              <button class="largeButton" type="CreateButton">
-                Update Account
-              </button> -->
+              
 
         </div>
 
@@ -119,7 +74,7 @@
 
 <script>
 import axios from 'axios'
-// var config = require('../../../config')
+import OwnerNavigationBar from './OwnerNavigationBar.vue'
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
@@ -130,6 +85,7 @@ var AXIOS = axios.create({
   })  
 
 export default {
+  components: { OwnerNavigationBar },
     name: 'createemployee',
     data () {
         return {
@@ -142,47 +98,31 @@ export default {
                 username: '',
                 password: ''
             },
-            errorEmployee: '',
-            errorUpdateEmployee: '',
             reponse: []
         }
     },
-
-    // created: function(){
-    //     AXIOS.post('/customers/youssof@gmail.com/youssof5/123Abc/1111stavenue/5148888888')
-    //     .then(response => {
-    //         this.customers = response.data
-    //     })
-    //     .catch(e => {
-    //         this.errorCustomer = e
-    //     })
-    // },
 
     methods: {
         createEmployeeAccount: function (newEmail, newUsername, newPassword){
             AXIOS.post('/employees/'.concat(newEmail).concat('/').concat(newUsername).concat('/').concat(newPassword),{},{})
             .then(response => {
                 this.employees.push(response.data)
-                this.errorEmployee = newEmail + ' is created successfully!'
                 this.newEmployeeAccount = ''
             })
             .catch(e => {
                 var errorMsg = e.response.data
-                console.log(errorMsg)
-                this.errorEmployee = errorMsg
+                alert(errorMsg)
             })
         },
         updateEmployeeAccount: function (oldUsername, newEmail, newUsername, newPassword){
             AXIOS.put('/employees/update'.concat('/').concat(oldUsername).concat('/').concat(newEmail).concat('/').concat(newUsername).concat('/').concat(newPassword),{},{})
             .then(response => {
                 this.employees.push(response.data)
-                this.errorUpdateEmployee = newEmail + ' is updated successfully!'
                 this.newEmployeeAccount = ''
             })
             .catch(e => {
                 var errorMsg = e.response.data
-                console.log(errorMsg)
-                this.errorUpdateEmployee = errorMsg
+                alert(errorMsg)
             })
         }
     }
@@ -191,27 +131,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  opacity: 100%;
-  z-index: 100;
-}
 
-.popup {
-  margin: auto;
-  margin-top: 40vh;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  transition: all 5s ease-in-out;
-}
 .verticalandhorizontal-center {
     padding: 2% 6% 2% 6%;
     background-color: white;

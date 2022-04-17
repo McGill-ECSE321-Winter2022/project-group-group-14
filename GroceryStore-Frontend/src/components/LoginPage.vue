@@ -221,12 +221,8 @@ export default {
           console.log(response.data)
         })
         .catch(e => {
-          this.errorOwner = e.reponse.data
-          console.log("didnt work")
-        })
-        AXIOS.get('/customers/getAll')
-        .then(response=> {
-          console.log(response.data)
+          // this.errorOwner = e.reponse.data
+          alert(errorMsg)
         })
     },
 
@@ -240,7 +236,8 @@ export default {
             .catch(e => {
                 var errorMsg = e.response.data
                 console.log(errorMsg)
-                this.errorCustomer = e.response.data
+                alert(errorMsg)
+                // this.errorCustomer = e.response.data
             })
         },
 
@@ -253,7 +250,8 @@ export default {
             .catch(e => {
                 var errorMsg = e.response.data
                 console.log(errorMsg)
-                this.errorEmployee = e.response.data
+                alert(errorMsg)
+                // this.errorEmployee = e.response.data
             })
         },
 
@@ -266,7 +264,8 @@ export default {
             .catch(e => {
                 var errorMsg = e.response.data
                 console.log(errorMsg)
-                this.errorOwner = e.response.data
+                alert(errorMsg)
+                // this.errorOwner = e.response.data
             })
         },
 
@@ -279,7 +278,8 @@ export default {
                 var errorMsg = e.response.data
                 // var errorMsg = "could not create owner"
                 console.log(errorMsg)
-                this.errorOwner = e.response.data
+                alert(errorMsg)
+                // this.errorOwner = e.response.data
             })
       }
     

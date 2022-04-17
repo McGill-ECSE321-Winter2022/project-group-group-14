@@ -1,41 +1,8 @@
 <template>
-  <div class="storeschedule">
-    <div id="popup1" class="overlay" v-if="errorEmployee">
-          <div class="popup">
-            <h5>{{ errorEmployee }}</h5>
-            <!-- <button class="mediumButton" >Close</button> -->
-            <button class="mediumButton" onClick="window.location.reload();">Close</button>
-          </div>
-        </div>
-  <b-navbar fixed="top" toggleable="lg">
-      <router-link to="/ownerWelcomePage">
-        <b-navbar-brand>STORIKO</b-navbar-brand>
-      </router-link>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item-dropdown text="InventoryItems">
-              <b-dropdown-item href="#/showInventoryItemsOwner">Show Inventory Items</b-dropdown-item>
-              <b-dropdown-item href="#/modifyItems">Modify Inventory Items</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item-dropdown text="Schedules">
-              <b-dropdown-item href="#/modifyStoreSchedule">Modify Store Schedule</b-dropdown-item>
-              <b-dropdown-item href="#/viewStoreScheduleOwner">View Store Schedule</b-dropdown-item>
-              <b-dropdown-item href="#/employeeSchedules">Employee Schedules</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item-dropdown text="Modify Accounts">
-              <b-dropdown-item href="#/modifyEmployees">Modify Employees</b-dropdown-item>
-              <b-dropdown-item href="#/modifyCustomers">Modify Customers</b-dropdown-item>
-              <b-dropdown-item href="#/deleteOwnerAccount">Delete Account</b-dropdown-item>
-              <b-dropdown-item href="#/showUsers">View All Accounts</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item href="#/report">Report</b-nav-item>
-          </b-navbar-nav>
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item href="#/">Log Out</b-nav-item>
-          </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+  <div>
+  
+  
+ <owner-navigation-bar></owner-navigation-bar>
 <div class="bg-color-gradient">
 
   <div class="verticalandhorizontal-center">
@@ -99,42 +66,22 @@
 </template>
 
 <script src="./EmployeeSchedule.js">
+
 </script>
 
 
 <style scoped>
 
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  opacity: 100%;
-  z-index: 100;
-}
 
-.popup {
-  margin: auto;
-  margin-top: 40vh;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  transition: all 5s ease-in-out;
-}
+  h1, h2 {
+    font-weight: normal;
+  }
 
-h1, h2 {
-  font-weight: normal;
-}
+  .page a {
+    font-size: 13px;
+  }
 
-.page a {
-  font-size: 13px;
-}
-
-.verticalandhorizontal-center {
+  .verticalandhorizontal-center {
     padding: 2% 6% 2% 6%;
     background-color: white;
     border-radius: 4%;

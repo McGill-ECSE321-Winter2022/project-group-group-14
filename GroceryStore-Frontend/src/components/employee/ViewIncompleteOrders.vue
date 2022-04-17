@@ -50,13 +50,10 @@
 
 <script>
 import axios from 'axios'
-var config = require('../../../config')
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
 
-// var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-// var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
@@ -77,8 +74,6 @@ export default{
             orderItems: [],
             customer:''
         }, 
-        errorOrder: '',
-        successMsg:'',
         response: []
     }
   },
@@ -86,27 +81,21 @@ export default{
 // Initializing persons from backend
       AXIOS.get('/orders/toUpdate')
       .then(response => {
-          // JSON responses are automatically parsed.
           this.groceryOrders = response.data
 
       }).catch(e => {
-          this.successMsg = ''
-          var errorMsg = e.response.data
-          console.log(errorMsg)
-          this.errorOrder = errorMsg
+        var errorMsg = e.response.data
+        alert(errorMsg)
       })
     },
     methods:{
       updateOrderStatus: function(orderId){
         AXIOS.post('/orders/status/update/'.concat(orderId),{},{})
         .then(response => {
-            // JSON responses are automatically parsed.
-            console.log(response.data)
             this.newGroceryOrder = response.data
         }).catch(e => {
           var errorMsg = e.response.data
-          console.log(errorMsg)
-          this.errorOrder = errorMsg
+          alert(errorMsg)
       })
 
       }
