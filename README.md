@@ -108,7 +108,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Yakir Bender |  |  |
 | Clarissa Baciu |  12 | Android development for employee update order page, code clean up, documentation  |
 | Samuel Valentine | 15 | Minutes organiser and scribe, login page and functionality in android application, documentation of how to use android application, Figuring out how Android Studio works |
-| Youssof Mohamed | | |
+| Youssof Mohamed | 15 | 'Create Customer' page design and functionality, Navigation between pages, code clean up |
 | Minkyu Park | | |
 
 ## Effort Table (All Deliverables)
