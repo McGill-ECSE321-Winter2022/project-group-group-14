@@ -1,58 +1,5 @@
 <template>
 <div>
-        <div id="popup1" class="overlay" v-if="successCustomer">
-          <div class="popup">
-            <h5>{{ successCustomer }}</h5>
-            <router-link :to="{ name: 'customerWelcomePage', params: { email: account.email }}">
-            <button class="mediumButton">Login</button>
-            </router-link>
-          </div>
-        </div>
-
-        <div id="popup1" class="overlay" v-if="errorCustomer">
-          <div class="popup">
-            <h5>{{ errorCustomer }}</h5>
-            <router-link to="/">    
-            <button class="mediumButton" onClick="window.location.reload();">Close</button>
-            </router-link> 
-          </div>
-        </div>
-
-        <div id="popup1" class="overlay" v-if="successEmployee">
-          <div class="popup">
-            <h5>{{ successEmployee }}</h5>
-            <router-link :to="{ name: 'employeeWelcomePage', params: { email: account.email }}">
-            <button class="mediumButton">Login</button>
-            </router-link>
-          </div>
-        </div>
-
-        <div id="popup1" class="overlay" v-if="errorEmployee">
-          <div class="popup">
-            <h5>{{ errorEmployee }}</h5>
-            <router-link to="/">    
-            <button class="mediumButton" onClick="window.location.reload();">Close</button>
-            </router-link> 
-          </div>
-        </div>
-
-        <div id="popup1" class="overlay" v-if="successOwner">
-          <div class="popup">
-            <h5>{{ successOwner }}</h5>
-            <router-link :to="{ name: 'ownerWelcomePage', params: { email: account.email }}">
-            <button class="mediumButton">Login</button>
-            </router-link>
-          </div>
-        </div>
-
-        <div id="popup1" class="overlay" v-if="errorOwner">
-          <div class="popup">
-            <h5>{{ errorOwner }}</h5>
-            <router-link to="/">    
-            <button class="mediumButton" onClick="window.location.reload();">Close</button>
-            </router-link> 
-          </div>
-        </div>
 
   <div class="background-img">
     <img src="../assets/orange5.jpg">
@@ -80,16 +27,6 @@
             />
           </div>
 
-          <!-- <div class="form-floating mb-3">
-            <input
-              type="text"
-              v-model="account.username"
-              class="form-control"
-              id="floatingInput"
-              placeholder="Username"
-              required
-            />
-          </div> -->
 
           <div class="form-floating mb-3">
             <input
@@ -105,19 +42,6 @@
           <br>
           
 
-          <!-- <form action="/action_page.php">
-            <label for="cars">Account Type:</label>
-            <select name="accountType" id="accountType">
-              <option value="customer">Customer</option>
-              <option value="employee">Employee</option>
-              <option value="owner">Owner</option>
-            </select>
-          </form> -->
-
-          <!-- 
-          <br>
-          <br> -->
-
 
               <button :class="{'disabled' : !account.email || !account.password}" v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginCustomer(account.email,account.password)">
                 
@@ -125,12 +49,6 @@
 
               </button>
 
-
-              <!-- <router-link :to="{ name: 'customerWelcomePage', params: { email: account.email }}">
-                <button v-bind:disabled="!account.email || !account.password" class="mediumButton">
-                  Customer Log In
-                </button>
-              </router-link> -->
 
               <br>
 
@@ -140,12 +58,6 @@
 
               </button>
 
-              <!-- <router-link :to="{ name: 'employeeWelcomePage', params: { email: account.email }}">
-                <button v-bind:disabled="!account.email || !account.password" class="mediumButton">
-                  Employee Log In
-                </button>
-              </router-link> -->
-
               <br>
 
               <button :class="{'disabled' : !account.email || !account.password}" v-bind:disabled="!account.email || !account.password" class="mediumButton" @click="loginOwner(account.email,account.password)">
@@ -154,11 +66,6 @@
 
               </button>
 
-              <!-- <router-link :to="{ name: 'ownerWelcomePage', params: { email: account.email }}">
-                <button v-bind:disabled="!account.email || !account.password" class="mediumButton">
-                  Owner Log In
-                </button>
-              </router-link> -->
 
               <br>
              
@@ -183,7 +90,6 @@
 
 <script>
 import axios from 'axios'
-// var config = require('../../../config')
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
@@ -204,12 +110,6 @@ export default {
                 email: '',
                 password: ''
             },
-            errorCustomer: '',
-            successCustomer: '',
-            errorEmployee: '',
-            successEmployee: '',
-            errorOwner: '',
-            successOwner: '',
             reponse: []
         }
     },
@@ -221,7 +121,7 @@ export default {
           console.log(response.data)
         })
         .catch(e => {
-          // this.errorOwner = e.reponse.data
+          var errorMsg = e.response.data
           alert(errorMsg)
         })
     },
@@ -230,58 +130,39 @@ export default {
       loginCustomer: function (email, password){
 
         AXIOS.get('/customers/login/'.concat(email).concat("/").concat(password))
-        .then(response => {
-                this.successCustomer = email + ' is logged in successfully!'
+        .then(() => {
+          this.$router.push({ name: 'customerWelcomePage', params: { email: this.account.email }})
             })
             .catch(e => {
                 var errorMsg = e.response.data
-                console.log(errorMsg)
                 alert(errorMsg)
-                // this.errorCustomer = e.response.data
             })
         },
 
       loginEmployee: function (email, password){
 
         AXIOS.get('/employees/login/'.concat(email).concat("/").concat(password))
-        .then(response => {
-                this.successEmployee = email + ' is logged in successfully!'
+        .then(() => {
+          this.$router.push({ name: 'employeeWelcomePage', params: { email: this.account.email }})
             })
             .catch(e => {
                 var errorMsg = e.response.data
-                console.log(errorMsg)
                 alert(errorMsg)
-                // this.errorEmployee = e.response.data
             })
         },
 
       loginOwner: function (email, password){
 
         AXIOS.get('/owners/login/'.concat(email).concat("/").concat(password))
-        .then(response => {
-                this.successOwner = email + ' is logged in successfully!'
+        .then(() => {
+          this.$router.push({ name: 'ownerWelcomePage', params: { email: this.account.email }})
             })
             .catch(e => {
                 var errorMsg = e.response.data
-                console.log(errorMsg)
                 alert(errorMsg)
-                // this.errorOwner = e.response.data
             })
         },
 
-      createOwner: function (){
-        AXIOS.post('/owners/dude@gmail.com/dude/123Abc')
-        .then(response => {
-                this.successOwner = email + ' is logged in successfully!'
-            })
-            .catch(e => {
-                var errorMsg = e.response.data
-                // var errorMsg = "could not create owner"
-                console.log(errorMsg)
-                alert(errorMsg)
-                // this.errorOwner = e.response.data
-            })
-      }
     
     }
 }
