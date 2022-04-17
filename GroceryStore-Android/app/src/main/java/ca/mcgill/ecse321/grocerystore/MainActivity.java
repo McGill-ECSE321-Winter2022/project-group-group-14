@@ -16,14 +16,18 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import ca.mcgill.ecse321.grocerystore.databinding.ActivityMainBinding;
-import cz.msebera.android.httpclient.entity.mime.Header;
+//import cz.msebera.android.httpclient.entity.mime.Header;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import cz.msebera.android.httpclient.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity {
     private String error = null;
@@ -56,27 +60,23 @@ public class MainActivity extends AppCompatActivity {
         refreshErrorMessage();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+//
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_home) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -97,29 +97,70 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void addCustomer(View v) {
-        error = "";
-        final TextView tv = (TextView) findViewById(R.id.newcustomer_name);
-        HttpUtils.post("customers/" + tv.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
+    public void createCustomer(View v) {
+        error="";
+        final TextView email = (EditText) findViewById(R.id.email_field);
+        final TextView username = (EditText) findViewById(R.id.username_field);
+        final TextView address = (EditText) findViewById(R.id.address_field);
+        final TextView phone = (EditText) findViewById(R.id.phone_field);
+        final TextView password = (EditText) findViewById(R.id.password_field);
+        final TextView status = (TextView) findViewById(R.id.status);
 
-//            @Override
+        String addressURL = address.getText().toString().replaceAll(" ","%20");
+        System.out.println("Sam was here");
+        HttpUtils.post("customers/" + email.getText() + '/' + username.getText() + '/' + password.getText() + '/' + phone.getText() + '/' + addressURL , new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                System.out.println(response.toString());
+                status.setText(username.getText() + " was created successfully!");
                 refreshErrorMessage();
-                tv.setText("");
+                email.setText("");
+                username.setText("");
+                password.setText("");
+                phone.setText("");
+                address.setText("");
             }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String errormsg, Throwable throwable) {
 
+                    error += errormsg;
+
+                refreshErrorMessage();
+            }
 //            @Override
-
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                try {
+//                    error += errorResponse.get("message").toString();
+//                } catch (JSONException e) {
+//                    error += e.getMessage();
+//                }
+//                refreshErrorMessage();
+//            }
         });
     }
+//    public void addCustomer(View v) {
+//        error = "";
+//        final TextView tv = (TextView) findViewById(R.id.newcustomer_name);
+//        HttpUtils.post("customers/" + tv.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
+//
+////            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                refreshErrorMessage();
+//                tv.setText("");
+//            }
+//
+////            @Override
+//
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                try {
+//                    error += errorResponse.get("message").toString();
+//                } catch (JSONException e) {
+//                    error += e.getMessage();
+//                }
+//                refreshErrorMessage();
+//            }
+//        });
+//    }
 
     private Bundle getTimeFromLabel(String text) {
         Bundle rtn = new Bundle();

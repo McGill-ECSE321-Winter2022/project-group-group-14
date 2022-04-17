@@ -17,7 +17,7 @@ android:gravity="center_vertical">
 
 
     <Button
-        android:id="@+id/button_logout"
+        android:id="@+id/button_tocreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -27,7 +27,7 @@ android:gravity="center_vertical">
         android:gravity="center_horizontal"
         android:text="@string/createcustomer_button" />
     <Button
-        android:id="@+id/button_tocreate"
+        android:id="@+id/button_toupdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -37,7 +37,7 @@ android:gravity="center_vertical">
         android:gravity="center_horizontal"
         android:text="update order" />
 <Button
-    android:id="@+id/button_toupdate"
+    android:id="@+id/button_logout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
