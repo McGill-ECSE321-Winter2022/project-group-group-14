@@ -99,6 +99,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 * [Meeting Minutes D4](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Meeting-Minutes--(Deliverable-4))
 * [Website User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-User---Guide)
 * [Android User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Android-User-Guide)
+* [Demo Screenshots](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Demo-Screenshots)
 
 ## Effort Table (D4)
 | Team Member | Time Spent (h) | Responsibilities | 
