@@ -6,9 +6,9 @@ This software will be made available via website, desktop application, and andro
 # Quick Links
 
 
-Learn to use our website with the [Website User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-User---Guide). 
+Learn to use our website with the [Website User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-User---Guide), or our Android app with the [Android User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Android-User-Guide).
 
-View our [Domain Model](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Domain-Model-Updated) and our [Design Decisions](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Specifications).  
+View our [Domain Model](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Domain-Model-Updated) and our [Design Decisions](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Specifications-Design-Decisions).  
 
 For the build setup, visit the [Frontend Build Setup](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/blob/main/GroceryStore-Frontend/README.md).
 
