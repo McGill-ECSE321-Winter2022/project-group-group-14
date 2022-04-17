@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import GroceryStore from '@/components/GroceryStore'
 import LoginPage from '@/components/LoginPage'
 //owner imports
 import EmployeeSchedules from '@/components/owner/EmployeeSchedules'
@@ -93,11 +92,6 @@ export default new Router({
       path: '/createCustomer',
       name: 'CreateCustomer',
       component: CreateCustomer
-    },
-    {
-      path: '/king',
-      name: 'GroceryStore',
-      component: GroceryStore
     },
     {
       path: '/modifyItems',

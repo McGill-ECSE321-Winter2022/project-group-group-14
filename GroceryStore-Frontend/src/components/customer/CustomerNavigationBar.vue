@@ -8,9 +8,6 @@
       <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
             
-            <!-- <b-nav-item href="#/customerWelcomePage/:email">Home</b-nav-item>
-            <b-nav-item href="#/showCustomerInventoryItems/:email">View Items</b-nav-item>
-            <b-nav-item href="#/viewCart/:email">View Cart</b-nav-item> -->
 
             <b-nav-item :to="{ name: 'customerWelcomePage', params: { email: email , orderId: orderId }}"> Home </b-nav-item>
             <b-nav-item :to="{ name: 'ShowCustomerInventoryItems', params: { email: email , orderId: orderId }}"> View Items </b-nav-item>

@@ -1,62 +1,9 @@
 <template>
   <div class="inventory">
-    <div class="overlay" v-if="errorInventory">
-      <div class="popup">
-        <h5>{{ errorInventory }}</h5>
-        <!-- <button class="mediumButton" >Close</button> -->
-        <router-link to="/showInventoryItemsOwner">
-          <button class="mediumButton">
-            Show All Items
-          </button>
-        </router-link>
-        <button class="mediumButton" @click="clearError()">Close</button>
-        
-        
-      </div>
-    </div>
-    <div class="overlay" v-if="successInventory">
-      <div class="popup">
-        <h5>{{ successInventory }}</h5>
-        <!-- <button class="mediumButton" >Close</button> -->
-        <router-link to="/showInventoryItemsOwner">
-          <button class="mediumButton">
-            Show All Items
-          </button>
-        </router-link>
-        <button class="mediumButton" onClick="window.location.reload();">Close</button>
-        
-        
-      </div>
-    </div>
-    <b-navbar fixed="top" toggleable="lg">
-      <router-link to="/ownerWelcomePage">
-        <b-navbar-brand>STORIKO</b-navbar-brand>
-      </router-link>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item-dropdown text="InventoryItems">
-              <b-dropdown-item href="#/showInventoryItemsOwner">Show Inventory Items</b-dropdown-item>
-              <b-dropdown-item href="#/modifyItems">Modify Inventory Items</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item-dropdown text="Schedules">
-              <b-dropdown-item href="#/modifyStoreSchedule">Modify Store Schedule</b-dropdown-item>
-              <b-dropdown-item href="#/viewStoreScheduleOwner">View Store Schedule</b-dropdown-item>
-              <b-dropdown-item href="#/employeeSchedules">Employee Schedules</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item-dropdown text="Modify Accounts">
-              <b-dropdown-item href="#/modifyEmployees">Modify Employees</b-dropdown-item>
-              <b-dropdown-item href="#/modifyCustomers">Modify Customers</b-dropdown-item>
-              <b-dropdown-item href="#/deleteOwnerAccount">Delete Account</b-dropdown-item>
-              <b-dropdown-item href="#/showUsers">View All Accounts</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item href="#/report">Report</b-nav-item>
-          </b-navbar-nav>
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item href="#/">Log Out</b-nav-item>
-          </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+    
+    <owner-navigation-bar></owner-navigation-bar>
+
+    
     <div class="bg-color-gradient">
       
         <div class="verticalandhorizontal-center">
@@ -151,73 +98,73 @@
         
   </div>
 </template>
+
 <script src="./modifyInventoryItem.js">
 </script>
+
 <style scoped>
-h2 {
-  font-size: 25px;
-}
-.form-group {
-  margin-bottom: 30px;
-}
 
-.no-margin {
-  margin-bottom: 0;
-}
+  h2 {
+    font-size: 25px;
+  }
+  .form-group {
+    margin-bottom: 30px;
+  }
 
-input {
-  height: 30px;
-}
+  .no-margin {
+    margin-bottom: 0;
+  }
+
+  input {
+    height: 30px;
+  }
 
 
-.verticalandhorizontal-center {
+  .verticalandhorizontal-center {
     padding: 2% 6% 2% 6%;
     background-color: white;
     border-radius: 4%;
     margin-top: 1%;
     box-shadow: 0 0 10px 7px rgb(0,0,0,0.3);
   }
-    .page a {
-        font-size: 13px;
-    }
+  .page a {
+    font-size: 13px;
+  }
 
-    .form {
-        margin-top: 140px;
-        margin-left: 550px;
-        margin-right: 550px;
-        margin-bottom: 20px;
-        display: grid;
-        row-gap: 10px;
-        column-gap: 90px;
-        grid-template-columns: auto;
-    }
-
-    /* .button {
-      margin-bottom: 30px;
-    } */
-
-    .mediumButton {
-      margin: 2%;
-    }
-
-    label {
-        font-size: 18px;
-        margin-bottom: 0;
-        font-weight: 700;
-    }
+  .form {
+    margin-top: 140px;
+    margin-left: 550px;
+    margin-right: 550px;
+    margin-bottom: 20px;
+    display: grid;
+    row-gap: 10px;
+    column-gap: 90px;
+    grid-template-columns: auto;
+  }
 
 
-    input {
-        border: 1px solid black;
-        border-radius: 4px;
-        text-align: center;
-        margin-bottom: 30px;
-    }
+  .mediumButton {
+    margin: 2%;
+  }
+
+  label {
+    font-size: 18px;
+    margin-bottom: 0;
+    font-weight: 700;
+  }
 
 
-.bg-color-gradient {
-  height: 100vh;
-}
+  input {
+    border: 1px solid black;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+
+  .bg-color-gradient {
+    height: 100vh;
+  }
     
   
 </style>

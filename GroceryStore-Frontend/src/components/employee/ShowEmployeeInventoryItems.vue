@@ -1,19 +1,6 @@
 <template>
   <div>
-  <div id="popup1" class="overlay" v-if="successMsg">
-    <div class="popup">
-      <h5>{{ successMsg }}</h5>
-       <button class="mediumButton" onClick="window.location.reload();">Close</button>
-
-    </div>
-    </div>
-    <div id="popup2" class="overlay" v-if="errorInventory">
-        <div class="popup">
-            <h5>{{ errorInventory }}</h5>
-            <button class="mediumButton" onClick="window.location.reload();">Close</button>
-        </div>
-    </div>
-
+  
   
   <b-navbar fixed="top" toggleable="lg">
       <router-link to="/employeeWelcomePage">
@@ -78,41 +65,21 @@
         <div v-if = "orderItems">
           <div v-for="index in (itemIndices)" :key=index >
                    
-                            <!-- <button class="button" @click="deleteItem(orderId, itemNames[index])" onClick="window.location.reload();"> - </button>  -->
                             {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 
-                            <!-- <button class="button" @click="addItem   (orderId, itemNames[index])" onClick="window.location.reload();"> + </button>  -->
                             
             
                 </div> 
-          <!-- <div v-for="orderItem in orderItems" :key=orderItem.name>
-            <ul style="list-style-type:square">
-            <li> {{ orderItem.name}} :  ${{ orderItem.price}}.00 </li>
-            </ul>  
-          </div> -->
         </div>
         <br>
         Total Cost : {{groceryOrders[0].totalCost}}
         <br>
         <br>
-        <!-- <div class="form-floating mb-3"> -->
-          <!-- <input v-model="orderId" placeholder="id"> -->
-          <!-- <p>Your order id is : {{ this.orderId }}</p> -->
           <router-link to="/employeeWelcomePage">
             <button class="largeButton" v-if="orderId" @click="placeOrder(orderId)">
                 Place Order
             </button>
           </router-link>
 
-
-            <!-- <input
-              type="text"
-              v-model="orderId"
-              class="form-control"
-              id="floatingInput"
-              placeholder="id"
-              required
-            /> -->
-        <!-- </div> -->
         </div>
         
 
@@ -131,13 +98,10 @@
 
 <script>
 import axios from 'axios'
-var config = require('../../../config')
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
 
-// var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-// var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
@@ -158,8 +122,6 @@ data () {
       price: '',
       currentStock: ''
     }, 
-    errorInventory: '',
-    successMsg:'',
     itemIndices:[],
     itemNames:[], 
     itemCosts:[],
@@ -172,32 +134,27 @@ created: function () {
 // Initializing persons from backend
     AXIOS.get('/inventoryItems/get')
     .then(response => {
-        // JSON responses are automatically parsed.
 
         this.inventoryItems = response.data
-         
-         
         
     })
     .catch(e => {
-        this.errorInventory = e
+      var errorMsg = e.response.data
+      alert(errorMsg)
     }),
         
       AXIOS.get('/orders/'.concat(this.orderId),{},{})
       .then(response => {
-          // JSON responses are automatically parsed.
           this.groceryOrders.push(response.data)
-          console.log(response.data)
       })
       .catch(e => {
-          this.errorInventory = e.response.data
-          console.log(e.response.data)
+        var errorMsg = e.response.data
+        alert(errorMsg)
       }),
       AXIOS.get('/orders/orderItems/'.concat(this.orderId),{},{})
       .then(response => {
           // JSON responses are automatically parsed.
           this.orderItems=response.data
-          console.log(response.data)
 
           this.itemIndices = [];
             this.itemNames = [];
@@ -211,25 +168,15 @@ created: function () {
                     this.itemQuantity[i] = quant.toString();
                     this.itemCosts[i] = cost.toString();
                 }else{
-                    // var number = 1;
                     this.itemQuantity.push(this.one);
                     this.itemIndices.push(this.itemIndices.length);
                     this.itemNames.push(this.orderItems[index].name);
                     this.itemCosts.push(this.orderItems[index].price.toString()); 
-                    // console.log(type);
-                    // this.itemCosts.push(items[index].price.toString());
                 }
 
             }
-
-            console.log(this.itemQuantity);
-            console.log(this.itemIndices);
-            console.log(this.itemNames);
-            console.log(this.itemCosts);
       })
       .catch(e => {
-          // this.errorInventory = e.response.data
-          // console.log(e.response.data)
       })
     
 },
@@ -239,8 +186,6 @@ created: function () {
       AXIOS.post('/orders/place/'.concat(orderId),{},{})
       .then(response => {
         this.groceryOrders.push(response.data)
-        console.log(response.data)
-        successMsg = " Order has been successfully placed!"
       })
       .catch(e => {
       })
@@ -250,14 +195,11 @@ created: function () {
             .then(response => {
             // JSON responses are automatically parsed.
                 this.groceryOrders.push(response.data)
-                console.log(response.data)
-                this.errorInventory = ''
                 this.newInventoryItem = ''
-                this.successMsg = 'Successfully added!'
             })
             .catch(e => {
-                this.errorInventory = e.response.data
-                console.log(errorInventory)
+              var errorMsg = e.response.data
+              alert(errorMsg)
             })
         }
   }
@@ -267,25 +209,16 @@ created: function () {
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 
 
-
-/* div.itemSelection {
-  background-color: #f7a851;
-  width: 110px;
-  height: 110px;
-  overflow: scroll;
-} */
 
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
   
-  /* table-layout : fixed; */
 }
 
 td, th {
@@ -350,28 +283,6 @@ label {
   width : 120%;
   height: 500px;
 
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  opacity: 100%;
-  z-index: 100;
-}
-
-.popup {
-  margin: auto;
-  margin-top: 40vh;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  transition: all 5s ease-in-out;
 }
 
 .verticalandhorizontal-center {

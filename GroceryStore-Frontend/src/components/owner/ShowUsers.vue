@@ -1,34 +1,6 @@
 <template>
   <div>
-    <b-navbar fixed="top" toggleable="lg">
-      <router-link to="/ownerWelcomePage">
-        <b-navbar-brand>STORIKO</b-navbar-brand>
-      </router-link>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item-dropdown text="InventoryItems">
-              <b-dropdown-item href="#/showInventoryItemsOwner">Show Inventory Items</b-dropdown-item>
-              <b-dropdown-item href="#/modifyItems">Modify Inventory Items</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item-dropdown text="Schedules">
-              <b-dropdown-item href="#/modifyStoreSchedule">Modify Store Schedule</b-dropdown-item>
-              <b-dropdown-item href="#/viewStoreScheduleOwner">View Store Schedule</b-dropdown-item>
-              <b-dropdown-item href="#/employeeSchedules">Employee Schedules</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item-dropdown text="Modify Accounts">
-              <b-dropdown-item href="#/modifyEmployees">Modify Employees</b-dropdown-item>
-              <b-dropdown-item href="#/modifyCustomers">Modify Customers</b-dropdown-item>
-              <b-dropdown-item href="#/deleteOwnerAccount">Delete Account</b-dropdown-item>
-              <b-dropdown-item href="#/showUsers">View All Accounts</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item href="#/report">Report</b-nav-item>
-          </b-navbar-nav>
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item href="#/">Log Out</b-nav-item>
-          </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+    <owner-navigation-bar></owner-navigation-bar>
     
     
     <h1>Customers</h1>
@@ -51,12 +23,6 @@
                 <li class="info">
                     Phone Number: {{ customer.phoneNumber }}
                 </li>
-                <!-- <li class="info add-item">
-                    <button class="button" @click="deleteInventoryItem(inventoryItem.name)" onClick="window.location.reload();">Remove Item</button>
-                </li>
-                <router-link class="info edit" :to="{ name: 'ModifyInventoryItems', params: { nameToEdit: inventoryItem.name, priceToEdit: inventoryItem.price, currentStockToEdit: inventoryItem.currentStock }}">
-                    <a>Edit Item</a>
-                </router-link> -->
                 
         </ul>
     </div>
@@ -77,13 +43,6 @@
                         Password: {{ employee.password }}
                     </li>
                     
-                    <!-- <li class="info add-item">
-                        <button class="button" @click="deleteInventoryItem(inventoryItem.name)" onClick="window.location.reload();">Remove Item</button>
-                    </li>
-                    <router-link class="info edit" :to="{ name: 'ModifyInventoryItems', params: { nameToEdit: inventoryItem.name, priceToEdit: inventoryItem.price, currentStockToEdit: inventoryItem.currentStock }}">
-                        <a>Edit Item</a>
-                    </router-link> -->
-                    
             </ul>
         </div>
         </div>
@@ -93,6 +52,7 @@
 
 <script >
 import axios from 'axios'
+import OwnerNavigationBar from './OwnerNavigationBar.vue'
 var config = require('../../../config')
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
@@ -108,6 +68,7 @@ var AXIOS = axios.create({
   
 
 export default {
+  components: { OwnerNavigationBar },
 name: 'customers',
 data () {
     return {

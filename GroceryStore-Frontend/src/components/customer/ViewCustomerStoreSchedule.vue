@@ -27,7 +27,7 @@
         <td class="news">{{ storeSchedule.closingTime }}</td>
     </tr>
 </table>
-<span v-if="errorPerson" style="color:red">Error: {{errorPerson}} </span>
+
   </div>
 </template>
 

@@ -8,22 +8,11 @@
             <br>
 
 
-            <!-- <div v-if ="curremail">
-                Email : {{curremail}}
-            </div> -->
 
             <div v-if ="orderId">
                 <h5>Order Number : {{orderId}}</h5>
             </div>
 
-
-            <!-- <span v-if= "this.imageUrl == '../../assets/status_d1.jpg' ">
-            </span> -->
-
-           
-
-
-                <!-- <img :src="returnUrl()" style = "width : 500px; " > -->
             <div>
                 <br>
                 <img src="@/assets/status_d1.jpg" v-if="d1" style = "width : 500px; ">
@@ -35,19 +24,7 @@
                 <img src="@/assets/status_p3.png" v-if="p3" style = "width : 500px; ">
                 <img src="@/assets/status_p4.png" v-if="p4" style = "width : 500px; ">
 
-
-                <!-- <img src="https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/blob/main/GroceryStore-Frontend/src/assets/status_d2.png"> -->
-                <!-- <img src="require(`@/assets/${imageUrl}`)"  alt=""> -->
-                <!-- <img :src='this.imageUrl'> -->
-                <!-- <img :src="require(`../../assets/${imageUrl}`)"  alt=""> -->
-                <!-- <img src={`../img/${img.code}.jpg`}></img> -->
-
-                    <!-- require(`../assets/profile_screens/${filename}`) -->
-                <!-- <img :src="require(`@/assets/${imageUrl}`)" style = "width : 500px; " >  -->
-                
-                <!-- IMAGE SHOULD BE HERE,  URL = :{{imageUrl}} -->
             </div>
-
             
             <br>
             <br>
@@ -56,15 +33,9 @@
                 <h4>{{returnStatus(groceryOrders[0])}}</h4>
             </span>
             <br>
-
-
-
-
             <br>
             <br>
             <br>
-            <!-- display store information here in case of issue :
-            "Please contact customer support at ... in case of issues." -->
 
         </div>
     </div>
@@ -76,13 +47,10 @@
 import axios from 'axios'
 import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
 
-var config = require('../../../config')
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
 
-// var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-// var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
@@ -102,8 +70,6 @@ export default{
             orderId: this.$route.params.orderId,
             imageUrl : "",
             groceryOrders :[],
-            error: '',
-            successMsg:'',
             response: [],
             d1:'',
             d2:'',
@@ -116,16 +82,6 @@ export default{
         }
     },
     created: function() {
-        //   AXIOS.get('/orders/customer/latest/'.concat(this.curremail),{},{})
-        //   .then(response => {
-        //       // JSON responses are automatically parsed.
-        //       this.orderItems.push(response.data)
-        //       console.log(response.data)
-        //   })
-        //   .catch(e => {
-        //     //   this.errorInventory = e.response.data
-        //     //   console.log(e.response.data)
-        //   }),
             AXIOS.get('/orders/'.concat(this.orderId),{},{})
             .then(response => {
                 // JSON responses are automatically parsed.
@@ -134,8 +90,6 @@ export default{
                 console.log(response.data)
             })
             .catch(e => {
-                // this.errorInventory = e.response.data
-                // console.log(e.response.data)
             })
     },
     methods:{
@@ -235,9 +189,6 @@ export default{
                     return "Your latest order has been completed";
                 }
             }
-            // this.imageUrl = "http://127.0.0.1:8087/static/img/status_d1.8d0d7b9.jpg";
-            console.log(this.imageUrl);
-            // this.imageUrl = "../../assets/orange1.jpeg";
             return "You have no active order."; 
         },
         returnUrl: function(){

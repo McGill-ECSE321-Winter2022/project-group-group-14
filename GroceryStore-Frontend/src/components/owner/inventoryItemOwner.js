@@ -1,11 +1,9 @@
 import axios from 'axios'
-var config = require('../../../config')
+import OwnerNavigationBar from './OwnerNavigationBar.vue';
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
 
-// var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-// var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
@@ -15,6 +13,7 @@ var AXIOS = axios.create({
 
 export default {
 name: 'inventoryitem',
+components: { OwnerNavigationBar },
 data () {
     return {
     inventoryItems: [],
@@ -25,7 +24,6 @@ data () {
       currentStock: '',
       availability: ''
     }, 
-    errorInventory: '',
     response: []
     }
 },
@@ -37,7 +35,8 @@ created: function () {
         this.inventoryItems = response.data
     })
     .catch(e => {
-        this.errorInventory = e
+      var errorMsg = e.response.data
+      alert(errorMsg)
     })
     
 },
@@ -47,80 +46,58 @@ methods: {
   getInventoryItems: function () {
     AXIOS.get('/inventoryItems/get/', {}, {})
       .then(response => {
-      // JSON responses are automatically parsed.
         this.inventoryItems = response.data,
         this.searchByName = '',
-        this.errorInventory = '',
         this.newInventoryItem = ''
       })
       .catch(e => {
         var errorMsg = e.response.data
-        console.log(errorMsg)
-        this.errorInventory = errorMsg
+        alert(errorMsg)
       })
   },
     getInventoryItemsByName: function (itemName) {
       AXIOS.get('/inventoryItems/getByName/'.concat(itemName), {}, {})
         .then(response => {
-        // JSON responses are automatically parsed.
           this.inventoryItems = [],
           this.inventoryItems.push(response.data),
-          this.errorInventory = '',
           this.newInventoryItem = ''
         })
         .catch(e => {
           var errorMsg = e.response.data
-          console.log(errorMsg)
-          this.errorInventory = errorMsg
+          alert(errorMsg)
         })
     },
     createInventoryItem: function (itemName,itemPrice,itemStock) {
         AXIOS.post('/inventoryItems/create/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock}})
           .then(response => {
-          // JSON responses are automatically parsed.
             this.inventoryItems.push(response.data)
-            this.errorInventory = ''
             this.newInventoryItem = ''
           })
           .catch(e => {
             var errorMsg = e.response.data
-            console.log(errorMsg)
-            this.errorInventory = errorMsg
+            alert(errorMsg)
           })
       },
       updateInventoryItem: function (itemName,itemPrice,itemStock) {
         AXIOS.put('/inventoryItems/update/'.concat(itemName), {}, {params: {price: itemPrice, currentStock: itemStock}})
           .then(response => {
-          // JSON responses are automatically parsed.
             this.inventoryItems.push(response.data)
-            this.errorInventory = ''
             this.newInventoryItem = ''
           })
           .catch(e => {
             var errorMsg = e.response.data
-            console.log(errorMsg)
-            this.errorPerson = errorMsg
+            alert(errorMsg)
           })
       },
       deleteInventoryItem: function (itemName) {
         AXIOS.delete('/inventoryItems/delete/'.concat(itemName), {}, {})
           .then(response => {
-          // JSON responses are automatically parsed.
-            // this.inventoryItems
-            this.errorInventory = ''
             this.newInventoryItem = ''
           })
           .catch(e => {
             var errorMsg = e.response.data
-            console.log(errorMsg)
-            this.errorInventory = errorMsg
+            alert(errorMsg)
           })
-      },
-      close: function () {
-       
-        this.errorInventory = ''
-            
-          
       }
 
 

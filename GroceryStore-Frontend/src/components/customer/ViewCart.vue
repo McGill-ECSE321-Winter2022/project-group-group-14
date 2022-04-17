@@ -1,18 +1,7 @@
 <template>
     <div >
 
-    <div id="popup1" class="overlay" v-if="successMsg">
-        <div class="popup">
-            <h5>{{ successMsg }}</h5>
-             <button class="mediumButton" onClick="window.location.reload();">Close</button>
-        </div>
-    </div>
-    <div id="popup2" class="overlay" v-if="error">
-        <div class="popup">
-            <h5>{{ error }}</h5>
-            <button class="mediumButton" onClick="window.location.reload();">Close</button>
-        </div>
-    </div>
+    
     <CustomerNavigationBar></CustomerNavigationBar>
 
 
@@ -25,20 +14,6 @@
                 <br>
             
 
-            
-<!-- 
-            <button class="button" v-if="groceryOrders[0].orderId" @click="getOrder(groceryOrders[0].orderId)">
-                get order items
-            </button> -->
-
-
-          
-                <!-- <div v-for="orderItem in orderItems" :key=orderItem.name>
-                    <ul style="list-style-type:square">
-                        <li> {{ orderItem.name}} :  ${{ orderItem.price}}.00 </li>
-                    </ul>  
-                </div> -->
-
                 <div v-for="index in (itemIndices)" :key=index >
                    
                             <button class="button" @click="deleteItem(orderId, itemNames[index])" onClick="window.location.reload();"> - </button> 
@@ -48,24 +23,10 @@
             
                 </div> 
 
-                
-               
-                
-
             <div>
                <h4 class="heading">Total Cost : ${{groceryOrders[0].totalCost}}.00</h4>  
             </div>
 
-
-                <!-- <div v-if="groceryOrders[0].type === 'delivery'"> 
-                   <h4> Possibly display address here </h4>
-                </div> -->
-                <!-- <h4> Address is not correct?</h4>
-                <router-link to="/modifyAddress">
-                        <button class="largeButton">
-                            Modify Address
-                        </button>
-                    </router-link> -->
 
                      <router-link :to="{ name: 'ThankYou', params:{ email: email, orderId: groceryOrders[0].orderId}}">
                         <button class="largeButton" v-if="groceryOrders[0].orderId" @click="placeOrder(groceryOrders[0].orderId)">
@@ -106,11 +67,8 @@
 <script>
 import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
 import axios from 'axios'
-var config = require('../../../config')
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
-// var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-// var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
@@ -124,11 +82,6 @@ export default{
         return {
             email : this.$route.params.email,
             orderId: this.$route.params.orderId,
-            // newOrderItem :{
-            //     name : '',
-            //     price: '',
-            //     itemId:'',
-            // },
             totalCost:'',
             orderItems:[],
             groceryOrders :[],
@@ -145,8 +98,6 @@ export default{
             itemCosts:[],
             itemQuantity:[],
             one : '1',
-            error: '',
-            successMsg:'',
             response: [],
             
         }
@@ -155,7 +106,6 @@ export default{
           
           AXIOS.get('/orders/orderItems/'.concat(this.orderId),{},{})
           .then(response => {
-              // JSON responses are automatically parsed.
               this.orderItems=response.data
               console.log(response.data)
               
@@ -182,118 +132,72 @@ export default{
 
             }
 
-            console.log(this.itemQuantity);
-            console.log(this.itemIndices);
-            console.log(this.itemNames);
-            console.log(this.itemCosts);
           })
           .catch(e => {
               this.errorInventory = e.response.data
-              console.log(e.response.data)
           }),
           AXIOS.get('/orders/'.concat(this.orderId),{},{})
           .then(response => {
-              // JSON responses are automatically parsed.
               this.groceryOrders.push(response.data)
-              console.log(response.data)
           })
           .catch(e => {
-              this.errorInventory = e.response.data
-              console.log(e.response.data)
+            var errorMsg = e.response.data
+            alert(errorMsg)
           })
-        //   console.log(this.orderItems);
-        //   this.itemIndices = [];
-        //     this.itemNames = [];
-        //     this.itemCosts = [];
-        //     this.itemQuantity = [];
-        //     for (let index = 0; index < this.orderItems.length; ++index) {
-        //         if (this.itemNames.includes(this.orderItems[index].name)){
-        //             const i = this.itemNames.indexOf(this.orderItems[index].name);
-        //             var cost = parseInt(this.itemCosts[i]) + parseInt(this.orderItems[index].price);
-        //             var quant = parseInt(this.itemQuantity[i]) + 1;
-        //             this.itemQuantity[i] = quant.toString();
-        //             this.itemCosts[i] = cost.toString();
-        //         }else{
-        //             // var number = 1;
-        //             this.itemQuantity.push(this.one);
-        //             this.itemIndices.push(this.itemIndices.length);
-        //             this.itemNames.push(this.orderItems[index].name);
-        //             this.itemCosts.push(this.orderItems[index].price.toString()); 
-        //             // console.log(type);
-        //             // this.itemCosts.push(items[index].price.toString());
-        //         }
-
-        //     }
-
-        //     console.log(this.itemQuantity);
-        //     console.log(this.itemIndices);
-        //     console.log(this.itemNames);
-        //     console.log(this.itemCosts);
-            // return this.itemIndices;
     },
     methods: {
         placeOrder: function (orderId){
         AXIOS.post('/orders/place/'.concat(orderId),{},{})
           .then(response => {
               this.groceryOrders.push(response.data)
-              console.log(response.data)
-              successMsg = " Order has been successfully placed!"
           })
           .catch(e => {
-              console.log(e.response.data)
+            var errorMsg = e.response.data
+            alert(errorMsg)
           })
         },
          deleteOrder: function (orderId){
           AXIOS.delete('/orders/delete/'.concat(orderId),{},{})
           .then(response => {
               this.groceryOrders.push(response.data)
-              console.log(response.data)
-              successMsg = " Order has been deleted!"
           })
           .catch(e => {
-              this.error = e.response.data
-              console.log(e.response.data)
+            var errorMsg = e.response.data
+            alert(errorMsg)
           })
         },
         toggleType: function (orderId){
           AXIOS.post('/orders/toggleType/'.concat(orderId),{},{})
           .then(response => {
               this.groceryOrders.push(response.data)
-              console.log(response.data)
-              successMsg = " Your order type has been modified!"
               window.location.reload();
           })
           .catch(e => {
-            //   this.error = e.response.data
-            //   console.log(e.response)
+            var errorMsg = e.response.data
+            alert(errorMsg)
           })
         },
         deleteItem: function (orderID, itemName){
             AXIOS.delete("/orders/deleteItem/".concat(orderID).concat("/").concat(itemName),{},{})
             .then(response =>{
                 this.orderItems=response.data.orderItems
-                console.log(e.response.data.orderItems)
             })
             .catch(e => {
-              this.error = e.response.data
-              console.log(e.response.data)
+            var errorMsg = e.response.data
+            alert(errorMsg)
           })
         },
         addItem: function (orderId,itemName) {
             AXIOS.post('/orders/add/'.concat(orderId), {}, {params: {itemName: itemName, quantity: "1"}})
             .then(response => {
-            // JSON responses are automatically parsed.
                 this.orderItems=response.data.orderITems
                 this.groceryOrders.push(response.data)
-                console.log(response.data)
-                this.error = ''
                 // this.newInventoryItem = ''
                 // this.successMsg = 'Successfully added!'
             })
             .catch(e => {
                 var errorMsg = e.response.data
-                console.log(errorMsg)
-                this.error= errorMsg
+                alert(errorMsg)
             })
         },
         summarize: function(items){
@@ -319,41 +223,10 @@ export default{
                 }
 
             }
-            console.log(this.itemQuantity);
-            console.log(this.itemIndices);
-            console.log(this.itemNames);
-            console.log(this.itemCosts);
             return this.itemIndices;
 
         }
         
-        // ,
-        // getOrderItems: function (orderId) {
-        //     AXIOS.post('/orders/orderItems/'.concat(orderId), {}, {})
-        //     .then(response => {
-        //     // JSON responses are automatically parsed.
-        //         this.groceryOrders[0].orderItems.push(response.data)//push or switch to equals?
-        //         console.log(response.data)
-        //         this.error = ''
-        //     })
-        //     .catch(e => {
-        //         var errorMsg = e.response.data
-        //         console.log(errorMsg)
-        //         this.error = errorMsg
-        //     })
-        // },
-        // getOrder: function (email){
-        //   AXIOS.get('/orders/customer/'.concat(email),{},{})
-        //   .then(response => {
-        //       // JSON responses are automatically parsed.
-        //       this.groceryOrders = response.data
-        //       console.log(response.data)
-        //   })
-        //   .catch(e => {
-        //       this.error = e.response.data
-        //       console.log(e.response.data)
-        //   })
-        // }
         
     }
 }
@@ -361,27 +234,7 @@ export default{
 
 <style scoped>
 
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  opacity: 100%;
-  z-index: 100;
-}
 
-.popup {
-  margin: auto;
-  margin-top: 40vh;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  transition: all 5s ease-in-out;
-}
 
 .verticalandhorizontal-center {
     padding: 2% 6% 2% 6%;

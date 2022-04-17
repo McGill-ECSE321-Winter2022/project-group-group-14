@@ -1,26 +1,6 @@
 <template>
     <div >
 
-            <div id="popup1" class="overlay" v-if="successMsg">
-                <div class="popup">
-                 <h5>{{ successMsg }}</h5>
-                 <router-link :to="{ name: 'ShowCustomerInventoryItems', params: { email: curremail, orderId: newGroceryOrder.orderId }}">
-
-                <button class="largeButton">
-                    View grocery items
-                </button>
-            </router-link>
-
-
-
-            </div>
-         </div>
-        <div id="popup2" class="overlay" v-if="errorOrder">
-            <div class="popup">
-                <h5>{{ errorOrder }}</h5>
-                <button class="mediumButton" onClick="window.location.reload();">Close</button>
-            </div>
-        </div>
 
 <b-navbar fixed="top">
       
@@ -110,13 +90,9 @@
 import axios from 'axios'
 import CustomerNavigationBar from '@/components/customer/CustomerNavigationBar'
 
-var config = require('../../../config')
 
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
-
-// var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-// var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
@@ -133,20 +109,9 @@ export default{
             
             curremail : this.$route.params.email,
             username : '', 
-            // customers : [],
-            // newCustomer : {
-            //     email:this.$route.params.email,
-            //     username:'user1',
-            //     password:'1234abc',
-            //     phoneNumber:'5145503791',
-            //     address:'38 street green',
-            // },
-            // curremail : this.$route.params.email,
-
 
             groceryOrders: '',
             newGroceryOrder: {
-                // orderId: this.$route.params.orderId,
                 orderId : '',
                 totalCost:'',
                 orderType:'',
@@ -154,8 +119,6 @@ export default{
                 orderItems: [],
                 customer:''
             }, 
-            errorOrder: '',
-            successMsg:'',
             response: []
         }
     },
@@ -166,19 +129,17 @@ export default{
         console.log(this.groceryOrders)
         AXIOS.get('/customers/'.concat(this.curremail),{},{})
         .then(response => {
-            console.log(response.data)
             this.username = response.data.username
         })
         ,
         AXIOS.get('/orders/customer/latest/'.concat(this.curremail),{},{})
         .then(response => {
-            console.log(response.data)
             this.groceryOrders = response.data
             this.newGroceryOrder.orderId = response.data.orderId
         })
         .catch(e => {
             var errorMsg = e.response.data
-            console.log(errorMsg)
+            alert(errorMsg)
         })
     },
 
@@ -189,50 +150,25 @@ export default{
             AXIOS.post('/orders/delivery/'.concat(email), {}, {})
             .then(response => {
                 this.groceryOrders=response.data //add dto to the list of orders
-                this.successMsg = 'Order has been successfully created! Please navigate to complete order. '
                 this.newGroceryOrder.orderId = response.data.orderId
-                console.log(this.groceryOrders)
-                this.errorOrder = ''
             })
             .catch(e => {
-                this.successMsg = ''
                 var errorMsg = e.response.data
-                console.log(errorMsg)
-                this.errorOrder = errorMsg
+                alert(errorMsg)
             })
         },
         createPickupOrder : function(email){
             AXIOS.post('/orders/pickup/'.concat(email), {}, {})
             .then(response => {
                 this.groceryOrders=response.data //add dto to the list of orders
-                this.successMsg = 'Order has been successfully created! Please navigate to complete order.'
                 this.newGroceryOrder.orderId = response.data.orderId
-                this.errorOrder = ''
-                console.log(response.data)
             })
             .catch(e => {
-                this.successMsg = ''
                 var errorMsg = e.response.data
-                console.log(errorMsg)
-                this.errorOrder = errorMsg
+                alert(errorMsg)
             })
         },
-        // createPerson: function (email) { //create a customer that exists in system when the page loads
-        // AXIOS.post('/customers/'.concat(email).concat('/').concat('username1').concat('/').concat('password1').concat('/').concat('5145503713').concat('/').concat('38addresspotato').concat('/'),{},{})
-        // .then(response => {
-        //         // JSON responses are automatically parsed.
-        //         this.customers = response.data
-        //         console.log(this.$route.params.email)
-        //         console.log(this.curremail)
-        //         console.log(response.data)
-
-        //     }).catch(e => {
-        //         this.successMsg = ''
-        //         var errorMsg = e.response.data
-        //         console.log(errorMsg)
-        //         this.errorOrder = errorMsg
-        //     })
-        // }, 
+        
         
     }
     
@@ -243,27 +179,7 @@ export default{
 .largeButton {
     width: 250px;
 }
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  opacity: 100%;
-  z-index: 100;
-}
 
-.popup {
-  margin: auto;
-  margin-top: 40vh;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  transition: all 5s ease-in-out;
-}
 
 .verticalandhorizontal-center {
     padding: 0% 6% 2% 6%;

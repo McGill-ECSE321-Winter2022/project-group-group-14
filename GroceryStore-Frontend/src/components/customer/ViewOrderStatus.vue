@@ -7,14 +7,8 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
-            
-            <!-- <b-nav-item href="#/customerWelcomePage/:email">Home</b-nav-item>
-            <b-nav-item href="#/showCustomerInventoryItems/:email">View Items</b-nav-item>
-            <b-nav-item href="#/viewCart/:email">View Cart</b-nav-item> -->
 
             <b-nav-item :to="{ name: 'customerWelcomePage', params: { email: curremail }}"> Home </b-nav-item>
-            <!-- <b-nav-item :to="{ name: 'ShowCustomerInventoryItems', params: { email: email }}"> View Items </b-nav-item>
-            <b-nav-item :to="{ name: 'ViewCart', params: { email: email }}"> View Cart </b-nav-item> -->
 
 
 
@@ -43,13 +37,9 @@
 <script>
 import axios from 'axios'
 
-var config = require('../../../config')
-
 var frontendUrl = process.env.FRONTEND_HOST + ':' + process.env.FRONTEND_PORT
 var backendUrl = process.env.BACKEND_HOST + ':' + process.env.BACKEND_PORT
 
-// var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-// var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
@@ -68,8 +58,6 @@ export default{
             orderiD : this.$route.params.orderId,
             orderStatus :'',
             groceryOrders : [],
-            error: '',
-            successMsg:'',
             response: []
         }
 
@@ -77,14 +65,10 @@ export default{
       created: function() {
           AXIOS.get('/orders/'.concat(this.orderId),{},{})
           .then(response => {
-              // JSON responses are automatically parsed.
               this.groceryOrders.push(response.data)
               this.orderStatus = response.data.orderStatus
-              console.log(response.data)
           })
           .catch(e => {
-              // this.errorInventory = e.response.data
-              // console.log(e.response.data)
           })
     }
     

@@ -34,30 +34,6 @@
 
         <br>
 
-        <!-- <h6 class="subheading">Please enter the original username of the account to change</h6>
-        <div class="form-floating mb-3">
-          <input
-            type="text"
-            v-model="oldCustomerAccount.username"
-            class="form-control"
-            id="floatingInput"
-            placeholder="Old username"
-            required
-          />
-        </div> -->
-
-
-        <!-- <h6 class="subheading">Emails must be unique within the system</h6>
-        <div class="form-floating mb-3">
-          <input
-            type="text"
-            v-model="newCustomerAccount.email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="Email"
-            required
-          />
-        </div> -->
 
         <h6 class="subheading">Usernames must be unique within the system</h6>
         <div class="form-floating mb-3">
