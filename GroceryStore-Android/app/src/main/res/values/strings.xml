@@ -21,8 +21,10 @@
     <string name="phone_hint">Enter Phone</string>
     <string name="newcustomer_hint">Insert Name Here</string>
     <string name="newcustomer_button">Add Customer</string>
-    <string name="update_button">Update</string>
+    <string name="view_button">View Order</string>
+    <string name="update_button">Update Order</string>
     <string name="login_button">Login</string>
     <string name="employee_email">Employee Email</string>
     <string name="employee_password">Employee Password</string>
+    <string name="orderId_hint">Insert Order ID</string>
 </resources>
