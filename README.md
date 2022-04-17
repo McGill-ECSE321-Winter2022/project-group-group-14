@@ -109,3 +109,13 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Samuel Valentine | 15 | Minutes organiser and scribe, login page and functionality in android application, documentation of how to use android application, Figuring out how Android Studio works |
 | Youssof Mohamed | | |
 | Minkyu Park | | |
+
+## Effort Table (All Deliverables)
+| Team Member | Time Spent (h) | Responsibilities | 
+| --- | --- | --- |
+| name | #hours | Work description |
+| Yakir Bender |  |  |
+| Clarissa Baciu |  |  |
+| Samuel Valentine | 75 | Minutes organiser and scribe, development, documentation |
+| Youssof Mohamed | | |
+| Minkyu Park | | |
