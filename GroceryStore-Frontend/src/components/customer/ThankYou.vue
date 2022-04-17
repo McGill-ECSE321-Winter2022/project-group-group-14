@@ -1,18 +1,13 @@
 <template>
     <div >
     <CustomerNavigationBar></CustomerNavigationBar>
-
-
         <div class="verticalandhorizontal-center">
             <h2 class="heading">Thank you for your order!</h2>
             <br>
 
-
-
             <div v-if ="orderId">
                 <h5>Order Number : {{orderId}}</h5>
             </div>
-
             <div>
                 <br>
                 <img src="@/assets/status_d1.jpg" v-if="d1" style = "width : 500px; ">
@@ -24,11 +19,9 @@
                 <img src="@/assets/status_p3.png" v-if="p3" style = "width : 500px; ">
                 <img src="@/assets/status_p4.png" v-if="p4" style = "width : 500px; ">
 
-            </div>
-            
+            </div> 
             <br>
             <br>
-
             <span v-if ="groceryOrders[0]">
                 <h4>{{returnStatus(groceryOrders[0])}}</h4>
             </span>
@@ -56,7 +49,6 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })  
-
 
 export default{
     name:'CustomerWelcomePage',
@@ -93,7 +85,7 @@ export default{
             })
     },
     methods:{
-        returnStatus: function(order){
+        returnStatus: function(order){ //set proper data string corresponding to the desired status image
             if (order.orderType == "Delivery"){ //order delivery pictures
                 if (order.orderStatus == "Received"){
                     this.d1 = 'present'

@@ -1,6 +1,7 @@
 <template>
   <div>
   
+
   
   <b-navbar fixed="top" toggleable="lg">
       <router-link to="/employeeWelcomePage">
@@ -17,7 +18,6 @@
           </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-
 
   <div class="grid-container" style = "text-align: center;">
       <div class="grid-item2">
@@ -51,7 +51,6 @@
               placeholder="qty"
               required
             />
-            
           </div>
         </td>
         <td>
@@ -61,36 +60,25 @@
       </table>
       </div>
        <div class="grid-item1">
-        <h4> Order Id : {{this.orderId}} </h4>
-        <div v-if = "orderItems">
-          <div v-for="index in (itemIndices)" :key=index >
-                   
-                            {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 
-                            
-            
-                </div> 
+
+          <h4> Order Id : {{this.orderId}} </h4>
+          <div v-if = "orderItems">
+            <div v-for="index in (itemIndices)" :key=index >   
+              {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 
+
+
+            </div> 
+          </div>
+          <br>
+          Total Cost : {{groceryOrders[0].totalCost}}
+          <br>
+          <br>
+            <router-link to="/employeeWelcomePage">
+              <button class="largeButton" v-if="orderId" @click="placeOrder(orderId)">
+                  Place Order
+              </button>
+            </router-link>
         </div>
-        <br>
-        Total Cost : {{groceryOrders[0].totalCost}}
-        <br>
-        <br>
-          <router-link to="/employeeWelcomePage">
-            <button class="largeButton" v-if="orderId" @click="placeOrder(orderId)">
-                Place Order
-            </button>
-          </router-link>
-
-        </div>
-        
-
-      
-<!-- ------------------------------------------- -->
-
-
-
-          
-
-      
     </div>
     </div>
 

@@ -2,66 +2,50 @@
     <div >
 
     
+
     <CustomerNavigationBar></CustomerNavigationBar>
-
-
         <div class="verticalandhorizontal-center" >
             <br>
             <h2 class="heading">Cart for {{email}}</h2>
-  
                 <small>{{groceryOrders[0].orderType}} order </small>
                 <br>
                 <br>
-            
+
 
                 <div v-for="index in (itemIndices)" :key=index >
                    
-                            <button class="button" @click="deleteItem(orderId, itemNames[index])" onClick="window.location.reload();"> - </button> 
-                            {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 
-                            <button class="button" @click="addItem   (orderId, itemNames[index])" onClick="window.location.reload();"> + </button> 
-                            
-            
+                    <button class="button" @click="deleteItem(orderId, itemNames[index])" onClick="window.location.reload();"> - </button> 
+                    {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 
+                    <button class="button" @click="addItem   (orderId, itemNames[index])" onClick="window.location.reload();"> + </button> 
                 </div> 
 
             <div>
                <h4 class="heading">Total Cost : ${{groceryOrders[0].totalCost}}.00</h4>  
             </div>
+                <router-link :to="{ name: 'ThankYou', params:{ email: email, orderId: groceryOrders[0].orderId}}">
+                <button class="largeButton" v-if="groceryOrders[0].orderId" @click="placeOrder(groceryOrders[0].orderId)">
+                Place Order
 
-
-                     <router-link :to="{ name: 'ThankYou', params:{ email: email, orderId: groceryOrders[0].orderId}}">
-                        <button class="largeButton" v-if="groceryOrders[0].orderId" @click="placeOrder(groceryOrders[0].orderId)">
-                        Place Order
-                    </button>
-                    </router-link>
-                    <br>
-                    <br>
-
-                   <small> Please note that an extra 10$ delivery fee is included for out of town deliveries.</small>
-
-                   <br>
-                   <br>
-                   
-
-                  <h5> Made a mistake? Modify or delete you order.</h5>
-                   <button class="button" v-if="groceryOrders[0].orderId" @click="toggleType(groceryOrders[0].orderId)">
-                    Change Order Type
                 </button>
-
-                  <router-link :to="{ name: 'customerWelcomePage', params: { email: email , orderId: orderId }}"> 
-                    <button class="button_delete" v-if="groceryOrders[0].orderId" @click="deleteOrder(groceryOrders[0].orderId)">
-                        Delete Order
-                    </button>
                 </router-link>
+                <br>
+                <br>
+                <small> Please note that an extra 10$ delivery fee is included for out of town deliveries.</small>
+                <br>
+                <br>
+                <h5> Made a mistake? Modify or delete you order.</h5>
+                <button class="button" v-if="groceryOrders[0].orderId" @click="toggleType(groceryOrders[0].orderId)">
+                Change Order Type
+                </button>
+                <router-link :to="{ name: 'customerWelcomePage', params: { email: email , orderId: orderId }}"> 
+                <button class="button_delete" v-if="groceryOrders[0].orderId" @click="deleteOrder(groceryOrders[0].orderId)">
+                    Delete Order
+                </button>
+            </router-link>
         </div>
     </div>
 </template>
-
 <style scoped>
-
-
-
-
-
 </style>
 
 <script>
@@ -225,9 +209,8 @@ export default{
             }
             return this.itemIndices;
 
-        }
-        
-        
+
+        }      
     }
 }
 </script>

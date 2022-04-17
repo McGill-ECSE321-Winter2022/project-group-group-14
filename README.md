@@ -6,9 +6,9 @@ This software will be made available via website, desktop application, and andro
 # Quick Links
 
 
-Learn to use our website with the [Website User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-User---Guide). 
+Learn to use our website with the [Website User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-User---Guide), or our Android app with the [Android User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Android-User-Guide).
 
-View our [Domain Model](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Domain-Model-Updated) and our [Design Decisions](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Specifications).  
+View our [Domain Model](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Domain-Model-Updated) and our [Design Decisions](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Specifications-Design-Decisions).  
 
 For the build setup, visit the [Frontend Build Setup](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/blob/main/GroceryStore-Frontend/README.md).
 
@@ -92,3 +92,31 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Samuel Valentine | 30 | Minutes organiser and scribe, all account-related pages (create/update/delete/login), architecture model, fixing backend |
 | Youssof Mohamed | 30 | InventoryItem-related pages, and Backend updates |
 | Minkyu Park | 25 | EmployeeSchedule front end, and back end but further modification needed |
+
+# Deliverable 4
+## Links
+* [Wiki Home Page](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki)
+* [Meeting Minutes D4](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Meeting-Minutes--(Deliverable-4))
+* [Website User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-User---Guide)
+* [Android User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Android-User-Guide)
+* [Demo Screenshots](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Demo-Screenshots)
+
+## Effort Table (D4)
+| Team Member | Time Spent (h) | Responsibilities | 
+| --- | --- | --- |
+| name | #hours | Work description |
+| Yakir Bender |  |  |
+| Clarissa Baciu |  12 | Android development for employee update order page, code clean up, documentation  |
+| Samuel Valentine | 15 | Minutes organiser and scribe, login page and functionality in android application, documentation of how to use android application, Figuring out how Android Studio works |
+| Youssof Mohamed | | |
+| Minkyu Park | | |
+
+## Effort Table (All Deliverables)
+| Team Member | Time Spent (h) | Responsibilities | 
+| --- | --- | --- |
+| name | #hours | Work description |
+| Yakir Bender |  |  |
+| Clarissa Baciu | 100+ | Lead backend engineer, task distribution, front end development |
+| Samuel Valentine | 75 | Minutes organiser and scribe, development, documentation |
+| Youssof Mohamed | | |
+| Minkyu Park | | |

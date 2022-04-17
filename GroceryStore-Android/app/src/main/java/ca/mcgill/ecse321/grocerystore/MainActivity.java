@@ -132,62 +132,68 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * 
+     * Method attached to update order button : to update the status of an order as an employee prepares it. 
+     * @author: clarissabaciu 
+     * xml file : fragment_update.xml
+     */
     public void updateOrder(View v) {
-        error="";
-        final TextView orderId = (EditText) findViewById(R.id.orderid_field);
-        final TextView status1 = (TextView) findViewById(R.id.status1);
-        final TextView idField = (TextView) findViewById(R.id.id_field);
-        final TextView typeField = (TextView) findViewById(R.id.type_field);
-        final TextView statusField = (TextView) findViewById(R.id.status_field);
-        status1.setText("");
+        error="";   //clears the error message
+        final TextView orderId = (EditText) findViewById(R.id.orderid_field);   //orderId contains the id entered into the search bar 
+        final TextView status1 = (TextView) findViewById(R.id.status1);         //status1 is the sucess message shown if the order has been successfully updated
+        final TextView idField = (TextView) findViewById(R.id.id_field);        //the id field is the id shown in the table upon a successful update
+        final TextView typeField = (TextView) findViewById(R.id.type_field);    //typeField shows the type of the order upon a successful update
+        final TextView statusField = (TextView) findViewById(R.id.status_field);    //statusField shows the status of the order upon a successful update
+        status1.setText(""); //initiale all text views
         idField.setText("");
         typeField.setText("");
         statusField.setText("");
 
-        HttpUtils.post("orders/status/update/" + orderId.getText()  , new RequestParams(), new JsonHttpResponseHandler() {
-
-            @Override
+        HttpUtils.post("orders/status/update/" + orderId.getText()  , new RequestParams(), new JsonHttpResponseHandler() {  //http post request
+            @Override   //override onSuccess method 
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                System.out.println(response.toString());
-                status1.setText("Order number "+ orderId.getText() + " was updated successfully!");
+                System.out.println(response.toString());    
+                status1.setText("Order number "+ orderId.getText() + " was updated successfully!"); //set success message for a successfull update
                 refreshErrorMessage();
-                idField.setText(orderId.getText());
+                idField.setText(orderId.getText());                         //sets all the text views for the order information
                 try{
                     typeField.setText(response.getString("orderType"));
                     statusField.setText(""+response.getString("orderStatus"));
-
-                } catch (JSONException e) {
+                } catch (JSONException e) {     //try catch in case of JSONException (required)
                     e.printStackTrace();
                 }
                 orderId.setText("");
-
             }
-            @Override
+            @Override     //override onFailure method
             public void onFailure(int statusCode, Header[] headers, String errormsg, Throwable throwable) {
 
-                error += errormsg;
+                error += errormsg;  //show error
 
                 refreshErrorMessage();
             }
         });
     }
 
+    /**
+     * method to view the information relating to the order, should display an error message of the order id is invalid
+     * @author: clarissabaciu
+     * xml file : fragment_update.xml
+     */
     public void viewOrder(View v) {
-        error="";
-        final TextView orderId = (EditText) findViewById(R.id.orderid_field);
+        error="";                //initialize error message
+        final TextView orderId = (EditText) findViewById(R.id.orderid_field);       //get all text views
         final TextView idField = (TextView) findViewById(R.id.id_field);
         final TextView typeField = (TextView) findViewById(R.id.type_field);
         final TextView statusField = (TextView) findViewById(R.id.status_field);
         final TextView status1 = (TextView) findViewById(R.id.status1);
-        status1.setText("");
-
+        status1.setText("");    //initialize success message
         HttpUtils.get("orders/" + orderId.getText()  , new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                System.out.println(response.toString());
+                System.out.println(response.toString()); 
                 refreshErrorMessage();
-                idField.setText(orderId.getText());
+                idField.setText(orderId.getText());     //sets all text views to informaiton containted in the JSON object
                 try{
                     typeField.setText(response.getString("orderType"));
                     statusField.setText(""+response.getString("orderStatus"));
@@ -198,9 +204,7 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, String errormsg, Throwable throwable) {
-
                 error += errormsg;
-
                 refreshErrorMessage();
             }
         });

@@ -6,9 +6,6 @@
       <h2 class="heading">Report</h2>
       <br>
       <h3 class="heading">Total Sales : $ {{totalSales}}.00 </h3>
-
-
-      
       <table>
       <tr>
         <th>Id</th>
@@ -17,28 +14,19 @@
         <th>Status</th>
         <th>Delete</th>
       </tr>
-      
       <tr v-for="groceryOrder in groceryOrders" :key=groceryOrder.orderId>
-
-          <td>{{ groceryOrder.orderId}}</td>
-          <td>{{ groceryOrder.totalCost}}</td>
-          <td>{{ groceryOrder.orderType}}</td>
-          <td> {{ groceryOrder.orderStatus}}</td>
+        <td>{{ groceryOrder.orderId}}</td>
+        <td>{{ groceryOrder.totalCost}}</td>
+        <td>{{ groceryOrder.orderType}}</td>
+        <td> {{ groceryOrder.orderStatus}}</td>
         <td>
           <button class="mediumButton" @click="deleteOrder(groceryOrder.orderId);reloadPage();">Delete</button>
         </td>
         </tr>
       </table>
-
       <br>
-
-
       <button class="largeButton" @click="deleteAllCompletedOrders();reloadPage();">Delete All Completed</button>
-         
-      
     </div>
-
-
   </div>
 </template>
 
