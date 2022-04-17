@@ -31,6 +31,7 @@ import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity {
     private String error = null;
+
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
@@ -161,6 +162,72 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
+
+    public void updateOrder(View v) {
+        error="";
+        final TextView orderId = (EditText) findViewById(R.id.orderid_field);
+        final TextView status1 = (TextView) findViewById(R.id.status1);
+        final TextView idField = (TextView) findViewById(R.id.id_field);
+        final TextView typeField = (TextView) findViewById(R.id.type_field);
+        final TextView statusField = (TextView) findViewById(R.id.status_field);
+        status1.setText("");
+        idField.setText("");
+        typeField.setText("");
+        statusField.setText("");
+
+        HttpUtils.post("orders/status/update/" + orderId.getText()  , new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                System.out.println(response.toString());
+                status1.setText("Order number "+ orderId.getText() + " was updated successfully!");
+                refreshErrorMessage();
+                orderId.setText("");
+
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String errormsg, Throwable throwable) {
+
+                error += errormsg;
+
+                refreshErrorMessage();
+            }
+        });
+    }
+
+    public void viewOrder(View v) {
+        error="";
+        final TextView orderId = (EditText) findViewById(R.id.orderid_field);
+        final TextView idField = (TextView) findViewById(R.id.id_field);
+        final TextView typeField = (TextView) findViewById(R.id.type_field);
+        final TextView statusField = (TextView) findViewById(R.id.status_field);
+        final TextView status1 = (TextView) findViewById(R.id.status1);
+        status1.setText("");
+
+        HttpUtils.get("orders/" + orderId.getText()  , new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                System.out.println(response.toString());
+                refreshErrorMessage();
+                idField.setText(orderId.getText());
+                try{
+                    typeField.setText(response.getString("orderType"));
+                    statusField.setText(""+response.getString("orderStatus"));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                orderId.setText("");
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String errormsg, Throwable throwable) {
+
+                error += errormsg;
+
+                refreshErrorMessage();
+            }
+        });
+    }
 
     private Bundle getTimeFromLabel(String text) {
         Bundle rtn = new Bundle();
