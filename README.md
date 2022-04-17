@@ -92,3 +92,20 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Samuel Valentine | 30 | Minutes organiser and scribe, all account-related pages (create/update/delete/login), architecture model, fixing backend |
 | Youssof Mohamed | 30 | InventoryItem-related pages, and Backend updates |
 | Minkyu Park | 25 | EmployeeSchedule front end, and back end but further modification needed |
+
+# Deliverable 4
+## Links
+* [Wiki Home Page](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki)
+* [Meeting Minutes D4](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Meeting-Minutes--(Deliverable-4))
+* [Website User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-User---Guide)
+* [Android User Guide](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Android-User-Guide)
+
+## Effort Table (D4)
+| Team Member | Time Spent (h) | Responsibilities | 
+| --- | --- | --- |
+| name | #hours | Work description |
+| Yakir Bender |  |  |
+| Clarissa Baciu |  |  |
+| Samuel Valentine | 15 | Minutes organiser and scribe, login page and functionality in android application, documentation of how to use android application, Figuring out how Android Studio works |
+| Youssof Mohamed | | |
+| Minkyu Park | | |
