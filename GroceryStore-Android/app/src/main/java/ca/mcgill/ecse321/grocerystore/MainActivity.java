@@ -48,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        binding.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         // INSERT TO END OF THE METHOD AFTER AUTO-GENERATED CODE
         // initialize error message text view
@@ -128,40 +128,10 @@ public class MainActivity extends AppCompatActivity {
 
                 refreshErrorMessage();
             }
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                try {
-//                    error += errorResponse.get("message").toString();
-//                } catch (JSONException e) {
-//                    error += e.getMessage();
-//                }
-//                refreshErrorMessage();
-//            }
+
         });
     }
-//    public void addCustomer(View v) {
-//        error = "";
-//        final TextView tv = (TextView) findViewById(R.id.newcustomer_name);
-//        HttpUtils.post("customers/" + tv.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
-//
-////            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                refreshErrorMessage();
-//                tv.setText("");
-//            }
-//
-////            @Override
-//
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                try {
-//                    error += errorResponse.get("message").toString();
-//                } catch (JSONException e) {
-//                    error += e.getMessage();
-//                }
-//                refreshErrorMessage();
-//            }
-//        });
-//    }
+
 
     public void updateOrder(View v) {
         error="";
@@ -182,6 +152,14 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(response.toString());
                 status1.setText("Order number "+ orderId.getText() + " was updated successfully!");
                 refreshErrorMessage();
+                idField.setText(orderId.getText());
+                try{
+                    typeField.setText(response.getString("orderType"));
+                    statusField.setText(""+response.getString("orderStatus"));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 orderId.setText("");
 
             }
@@ -217,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                orderId.setText("");
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, String errormsg, Throwable throwable) {

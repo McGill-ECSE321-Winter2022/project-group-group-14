@@ -32,7 +32,8 @@
                 android:layout_width="wrap_content"
                 android:visibility="visible"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:layout_marginBottom="15dp"
                 android:textSize="20dp"
                 android:text=""
                 android:textColor= "@color/strong_orange"/>
@@ -41,8 +42,10 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:visibility="gone"
                 android:layout_marginBottom="15dp"
+                android:textSize="20dp"
                 android:text=""
                 android:textColor="#FF0000"/>
 
