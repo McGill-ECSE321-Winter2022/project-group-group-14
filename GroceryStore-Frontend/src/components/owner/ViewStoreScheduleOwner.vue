@@ -36,7 +36,7 @@
         <th scope="row">Day</th>
         <th scope="row">Opening Hours</th>
         <th scope="row">Closing Hours</th>
-        <th colspan="3" scope="row">Active Workers <br>(Morning, Afternoon, Night)</br></th>
+        <th colspan="3" scope="row">Active Workers <br>(Morning, Afternoon, Night)<br></th>
 
     </tr>
     <tr class="schedule" v-for="storeSchedule in storeSchedules" :key=storeSchedule.dayOpen>

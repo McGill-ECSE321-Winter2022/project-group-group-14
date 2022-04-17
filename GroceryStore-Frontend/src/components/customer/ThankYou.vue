@@ -1,29 +1,12 @@
 <template>
     <div >
     <CustomerNavigationBar></CustomerNavigationBar>
-
-
         <div class="verticalandhorizontal-center">
             <h2 class="heading">Thank you for your order!</h2>
             <br>
-
-
-            <!-- <div v-if ="curremail">
-                Email : {{curremail}}
-            </div> -->
-
             <div v-if ="orderId">
                 <h5>Order Number : {{orderId}}</h5>
             </div>
-
-
-            <!-- <span v-if= "this.imageUrl == '../../assets/status_d1.jpg' ">
-            </span> -->
-
-           
-
-
-                <!-- <img :src="returnUrl()" style = "width : 500px; " > -->
             <div>
                 <br>
                 <img src="@/assets/status_d1.jpg" v-if="d1" style = "width : 500px; ">
@@ -34,38 +17,18 @@
                 <img src="@/assets/status_p2.png" v-if="p2" style = "width : 500px; ">
                 <img src="@/assets/status_p3.png" v-if="p3" style = "width : 500px; ">
                 <img src="@/assets/status_p4.png" v-if="p4" style = "width : 500px; ">
-
-
-                <!-- <img src="https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/blob/main/GroceryStore-Frontend/src/assets/status_d2.png"> -->
-                <!-- <img src="require(`@/assets/${imageUrl}`)"  alt=""> -->
-                <!-- <img :src='this.imageUrl'> -->
-                <!-- <img :src="require(`../../assets/${imageUrl}`)"  alt=""> -->
-                <!-- <img src={`../img/${img.code}.jpg`}></img> -->
-
-                    <!-- require(`../assets/profile_screens/${filename}`) -->
-                <!-- <img :src="require(`@/assets/${imageUrl}`)" style = "width : 500px; " >  -->
-                
-                <!-- IMAGE SHOULD BE HERE,  URL = :{{imageUrl}} -->
-            </div>
-
-            
+            </div> 
             <br>
             <br>
-
             <span v-if ="groceryOrders[0]">
                 <h4>{{returnStatus(groceryOrders[0])}}</h4>
             </span>
             <br>
-
-
-
-
             <br>
             <br>
             <br>
             <!-- display store information here in case of issue :
             "Please contact customer support at ... in case of issues." -->
-
         </div>
     </div>
 </template>
@@ -88,7 +51,6 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })  
-
 
 export default{
     name:'CustomerWelcomePage',
@@ -139,7 +101,7 @@ export default{
             })
     },
     methods:{
-        returnStatus: function(order){
+        returnStatus: function(order){ //set proper data string corresponding to the desired status image
             if (order.orderType == "Delivery"){ //order delivery pictures
                 if (order.orderStatus == "Received"){
                     this.d1 = 'present'

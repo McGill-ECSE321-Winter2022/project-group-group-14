@@ -1,6 +1,5 @@
 <template>
     <div >
-
     <div id="popup1" class="overlay" v-if="successMsg">
         <div class="popup">
             <h5>{{ successMsg }}</h5>
@@ -14,93 +13,44 @@
         </div>
     </div>
     <CustomerNavigationBar></CustomerNavigationBar>
-
-
         <div class="verticalandhorizontal-center" >
             <br>
             <h2 class="heading">Cart for {{email}}</h2>
-  
                 <small>{{groceryOrders[0].orderType}} order </small>
                 <br>
                 <br>
-            
-
-            
-<!-- 
-            <button class="button" v-if="groceryOrders[0].orderId" @click="getOrder(groceryOrders[0].orderId)">
-                get order items
-            </button> -->
-
-
-          
-                <!-- <div v-for="orderItem in orderItems" :key=orderItem.name>
-                    <ul style="list-style-type:square">
-                        <li> {{ orderItem.name}} :  ${{ orderItem.price}}.00 </li>
-                    </ul>  
-                </div> -->
-
                 <div v-for="index in (itemIndices)" :key=index >
                    
-                            <button class="button" @click="deleteItem(orderId, itemNames[index])" onClick="window.location.reload();"> - </button> 
-                            {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 
-                            <button class="button" @click="addItem   (orderId, itemNames[index])" onClick="window.location.reload();"> + </button> 
-                            
-            
+                    <button class="button" @click="deleteItem(orderId, itemNames[index])" onClick="window.location.reload();"> - </button> 
+                    {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 
+                    <button class="button" @click="addItem   (orderId, itemNames[index])" onClick="window.location.reload();"> + </button> 
                 </div> 
-
-                
-               
-                
-
             <div>
                <h4 class="heading">Total Cost : ${{groceryOrders[0].totalCost}}.00</h4>  
             </div>
-
-
-                <!-- <div v-if="groceryOrders[0].type === 'delivery'"> 
-                   <h4> Possibly display address here </h4>
-                </div> -->
-                <!-- <h4> Address is not correct?</h4>
-                <router-link to="/modifyAddress">
-                        <button class="largeButton">
-                            Modify Address
-                        </button>
-                    </router-link> -->
-
-                     <router-link :to="{ name: 'ThankYou', params:{ email: email, orderId: groceryOrders[0].orderId}}">
-                        <button class="largeButton" v-if="groceryOrders[0].orderId" @click="placeOrder(groceryOrders[0].orderId)">
-                        Place Order
-                    </button>
-                    </router-link>
-                    <br>
-                    <br>
-
-                   <small> Please note that an extra 10$ delivery fee is included for out of town deliveries.</small>
-
-                   <br>
-                   <br>
-                   
-
-                  <h5> Made a mistake? Modify or delete you order.</h5>
-                   <button class="button" v-if="groceryOrders[0].orderId" @click="toggleType(groceryOrders[0].orderId)">
-                    Change Order Type
+                <router-link :to="{ name: 'ThankYou', params:{ email: email, orderId: groceryOrders[0].orderId}}">
+                <button class="largeButton" v-if="groceryOrders[0].orderId" @click="placeOrder(groceryOrders[0].orderId)">
+                Place Order
                 </button>
-
-                  <router-link :to="{ name: 'customerWelcomePage', params: { email: email , orderId: orderId }}"> 
-                    <button class="button_delete" v-if="groceryOrders[0].orderId" @click="deleteOrder(groceryOrders[0].orderId)">
-                        Delete Order
-                    </button>
                 </router-link>
+                <br>
+                <br>
+                <small> Please note that an extra 10$ delivery fee is included for out of town deliveries.</small>
+                <br>
+                <br>
+                <h5> Made a mistake? Modify or delete you order.</h5>
+                <button class="button" v-if="groceryOrders[0].orderId" @click="toggleType(groceryOrders[0].orderId)">
+                Change Order Type
+                </button>
+                <router-link :to="{ name: 'customerWelcomePage', params: { email: email , orderId: orderId }}"> 
+                <button class="button_delete" v-if="groceryOrders[0].orderId" @click="deleteOrder(groceryOrders[0].orderId)">
+                    Delete Order
+                </button>
+            </router-link>
         </div>
     </div>
 </template>
-
 <style scoped>
-
-
-
-
-
 </style>
 
 <script>
@@ -201,35 +151,6 @@ export default{
               this.errorInventory = e.response.data
               console.log(e.response.data)
           })
-        //   console.log(this.orderItems);
-        //   this.itemIndices = [];
-        //     this.itemNames = [];
-        //     this.itemCosts = [];
-        //     this.itemQuantity = [];
-        //     for (let index = 0; index < this.orderItems.length; ++index) {
-        //         if (this.itemNames.includes(this.orderItems[index].name)){
-        //             const i = this.itemNames.indexOf(this.orderItems[index].name);
-        //             var cost = parseInt(this.itemCosts[i]) + parseInt(this.orderItems[index].price);
-        //             var quant = parseInt(this.itemQuantity[i]) + 1;
-        //             this.itemQuantity[i] = quant.toString();
-        //             this.itemCosts[i] = cost.toString();
-        //         }else{
-        //             // var number = 1;
-        //             this.itemQuantity.push(this.one);
-        //             this.itemIndices.push(this.itemIndices.length);
-        //             this.itemNames.push(this.orderItems[index].name);
-        //             this.itemCosts.push(this.orderItems[index].price.toString()); 
-        //             // console.log(type);
-        //             // this.itemCosts.push(items[index].price.toString());
-        //         }
-
-        //     }
-
-        //     console.log(this.itemQuantity);
-        //     console.log(this.itemIndices);
-        //     console.log(this.itemNames);
-        //     console.log(this.itemCosts);
-            // return this.itemIndices;
     },
     methods: {
         placeOrder: function (orderId){
@@ -325,36 +246,7 @@ export default{
             console.log(this.itemCosts);
             return this.itemIndices;
 
-        }
-        
-        // ,
-        // getOrderItems: function (orderId) {
-        //     AXIOS.post('/orders/orderItems/'.concat(orderId), {}, {})
-        //     .then(response => {
-        //     // JSON responses are automatically parsed.
-        //         this.groceryOrders[0].orderItems.push(response.data)//push or switch to equals?
-        //         console.log(response.data)
-        //         this.error = ''
-        //     })
-        //     .catch(e => {
-        //         var errorMsg = e.response.data
-        //         console.log(errorMsg)
-        //         this.error = errorMsg
-        //     })
-        // },
-        // getOrder: function (email){
-        //   AXIOS.get('/orders/customer/'.concat(email),{},{})
-        //   .then(response => {
-        //       // JSON responses are automatically parsed.
-        //       this.groceryOrders = response.data
-        //       console.log(response.data)
-        //   })
-        //   .catch(e => {
-        //       this.error = e.response.data
-        //       console.log(e.response.data)
-        //   })
-        // }
-        
+        }      
     }
 }
 </script>
