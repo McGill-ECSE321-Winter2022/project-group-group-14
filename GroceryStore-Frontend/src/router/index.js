@@ -21,7 +21,6 @@ import EmployeeSchedulesFromEmployee from '@/components/employee/EmployeeSchedul
 import CreateCustomerFromEmployee from '@/components/employee/CreateCustomerFromEmployee'
 import UpdateCustomerFromEmployee from '@/components/employee/UpdateCustomerFromEmployee'
 import ViewStoreEmployeeScheduleFromEmployee from '@/components/employee/ViewStoreEmployeeScheduleFromEmployee'
-import ModifyGroceryOrderStatus from '@/components/employee/ModifyGroceryOrderStatus'
 import ShowEmployeeInventoryItems from '@/components/employee/ShowEmployeeInventoryItems'
 import EmployeeWelcomePage from '@/components/employee/EmployeeWelcomePage'
 import ViewIncompleteOrders from '@/components/employee/ViewIncompleteOrders'
@@ -32,9 +31,7 @@ import UpdateCustomerAccount from '@/components/customer/UpdateCustomerAccount'
 import ViewCustomerStoreSchedule from '@/components/customer/ViewCustomerStoreSchedule'
 import ShowCustomerInventoryItems from '@/components/customer/ShowCustomerInventoryItems'
 import ViewModifyCustomerGroceryOrders from '@/components/customer/ViewModifyCustomerGroceryOrders'
-import CustomerPayment from '@/components/customer/CustomerPayment'
 import CustomerWelcomePage from '@/components/customer/CustomerWelcomePage'
-import ViewOrderStatus from '@/components/customer/ViewOrderStatus'
 import ViewCart from '@/components/customer/ViewCart'
 import ThankYou from '@/components/customer/ThankYou'
 
@@ -48,11 +45,6 @@ export default new Router({
       path: '/modifyEmployeeSchedule',
       name: 'ModifyEmployeeSchedule',
       component: ModifyEmployeeSchedule
-    },
-    {
-      path:'/viewOrderStatus/:email', 
-      name: 'ViewOrderStatus',
-      component: ViewOrderStatus
     },
     {
       path:'/viewCustomerStoreSchedule/:email', 
@@ -180,11 +172,6 @@ export default new Router({
       component: ViewModifyCustomerGroceryOrders
     },
     {
-      path: '/customerPayment',
-      name: 'CustomerPayment',
-      component: CustomerPayment
-    },
-    {
       path: '/createCustomerFromEmployee',
       name: 'Create Customer From Employee',
       component: CreateCustomerFromEmployee
@@ -198,11 +185,6 @@ export default new Router({
       path: '/viewStoreEmployeeScheduleEmployee',
       name: 'View Store Employee Schedule From Employee',
       component: ViewStoreEmployeeScheduleFromEmployee
-    },
-    {
-      path: '/modifyGroceryOrderStatus/:orderId',
-      name: 'Modify Grocery Order Status',
-      component: ModifyGroceryOrderStatus
     },
     {
       path: '/showEmployeeInventoryItems/:orderId',
@@ -223,11 +205,6 @@ export default new Router({
       path: '/ownerWelcomePage',
       name: 'OwnerWelcomePage',
       component: OwnerWelcomePage
-    },
-    {
-      path: '/viewOrderStatus/:email',
-      name: 'ViewOrderStatus',
-      component: ViewOrderStatus
     },
     {
       path: '/viewCart/:email/:orderId',
