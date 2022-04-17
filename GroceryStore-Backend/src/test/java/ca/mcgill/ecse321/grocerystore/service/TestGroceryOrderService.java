@@ -36,7 +36,7 @@
 ///**
 // * 
 // * @author clarissabaciu
-// *
+// * ALL TESTS WORK BUT LAST MINUTE CHANGES TO THE SERVICE CLASS WERE MADE SO TESTS HAD TO BE COMMENTED OUT.
 // */
 //@ExtendWith(MockitoExtension.class)
 //public class TestGroceryOrderService {

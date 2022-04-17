@@ -111,7 +111,6 @@ public class GroceryOrder
 	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
 	}
-	
 
 	@ManyToOne
 	public Customer getCustomer() {
@@ -138,12 +137,12 @@ public class GroceryOrder
   public String toString()
   {
 	  return super.toString() + "[" + "orderId" + ":" + getOrderId() + "," + "totalCost" + ":"
-              + getTotalCost() + "," + "orderType" + ":" + getOrderType() + ","
-              + System.getProperties().getProperty("line.separator") + "  " + "customer = "
-              + (getCustomer() != null ? Integer.toHexString(System.identityHashCode(getCustomer())) : "null")
-              + System.getProperties().getProperty("line.separator") + "  " + "OrderItems="
-              +(getOrderItems() != null ? Integer.toHexString(System.identityHashCode(getOrderItems())) : "null") 
-              + "]";
+    + getTotalCost() + "," + "orderType" + ":" + getOrderType() + ","
+    + System.getProperties().getProperty("line.separator") + "  " + "customer = "
+    + (getCustomer() != null ? Integer.toHexString(System.identityHashCode(getCustomer())) : "null")
+    + System.getProperties().getProperty("line.separator") + "  " + "OrderItems="
+    +(getOrderItems() != null ? Integer.toHexString(System.identityHashCode(getOrderItems())) : "null") 
+    + "]";
   }
 
 

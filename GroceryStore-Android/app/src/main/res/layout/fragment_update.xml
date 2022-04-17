@@ -4,16 +4,11 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:orientation="vertical"
         android:gravity="center">
-
-
-
 
         <TableLayout
             android:id="@+id/tableLayout1"
@@ -37,6 +32,7 @@
                 android:textSize="20dp"
                 android:text=""
                 android:textColor= "@color/strong_orange"/>
+
             <TextView
                 android:id="@+id/error"
                 android:layout_height="wrap_content"
@@ -54,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#FFA500">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -64,7 +61,6 @@
                     android:text="Id"
                     android:textColor="@color/white"
                     android:textSize="20dp" />
-
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -83,8 +79,6 @@
                     android:text="Status"
                     android:textColor="@color/white"
                     android:textSize="20dp" />
-
-
             </TableRow>
 
             <TableRow
@@ -105,7 +99,6 @@
                     android:text=""
                     android:textSize="20dp" />
 
-
                 <TextView
                     android:id="@+id/type_field"
                     android:background="@drawable/border"
@@ -121,13 +114,10 @@
                     android:background="@drawable/border"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
                     android:layout_column="2"
                     android:gravity="center"
                     android:text=""
-
                     android:textSize="20dp" />
-
             </TableRow>
 
             <EditText
@@ -154,6 +144,7 @@
                 android:onClick="viewOrder"
                 tools:layout_editor_absoluteX="119dp"
                 tools:layout_editor_absoluteY="134dp" />
+                
             <Button
                 android:id="@+id/button_updateOrder"
                 android:layout_width="wrap_content"
@@ -163,16 +154,8 @@
                 android:onClick="updateOrder"
                 tools:layout_editor_absoluteX="119dp"
                 tools:layout_editor_absoluteY="134dp" />
-
         </TableLayout>
-
-
     </LinearLayout>
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

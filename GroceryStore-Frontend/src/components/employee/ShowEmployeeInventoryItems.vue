@@ -13,7 +13,6 @@
             <button class="mediumButton" onClick="window.location.reload();">Close</button>
         </div>
     </div>
-
   
   <b-navbar fixed="top" toggleable="lg">
       <router-link to="/employeeWelcomePage">
@@ -30,7 +29,6 @@
           </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-
 
   <div class="grid-container" style = "text-align: center;">
       <div class="grid-item2">
@@ -64,7 +62,6 @@
               placeholder="qty"
               required
             />
-            
           </div>
         </td>
         <td>
@@ -74,56 +71,23 @@
       </table>
       </div>
        <div class="grid-item1">
-        <h4> Order Id : {{this.orderId}} </h4>
-        <div v-if = "orderItems">
-          <div v-for="index in (itemIndices)" :key=index >
-                   
-                            <!-- <button class="button" @click="deleteItem(orderId, itemNames[index])" onClick="window.location.reload();"> - </button>  -->
-                            {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 
-                            <!-- <button class="button" @click="addItem   (orderId, itemNames[index])" onClick="window.location.reload();"> + </button>  -->
-                            
-            
-                </div> 
-          <!-- <div v-for="orderItem in orderItems" :key=orderItem.name>
-            <ul style="list-style-type:square">
-            <li> {{ orderItem.name}} :  ${{ orderItem.price}}.00 </li>
-            </ul>  
-          </div> -->
+          <h4> Order Id : {{this.orderId}} </h4>
+          <div v-if = "orderItems">
+            <div v-for="index in (itemIndices)" :key=index >   
+              {{ itemNames[index]}} x {{ itemQuantity[index]}} :  ${{ itemCosts[index]}}.00 
+
+            </div> 
+          </div>
+          <br>
+          Total Cost : {{groceryOrders[0].totalCost}}
+          <br>
+          <br>
+            <router-link to="/employeeWelcomePage">
+              <button class="largeButton" v-if="orderId" @click="placeOrder(orderId)">
+                  Place Order
+              </button>
+            </router-link>
         </div>
-        <br>
-        Total Cost : {{groceryOrders[0].totalCost}}
-        <br>
-        <br>
-        <!-- <div class="form-floating mb-3"> -->
-          <!-- <input v-model="orderId" placeholder="id"> -->
-          <!-- <p>Your order id is : {{ this.orderId }}</p> -->
-          <router-link to="/employeeWelcomePage">
-            <button class="largeButton" v-if="orderId" @click="placeOrder(orderId)">
-                Place Order
-            </button>
-          </router-link>
-
-
-            <!-- <input
-              type="text"
-              v-model="orderId"
-              class="form-control"
-              id="floatingInput"
-              placeholder="id"
-              required
-            /> -->
-        <!-- </div> -->
-        </div>
-        
-
-      
-<!-- ------------------------------------------- -->
-
-
-
-          
-
-      
     </div>
     </div>
 
