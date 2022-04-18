@@ -19,6 +19,7 @@ public class CustomerService {
 	@Transactional
 	public Customer createCustomer(String aEmail, String aUsername, String aPassword, String aPhoneNumber, String aAddress) {
 		
+		// Check input parameters to ensure they're following requirements
 		checkAllInputParameters(aEmail, aUsername, aPassword, aPhoneNumber, aAddress);
 		
 		Customer customer = new Customer(aEmail, aUsername, aPassword, aPhoneNumber, aAddress);
@@ -26,10 +27,14 @@ public class CustomerService {
 		return customer;
 	}
 	
-	/** @author Samuel Valentine	 */
+	/** @author Samuel Valentine	 
+	 * Description: A method that checks for any invalid input information for a customer*/
 	public boolean checkAllInputParameters(String aEmail, String aUsername, String aPassword, String aPhoneNumber, String aAddress) {
+		
+		// Check that inputs are not null
 		ServiceHelpers.checkCustomerInfoValidity(aEmail, aUsername, aPassword, aPhoneNumber, aAddress);
 		
+		// To understand what these do, read the exception messages.
 		if (checkForEmailUniqueness(aEmail) == false ){
 			throw new IllegalArgumentException("An account with email " + aEmail + " already exists.");}
 		if (checkForUsernameUniqueness(aUsername) == false) {
@@ -46,6 +51,7 @@ public class CustomerService {
 	/** @author Samuel Valentine	 */
 	public boolean checkForEmailUniqueness(String email) {
 		
+		// If the DAO returns null on this query, then we know that there are no accounts with this email, and thus the email is indeed unique
 		if (customerRepository.findByEmail(email) == null) {
 			return true;
 		}
@@ -59,6 +65,7 @@ public class CustomerService {
 	/** @author Samuel Valentine	 */
 	public boolean checkForUsernameUniqueness(String username) {
 		
+		// If the DAO returns null on this query, then we know that there are no accounts with this username, and thus the username is indeed unique
 		if (customerRepository.findByUsername(username) == null) {
 			return true;
 		}
@@ -74,7 +81,8 @@ public class CustomerService {
 		boolean upperCasePresent = false;
 		boolean numberPresent = false;
 		
-		// Include a capital letter and a number
+		// We have to include a capital letter and a number
+		// Therefore this method iterates through all characters and checks if we have at least one of each
 		for (int i=0;i < password.length();i++) {
 			if (Character.isUpperCase(password.charAt(i))) {
 				upperCasePresent = true;
@@ -91,14 +99,15 @@ public class CustomerService {
 	public boolean checkPhoneNumberValidity(String phoneNumber) {
 		
 		// Format: <### ### ####>, without spaces: we're looking for a number that is 10 digits long
+		// (More accurately, <##########>)
 		
 		if (phoneNumber.length() != 10) {
 			return false;
 		}
 		try {
-			Double.parseDouble(phoneNumber);
+			Double.parseDouble(phoneNumber); // If there are only numerical characters present, this should work
 		}
-		catch(NumberFormatException e){
+		catch(NumberFormatException e){ 
 			return false;
 		}
 		return true;
@@ -164,13 +173,18 @@ public class CustomerService {
     public Customer updateCustomer(String oldUsername, String newEmail, String newUsername, String newPassword, String newPhoneNumber, String newAddress) {
     	
     	Customer customerToUpdate = customerRepository.findByUsername(oldUsername);
+    	
+    	// Must perform check to ensure that the customer exists
     	if (customerToUpdate == null) throw new IllegalArgumentException("No such customer exists");
+    	
+    	// Update info
         customerToUpdate.setEmail(newEmail);
         customerToUpdate.setUsername(newUsername);
         customerToUpdate.setPassword(newPassword);
         customerToUpdate.setPhoneNumber(newPhoneNumber);
         customerToUpdate.setAddress(newAddress);
         
+        // Before saving, we need to ensure the new information follows requirements
         ServiceHelpers.checkAccountInfoValidity(customerToUpdate);
         
         //save new changes to the repository
@@ -213,8 +227,13 @@ public class CustomerService {
     @Transactional
     public Customer login(String email, String password)
     {
-    	Customer customer = customerRepository.findByEmail(email);
+    	// Get the customer
+    	Customer customer = customerRepository.findByEmail(email); 
+    	
+    	// Check that the customer exists (i.e. is not null, which would mean the user inputed an invalid email)
     	if (customer !=null) {
+    		
+    		// Check that the password matches the email
     		if (customer.getPassword().equals(password)) {
     			return customer;
     		}

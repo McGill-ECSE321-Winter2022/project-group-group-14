@@ -24,6 +24,10 @@ public class CustomerRestController {
 	@Autowired
 	private CustomerService CustomerService;
 	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Controller method to create a customer
+	 */
 	@PostMapping(value = { "/customers/{email}/{username}/{password}/{phoneNumber}/{address}", "/customers/{email}/{username}/{password}/{phoneNumber}/{address}/" })
 	public ResponseEntity<?> createCustomer(@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("phoneNumber") String phoneNumber, @PathVariable("address") String address) throws IllegalArgumentException {
 		
@@ -36,6 +40,10 @@ public class CustomerRestController {
 		}
 	}
 	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Controller method to update a customer
+	 */
 	@PutMapping(value = { "/customers/update/{oldEmail}/{email}/{username}/{password}/{phoneNumber}/{address}", "/customers/update/{oldEmail}/{email}/{username}/{password}/{phoneNumber}/{address}/" })
 	public ResponseEntity<?> updateCustomer(@PathVariable("oldEmail") String oldEmail,@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("phoneNumber") String phoneNumber, @PathVariable("address") String address) throws IllegalArgumentException {
 		
@@ -48,11 +56,19 @@ public class CustomerRestController {
 		}
 	}
 	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Controller method to get a customer by their email
+	 */
 	@GetMapping(value = { "/customers/{email}", "/customers/{email}/" })
 	public CustomerDto getCustomer(@PathVariable("email") String email) throws IllegalArgumentException {
 		return convertToDto(CustomerService.getCustomerByEmail(email));
 	}
 	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Controller method to delete a customer
+	 */
 	@DeleteMapping(value = { "/customers/delete/{email}", "/customers/delete/{email}/" })
 	public ResponseEntity<?> deleteCustomer(@PathVariable("email") String email) throws IllegalArgumentException {
 		try {
@@ -63,6 +79,10 @@ public class CustomerRestController {
 		}
 	}
 	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Controller method to check if the login information is correct
+	 */
 	@GetMapping(value = { "/customers/login/{email}/{password}", "/customers/login/{email}/{password}/"})
 	public ResponseEntity<?> loginCustomer(@PathVariable("email") String email, @PathVariable("password") String password) throws IllegalArgumentException {
 		
@@ -76,6 +96,10 @@ public class CustomerRestController {
 		}
 	}
 	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Controller method to get all customers
+	 */
 	@GetMapping(value = { "/customers/login/getAll", "/customers/login/getAll/"})
 	public ResponseEntity<?> getAllCustomers() throws IllegalArgumentException {
 		
@@ -90,7 +114,10 @@ public class CustomerRestController {
 	}
 	
 	
-	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Helper method to convert an object from the model to a DTO
+	 */
 	private CustomerDto convertToDto(Customer customer) {
 		if (customer == null) {
 			throw new IllegalArgumentException("There is no such Customer!");
@@ -99,6 +126,10 @@ public class CustomerRestController {
 		return customerDto;
 	}
 	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Helper method to convert a list of objects from the model to a list of DTO's
+	 */
 	private List<CustomerDto> convertToDto(List<Customer> customers) {
 		List<CustomerDto> customersDto = new ArrayList<CustomerDto>(customers.size());
 		

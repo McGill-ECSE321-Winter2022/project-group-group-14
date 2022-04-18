@@ -22,6 +22,7 @@ public class EmployeeService {
 	@Transactional
 	public Employee createEmployee(String aEmail, String aUsername, String aPassword) {
 		
+		// Check that inputs follow requirements
 		checkAllInputParameters(aEmail,aUsername,aPassword);
 		
 		Employee employee = new Employee(aEmail, aUsername, aPassword);
@@ -67,14 +68,17 @@ public class EmployeeService {
     public Employee updateEmployee(String oldUsername, String newEmail, String newUsername, String newPassword) {
     	
     	Employee employeeToUpdate = employeeRepository.findByUsername(oldUsername);
+    	
+    	// First check that the employee exists
     	if (employeeToUpdate == null) throw new IllegalArgumentException("No such employee exists");
+    	
+    	// Set new parameters
     	checkAllInputParameters(newEmail,newUsername,newPassword);
         employeeToUpdate.setEmail(newEmail);
         employeeToUpdate.setUsername(newUsername);
         employeeToUpdate.setPassword(newPassword);
-//        if(employeeRepository.findByUsername(newUsername) == null) throw new IllegalArgumentException("An Employee already exists with the same name");
         
-        
+        // Check that new info follows requirements
         ServiceHelpers.checkAccountInfoValidity(employeeToUpdate);
         
         //save new changes to the repository
@@ -116,7 +120,11 @@ public class EmployeeService {
     public Employee login(String email, String password)
     {
     	Employee employee = employeeRepository.findByEmail(email);
+    	
+    	// Check that an employee with that email exists in the system
     	if (employee!=null) {
+    		
+    		// Check that the employee's password matches the email
     		if (employee.getPassword().equals(password)) {
     			return employee;
     		}
@@ -133,19 +141,24 @@ public class EmployeeService {
     /** @author Samuel Valentine	 */
 	public boolean checkAllInputParameters(String aEmail, String aUsername, String aPassword) {
 		
+		// Check that the inputs are not null
 		ServiceHelpers.checkAccountInfoValidity(aEmail, aUsername, aPassword);
 		
+		// Check standard requirements
 		if (checkForEmailUniqueness(aEmail) == false ){
 			throw new IllegalArgumentException("An account with email " + aEmail + " already exists.");}
 		if (checkForUsernameUniqueness(aUsername) == false) {
 			throw new IllegalArgumentException("An account with username " + aUsername + " already exists.");}
 		if (checkPasswordValidity(aPassword) == false) {
 			throw new IllegalArgumentException("This password does not correspond with the requirements.");}
+		
 		return true;
 	}
 	
 	/** @author Samuel Valentine	 */
 	public boolean checkForEmailUniqueness(String email) {
+		
+		// Iterate through the list of employees, and see if we can find one with the same email
 		for (Account a :  ServiceHelpers.toList(employeeRepository.findAll())) {
 			if (email.equals(a.getEmail())) {
 				return false;
@@ -157,6 +170,9 @@ public class EmployeeService {
 	
 	/** @author Samuel Valentine	 */
 	public boolean checkForUsernameUniqueness(String username) {
+		
+
+		// Iterate through the list of employees, and see if we can find one with the same username
 		for (Account a :  ServiceHelpers.toList(employeeRepository.findAll())) {
 			if (username.equals(a.getUsername())) {
 				return false;
@@ -172,6 +188,8 @@ public class EmployeeService {
 		boolean numberPresent = false;
 		
 		// Include a capital letter and a number
+		// Iterate through the list of characters, and see if we can find an upper case and numerical one
+		
 		for (int i=0;i < password.length();i++) {
 			if (Character.isUpperCase(password.charAt(i))) {
 				upperCasePresent = true;
