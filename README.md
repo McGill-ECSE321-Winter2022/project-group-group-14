@@ -107,7 +107,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Team Member | Time Spent (h) | Responsibilities | 
 | --- | --- | --- |
 | name | #hours | Work description |
-| Yakir Bender |  |  |
+| Yakir Bender | 5 | Template Page, Initial Setup |
 | Clarissa Baciu |  12 | Android development for employee update order page, code clean up, documentation  |
 | Samuel Valentine | 15 | Minutes organiser and scribe, login page and functionality in android application, documentation of how to use android application, Figuring out how Android Studio works |
 | Youssof Mohamed | 15 | 'Create Customer' page design and functionality, Navigation between pages, code clean up |
@@ -117,7 +117,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | Team Member | Time Spent (h) | Responsibilities | 
 | --- | --- | --- |
 | name | #hours | Work description |
-| Yakir Bender |  |  |
+| Yakir Bender | 60 | backend/frontend engineer |
 | Clarissa Baciu | 100+ | Lead backend engineer, task distribution, front end development |
 | Samuel Valentine | 75 | Minutes organiser and scribe, development, documentation |
 | Youssof Mohamed | 80 | backend development, code cleaning, frontend design |
