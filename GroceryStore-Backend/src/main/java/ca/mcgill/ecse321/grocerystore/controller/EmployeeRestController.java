@@ -26,6 +26,10 @@ public class EmployeeRestController {
 	@Autowired
 	private EmployeeService EmployeeService;
 	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Controller method to create an employee
+	 */
 	@PostMapping(value = { "/employees/{email}/{username}/{password}", "/employees/{email}/{username}/{password}/" })
 	public ResponseEntity<?> createEmployee(@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password) throws IllegalArgumentException {
 		
@@ -38,6 +42,10 @@ public class EmployeeRestController {
 		}
 	}
 	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Controller method to update an employee
+	 */
 	@PutMapping(value = { "/employees/update/{oldEmail}/{email}/{username}/{password}", "/employees/update/{oldEmail}/{email}/{username}/{password}/" })
 	public ResponseEntity<?> updateEmployee(@PathVariable("oldEmail") String oldEmail,@PathVariable("email") String email, @PathVariable("username") String username, @PathVariable("password") String password) throws IllegalArgumentException {
 		
@@ -50,11 +58,19 @@ public class EmployeeRestController {
 		}
 	}
 	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Controller method to get an employee by their email
+	 */
 	@GetMapping(value = { "/employees/{email}", "/employees/{email}/" })
 	public EmployeeDto getEmployee(@PathVariable("email") String email) throws IllegalArgumentException {
 		return convertToDto(EmployeeService.getEmployeeByEmail(email));
 	}
 	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Controller method to delete an employee
+	 */
 	@DeleteMapping(value = { "/employees/delete/{email}", "/employees/delete/{email}/" })
 	public ResponseEntity<?> deleteEmployee(@PathVariable("email") String email) throws IllegalArgumentException {
 		try {
@@ -65,6 +81,10 @@ public class EmployeeRestController {
 		}
 	}
 	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Controller method to test employee's login credentials
+	 */
 	@GetMapping(value = { "/employees/login/{email}/{password}", "/employees/login/{email}/{password}/"})
 	public ResponseEntity<?> loginEmployee(@PathVariable("email") String email, @PathVariable("password") String password) throws IllegalArgumentException {
 		
@@ -77,6 +97,11 @@ public class EmployeeRestController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Controller method to get all employees
+	 */
 	@GetMapping(value = { "/employees/login/getAll", "/employees/login/getAll/"})
 	public ResponseEntity<?> getAllEmployees() throws IllegalArgumentException {
 		
@@ -89,6 +114,11 @@ public class EmployeeRestController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Helper method to convert an object from the model to a DTO
+	 */
 	private EmployeeDto convertToDto(Employee employee) {
 		if (employee == null) {
 			throw new IllegalArgumentException("There is no such Employee!");
@@ -96,6 +126,11 @@ public class EmployeeRestController {
 		EmployeeDto employeeDto = new EmployeeDto(employee.getEmail(),employee.getUsername(),employee.getPassword(),employee.getAccountId());
 		return employeeDto;
 	}
+	
+	/*
+	 * Author: Samuel Valentine
+	 * Description: Helper method to convert a list of objects from the model to a list of DTO's
+	 */
 	private List<EmployeeDto> convertToDto(List<Employee> employees) {
 		List<EmployeeDto> employeesDto = new ArrayList<EmployeeDto>(employees.size());
 		
