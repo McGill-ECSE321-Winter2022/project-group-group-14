@@ -3,7 +3,8 @@ The goal of this project is to create a software system that could be used by cu
 For the workers, the system provides scheduling and inventory features. For customers, the system offers ordering for delivery or pickup. 
 This software will be made available via website, desktop application, and android application, in order to maximize ease of accessibility.
 
-Try out our application at https://grocerystore-frontend-123abc.herokuapp.com/#/ !
+Try out our application at https://grocerystore-frontend-123abc.herokuapp.com/#/ !   
+Take a look at our [website guide with images](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-Guide-(with-images)) for the full functionality of our website! 
 
 # Quick Links
 
