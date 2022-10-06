@@ -6,6 +6,19 @@ This software will be made available via website, desktop application, and andro
 Try out our application at https://grocerystore-frontend-123abc.herokuapp.com/#/ !   
 Take a look at our [website guide with images](https://github.com/McGill-ECSE321-Winter2022/project-group-group-14/wiki/Website-Guide-(with-images)) for the full functionality of our website! 
 
+During the entirety of this project, the team got familiar with a sprint-based approach to project management. The project was built with:
+* Java
+* UML 
+* Postgres database
+* Hibernate
+* Spring Boot
+* Gradle 
+* Continuous intergration using Github Actions
+* JUnit
+* Heroku
+* Vue.js(Javascript, CSS, HTML)
+* Android Studio
+
 # Quick Links
 
 
