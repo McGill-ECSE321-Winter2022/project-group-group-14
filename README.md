@@ -84,7 +84,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | --- | --- | --- |
 | name | #hours | Work description |
 | Yakir Bender | 20 | Mockito template code, StoreSchedule service, dto, controller, and test methods, postman |
-| Clarissa Baciu | 40+ | Redesign model classes for more intuitive layout, fix issues and get build working for deliverable 1, finalize persistence testing, regenerate umple code, convert all bidirecional associations to unidirectional in model classes, assign tasks, dtos, service methods and service method testing for GroceryOrder class, addition of attributes to model classes (p2), documentation for deliverable 2 (domain model update, software quality assurance plan, RESTFul endpoints) |
+| Clarissa Baciu | 30+ | Redesign model classes for more intuitive layout, fix issues and get build working for deliverable 1, finalize persistence testing, regenerate umple code, convert all bidirecional associations to unidirectional in model classes, assign tasks, dtos, service methods and service method testing for GroceryOrder class, addition of attributes to model classes (p2), documentation for deliverable 2 (domain model update, software quality assurance plan, RESTFul endpoints) |
 | Samuel Valentine | 20 | Minutes organiser and scribe, customer, owner, and employee service, dto, controller, and test methods, postman |
 | Youssof Mohamed | 20 | Collective debugging sessions, InventoryItem/OrderItem service, dto, controller, and test methods, postman |
 | Minkyu Park | 20 | employee schedule service, dto, controller, and testmethods, postman |
@@ -132,7 +132,7 @@ Hi! I'm a third year mechanical engineering student minoring in software enginee
 | --- | --- | --- |
 | name | #hours | Work description |
 | Yakir Bender | 60 | backend/frontend engineer |
-| Clarissa Baciu | 100+ | Lead backend engineer, task distribution, front end development |
+| Clarissa Baciu | 90+ | Lead backend engineer, task distribution, front end development |
 | Samuel Valentine | 75 | Minutes organiser and scribe, user-related development, documentation |
 | Youssof Mohamed | 80 | backend development, code cleaning, frontend design |
 | Minkyu Park | 60 | employee schedule-related development |
